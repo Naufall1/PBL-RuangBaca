@@ -1,0 +1,164 @@
+body {
+    background-color: #F8F8F8;
+}
+
+.navbar {
+    background-color: aqua;
+}
+
+.navbar {
+    height: 60px;
+    /* width: 0%; */
+    background-color: #fff;
+    /* position: fixed; */
+    padding: 4px 20px;
+    /* align-items: ; */
+    justify-content: start;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    border-bottom: 1px solid #D9D9D9;
+    /* position: st; */
+}
+
+.jumbotron {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    color: #fff;
+}
+
+.parent {
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+.child {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -17px;
+    /* Increase/Decrease this value for cross-browser compatibility */
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.f-bar {
+    width: 260px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color: white;
+    border: 1px solid #D9D9D9;
+    height: fit-content;
+
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.filter-header span {
+    font-size: 18px;
+}
+
+.filter-group {
+    padding-bottom: 5px;
+    margin-top: 5px;
+    border-bottom: 2px solid rgb(238, 238, 238);
+}
+
+.filter-group span {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.filter-group a {
+    text-decoration: none;
+    color: #333;
+    border: thin solid black;
+    text-align: left;
+    width: fit-content;
+    padding: 2px 10px;
+    margin-bottom: 5px;
+}
+
+.filter-box {
+    font-family: 'Satoshi-Regular';
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    padding: 0px;
+}
+
+.filter-box button {
+    color: #D9D9D9;
+}
+
+#filter-implement-box {
+    /* flex-basis: 100%; */
+    width: 100%;
+    height: min-content;
+    padding-left: 20px;
+    height: auto;
+}
+
+#filter-implement-box .filter-item {
+    /* margin: 5px 5px;
+    padding: 2px 5px;
+    border: 1px solid black; */
+    text-align: left;
+    width: fit-content;
+    height: 34px;
+    padding: 2px 10px;
+    margin: 5px;
+    border: 1.5px solid #1B84FF;
+    color: #1B84FF;
+    align-items: center;
+
+}
+
+#filter-implement-box .filter-item:hover {
+    background-color: #F8F8F8;
+    border: 1.5px solid #D9D9D9;
+}
+
+#filter-implement-box .filter-item button {
+    background-color: transparent;
+    margin-left: 5px;
+}
+
+.btn-filter {
+    text-align: left;
+    width: fit-content;
+    padding: 2px 10px;
+    margin: 5px;
+    border: 1.5px solid #D9D9D9;
+}
+
+.btn-filter:hover {
+    background-color: #F8F8F8;
+    border: 1.5px solid #1B84FF;
+    color: #1B84FF;
+}
+
+.main-catalog {
+    width: 100%;
+    padding: 8px;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.active {
+/* Mengatur border dengan ketebalan 1.5px, solid, dan warna #1B84FF */
+border: 1.5px solid #1B84FF !important;
+
+/* Mengatur warna teks menjadi #1B84FF */
+color: #1B84FF !important;
+
+/* Mengatur warna latar belakang menjadi #F8F8F8 */
+background-color: #F8F8F8 !important;
+
+}
