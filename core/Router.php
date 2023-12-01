@@ -63,8 +63,9 @@ include 'modules/admin/AdminController.php';
 
                         break;
 
-                    case 'bookDesc':
-                        $guestController->bookDescription();
+                    case 'getDesc':
+                        $catalog->getDesc();
+                        // $guestController->bookDescription();
                         break;
                     case 'books':
                         $catalog->getContent();

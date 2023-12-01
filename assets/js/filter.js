@@ -1,4 +1,17 @@
 {/* <script> */ }
+function sort(sort) {
+    $.ajax({
+        type: "POST",
+        url: "?function=books",
+        data: 'sort='+sort.value,
+        success: function (res) {
+            $("#book-grids").html(res);
+        }, error: function (response) {
+            console.log(response.responseText);
+        }
+    });
+}
+
 function addFilterItem(text, id, name) {
     if ($("#filter-implement-box").find('#' + id).length == 0) {
         var txt = '<div name="' + name + '" id="' + id + '" class="d-flex filter-item rounded-3 text-nowrap"><span>' + text + '</span><button onclick="remove(this);" id="' + id + '"><img src="assets/icon/close-circle-gr.svg" alt=""></button></div>';
@@ -17,8 +30,9 @@ function remove(obj) {
 }
 $(document).ready(function () {
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "?function=books",
+        data: 'sort=title',
         success: function (res) {
             $("#book-grids").html(res);
 

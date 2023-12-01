@@ -184,9 +184,9 @@
                         </div>
                         <div class="col-3 d-flex sort">
                             <span style="margin-right: 10px; color: darkgrey;">Urutkan: </span>
-                            <select class="form-select" name="sort" id="sort" style="width: auto;">
-                                <option value="test">Abjad</option>
-                                <option value="test">Tahun</option>
+                            <select class="form-select" name="sort" id="sort" style="width: auto;" onchange="sort(this);" >
+                                <option value="title">Abjad</option>
+                                <option value="year">Tahun</option>
                             </select>
                         </div>
                     </div>
@@ -195,45 +195,6 @@
                     <div class="book-grids" id="book-grids">
 
                         <!-- USE CAT2.php -->
-                        <?php
-                        while ($row = $books->fetch_assoc()) {
-                        ?>
-
-                            <a class="col-xs-2-4 book" href="#" id="<?= $row['book_id'] ?>" onclick="getDesc(this);" style="text-decoration: none; margin: 10px;" class="d-flex flex-column">
-                                <!-- <div > -->
-                                <div class="d-flex flex-column" style="align-items: center;">
-                                    <img class="img-fluid center-cropped" src="<?= COVER_DIR . '/' . $row['cover'] ?>" style="height: 203px; width:169px; object-fit: cover; object-position: 0 100%;">
-                                </div>
-                                <!-- <div class=""> -->
-                                <span class="fw-bold d-flex fs-10 status <?= ($row['avail'] < 1) ? 'not-avail' : 'avail' ?> rounded-3">
-                                    <img src="<?= ($row['avail'] < 1) ? 'assets/icon/ellipse-red.svg' : 'assets/icon/ellipse-green.svg' ?>" style="padding-right: 5px;"> <?= ($row['avail'] < 1) ? 'Tidak Tersedia' : 'Tersedia' ?>
-                                </span>
-                                <!-- </div> -->
-                                <p class="fw-bold title-text fs-14 sb" style="margin-bottom: 4px; height: 32px; line-height: 16px;">
-                                    <?= $row['book_title'] ?>
-                                </p>
-                                <!-- <div id="title">
-                                    </div> -->
-                                <div class="row" style="margin-top: auto; margin-bottom: 0px;">
-                                    <div class="col-7" style=" padding-bottom: 5px; padding-top: 4px; padding-right: 2px;">
-                                        <p class="lh-1" style="font-size: x-small; color: darkgray;">Penulis</p>
-                                        <p id="penulis" class="lh-1 fs-14 text-nowrap" style="overflow: hidden; text-overflow: ellipsis;"><?= $row['author_name'] ?></p>
-                                    </div>
-                                    <div class="col d-flex" style=" align-items: center; padding-left: 0%;">
-                                        <div style=" border-left: 2px solid #D9D9D9; height: 25px; "></div>
-                                        <div style="margin-left: 10px;">
-                                            <p class="lh-1" style="font-size: xx-small; color: darkgray;">Tahun
-                                                Terbit
-                                            </p>
-                                            <p id="tahun_terbit" class="lh-1 fs-14"><?= $row['year_published'] ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- </div> -->
-                            </a>
-                        <?php
-                        }
-                        ?>
 
                         <!-- <a class="col-xs-2-4 book" href="#" id="b4" data-toggle="modal" data-target="#modalSkripsi"
                             style="text-decoration: none;">
@@ -379,7 +340,7 @@
                             <img src="assets/icon/close-circle-bl.svg" alt="">
                         </button>
                     </div>
-                    <span class="lh-1 sr" style="font-size: small;">#TH001</span>
+                    <span class="lh-1 sr" style="font-size: small;" id="thesis_id">#TH001</span>
                 </div>
                 <div class="modal-body">
                     <div class="d-flex border-bottom">
@@ -388,13 +349,13 @@
                         </div>
                         <div class="details row" style="margin-left: 10px;">
                             <div class="judul sb">
-                                <h4>Judul Skripsi</h4>
+                                <h4 id="thesis_title" class="fs-18 sb">Judul Skripsi</h4>
                             </div>
                             <div class="row" style="height: 20px;">
                                 <div class="col-10">
                                     <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
                                         Penulis</p>
-                                    <p id="penulis" class="lh-1 fw-bold fs-14 sb" style="margin-bottom: 0px;">Libero S,
+                                    <p id="author" class="lh-1 fw-bold fs-14 sb" style="margin-bottom: 0px;">Libero S,
                                         Rutrum N</p>
                                 </div>
                                 <!-- <div class="col-4">
@@ -404,23 +365,22 @@
                                 <div class="col-2">
                                     <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
                                         Letak</p>
-                                    <p id="penulis" class="lh-1 fs-14 sb">R1</p>
+                                    <p id="shelf" class="lh-1 fs-14 sb">R1</p>
                                 </div>
                             </div>
-                            <div class="status rounded-3 d-flex" style="padding: 5px 0px; background: rgba(20, 174, 92, 0.3); width: 25%;height: 25px; align-items: center; justify-content: center;">
-                                <span class="fw-bold success d-flex" style="font-size: 10px; font: optional; align-items: center; justify-content: center;">
-                                    <img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia</span>
-                            </div>
+                            <span id="status" class="fw-bold d-flex fs-10 rounded-3 status">
+                                <!-- <img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia -->
+                            </span>
                         </div>
                     </div>
                     <div class="d-flex flex-column">
                         <div style="margin: 5px 0px;" class="justify-content-between d-flex">
                             <span class="fs-12 sr">Dosen Pembimbing</span>
-                            <span class="fs-14 sb">Bibendum Ornare Sagittis, S.T., M.Kom.</span>
+                            <span id="dospem" class="fs-14 sb"></span>
                         </div>
                         <div style="margin: 5px 0px;" class="justify-content-between d-flex">
                             <span class="fs-12 sr">Tahun Terbit</span>
-                            <span class="fs-14 sb">2020</span>
+                            <span id="year" class="fs-14 sb">2020</span>
                         </div>
                     </div>
                 </div>

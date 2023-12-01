@@ -30,5 +30,25 @@
         {
             return $this->author_name;
         }
+
+        /**
+         * Set the value of author_name
+         */
+        public function setAuthorName($author_name): self
+        {
+                $this->author_name = $author_name;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of author_id
+         */
+        public function setAuthorId($author_id): self
+        {
+                $this->author_id = $author_id;
+
+                return $this;
+        }
     }
 ?>

@@ -3,7 +3,7 @@
     abstract class Readable {
         protected $id;
         protected $title;
-        protected $year;
+        protected int $year;
         protected $avail;
         protected $cover;
         protected Shelf $shelf;
@@ -12,6 +12,7 @@
 
         }
         abstract protected function getDetails($id);
+        abstract public function toJSON();
 
         protected function setShelf($id){
             $this->shelf = new Shelf($id);
@@ -38,7 +39,7 @@
         /**
          * Get the value of year
          */
-        public function getYear()
+        public function getYear(): int
         {
                 return $this->year;
         }
