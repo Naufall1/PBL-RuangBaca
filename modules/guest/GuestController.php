@@ -11,13 +11,14 @@
 
         public function index() {
 
-            $books = $this->db->getBooks();
-            $lenBooks = $this->db->getCurLenBook();
-            $lenAllBooks = $this->db->getCountAllBooks();
+            // $books = $this->db->getBooks();
+            // $lenBooks = $this->db->getCurLenBook();
+            // $lenAllBooks = $this->db->getCountAllBooks();
+            $locations = 
 
-            include 'modules/guest/guest_views/header.php';
-            include 'modules/guest/guest_views/koleksi.php';
-            include 'modules/guest/guest_views/footer.php';
+            include 'template/header.php';
+            include 'modules/guest/guest_views/catalog.php';
+            include 'template/footer.php';
         }
 
         public function bookDescription() {

@@ -59,8 +59,12 @@ include 'modules/admin/AdminController.php';
                 }
             } else {
                 switch ($function) {
-                    case 'filter':
+                    case 'getFilters':
+                        $catalog->getFilters();
+                        break;
 
+                    case 'filter':
+                        $catalog->filter();
                         break;
 
                     case 'getDesc':
@@ -69,6 +73,9 @@ include 'modules/admin/AdminController.php';
                         break;
                     case 'books':
                         $catalog->getContent();
+                        break;
+                    case 'search':
+                        $catalog->search();
                         break;
 
                     default:

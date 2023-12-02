@@ -28,14 +28,57 @@ class Thesis extends Readable
         return $thesis;
     }
 
-    public function getThesis(array $range): array
+    public function getThesis(array $range, $sort = 'default'): array
     {
-        $res = Database::query("SELECT thesis_id FROM thesis LIMIT $range[1] OFFSET $range[0]");
+        $filter = $_SESSION['filters'];
+        $query = 'SELECT thesis_id FROM thesis ';
+        $sort_query = array(
+            'default' => '',
+            'title' => ' ORDER BY thesis.thesis_title ',
+            'year' => ' ORDER BY thesis.year_published DESC '
+        );
+
+        if (count($filter) > 0) {
+            $query = $query . ' WHERE ';
+        }
+
+        $i = 0;
+        // var_dump($filter);
+        foreach ($filter as $key => $value) {
+            if ($key == 'category' || $key == 'author' || $key == 'publisher') {
+                return [];
+            }
+
+            if ($key != 'jenis') {
+                # code...
+                $query = $query . $value;
+                if (count($filter) > 1 && $i != count($filter) - 1) {
+                    $query = $query . ' AND';
+                }
+                $i++;
+            } else {
+                $query = str_replace('WHERE', '', $query);
+            }
+        }
+
+        $query = $query . $sort_query[$sort];
+
+
+        $query = $query . " LIMIT $range[1] OFFSET $range[0]";
+
+        // var_dump($query);
+        $thesis = array();
+        $res = Database::query($query);
         // var_dump($res->fetch_all());
         while ($row = $res->fetch_assoc()) {
             $thesis[] = $this->getDetails($row['thesis_id']);
         }
-        return $thesis;
+        if ($thesis != null) {
+            return $thesis;
+        } else {
+            return [];
+        }
+
         // var_dump($thesis);
     }
 
@@ -58,7 +101,20 @@ class Thesis extends Readable
         return $this->writer_nim;
     }
 
-    public function toJSON(){
+    public function getAllYearPublished(): array
+    {
+        $years = array();
+        $res = Database::query("SELECT DISTINCT year_published FROM thesis ORDER BY year_published DESC");
+
+        while ($row = $res->fetch_assoc()) {
+            $years[] = $row["year_published"];
+        }
+
+        return $years;
+    }
+
+    public function toJSON()
+    {
         $jsonArray = [
             'id' => $this->id,
             'title' => $this->title,

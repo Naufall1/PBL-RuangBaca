@@ -60,13 +60,13 @@
                             <form action="" class="form-data">
                                 <div class="form-check">
                                     <input name="lokasi" class="form-check-input" type="checkbox" value="r1" id="r1">
-                                    <label class="form-check-label fs-12" for="r1">
+                                    <label name="lokasi" class="form-check-label fs-12" for="r1">
                                         RAK-1
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input name="lokasi" class="form-check-input" type="checkbox" value="r2" id="r2">
-                                    <label class="form-check-label" for="r2">
+                                    <label name="lokasi" class="form-check-label" for="r2">
                                         RAK-2
                                     </label>
                                 </div>
@@ -83,13 +83,13 @@
                             <form action="" class="form-data">
                                 <div class="form-check">
                                     <input name="kategori" class="form-check-input" type="checkbox" value="c1" id="c1">
-                                    <label class="form-check-label" for="c1">
+                                    <label name="kategori" class="form-check-label" for="c1">
                                         CAT-1
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input name="kategori" class="form-check-input" type="checkbox" value="c2" id="c2">
-                                    <label class="form-check-label" for="c2">
+                                    <label name="kategori" class="form-check-label" for="c2">
                                         CAT-2
                                     </label>
                                 </div>
@@ -106,13 +106,13 @@
                             <form action="" class="form-data">
                                 <div class="form-check">
                                     <input name="pengarang" class="form-check-input" type="checkbox" value="p1" id="p1">
-                                    <label class="form-check-label" for="p1">
+                                    <label name="pengarang" class="form-check-label" for="p1">
                                         P-1
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input name="pengarang" class="form-check-input" type="checkbox" value="p2" id="p2">
-                                    <label class="form-check-label" for="p2">
+                                    <label name="pengarang" class="form-check-label" for="p2">
                                         P-2
                                     </label>
                                 </div>
@@ -172,10 +172,10 @@
                 <div class="d-flex main-catalog flex-column">
                     <!-- <div class="d-flex "> -->
 
-                    <div class="d-flex flex-wrap flex-row" id="filter-implement-box">
-                        <div name="" id="test" class="d-flex filter-item rounded-3 text-nowrap">
+                    <div class="d-flex flex-wrap flex-row" id="filter-implement-box" onchange="test();" >
+                        <!-- <div name="" id="test" class="d-flex filter-item rounded-3 text-nowrap">
                             <span>asdasd</span><button id="test" onclick="remove(this);"><img src="assets/icon/close-circle-gr.svg" alt=""></button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="d-flex catalog-head">

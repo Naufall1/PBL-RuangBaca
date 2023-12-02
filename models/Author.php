@@ -50,5 +50,10 @@
 
                 return $this;
         }
+
+        public static function getAll(): mysqli_result{
+            $res = Database::query("SELECT * FROM author");
+            return $res;
+        }
     }
 ?>

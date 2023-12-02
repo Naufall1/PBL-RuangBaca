@@ -1,5 +1,5 @@
 <?php
     interface IFilter {
-        public function filter();
+        public function filter(array $args);
     }
 ?>

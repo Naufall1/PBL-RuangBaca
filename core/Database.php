@@ -22,7 +22,7 @@ class Database {
         return self::$conn;
     }
 
-    public static function query($query){
+    public static function query($query): mysqli_result{
         $conn = self::getConnection();
         $result = $conn->query($query);
 

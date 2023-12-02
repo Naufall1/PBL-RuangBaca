@@ -1,66 +1,133 @@
 {/* <script> */ }
 function sort(sort) {
+    // console.log(2131231);
     $.ajax({
         type: "POST",
         url: "?function=books",
-        data: 'sort='+sort.value,
+        data: 'sort=' + sort.value,
         success: function (res) {
-            $("#book-grids").html(res);
+            $("#books-collection").html(res);
+        }, error: function (response) {
+            console.log(response.responseText);
+        }
+    });
+}
+function search(obj){
+    $.ajax({
+        type: "POST",
+        url: "?function=search",
+        data: 'q=' + $(obj).val(),
+        success: function (res) {
+            $("#books-collection").html(res);
         }, error: function (response) {
             console.log(response.responseText);
         }
     });
 }
 
+function test() {
+    alert("test");
+}
+
 function addFilterItem(text, id, name) {
-    if ($("#filter-implement-box").find('#' + id).length == 0) {
-        var txt = '<div name="' + name + '" id="' + id + '" class="d-flex filter-item rounded-3 text-nowrap"><span>' + text + '</span><button onclick="remove(this);" id="' + id + '"><img src="assets/icon/close-circle-gr.svg" alt=""></button></div>';
-        $("#filter-implement-box").append(txt);
+    // console.log(name);
+    if ($(".filtered-items").find('#' + id).length == 0) {
+        var test = '<div name="' + name + '" id="' + id + '" class="d-flex filter-item text-nowrap"> <p class="filtered-title">' + text + '</p> <button class="filter-item-closed d-flex" onclick="remove(this);" id="' + id + '"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="none"> <path stroke="#7F7F7F" stroke-linecap="round" stroke-linejoin="round" d="M8 15.167c3.667 0 6.667-3 6.667-6.667s-3-6.667-6.667-6.667-6.667 3-6.667 6.667 3 6.667 6.667 6.667Zm-1.887-4.78 3.774-3.774m0 3.774L6.113 6.613" /> </svg></button></div>';
+        // var txt = '<div name="' + name + '" id="' + id + '" class="d-flex filter-item rounded-3 text-nowrap"><span>' + text + '</span><button onclick="remove(this);" id="' + id + '"><img src="assets/icon/close-circle-gr.svg" alt=""></button></div>';
+        $(".filtered-items").append(test);
     }
 }
 
 function removeFilterItem(id, name) {
-    $("#filter-implement-box #" + id).remove();
+    $(".filtered-items #" + id).remove();
     $("button.btn-filter#" + id).removeClass('active');
     $('.form-check input#' + id).prop('checked', false);
+    // console.log($(".filtered-items #" + id).attr('class'));
 }
 function remove(obj) {
     // console.log($(obj).attr("id"));
     removeFilterItem($(obj).attr("id"), 'blah');
 }
+
+function changePages(obj){
+    $('a.page.active').each(function(i, obj){
+        $(obj).removeClass('active');
+        console.log(obj);
+    });
+    $.ajax({
+        type: "POST",
+        url: "?function=books",
+        data: 'page='+obj.getAttribute('id').substr(2),
+        success: function (res) {
+            $("#books-collection").html(res);
+            $('a.page#P-'+obj.getAttribute('id').substr(2)).addClass('active');
+        }, error: function (response) {
+            console.log(response.responseText);
+        }
+    });
+}
 $(document).ready(function () {
+    $('.filtered-items').on('DOMSubtreeModified', function () {
+        filterData = {};
+        $('.filter-item').each(function(i, obj) {
+            // console.log(obj);
+            if (obj.getAttribute('name') in filterData) {
+                if (obj.getAttribute('name') != 'year') {
+                    filterData[obj.getAttribute('name')].push(obj.getAttribute('id'));
+                } else {
+                    filterData[obj.getAttribute('name')].push(obj.getAttribute('id').substr(1));
+                }
+            } else {
+                if (obj.getAttribute('name') != 'year') {
+                    filterData[obj.getAttribute('name')] = []
+                    filterData[obj.getAttribute('name')].push(obj.getAttribute('id'));
+                } else {
+                    filterData[obj.getAttribute('name')] = []
+                    filterData[obj.getAttribute('name')].push(obj.getAttribute('id').substr(1));
+                }
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '?function=filter',
+            data: 'filter='+JSON.stringify(filterData),
+            success: function (res) {
+                $("#books-collection").html(res);
+                // console.log(res);
+            }, error: function (response) {
+                console.log(response.responseText);
+            }
+        })
+        // $(this).ready(function(){
+            console.log(filterData);
+        // });
+    });
+
+    $('a#P-'+$.cookie("page")).addClass('active');
+
+
     $.ajax({
         type: "POST",
         url: "?function=books",
         data: 'sort=title',
         success: function (res) {
-            $("#book-grids").html(res);
-
-
-            $("#book-grids .book").click(function () {
-                // console.log($(this).attr("id"));
-                book_id = $(this).attr("id");
-
-                // $.ajax({
-                //   type: "POST",
-                //   url: "fungsi/catalog.php?catalog=book",
-                //   data: "book="+book_id,
-                //   success: function(res) {
-                //     // $("#panel-cart").html(res);
-                //   },
-                //   error: function(response) {
-                //     console.log(response.responseText);
-                //   }
-                // });
-                // $("#panel-cart").css("display","flex");
-                title = $(this).find("#title").text();
-                penulis = $(this).find("#penulis").text();
-                tahun = $(this).find("#tahun_terbit").text();
-            });
+            $("#books-collection").html(res);
         }, error: function (response) {
             console.log(response.responseText);
         }
     });
+
+    // $.ajax({
+    //     type: "GET",
+    //     url: "?function=getFilters",
+    //     // data: 'sort=title',
+    //     success: function (res) {
+    //         $(".filter-groups").html(res);
+    //     }, error: function (response) {
+    //         console.log(response.responseText);
+    //     }
+    // });
+
     filter = JSON.parse($.cookie("filter"));
     $.each(filter, function (propName, propVal) {
         if (propName == 'jenis' || propName == 'ketersediaan') {
@@ -112,7 +179,7 @@ $(document).ready(function () {
     }
 });
 
-$(".filter-box").change(function () {
+$(".filter-group").change(function () {
     var array = {
         "name": $(this).attr('name'),
         "checked": [],
@@ -127,10 +194,11 @@ $(".filter-box").change(function () {
     });
     $(this).find("input:checkbox:checked").each(function () {
         title = $(this).next("label").text();
-        nama = $(this).next("label").attr("name");
+        nama = $(this).attr("name");
         id = $(this).next("label").attr("for");
         //   console.log(id);
         array["checked"].push($(this).val());
+        // console.log(nama);
         addFilterItem(title, id, nama);
     });
     // console.log(JSON.stringify(array));
@@ -183,15 +251,18 @@ $("button.btn-filter").click(function () {
     // console.log($(this).attr('id'));
 });
 
-$('.filter-header button').click(function () {
-    // console.log($(this).next('.filter-box').css("display"));
-    if ($(this).next('.filter-box').css("display") == "block") {
-        $(this).next('.filter-box').css('display', 'none');
+$('.filter-title').click(function () {
+    // console.log($(this).next('.filter-contents').css("display"));
+    if ($(this).next('.filter-contents').css("display") == "flex") {
+        $(this).next('.filter-contents').removeClass('d-flex');
+        $(this).next('.filter-contents').css('display', 'none');
         // console.log($(this).find('img').attr('src'));
         $(this).find('img').attr('src', 'assets/icon/arrow-down.svg');
-    } else if ($(this).next('.filter-box').css("display") == "none") {
+    } else if ($(this).next('.filter-contents').css("display") == "none") {
+        $(this).next('.filter-contents').addClass('d-flex');
+        console.log(2131231);
         $(this).find('img').attr('src', 'assets/icon/arrow-up.svg');
-        $(this).next('.filter-box').css("display", 'block');
+        $(this).next('.filter-contents').css("display", 'block');
     }
 });
 

@@ -29,5 +29,9 @@
         {
             return $this->category_name;
         }
+        public static function getAll(): mysqli_result{
+            $res = Database::query("SELECT * FROM category");
+            return $res;
+        }
     }
 ?>

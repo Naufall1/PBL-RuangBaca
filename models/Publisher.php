@@ -29,6 +29,11 @@
         {
             return $this->publisher_name;
         }
+
+        public static function getAll(): mysqli_result{
+            $res = Database::query("SELECT * FROM publisher");
+            return $res;
+        }
     }
 
     // $p = new Publisher();

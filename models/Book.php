@@ -26,7 +26,6 @@ class Book extends Readable
                 $book->cover = $result['cover'];
                 $book->setShelf($result['shelf_id']);
 
-                // $book->shelf = $result['book_shelf'];
                 $book->isbn = $result['isbn'];
                 $book->publisher = new Publisher($result['publisher_id']);
                 $book->category = new Category($result['category_id']);
@@ -36,15 +35,61 @@ class Book extends Readable
                 $book->synopsis = $result['synopsis'];
                 return $book;
         }
-        public function getBooks(array $range): array
+        public function getBooks(array $range, $sort='default'): array
         {
-                $res = Database::query("SELECT book_id FROM book LIMIT $range[1] OFFSET $range[0]");
-                // var_dump($res->fetch_all());
+                $filter=$_SESSION['filters'];
+                $query = 'SELECT book_id FROM book ';
+                $sort_query = array(
+                        'default' => '',
+                        'title' => ' ORDER BY book.book_title ',
+                        'year' => ' ORDER BY book.year_published DESC '
+                );
+                if (count($filter) > 0) {
+                        $query = $query . ' WHERE ';
+                }
+
+                $i = 0;
+                // var_dump($filter);
+                foreach ($filter as $key => $value) {
+                        if ($key != 'jenis') {
+                                # code...
+                                $query = $query . $value;
+                                if (count($filter) > 1 && $i != count($filter)-1) {
+                                        $query = $query . ' AND';
+                                }
+                                $i++;
+                        } else {
+                                $query = str_replace('WHERE', '', $query);
+                        }
+                }
+
+                $query = $query . $sort_query[$sort];
+
+                $query = $query . " LIMIT $range[1] OFFSET $range[0]";
+
+                // var_dump($query);
+
+                $books = array();
+                $res = Database::query($query);
                 while ($row = $res->fetch_assoc()) {
                         $books[] = $this->getDetails($row['book_id']);
                 }
-                return $books;
-                // var_dump($books);
+                if ($books != null) {
+                        return $books;
+                    } else {
+                        return [];
+                    }
+        }
+
+        public function getAllYearPublished(): array{
+                $years = array();
+                $res = Database::query("SELECT DISTINCT year_published FROM book ORDER BY year_published DESC");
+                while ($row = $res->fetch_assoc()) {
+                        $years[] = $row["year_published"];
+                }
+                // var_dump($years);
+
+                return $years;
         }
 
         public function toJSON()

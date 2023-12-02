@@ -12,6 +12,6 @@ define('UPLOAD_DIR', 'uploads/');
 define('COVER_DIR', 'uploads/cover/');
 
 // Jumlah maksimal Buku/Skripsi yang bisa ditampilkan dalam 1 halaman katalog.
-define('MAX_NUMS_ITEM', 16);
+define('MAX_NUMS_ITEM', 8);
 
 ?>

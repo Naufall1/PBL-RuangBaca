@@ -8,9 +8,6 @@
         protected $cover;
         protected Shelf $shelf;
 
-        function __construct(){
-
-        }
         abstract protected function getDetails($id);
         abstract public function toJSON();
 

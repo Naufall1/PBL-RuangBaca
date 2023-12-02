@@ -25,6 +25,7 @@
             Database::query("UPDATE shelf SET categories = '$new' WHERE shelf_id = '$id'");
         }
 
+
         public function getShelfId()
         {
             return $this->shelf_id;
@@ -33,6 +34,11 @@
         public function getShelfCategories()
         {
             return $this->categories;
+        }
+
+        public static function getAll(): array{
+            $res = Database::query("SELECT shelf_id FROM shelf ORDER BY shelf_id")->fetch_all();
+            return $res;
         }
     }
 ?>
