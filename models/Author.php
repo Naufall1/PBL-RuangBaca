@@ -21,7 +21,19 @@
             return $id;
         }
 
-        public function getAuthorId()
+        public function getAllAuthor($page): array {
+            $authors = array();
+            $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+            $limit = LIMIT_ROWS_PER_PAGE;
+            $query = "SELECT author_id FROM author ORDER BY author_id LIMIT $limit OFFSET $start";
+            $result = Database::query($query);
+            while ($id = $result->fetch_column()) {
+                $authors[] = new Author($id);
+            }
+            return [$authors, $start, $start+count($authors)];
+        }
+
+        public function getId()
         {
             return $this->author_id;
         }
@@ -55,5 +67,6 @@
             $res = Database::query("SELECT * FROM author");
             return $res;
         }
+
     }
 ?>

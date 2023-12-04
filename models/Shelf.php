@@ -25,6 +25,21 @@
             Database::query("UPDATE shelf SET categories = '$new' WHERE shelf_id = '$id'");
         }
 
+        public function getAllShelf($page){
+            $shelf = array();
+            $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+            $limit = LIMIT_ROWS_PER_PAGE;
+            $query = "SELECT shelf_id FROM shelf ORDER BY shelf_id LIMIT $limit OFFSET $start";
+            $result = Database::query($query);
+            while ($id = $result->fetch_column()) {
+                $shelf[] = new Shelf($id);
+            }
+            return [$shelf, $start, $start+count($shelf)];
+        }
+
+        public function count(){
+            return (int) Database::query("SELECT count(shelf_id) FROM shelf")->fetch_column();
+        }
 
         public function getShelfId()
         {

@@ -1,4 +1,4 @@
-{/* <script> */ }
+
 function sort(sort) {
     // console.log(2131231);
     $.ajax({
@@ -25,9 +25,6 @@ function search(obj){
     });
 }
 
-function test() {
-    alert("test");
-}
 
 function addFilterItem(text, id, name) {
     // console.log(name);
@@ -50,9 +47,10 @@ function remove(obj) {
 }
 
 function changePages(obj){
+    // $($('.total-views')[0]).html('Menampilkan ! dari 20 koleksi');
     $('a.page.active').each(function(i, obj){
         $(obj).removeClass('active');
-        console.log(obj);
+        // console.log(obj);
     });
     $.ajax({
         type: "POST",
@@ -61,6 +59,12 @@ function changePages(obj){
         success: function (res) {
             $("#books-collection").html(res);
             $('a.page#P-'+obj.getAttribute('id').substr(2)).addClass('active');
+            // console.log($('.total-views')[0]);
+            // var text = $($('.total-views')[0]).text();
+            // console.log($(text).text());
+            // text = text.replace('!',$('.book-collection.d-flex').length);
+            $('#count').html($('.book-collection.d-flex').length);
+            // console.log($('.book-collection.d-flex').length);
         }, error: function (response) {
             console.log(response.responseText);
         }
@@ -103,6 +107,7 @@ $(document).ready(function () {
         // });
     });
 
+
     $('a#P-'+$.cookie("page")).addClass('active');
 
 
@@ -111,6 +116,7 @@ $(document).ready(function () {
         url: "?function=books",
         data: 'sort=title',
         success: function (res) {
+            // console.log('test result');
             $("#books-collection").html(res);
         }, error: function (response) {
             console.log(response.responseText);

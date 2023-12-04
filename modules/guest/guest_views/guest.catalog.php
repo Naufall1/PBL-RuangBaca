@@ -8,7 +8,7 @@
 
             <div class="d-flex align-items-center">
 
-  
+
                 <!-- Start: Logo -->
                 <a href="#" class="d-flex logo">
                     <svg class="logo-ruangbaca" xmlns="http://www.w3.org/2000/svg" width="134" height="28" fill="none">
@@ -21,7 +21,7 @@
                 <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku dan Skripsi" onkeyup="search(this);">
             </div>
 
-            <button class="enabled" type="button">Masuk</button>
+            <button class="enabled" type="button" onclick="location.href = '?page=login';" >Masuk</button>
 
         </div>
         <!-- End: NAVBAR -->
@@ -46,124 +46,19 @@
     <!-- End: Landing Screen -->
 
 
-
     <!-- Start: Main Layer -->
     <main class="d-flex container-main-guest">
 
         <!-- Start: Collection Layer -->
 
-        <div class="container-collection d-flex">
-            <!-- Start: Filter Collection Layer -->
-            <div class="filter-collection">
-                <p class="menus-heading">FILTER</p>
+        <?php
+            include 'modules/catalog/catalog_view/catalog.template.php';
+        ?>
 
-                <!-- Start: Filter Groups -->
-                <div class="filter-groups d-flex">
-
-                    <?php include 'modules/catalog/catalog_view/filter.template.php'; ?>
-
-                </div>
-                <!-- End: Filter Groups -->
-
-            </div>
-            <!-- End: Filter Collection Layer -->
-
-            <!-- Start: Collections Layer -->
-            <div class="collections d-flex flex-column">
-
-                <!-- Start: Filtered Layer -->
-                <div class="filtered-items d-flex flex-wrap" id="filtered-items">
-
-                    <!-- Start: Book Filter Item -->
-                    <!-- <div name="type" id="book" class="d-flex filter-item text-nowrap">
-                        <p class="filtered-title" id="book">Buku</p>
-                        <button class="filter-item-closed d-flex" id="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="none">
-                                <path stroke="#7F7F7F" stroke-linecap="round" stroke-linejoin="round" d="M8 15.167c3.667 0 6.667-3 6.667-6.667s-3-6.667-6.667-6.667-6.667 3-6.667 6.667 3 6.667 6.667 6.667Zm-1.887-4.78 3.774-3.774m0 3.774L6.113 6.613" />
-                            </svg>
-                        </button>
-                    </div> -->
-                    <!-- End: Book Filter Item -->
-
-                    <!-- Start: R2 Filter Item -->
-                    <!-- <div name="shelf" id="r2" class="d-flex filter-item text-nowrap">
-                        <p class="filtered-title" id="r2">R2</p>
-                        <button class="filter-item-closed d-flex" id="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="none">
-                                <path stroke="#7F7F7F" stroke-linecap="round" stroke-linejoin="round" d="M8 15.167c3.667 0 6.667-3 6.667-6.667s-3-6.667-6.667-6.667-6.667 3-6.667 6.667 3 6.667 6.667 6.667Zm-1.887-4.78 3.774-3.774m0 3.774L6.113 6.613" />
-                            </svg>
-                        </button>
-                    </div> -->
-                    <!-- End: R2 Filter Item -->
-
-                </div>
-                <!-- End: Filtered Layer -->
-
-                <!-- Start: View Books Layer -->
-                <div class="collection-views d-flex justify-content-between">
-                    <p class="total-views">
-                        Menampilkan 1-20 dari 189 koleksi
-                    </p>
-                    <div class="sorting-content d-flex">
-                        <p class="total-views">Urutkan</p>
-                        <button class="dropdown-sorting d-flex" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Abjad
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
-                                <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M9.96 4.475 6.7 7.735a.993.993 0 0 1-1.4 0l-3.26-3.26" />
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" onchange="sort(this);">
-                            <option class="dropdown-item" value="title" onclick="sort(this);">Abjad</option>
-                            <option class="dropdown-item" value="year" onclick="sort(this);">Tahun Terbit</option>
-                        </div>
-                    </div>
-                </div>
-                <!-- End: View Books Layer -->
-
-                <!-- Start: Books Collection Layer -->
-                <div class="books-collection d-flex" id="books-collection">
-
-
-
-                </div>
-                <!-- End: Books Collection Layer -->
-
-                <!-- Start: Bar View -->
-                <div class="pagination d-flex">
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
-                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M10 13.28 5.653 8.933a1.324 1.324 0 0 1 0-1.866L10 2.72" />
-                        </svg>
-                    </a>
-
-                    <!-- <a href="" class="active">2</a> -->
-                    <?php
-                    for ($i = 1; $i <= Catalog::getNumPages(); $i++) {
-                    ?>
-                        <a class="page" id="P-<?= $i?>" onclick="changePages(this);"> <?= $i?> </a>
-                    <?php
-                    }
-                    ?>
-
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
-                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m5.94 13.28 4.347-4.347a1.324 1.324 0 0 0 0-1.866L5.94 2.72" />
-                        </svg>
-                    </a>
-                </div>
-                <!-- End: Bar View -->
-
-            </div>
-            <!-- End: Collections Layer -->
-        </div>
         <!-- End: Collection Layer -->
 
     </main>
     <!-- End: Main Layer -->
-
-
-
-
 
 </body>
 

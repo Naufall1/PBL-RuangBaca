@@ -35,9 +35,10 @@ function getDesc(book) {
                 console.log(err);
             }
         });
+        // console.log($('#modalBuku').modal('show'));
         // $('#modalBuku').modal();
         setTimeout(function() {
-            $('#modalBuku').modal();
+            $('#modalBuku').modal('toggle');
         }, 50);
 
     } else {
@@ -50,7 +51,8 @@ function getDesc(book) {
                 var thesis = JSON.parse(res);
                 $('#modalSkripsi').find('#thesis_id').html(thesis['id']);
                 $('#modalSkripsi').find('#thesis_title').html(thesis['title']);
-                $('#modalSkripsi').find('#cover').attr('src','uploads/cover/'+ thesis['cover']);
+                // $('#modalSkripsi').find('#cover').attr('src','uploads/cover/'+ thesis['cover']);
+                $('#modalSkripsi').find('#cover').attr('src','uploads/cover/default.png');
                 $('#modalSkripsi').find('#author').html(thesis['writer_name']);
                 $('#modalSkripsi').find('#year').html(thesis['year']);
                 $('#modalSkripsi').find('#shelf').html(thesis['shelf']);
@@ -73,7 +75,7 @@ function getDesc(book) {
             }
         });
         setTimeout(function() {
-            $('#modalSkripsi').modal();
+            $('#modalSkripsi').modal('show');
         }, 50);
     }
 
@@ -89,4 +91,17 @@ function getDesc(book) {
     //     console.log(response.responseText);
     //   }
     // });
+}
+
+function closeModal(obj) {
+    switch ($(obj).attr('id')) {
+        case 'book':
+            $('#modalBuku').modal('toggle');
+            break;
+        case 'thesis':
+            $('#modalSkripsi').modal('toggle');
+            break;
+        default:
+            break;
+    }
 }

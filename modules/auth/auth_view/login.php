@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE)
     <title>Ruang Baca</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ if (session_status() === PHP_SESSION_NONE)
                 <div class="col-6">
                     <div class="header">
                         <form action="index.php?page=login" method="post">
-                            <img src="img/ruangbaca.svg" class="img-fluid">
+                            <img src="assets/logo.svg" class="img-fluid">
                             <h1>Selamat Datang Kembali!👋🏼</h1>
                             <p>Masuk dan Pinjam buku yang kamu butuhkan</p>
                             <div class="login-form nds-input-layout-control">
@@ -51,7 +51,7 @@ if (session_status() === PHP_SESSION_NONE)
         </div>
 
         <div class="login-right w-50 h-100">
-            <img src="img/_359620712.svg" class="img-fluid" style="margin-top: 150px;">
+            <img src="assets/login.svg" class="img-fluid" style="margin-top: 150px;">
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

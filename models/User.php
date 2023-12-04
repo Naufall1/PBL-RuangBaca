@@ -4,12 +4,14 @@ class User
 {
     private $id;
     private $username;
-    private $user_password;
+    private $password;
     private $salt;
     private $level;
 
     function __construct() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
 
@@ -30,6 +32,11 @@ class User
             if (password_verify($combined_password, $hashed_password)) {
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['level'] = $row['level'];
+                $this->id = $row['id'];
+                $this->username = $row['username'];
+                $this->password = $row['hashed_password'];
+                $this->salt = $row['salt'];
+                $this->level = $row['level'];
                 return true;
             } else {
                 return false;
@@ -50,6 +57,30 @@ class User
 
     function isLogin(): bool{
         if (isset($_SESSION['username'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isMember(): bool {
+        if (isset($_SESSION['level']) && $_SESSION['level'] == 'member') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isStaff(): bool {
+        if (isset($_SESSION['level']) && $_SESSION['level'] == 'staff') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isAdmin(): bool {
+        if (isset($_SESSION['level']) && $_SESSION['level'] == 'admin') {
             return true;
         } else {
             return false;

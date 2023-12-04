@@ -14,4 +14,7 @@ define('COVER_DIR', 'uploads/cover/');
 // Jumlah maksimal Buku/Skripsi yang bisa ditampilkan dalam 1 halaman katalog.
 define('MAX_NUMS_ITEM', 8);
 
+// Jumlah maksimal baris tiap tabel
+define('LIMIT_ROWS_PER_PAGE', 5);
+
 ?>

@@ -1,0 +1,7 @@
+DirectoryIndex index.php
+RedirectMatch 404 ^/config/.*$
+RedirectMatch 404 ^/core/.*$
+RedirectMatch 404 ^/models/.*$
+RedirectMatch 404 ^/modules/.*$
+RedirectMatch 404 ^/template/.*$
+RedirectMatch 404 ^/uploads/?$

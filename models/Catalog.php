@@ -66,7 +66,7 @@ class Catalog implements IFilter, ISearch
     {
         return $this->getContent($_COOKIE['page'], $_SESSION['sort'], $query);
     }
-    public function getContent(int $page, string $sort = 'default', string $search=null)
+    public function getContent(int $page, string $sort = 'default', string $search=null): array
     {
         $queryUnion = 'UNION';
         $query = '';
@@ -155,7 +155,13 @@ class Catalog implements IFilter, ISearch
                 $content[] = $thesis->getDetails($row);
             }
         }
+        $_SESSION['count'] = count($content);
         return $content;
+    }
+
+    public static function getCountCollection():int{
+        $res = Database::query("select COUNT(*) from ( select book_id from book UNION select thesis_id from thesis ) as d")->fetch_column();
+        return (int)$res;
     }
 
     public static function getNumPages(): int

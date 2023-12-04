@@ -35,9 +35,9 @@ class Book extends Readable
                 $book->synopsis = $result['synopsis'];
                 return $book;
         }
-        public function getBooks(array $range, $sort='default'): array
+        public function getBooks(array $range, $sort = 'default'): array
         {
-                $filter=$_SESSION['filters'];
+                $filter = $_SESSION['filters'];
                 $query = 'SELECT book_id FROM book ';
                 $sort_query = array(
                         'default' => '',
@@ -54,7 +54,7 @@ class Book extends Readable
                         if ($key != 'jenis') {
                                 # code...
                                 $query = $query . $value;
-                                if (count($filter) > 1 && $i != count($filter)-1) {
+                                if (count($filter) > 1 && $i != count($filter) - 1) {
                                         $query = $query . ' AND';
                                 }
                                 $i++;
@@ -76,12 +76,30 @@ class Book extends Readable
                 }
                 if ($books != null) {
                         return $books;
-                    } else {
+                } else {
                         return [];
-                    }
+                }
+        }
+        public function getAllBook($page): array
+        {
+                $book = array();
+                $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+                $limit = LIMIT_ROWS_PER_PAGE;
+                $query = "SELECT book_id FROM book ORDER BY book_id LIMIT $limit OFFSET $start";
+                $result = Database::query($query);
+                while ($id = $result->fetch_column()) {
+                        $book[] = $this->getDetails($id);
+                }
+                return [$book, $start, $start + count($book)];
         }
 
-        public function getAllYearPublished(): array{
+        public function count()
+        {
+                return (int) Database::query("SELECT count(book_id) FROM book")->fetch_column();
+        }
+
+        public function getAllYearPublished(): array
+        {
                 $years = array();
                 $res = Database::query("SELECT DISTINCT year_published FROM book ORDER BY year_published DESC");
                 while ($row = $res->fetch_assoc()) {

@@ -20,7 +20,19 @@
             return $id;
         }
 
-        public function getCategoryId()
+        public function getAllCategory($page){
+            $authors = array();
+            $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+            $limit = LIMIT_ROWS_PER_PAGE;
+            $query = "SELECT category_id FROM category ORDER BY category_id LIMIT $limit OFFSET $start";
+            $result = Database::query($query);
+            while ($id = $result->fetch_column()) {
+                $authors[] = new Category($id);
+            }
+            return [$authors, $start, $start+count($authors)];
+        }
+
+        public function getId()
         {
             return $this->category_id;
         }

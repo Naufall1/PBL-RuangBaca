@@ -2,15 +2,23 @@
     require_once 'core/Database.php';
 
     class MemberController {
-        private $db;
+        private $member;
         public function __construct() {
-            $this->db = new Database();
+            $this->member = new Member();
         }
 
         public function index() {
-            // Tampilkan daftar pengguna
-            // $users = $this->db->getAllUsers();
-            include 'modules/user/user_views/index.php';
+            include 'modules/member/member_views/index.php';
+        }
+
+        public function book() {
+            // echo 'Book';
+            include 'modules/member/member_views/book.php';
+        }
+
+        public function history() {
+            // echo 'History';
+            include 'modules/member/member_views/history.php';
         }
     }
 ?>

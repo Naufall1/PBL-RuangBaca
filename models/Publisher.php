@@ -20,7 +20,19 @@
             return $id;
         }
 
-        public function getPublisherId()
+        public function getAllPublisher($page) {
+            $publisher = array();
+            $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+            $limit = LIMIT_ROWS_PER_PAGE;
+            $query = "SELECT publisher_id FROM publisher ORDER BY publisher_id LIMIT $limit OFFSET $start";
+            $result = Database::query($query);
+            while ($id = $result->fetch_column()) {
+                $publisher[] = new Publisher($id);
+            }
+            return [$publisher, $start, $start+count($publisher)];
+        }
+
+        public function getId()
         {
             return $this->publisher_id;
         }

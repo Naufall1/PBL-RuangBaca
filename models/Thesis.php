@@ -85,10 +85,10 @@ class Thesis extends Readable
     /**
      * Get the value of writer_name
      */
-    public function getAuthor()
+    public function getAuthor(): Author
     {
         $author = new Author();
-        $author->setAuthorId('1');
+        $author->setAuthorId($this->writer_nim);
         $author->setAuthorName($this->writer_name);
         return $author;
     }
@@ -111,6 +111,23 @@ class Thesis extends Readable
         }
 
         return $years;
+    }
+
+    public function getAllThesis($page): array
+    {
+        $thesis = array();
+        $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+        $limit = LIMIT_ROWS_PER_PAGE;
+        $query = "SELECT thesis_id FROM thesis ORDER BY thesis_id LIMIT $limit OFFSET $start";
+        $result = Database::query($query);
+        while ($id = $result->fetch_column()) {
+            $thesis[] = $this->getDetails($id);
+        }
+        return [$thesis, $start, $start+count($thesis)];
+    }
+
+    public function count(){
+        return (int) Database::query("SELECT count(thesis_id) FROM thesis")->fetch_column();
     }
 
     public function toJSON()

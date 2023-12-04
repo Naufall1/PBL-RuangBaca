@@ -3,9 +3,9 @@ include 'modules/auth/AuthController.php';
 include 'modules/catalog/CatalogController.php';
 include 'modules/guest/GuestController.php';
 include 'modules/admin/AdminController.php';
+include 'modules/member/MemberController.php';
+include 'modules/staff/StaffController.php';
 // include 'models/Catalog.php';
-// include 'modules/admin/MemberController.php';
-// include 'modules/admin/StaffController.php';
 // include 'models/User.php';
 
     class Router {
@@ -15,13 +15,9 @@ include 'modules/admin/AdminController.php';
             $auth = new AuthController($user);
             $catalog = new CatalogController();
             $guestController = new GuestController();
-            // $catalog = new Catalog(20);
-            // var_dump($catalog->getContent(1));
-
-            // $AdminController = new AdminController();
-            // $MemberController = new MemberController();
-            // $StaffController = new StaffController();
-            // $user->login('admin', 'admin');
+            $MemberController = new MemberController();
+            $StaffController = new StaffController();
+            $AdminController = new AdminController();
 
             $page = isset($_GET['page']) ? $_GET['page'] : 'index';
             $function = isset($_GET['function']) ? $_GET['function'] : null;
@@ -29,8 +25,27 @@ include 'modules/admin/AdminController.php';
             if ($function == null) {
                 # code...
                 switch ($page) {
+
                     case 'index':
-                        $guestController->index();
+                        if (isset($_SESSION['level'])) {
+                            if ($user->isMember()) {
+                                $MemberController->index();
+                            } else if ($user->isStaff()) {
+                                $StaffController->index();
+                            } else if ($user->isAdmin()) {
+                                $AdminController->index();
+                            }
+                        } else {
+                            $guestController->index();
+                        }
+                        break;
+
+                    case 'dashboard':
+                        if ($user->isStaff()) {
+                            $StaffController->dashboard();
+                        } else {
+                            echo "404 Not Found";
+                        }
                         break;
 
                     case 'login':
@@ -39,7 +54,6 @@ include 'modules/admin/AdminController.php';
                         } else {
                             $auth->login();
                         }
-
                         break;
 
                     case 'logout':
@@ -52,6 +66,96 @@ include 'modules/admin/AdminController.php';
                         } else {
                             $auth->register();
                         }
+                        break;
+
+                    case 'book':
+                        if ($user->isMember()) {
+                            $MemberController->book();
+                        } else if ($user->isStaff()) {
+                            $StaffController->book();
+                        } else if ($user->isAdmin()){
+                            $AdminController->book();
+                        }
+                        else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'history':
+                        if ($user->isMember()) {
+                            $MemberController->history();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'thesis':
+                        if ($user->isStaff()) {
+                            $StaffController->thesis();
+                        } else if ($user->isAdmin()){
+                            $AdminController->thesis();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'author':
+                        if ($user->isAdmin()) {
+                            $AdminController->author();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'publisher':
+                        if ($user->isAdmin()) {
+                            $AdminController->publisher();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'category':
+                        if ($user->isAdmin()) {
+                            $AdminController->category();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'lecture':
+                        if ($user->isAdmin()) {
+                            $AdminController->lecturer();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'borrowing':
+                        if ($user->isAdmin()) {
+                            $AdminController->borrowing();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'shelf':
+                        if ($user->isAdmin()) {
+                            $AdminController->shelf();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
+
+                    case 'member':
+                        if ($user->isStaff()) {
+                            $StaffController->member();
+                        } else if ($user->isAdmin()){
+                            $AdminController->member();
+                        } else {
+                            echo "404 Not Found";
+                        }
+                        break;
 
                     default:
                         echo "404 Not Found";
@@ -69,11 +173,12 @@ include 'modules/admin/AdminController.php';
 
                     case 'getDesc':
                         $catalog->getDesc();
-                        // $guestController->bookDescription();
                         break;
+
                     case 'books':
                         $catalog->getContent();
                         break;
+
                     case 'search':
                         $catalog->search();
                         break;
