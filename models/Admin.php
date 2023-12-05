@@ -58,7 +58,7 @@
             $results = $author->getAllPublisher($page);
             $result = array(
                 'page' => $page,
-                'countAll' => count(Author::getAll()->fetch_all()),
+                'countAll' => count(Publisher::getAll()->fetch_all()),
                 'start' => $results[1],
                 'end' => $results[2],
                 'data' => $results[0]

@@ -58,8 +58,6 @@ class Catalog implements IFilter, ISearch
                 $this->filters[$arg] = $queryFilter;
             }
         }
-
-
         $_SESSION['filters'] = $this->filters;
     }
     public function search($query): array
@@ -186,18 +184,5 @@ class Catalog implements IFilter, ISearch
     public function thesisDesc($id): Readable
     {
         return $this->readable['thesis']->getDetails($id);
-    }
-
-    private function sortByTitle(array $readable)
-    {
-        usort($readable, fn ($a, $b) => strcmp($a->getTitle(), $b->getTitle()));
-        return $readable;
-    }
-
-    private function sortByYear(array $readable)
-    {
-        // usort($readable, ['Catalog', 'compareYears']);
-        usort($readable, fn ($a, $b) => ($b->getYear() - $a->getYear()));
-        return $readable;
     }
 }

@@ -3,13 +3,17 @@
         private $id;
         private $nim;
         private $name;
-
+        private array $cart;
         function __construct($id = null){
+            $this->cart = Array();
             if (!is_null($id)) {
                 $res = Database::query("SELECT * FROM member WHERE member_id='$id'")->fetch_assoc();
                 $this->id = $res['member_id'];
                 $this->nim = $res['nim'];
                 $this->name = $res['member_name'];
+            }
+            if (isset($_COOKIE['cart'])) {
+                $this->cart = json_decode($_COOKIE['cart']);
             }
         }
 
@@ -33,6 +37,24 @@
             return (int) Database::query("SELECT count(member_id) FROM member")->fetch_column();
         }
 
+        public function addToCart(Readable $item){
+            $this->cart[] = $item->getId();
+            setcookie("cart", json_encode($this->cart), time()+(24*60*60));
+        }
+
+        public function removeFromCart(Readable $item){
+            $index = array_search($item->getId(),$this->cart);
+            if($index !== FALSE){
+                unset($this->cart[$index]);
+            }
+            var_dump($this->cart);
+            setcookie("cart", json_encode($this->cart), time()+(24*60*60));
+        }
+
+        public function borrow($tanggal_ambil){
+
+            setcookie("cart", json_encode($this->cart), time()-(24*60*60));
+        }
 
         /**
          * Get the value of id

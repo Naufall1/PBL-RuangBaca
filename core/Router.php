@@ -162,7 +162,7 @@ include 'modules/staff/StaffController.php';
                         break;
                 }
             } else {
-                switch ($function) {
+                switch (explode('/', $function)[0]) {
                     case 'getFilters':
                         $catalog->getFilters();
                         break;
@@ -181,6 +181,10 @@ include 'modules/staff/StaffController.php';
 
                     case 'search':
                         $catalog->search();
+                        break;
+
+                    case 'cart':
+                        $MemberController->cart($function);
                         break;
 
                     default:

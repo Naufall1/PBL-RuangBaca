@@ -7,7 +7,7 @@ function getDesc(book) {
             url: '?function=getDesc',
             data: 'book_id=' + id,
             success: function(res) {
-                console.log(JSON.parse(res));
+                // console.log(JSON.parse(res));
                 var book = JSON.parse(res);
                 $('#modalBuku').find('#book_id').html(book['id']);
                 $('#modalBuku').find('#book_title').html(book['title']);
@@ -19,6 +19,8 @@ function getDesc(book) {
                 $('#modalBuku').find('#ketersediaan').html(book['avail']+'/'+book['stock']);
                 $('#modalBuku').find('#isbn').html(book['isbn']);
                 $('#modalBuku').find('#ddc_code').html(book['ddc_code']);
+                $('#modalBuku').find('#pinjam').attr('onclick', 'alert(123);');
+                $('#modalBuku').find('button[name="book"]').attr('id', book['id']);
                 var html;
                 if (book['avail'] < 1) {
                     html = '<img src="assets/icon/ellipse-red.svg" style="padding-right: 5px;"> Tidak Tersedia';
@@ -57,6 +59,7 @@ function getDesc(book) {
                 $('#modalSkripsi').find('#year').html(thesis['year']);
                 $('#modalSkripsi').find('#shelf').html(thesis['shelf']);
                 $('#modalSkripsi').find('#dospem').html(thesis['dospem']);
+                $('#modalSkripsi').find('button[name="thesis"]').attr('id', thesis['id']);
                 // $('#modalSkripsi').find('#synopsis').html(thesis['synopsis']);
                 var html;
                 if (thesis['avail'] < 1) {

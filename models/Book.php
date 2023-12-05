@@ -15,6 +15,28 @@ class Book extends Readable
         private $ddc_code;
         private $synopsis;
 
+        function __construct($id = null)
+        {
+                if (!$id == null) {
+                        $result = Database::query("SELECT * FROM book WHERE book_id='$id'")->fetch_assoc();
+                        // $book = new Book();
+                        $this->id = $result['book_id'];
+                        $this->title = $result['book_title'];
+                        $this->year = $result['year_published'];
+                        $this->avail = $result['avail'];
+                        $this->cover = $result['cover'];
+                        $this->setShelf($result['shelf_id']);
+
+                        $this->isbn = $result['isbn'];
+                        $this->publisher = new Publisher($result['publisher_id']);
+                        $this->category = new Category($result['category_id']);
+                        $this->author = new Author($result['author_id']);
+                        $this->stock = $result['stock'];
+                        $this->ddc_code = $result['ddc_code'];
+                        $this->synopsis = $result['synopsis'];
+                }
+        }
+
         function getDetails($id): Book
         {
                 $result = Database::query("SELECT * FROM book WHERE book_id='$id'")->fetch_assoc();

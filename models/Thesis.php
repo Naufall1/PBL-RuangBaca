@@ -5,6 +5,26 @@ class Thesis extends Readable
     private $writer_name;
     private $writer_nim;
     private $dospem;
+    function __construct($id = null){
+        if (!$id==null) {
+            $result = Database::query("SELECT t.*,GROUP_CONCAT(l.lecturer_name) as dospem
+                from thesis as t
+                join dospem as dp on t.thesis_id = dp.thesis_id
+                JOIN lecturer as l ON dp.nidn=l.NIDN
+                WHERE t.thesis_id  ='$id'
+                GROUP BY t.thesis_id;
+            ")->fetch_assoc();
+            $this->id = $result['thesis_id'];
+            $this->title = $result['thesis_title'];
+            $this->year = $result['year_published'];
+            $this->avail = $result['avail'];
+            $this->cover = $result['cover'];
+            $this->setShelf($result['shelf_id']);
+            $this->writer_name = $result['writer_name'];
+            $this->writer_nim = $result['writer_NIM'];
+            $this->dospem = $result['dospem'];
+        }
+    }
     public function getDetails($id): Thesis
     {
         $result = Database::query("SELECT t.*,GROUP_CONCAT(l.lecturer_name) as dospem

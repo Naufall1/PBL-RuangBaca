@@ -174,7 +174,8 @@
                         if ($_SESSION['level'] == 'member') {
                         ?>
                             <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button>
-                            <button type="button" class="btn btn-primary btn-footer sb fs-14" id="pinjam">Pinjam</button>
+                            <button type="button" class="btn btn-primary btn-footer sb fs-14" name="book" id="" onclick="addToCart(this);">Pinjam</button>
+                            <!-- <button type="button" class="btn btn-primary btn-footer sb fs-14" name="modalSkripsi" id="" onclick="addToCart(this);" >Pinjam</button> -->
                     <?php
                         }
                     }
@@ -250,7 +251,7 @@
                         if ($_SESSION['level'] == 'member') {
                         ?>
                             <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button>
-                            <button type="button" class="btn btn-primary btn-footer sb fs-14" id="pinjam">Pinjam</button>
+                            <button type="button" class="btn btn-primary btn-footer sb fs-14" name="thesis" id="" onclick="addToCart(this);" >Pinjam</button>
                     <?php
                         }
                     }
