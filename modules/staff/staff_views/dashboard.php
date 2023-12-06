@@ -112,3 +112,108 @@
 
 </div>
 <!-- End: Peminjaman Layer -->
+
+
+<!-- Start: Modal Confirmation -->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalBuku" style="display: block; !important">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-confirmation">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Detail Peminjaman</h3>
+                        <!-- id atas: exampleModalLongTitle -->
+                        <span class="modal-heading-id" style="font-size: small;" id="borrowing_id">[ID PEMINJAMAN]</span>
+                    </div>
+
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="book">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="modal-details-areas d-flex">
+                    
+                    <div class="modal-confirm-information-area modal-confirm-detail-area d-flex flex-column">
+                        <h5 class="modal-confirm-heading">Informasi</h5>
+
+                        <div class="not-editable-information d-flex flex-column">
+                            <div class="not-editable-item d-flex flex-column">
+                                <h4 class="not-editable-item-heading">Nama</h4>
+                                <p class="not-editable-item-value">Muhammad Naufal Kurniawan</p>
+                            </div>
+                            <div class="not-editable-item d-flex flex-column">
+                                <h4 class="not-editable-item-heading">Status</h4>
+                                <div class="borrowing-status d-flex" id="borrowed">
+                                    <p>
+                                        [STATUS]
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="not-editable-item d-flex flex-column">
+                                <h4 class="not-editable-item-heading">Tanggal Ambil</h4>
+                                <p class="not-editable-item-value">12 November 2023</p>
+                            </div>
+                            <div class="not-editable-item d-flex flex-column">
+                                <h4 class="not-editable-item-heading">Tenggat Kembali</h4>
+                                <p class="not-editable-item-value">19 November 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-confirm-ordered-area modal-confirm-detail-area d-flex flex-column">
+                        <h5 class="modal-confirm-heading">Daftar Buku</h5>
+                        
+                        <div class="modal-confirm-detail-contianer not-editable-information d-flex flex-column">
+                            <div class='book-ordered-item d-flex'>
+                                <img class='book-ordered-image' src='' alt=''>
+
+                                <div class='book-ordered-item-content d-flex flex-column'>
+                                    <p class='book-ordered-title font-size-1px'>Sit malesuada aliquam nibh pretium aliquam mi.</p>
+
+                                    <div class='book-orderd-sub-info d-flex'>
+                                        <div>
+                                            <p class='book-ordered-author'>Lorem</p>
+                                            <p class='book-ordered-year'>2020</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class='hr-divider'></div>
+                                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="d-flex modal-button-group" style="gap: 12px;">
+                <?php
+                // if (!isset($_SESSION['level'])) {
+                ?>
+                    <!-- <button type="button" class="enabled secondary" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button> -->
+                    <?php
+                // } else {
+                //     if ($_SESSION['level'] == 'member') {
+                //     ?>
+                        <!-- <button type="button" class="enabled" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button> -->
+                        <button type="button" class="enabled danger modal-button-top-margin" id="pinjam" name="book" onclick="addToCart(this);">Tolak</button>
+                        <button type="button" class="enabled modal-button-top-margin" id="pinjam" name="book" onclick="addToCart(this);">Pinjam</button>
+                <?php
+                //     }
+                // }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End: Modal Confirmation -->

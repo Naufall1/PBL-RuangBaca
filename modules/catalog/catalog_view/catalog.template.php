@@ -101,10 +101,11 @@
         <!-- End: Bar View -->
 
     </div>
+
     <!-- Modal -->
     <div class="modal" id="modalBuku">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content modal-custom">
+            <div class="modal-content modal-custom-collection">
                 <div class="modal-header border-0 d-flex">
                     <div class="d-flex" style="padding: 0; width: 100%;">
 
@@ -199,7 +200,7 @@
 
     <div class="modal" id="modalSkripsi">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content modal-custom">
+            <div class="modal-content modal-custom-collection">
                 <div class="modal-header border-0 d-flex">
                     <div class="d-flex" style="padding: 0; width: 100%;">
 

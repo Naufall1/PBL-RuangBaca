@@ -777,7 +777,11 @@ button.full-width[type='button']{
 button.secondary[type='button']{
     background-color: var(--neutral-30-color) !important;
     color: var(--neutral-100-color) ;
+}
 
+button.danger[type='button']{
+    background-color: var(--semantic-danger-main-color) !important;
+    color: var(--neutral-10-color) ;
 }
 
 
@@ -1036,6 +1040,7 @@ p.borrowing-id{
     /* background-color: aqua; */
     align-items: center;
     border-radius: 8px;
+    width: fit-content;
 }
 
 .borrowing-status > p{
@@ -1379,7 +1384,10 @@ p.book-ordered-year{
 
 /* End: Guest Level */
 
-.modal-custom{
+
+/* Start: Modal Collection */
+
+.modal-custom-collection{
     border-radius: 16px !important;
     width: 410px !important;
     padding: 24px 20px;
@@ -1481,3 +1489,66 @@ div#synopsis > p{
     max-width: 56%;
 }
 
+/* End: Modal Collection */
+
+/* Start: Modal Confirmation Borrowing */
+
+.modal-custom-confirmation{
+    border-radius: 16px !important;
+    width: 732px !important;
+    padding: 24px 20px;
+    margin: 0 auto;
+}
+
+/* Start: Modal Confirmation Borrowing */
+
+.modal-details-areas{
+    width: 100%;
+    gap: 12px;
+}
+
+.modal-confrim-information-area{
+    max-width: 257px;
+}
+
+h5.modal-confirm-heading{
+    font-size: 18px;
+    font-family: 'Satoshi-Medium';
+    color: var(--neutral-100-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.modal-confirm-detail-container{
+    border-radius: 12px;
+    border: solid 2px var(--neutral-20-color);
+    padding: 16px;
+}
+
+.modal-confirm-detail-area{
+    gap: 8px;
+}
+
+.modal-confirm-information-contianer{
+    width: 257px;
+}
+
+.modal-confirm-information-item{
+    gap: 4px;
+}
+
+.modal-confirm-detail-contianer{
+    max-height: 60vh;
+    overflow-y: scroll;    
+}
+
+
+.modal-confirm-detail-contianer::-webkit-scrollbar {
+    display: none;
+}
+
+.font-size-16px{
+    font-size: 16px !important;
+}
