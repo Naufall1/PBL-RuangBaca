@@ -127,11 +127,11 @@
 
                     <div class="d-flex" style="flex: auto; gap: 8px;">
                         <!-- <div class="gambar" > -->
-                        <img id="cover" src="" class="book-cover-detail center-cropped" style="">
+                        <img id="cover" src="" class="book-cover-detail center-cropped">
                         <!-- </div> -->
-                        <div class="details d-flex flex-column" style="">
+                        <div class="details d-flex flex-column">
                             <div class="judul">
-                                <h4 id="book_title" style="">Judul Buku</h4>
+                                <h4 id="book_title">Judul Buku</h4>
                             </div>
                             <div id="status" class="d-flex">
                                 <!-- <img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <div id="synopsis" style="">
+                    <div id="synopsis">
                         <h4 class="not-editable-item-heading">Sinopsis</h4>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptate
                             repellendus provident
@@ -187,7 +187,7 @@
                         if ($_SESSION['level'] == 'member') {
                         ?>
                             <!-- <button type="button" class="enabled" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button> -->
-                            <button type="button" class="enabled modal-button-top-margin" id="pinjam">Pinjam</button>
+                            <button type="button" class="enabled modal-button-top-margin" id="pinjam" name="book" onclick="addToCart(this);">Pinjam</button>
                     <?php
                         }
                     }
@@ -225,9 +225,9 @@
                         <!-- <div class="gambar" > -->
                         <img src="cover/cover_buku2.png" class="book-cover-detail center-cropped" id="cover">
                         <!-- </div> -->
-                        <div class="details d-flex flex-column" style="">
+                        <div class="details d-flex flex-column">
                             <div class="judul">
-                                <h4 id="thesis_title" style="">Judul Skripsi</h4>
+                                <h4 id="thesis_title">Judul Skripsi</h4>
                             </div>
                             <div id="status" class="d-flex">
                                 <!-- <img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia -->
@@ -270,14 +270,9 @@
                     } else {
                         if ($_SESSION['level'] == 'member') {
                         ?>
-<<<<<<< HEAD
-                            <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button>
-                            <button type="button" class="btn btn-primary btn-footer sb fs-14" name="thesis" id="" onclick="addToCart(this);" >Pinjam</button>
-=======
                             <!-- <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button>
                             <button type="button" class="btn btn-primary btn-footer sb fs-14" id="pinjam">Pinjam</button> -->
-                            <button type="button" class="enabled modal-button-top-margin" id="pinjam">Pinjam</button>
->>>>>>> 0f62f1fc6597af9745c9533ea9f5888c626abfe4
+                            <button type="button" class="enabled modal-button-top-margin" id="pinjam" name="thesis" onclick="addToCart(this);">Pinjam</button>
                     <?php
                         }
                     }

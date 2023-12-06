@@ -52,18 +52,9 @@ function changePages(obj){
         $(obj).removeClass('active');
         // console.log(obj);
     });
-    $.ajax({
-        type: "POST",
-        url: "?function=books",
-        data: 'page='+obj.getAttribute('id').substr(2),
-        success: function (res) {
-            $("#books-collection").html(res);
-            $('a.page#P-'+obj.getAttribute('id').substr(2)).addClass('active');
-            $('#count').html($('.book-collection.d-flex').length);
-        }, error: function (response) {
-            console.log(response.responseText);
-        }
-    });
+
+
+    
 }
 $(document).ready(function () {
     $('.filtered-items').on('DOMSubtreeModified', function () {

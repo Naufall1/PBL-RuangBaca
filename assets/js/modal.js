@@ -19,7 +19,6 @@ function getDesc(book) {
                 $('#modalBuku').find('#ketersediaan').html(book['avail']+'/'+book['stock']);
                 $('#modalBuku').find('#isbn').html(book['isbn']);
                 $('#modalBuku').find('#ddc_code').html(book['ddc_code']);
-                $('#modalBuku').find('#pinjam').attr('onclick', 'alert(123);');
                 $('#modalBuku').find('button[name="book"]').attr('id', book['id']);
                 var html;
                 if (book['avail'] < 1) {
