@@ -17,7 +17,7 @@ foreach ($books as $book) {
             </p>
 
             <div class="book-collection-infos d-flex">
-                <div class="book-collection-info d-flex">
+                <div class="book-collection-info d-flex" style="width: 50%;">
                     <p class="book-collection-info-heading">
                         Penulis
                     </p>
@@ -26,7 +26,7 @@ foreach ($books as $book) {
                     </p>
                 </div>
 
-                <div class="vertical-divider book-collection-info-divider"></div>
+                <div class="vertical-divider book-collection-info-divider align-content-between"></div>
 
                 <div class="book-collection-info d-flex">
                     <p class="book-collection-info-heading">
