@@ -74,7 +74,7 @@ $template->header();
     </div>
 
     <div class="submit-container d-flex">
-      <button class="enabled full-width" type="button">
+      <button class="enabled full-width" type="button" onclick="pinjam()">
         Pinjam
       </button>
     </div>

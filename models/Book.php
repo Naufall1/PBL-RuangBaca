@@ -4,8 +4,9 @@ include 'Publisher.php';
 include 'Category.php';
 include 'Author.php';
 include 'Shelf.php';
+require_once 'IManage.php';
 // include 'core/Database.php';
-class Book extends Readable
+class Book extends Readable implements IManage
 {
         private $isbn;
         private Publisher $publisher;
@@ -154,59 +155,64 @@ class Book extends Readable
                 return json_encode($jsonArray);
         }
 
-        /**
-         * Get the value of isbn
-         */
-        public function getIsbn()
-        {
-                return $this->isbn;
-        }
+        public function add($arg){
 
-        /**
-         * Get the value of publisher
-         */
-        public function getPublisher(): Publisher
-        {
-                return $this->publisher;
         }
+        public function view(){
 
-        /**
-         * Get the value of category
-         */
-        public function getCategory(): Category
-        {
-                return $this->category;
+        }
+        public function save(){
+                $query = "
+            UPDATE book
+            SET
+                book_title = ?,
+                year_published = ?,
+                avail = ?,
+                cover = ?,
+                shelf_id = ?,
+                isbn = ?,
+                publisher_id = ?,
+                category_id = ?,
+                author_id = ?,
+                stock = ?,
+                ddc_code = ?,
+                synopsis = ?
+            WHERE book_id = ?
+        ";
+
+        $parameters = [
+            $this->title,
+            $this->year,
+            $this->avail,
+            $this->cover,
+            $this->shelf->getShelfId(),
+            $this->isbn,
+            $this->publisher->getId(),
+            $this->category->getId(),
+            $this->author->getId(),
+            $this->stock,
+            $this->ddc_code,
+            $this->synopsis,
+            $this->id,
+        ];
+
+        $statement = Database::prepare($query);
+
+        // Dynamically bind parameters
+        $types = 'ssissssssisss';
+        $statement->bind_param($types, ...$parameters);
+
+        $statement->execute();
+        }
+        public function delete(){
+
         }
 
         /**
          * Get the value of author
          */
-        public function getAuthor(): Author
+        public function getAuthor()
         {
                 return $this->author;
-        }
-
-        /**
-         * Get the value of stock
-         */
-        public function getStock()
-        {
-                return $this->stock;
-        }
-
-        /**
-         * Get the value of ddc_code
-         */
-        public function getDdcCode()
-        {
-                return $this->ddc_code;
-        }
-
-        /**
-         * Get the value of synopsis
-         */
-        public function getSynopsis()
-        {
-                return $this->synopsis;
         }
 }

@@ -12,11 +12,14 @@ class User
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        if (isset($_SESSION['user_id'])) {
+            # code...
+        }
     }
 
 
     function login($username, $password): bool {
-        $result = Database::query("SELECT username, level, salt, password as hashed_password FROM user WHERE username = '$username'");
+        $result = Database::query("SELECT user_id, username, level, salt, password as hashed_password FROM user WHERE username = '$username'");
         $row = $result->fetch_assoc();
         if (isset($row['salt']) && isset($row['hashed_password'])) {
             $salt = $row['salt'];
@@ -32,11 +35,16 @@ class User
             if (password_verify($combined_password, $hashed_password)) {
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['level'] = $row['level'];
-                $this->id = $row['id'];
+                $_SESSION['user_id'] = $row['user_id'];
+                $this->id = $row['user_id'];
                 $this->username = $row['username'];
                 $this->password = $row['hashed_password'];
                 $this->salt = $row['salt'];
                 $this->level = $row['level'];
+                if ($this->isMember()) {
+                    $member_id = Database::query("SELECT member_id FROM member WHERE user_id = $this->id")->fetch_column();
+                    $_SESSION['member_id'] = $member_id;
+                }
                 return true;
             } else {
                 return false;
@@ -86,4 +94,9 @@ class User
             return false;
         }
     }
+
+    public function getId()
+        {
+                return $this->id;
+        }
 }

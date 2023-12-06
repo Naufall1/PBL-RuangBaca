@@ -1,6 +1,6 @@
 <?php
-    // include '../core/Database.php';
-    class Author {
+    require_once 'IManage.php';
+    class Author implements IManage {
         private $author_id;
         private $author_name;
 
@@ -11,13 +11,23 @@
                 $this->author_name = $res['author_name'];
             }
         }
-        function add($author_name) {
+
+        function view(){
+
+        }
+        function save(){
+
+        }
+        function delete(){
+
+        }
+        function add($arg) {
             $prefix = 'PUB';
             $len = 6;
             $res = Database::query("SELECT author_id FROM author ORDER BY author_id DESC LIMIT 1")->fetch_array();
             $prevId = intval(substr($res[0], 3, 5));
             $id = $prefix . str_pad($prevId+1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-            Database::query("INSERT INTO author (author_id, author_name) VALUES ('$id', '$author_name')");
+            Database::query("INSERT INTO author (author_id, author_name) VALUES ('$id', '$arg')");
             return $id;
         }
 
@@ -49,7 +59,6 @@
         public function setAuthorName($author_name): self
         {
                 $this->author_name = $author_name;
-
                 return $this;
         }
 
@@ -59,7 +68,6 @@
         public function setAuthorId($author_id): self
         {
                 $this->author_id = $author_id;
-
                 return $this;
         }
 

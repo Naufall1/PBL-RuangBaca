@@ -56,5 +56,15 @@
         {
                 return $this->cover;
         }
+
+        /**
+         * Set the value of avail
+         */
+        public function setAvail($avail): self
+        {
+                $this->avail = $avail;
+
+                return $this;
+        }
     }
 ?>

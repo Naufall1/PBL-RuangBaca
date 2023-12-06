@@ -12,7 +12,7 @@ class Database {
         // Private constructor to prevent instantiation
     }
 
-    public static function getConnection() {
+    public static function getConnection():mysqli {
         if (!isset(self::$conn)) {
             self::$conn = new mysqli(self::$host, self::$user, self::$password, self::$database);
             if (self::$conn->connect_error) {
@@ -30,6 +30,21 @@ class Database {
             die("Query Error: " . $conn->error);
         }
         return $result;
+    }
+
+    public static function insert($query): bool {
+        $conn = self::getConnection();
+        $result = $conn->query($query);
+
+        if (!$result) {
+            die("Query Error: " . $conn->error);
+        }
+        return $result;
+    }
+
+    public static function prepare($query){
+        $conn = self::getConnection();
+        return $conn->prepare($query);
     }
 }
 ?>

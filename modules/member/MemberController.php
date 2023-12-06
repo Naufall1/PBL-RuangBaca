@@ -23,19 +23,24 @@
 
         public function cart($path) {
             $arg = explode('/', $path)[1];
-            $id = $_POST['id'];
-            // var_dump($id);
-            if (str_starts_with($id, 'BK')) {
-                $item = new Book($id);
-            } else {
-                $item = new Thesis($id);
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                if (str_starts_with($id, 'BK')) {
+                    $item = new Book($id);
+                } else {
+                    $item = new Thesis($id);
+                }
             }
+
+            // var_dump($id);
             if ($arg == 'add') {
                 $this->member->addToCart($item);
             } else if ($arg == 'remove') {
                 $this->member->removeFromCart($item);
+            } else if ($arg == 'checkout') {
+                var_dump($this->member->getMemberId());
+                $this->member->borrow($_POST['date']);
             }
-
         }
     }
 ?>

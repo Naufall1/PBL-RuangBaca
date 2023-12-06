@@ -1075,7 +1075,7 @@ p.borrowing-card-date{
 /* Start: Cart */
 
 .cart-container{
-    display: flex;
+    display: none;
     flex-direction: column;
     float: right;
     position: fixed;

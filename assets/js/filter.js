@@ -59,12 +59,7 @@ function changePages(obj){
         success: function (res) {
             $("#books-collection").html(res);
             $('a.page#P-'+obj.getAttribute('id').substr(2)).addClass('active');
-            // console.log($('.total-views')[0]);
-            // var text = $($('.total-views')[0]).text();
-            // console.log($(text).text());
-            // text = text.replace('!',$('.book-collection.d-flex').length);
             $('#count').html($('.book-collection.d-flex').length);
-            // console.log($('.book-collection.d-flex').length);
         }, error: function (response) {
             console.log(response.responseText);
         }

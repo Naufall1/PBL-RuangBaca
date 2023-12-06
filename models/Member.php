@@ -1,14 +1,17 @@
 <?php
     class Member extends User {
-        private $id;
+        private $member_id;
         private $nim;
         private $name;
         private array $cart;
         function __construct($id = null){
+            if (isset($_SESSION['member_id'])) {
+                $id = $_SESSION['member_id'];
+            }
             $this->cart = Array();
             if (!is_null($id)) {
                 $res = Database::query("SELECT * FROM member WHERE member_id='$id'")->fetch_assoc();
-                $this->id = $res['member_id'];
+                $this->member_id = $res['member_id'];
                 $this->nim = $res['nim'];
                 $this->name = $res['member_name'];
             }
@@ -43,25 +46,31 @@
         }
 
         public function removeFromCart(Readable $item){
-            $index = array_search($item->getId(),$this->cart);
+            $index = array_search($item->getId(),$this->cart); 
             if($index !== FALSE){
                 unset($this->cart[$index]);
             }
-            var_dump($this->cart);
-            setcookie("cart", json_encode($this->cart), time()+(24*60*60));
+            $res = array();
+            foreach ($this->cart as $val) {
+                $res[] = $val;
+            }
+            $this->cart = $res;
+            setcookie("cart", json_encode($res), time()+(24*60*60));
         }
 
         public function borrow($tanggal_ambil){
-
+            $readable = array();
+            // var_dump($this->cart, $tanggal_ambil);
+            foreach ($this->cart as $id) {
+                if (str_starts_with($id, 'BK')) {
+                    $readable[] = new Book($id);
+                } else if (str_starts_with($id, 'TH')) {
+                    $readable[] = new Thesis($id);
+                }
+            }
+            $borrowing = new Borrowing();
+            $borrowing->add($this, $tanggal_ambil, $readable);
             setcookie("cart", json_encode($this->cart), time()-(24*60*60));
-        }
-
-        /**
-         * Get the value of id
-         */
-        public function getId()
-        {
-                return $this->id;
         }
 
         /**
@@ -78,6 +87,14 @@
         public function getName()
         {
                 return $this->name;
+        }
+
+        /**
+         * Get the value of member_id
+         */
+        public function getMemberId()
+        {
+                return $this->member_id;
         }
     };
 ?>

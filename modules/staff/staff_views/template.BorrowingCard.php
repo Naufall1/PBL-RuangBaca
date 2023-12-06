@@ -12,7 +12,7 @@
                 <p class="borrowing-id">#<?= $row['id'] ?></p>
                 <div class="borrowing-status d-flex" id="borrowed">
                     <p>
-                        Dipinjam
+                        <?= $row['status'] ?>
                     </p>
                 </div>
             </div>

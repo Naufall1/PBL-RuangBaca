@@ -20,17 +20,17 @@ class Staff extends User
     function getBorrowing($status = 'all'): array
     {
         $query = 'SELECT b.BORROWING_ID as id,b.status, b.reserve_date, COUNT(bb.book_id) AS book, COUNT(bt.thesis_id) AS thesis
-                FROM borrowing AS b
-                LEFT JOIN borrowing_book AS bb ON b.BORROWING_ID=bb.borrowing_id
-                LEFT JOIN borrowing_thesis AS bt ON b.BORROWING_ID=bt.borrowing_id
-            ';
+            FROM borrowing AS b
+            LEFT JOIN borrowing_book AS bb ON b.BORROWING_ID=bb.borrowing_id
+            LEFT JOIN borrowing_thesis AS bt ON b.BORROWING_ID=bt.borrowing_id
+        ';
         $data = array();
         switch ($status) {
             case 'all':
                 break;
 
             case 'waiting':
-                $query = $query . " WHERE b.status = 'waiting'";
+                $query = $query . " WHERE b.status = 'menunggu'";
                 break;
 
             case 'borrowed':
@@ -45,6 +45,7 @@ class Staff extends User
                 $query = $query . " WHERE b.status = 'rejected'";
                 break;
         }
+        $query = $query . " GROUP by b.BORROWING_ID";
         $res = Database::query($query);
         while ($row = $res->fetch_assoc()) {
             $data[] = $row;
