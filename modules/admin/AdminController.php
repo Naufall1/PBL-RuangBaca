@@ -14,7 +14,6 @@
         }
         public function book(){
             // $books = $this->admin->viewBooks();
-
             $books = $this->admin->viewBooks();
             $numPage = (round($books['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($books['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/book.php';

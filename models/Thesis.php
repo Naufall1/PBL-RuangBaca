@@ -1,12 +1,14 @@
 <?php
 // include 'Readable.php';
-class Thesis extends Readable
+class Thesis extends Readable implements IManage
 {
     private $writer_name;
     private $writer_nim;
     private $dospem;
-    function __construct($id = null){
-        if (!$id==null) {
+
+    function __construct($id = null)
+    {
+        if (!$id == null) {
             $result = Database::query("SELECT t.*,GROUP_CONCAT(l.lecturer_name) as dospem
                 from thesis as t
                 join dospem as dp on t.thesis_id = dp.thesis_id
@@ -143,11 +145,41 @@ class Thesis extends Readable
         while ($id = $result->fetch_column()) {
             $thesis[] = $this->getDetails($id);
         }
-        return [$thesis, $start, $start+count($thesis)];
+        return [$thesis, $start, $start + count($thesis)];
     }
 
-    public function count(){
+    public function count()
+    {
         return (int) Database::query("SELECT count(thesis_id) FROM thesis")->fetch_column();
+    }
+
+    public function view(int $page, string $search)
+    {
+        $thesis = array();
+        $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+        $limit = LIMIT_ROWS_PER_PAGE;
+        $query = "SELECT thesis_id FROM thesis ORDER BY thesis_id LIMIT $limit OFFSET $start";
+        $result = Database::query($query);
+        while ($id = $result->fetch_column()) {
+            $thesis[] = $this->getDetails($id);
+        }
+        $result = array(
+            'page' => $page,
+            'countAll' => $this->count(),
+            'start' => $start,
+            'end' => $start + count($thesis),
+            'data' => $thesis
+        );
+        return $result;
+    }
+    public function add($arg)
+    {
+    }
+    public function save()
+    {
+    }
+    public function delete()
+    {
     }
 
     public function toJSON()

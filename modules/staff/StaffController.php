@@ -28,12 +28,18 @@
             }
         }
         public function book() {
+            $books = $this->staff->view(object: new Book());
+            $numPage = (round($books['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($books['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/staff/staff_views/book.php';
         }
         public function thesis() {
+            $thesis = $this->staff->view(object: new Thesis());
+            $numPage = (round($thesis['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($thesis['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/staff/staff_views/thesis.php';
         }
         public function member() {
+            $members = $this->staff->view(object: new Member());
+            $numPage = (round($members['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($members['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/staff/staff_views/member.php';
         }
     }

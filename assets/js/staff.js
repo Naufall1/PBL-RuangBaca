@@ -1,4 +1,28 @@
+function changeTableHeading(title) {
+    $('.heading-table-page').html(title);
+    if (title != 'Dashboard') {
+        $('.subtitle-table-page').html('Table ' + title)
+    } else {
+        $('.subtitle-table-page').html(title)
+    }
+}
 function loadModule(moduleName) {
+    switch (moduleName) {
+        case 'book':
+            changeTableHeading('Buku');
+            break;
+        case 'thesis':
+            changeTableHeading('Skripsi');
+            break;
+        case 'member':
+            changeTableHeading('Anggota');
+            break;
+        case 'dashboard':
+            changeTableHeading('Dashboard');
+            break;
+        default:
+            break;
+    }
     $.ajax({
         type: "GET",
         url: "?page=" + moduleName,

@@ -1,6 +1,6 @@
 <?php
     require_once 'IManage.php';
-    class Author implements IManage {
+    class Author  {
         private $author_id;
         private $author_name;
 

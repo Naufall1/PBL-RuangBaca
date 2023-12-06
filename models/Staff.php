@@ -1,4 +1,5 @@
 <?php
+require_once 'IManage.php';
 class Staff extends User
 {
     function getSummarizes(): array
@@ -52,9 +53,10 @@ class Staff extends User
         }
         return $data;
     }
-    function viewBook(): array
+    function view(IManage $object, int $page = 1, string $search = ''): array
     {
-        return [];
+        $results = $object->view($page, $search);
+        return $results;
     }
     function viewThesis(): array
     {
