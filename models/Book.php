@@ -158,8 +158,23 @@ class Book extends Readable implements IManage
         public function add($arg){
 
         }
-        public function view(){
-
+        public function view(int $page, string $search){
+                $book = array();
+                $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+                $limit = LIMIT_ROWS_PER_PAGE;
+                $query = "SELECT book_id FROM book ORDER BY book_id LIMIT $limit OFFSET $start";
+                $result = Database::query($query);
+                while ($id = $result->fetch_column()) {
+                        $book[] = $this->getDetails($id);
+                }
+                $result = array(
+                        'page' => $page,
+                        'countAll' => $this->count(),
+                        'start' => $start,
+                        'end' => $start + count($book),
+                        'data' => $book
+                    );
+                return $result;
         }
         public function save(){
                 $query = "
@@ -214,5 +229,13 @@ class Book extends Readable implements IManage
         public function getAuthor()
         {
                 return $this->author;
+        }
+
+        /**
+         * Get the value of stock
+         */
+        public function getStock()
+        {
+                return $this->stock;
         }
 }
