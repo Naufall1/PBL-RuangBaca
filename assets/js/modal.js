@@ -25,12 +25,13 @@ function getDesc(book) {
                     html = '<p id="not-avail">Tidak Tersedia</p>';
                     $('#modalBuku').find('#status').removeClass('book-status-avail');
                     $('#modalBuku').find('#status').addClass('book-status-not-avail');
-                    console.log($('#modalBuku').find('button[name="book"]').prop('disabled', true));
+                    $('#modalBuku').find('button[name="book"]').prop('disabled', true);
 
                 } else {
                     html = '<p id="avail">Tersedia</p>';
                     $('#modalBuku').find('#status').addClass('book-status-avail');
                     $('#modalBuku').find('#status').removeClass('book-status-not-avail');
+                    $('#modalBuku').find('button[name="book"]').prop('disabled', false);
                 }
                 $('#modalBuku').find('div#status').html(html);
 
