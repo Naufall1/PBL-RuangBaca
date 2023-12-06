@@ -8,8 +8,8 @@ foreach ($books as $book) {
         <img src="<?= COVER_DIR . '/' . $book->getCover() ?>" alt="" class="book-cover" style="object-fit: cover; object-position: 0 80%;">
 
         <div class="book-content d-flex">
-            <div class="book-status-avail d-flex">
-                <p id="avail"><?= ($book->getAvail() < 1) ? 'Tidak Tersedia' : 'Tersedia' ?></p>
+            <div class="<?= ($book->getAvail() < 1) ? 'book-status-not-avail':'book-status-avail'?> d-flex">
+                <p id="<?= ($book->getAvail() < 1) ? 'not-avail':'avail'?>"><?= ($book->getAvail() < 1) ? 'Tidak Tersedia' : 'Tersedia' ?></p>
             </div>
 
             <p class="book-collection-title">
