@@ -38,7 +38,7 @@
         ?>
             <tr>
                 <td class="no-column"><?= $i+$members['start'] ?></td>
-                <td class="id-column" id=""><?= $member->getId(); ?></td>
+                <td class="id-column" id=""><?= $member->getMemberId(); ?></td>
                 <td class="title-column"><?= $member->getName(); ?></td>
                 <td class="title-column"><?= $member->getNim()?></td>
                 <!-- <td class="number-column" id="available">0</td> -->

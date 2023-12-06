@@ -34,6 +34,25 @@
             }
             return [$borrowing, $start, $start+count($borrowing)];
         }
+        function view(int $page, string $search)
+        {
+            $borrowing = array();
+            $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
+            $limit = LIMIT_ROWS_PER_PAGE;
+            $query = "SELECT BORROWING_ID FROM borrowing ORDER BY BORROWING_ID LIMIT $limit OFFSET $start";
+            $result = Database::query($query);
+            while ($id = $result->fetch_column()) {
+                $borrowing[] = new borrowing($id);
+            }
+            $result = array(
+                'page' => $page,
+                'countAll' => $this->count(),
+                'start' => $start,
+                'end' => $start + count($borrowing),
+                'data' => $borrowing
+            );
+            return $result;
+        }
 
         public function count(){
             return (int) Database::query("SELECT count(BORROWING_ID) FROM borrowing")->fetch_column();
