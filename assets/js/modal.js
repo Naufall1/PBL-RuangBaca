@@ -15,7 +15,7 @@ function getDesc(book) {
                 $('#modalBuku').find('#author').html(book['author']);
                 $('#modalBuku').find('#year_published').html(book['year']);
                 $('#modalBuku').find('#shelf').html(book['shelf']);
-                $('#modalBuku').find('#synopsis').html(book['synopsis']);
+                $('#modalBuku').find('#synopsis > p').html(book['synopsis']);
                 $('#modalBuku').find('#ketersediaan').html(book['avail']+'/'+book['stock']);
                 $('#modalBuku').find('#isbn').html(book['isbn']);
                 $('#modalBuku').find('#ddc_code').html(book['ddc_code']);
@@ -23,15 +23,16 @@ function getDesc(book) {
                 $('#modalBuku').find('button[name="book"]').attr('id', book['id']);
                 var html;
                 if (book['avail'] < 1) {
-                    html = '<img src="assets/icon/ellipse-red.svg" style="padding-right: 5px;"> Tidak Tersedia';
-                    $('#modalBuku').find('.status').removeClass('avail');
-                    $('#modalBuku').find('.status').addClass('not-avail');
+                    html = '<p id="not-avail">Tidak Tersedia</p>';
+                    $('#modalBuku').find('#status').removeClass('book-status-avail');
+                    $('#modalBuku').find('#status').addClass('book-status-not-avail');
+
                 } else {
-                    html = '<img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia';
-                    $('#modalBuku').find('.status').addClass('avail');
-                    $('#modalBuku').find('.status').removeClass('not-avail');
+                    html = '<p id="avail">Tersedia</p>';
+                    $('#modalBuku').find('#status').addClass('book-status-avail');
+                    $('#modalBuku').find('#status').removeClass('book-status-not-avail');
                 }
-                $('#modalBuku').find('.status').html(html);
+                $('#modalBuku').find('div#status').html(html);
 
             }, error: function(err) {
                 console.log(err);
@@ -63,15 +64,15 @@ function getDesc(book) {
                 // $('#modalSkripsi').find('#synopsis').html(thesis['synopsis']);
                 var html;
                 if (thesis['avail'] < 1) {
-                    html = '<img src="assets/icon/ellipse-red.svg" style="padding-right: 5px;"> Tidak Tersedia';
-                    $('#modalSkripsi').find('.status').removeClass('avail');
-                    $('#modalSkripsi').find('.status').addClass('not-avail');
+                    html = '<p id="avail">Tidak Tersedia</p>';
+                    $('#modalSkripsi').find('#status').removeClass('book-status-avail');
+                    $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
                 } else {
-                    html = '<img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia';
-                    $('#modalSkripsi').find('.status').addClass('avail');
-                    $('#modalSkripsi').find('.status').removeClass('not-avail');
+                    html = '<p id="not-avail">Tidak Tersedia</p>';
+                    $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
+                    $('#modalSkripsi').find('#status').removeClass('book-status-avail');
                 }
-                $('#modalSkripsi').find('.status').html(html);
+                $('#modalSkripsi').find('#status').html(html);
 
             }, error: function(err) {
                 console.log(err);

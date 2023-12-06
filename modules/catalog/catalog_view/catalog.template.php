@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/assets/bootstrap-5.3.2-dist/css/bootstrap.min.css">
 <div class="container-collection d-flex">
     <!-- Start: Filter Collection Layer -->
     <div class="filter-collection">
@@ -102,80 +103,91 @@
     </div>
     <!-- Modal -->
     <div class="modal" id="modalBuku">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content rounded-0" style="width: 450px; padding: 10px;">
-                <div class="modal-header border-0 d-flex row">
-                    <div class="d-flex">
-                        <h4 class="modal-title text-nowrap sb" id="exampleModalLongTitle">Detail Buku</h4>
-                        <button type="button" data-dismiss="modal" aria-label="Close" style="width: auto; height: auto; margin-left: auto; align-items: center;" onclick="closeModal(this);" id="book">
-                            <img src="assets/icon/close-circle-bl.svg" alt="">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content modal-custom">
+                <div class="modal-header border-0 d-flex">
+                    <div class="d-flex" style="padding: 0; width: 100%;">
+
+                        <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                            <h3 class="modal-heading" id="">Detail Buku</h3>
+                            <!-- id atas: exampleModalLongTitle -->
+                            <span class="modal-heading-id" style="font-size: small;" id="book_id"></span>
+                        </div>
+
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="book">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                                <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                            </svg>
                         </button>
+
                     </div>
-                    <span class="lh-1 sr" style="font-size: small;" id="book_id"></span>
                 </div>
+
                 <div class="modal-body">
-                    <div class="d-flex">
+
+                    <div class="d-flex" style="flex: auto; gap: 8px;">
                         <!-- <div class="gambar" > -->
-                        <img id="cover" src="" class=" center-cropped" style="width: 111px;height: 134px; object-fit: cover; object-position: 0 100%;">
+                        <img id="cover" src="" class="book-cover-detail center-cropped" style="">
                         <!-- </div> -->
-                        <div class="details row" style="margin-left: 10px;">
-                            <div class="judul sb">
-                                <h4 class="fs-18" id="book_title">Judul Buku</h4>
+                        <div class="details d-flex flex-column" style="">
+                            <div class="judul">
+                                <h4 id="book_title" style="">Judul Buku</h4>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
-                                        Penulis</p>
-                                    <p id="author" class="lh-1 fw-bold fs-12 sb">Libero S, Rutrum N</p>
-                                </div>
-                                <div class="col-4">
-                                    <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
-                                        Tahun Terbit</p>
-                                    <p id="year_published" class="lh-1 fs-12 sb">2017</p>
-                                </div>
-                                <div class="col-2">
-                                    <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
-                                        Letak</p>
-                                    <p id="shelf" class="lh-1 fs-12 sb">R1</p>
-                                </div>
-                            </div>
-                            <span id="status" class="fw-bold d-flex fs-10 rounded-3 status">
+                            <div id="status" class="d-flex">
                                 <!-- <img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia -->
-                            </span>
+                            </div>
+                            <div class="d-flex justify-content-between" style="padding: 0;">
+                                <div class="info-modal-full-width">
+                                    <p class="book-collection-info-heading">Penulis</p>
+                                    <p id="author" class="book-collection-info-value">Libero S, Rutrum N</p>
+                                </div>
+                                <div class="">
+                                    <p class="book-collection-info-heading">Tahun Terbit</p>
+                                    <p id="year_published" class="book-collection-info-value">2017</p>
+                                </div>
+                                <div class="">
+                                    <p class="book-collection-info-heading">Letak</p>
+                                    <p id="shelf" class="book-collection-info-value">R1</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    <div id="synopsis" class="border-bottom sb fs-14 p-1">
+
+                    <div id="synopsis" style="">
+                        <h4 class="not-editable-item-heading">Sinopsis</h4>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptate
                             repellendus provident
                             officia consequatur sint id. Cum cupiditate impedit placeat.</p>
                     </div>
-                    <div class="d-flex flex-column">
-                        <div style="margin: 5px 0px;" class="justify-content-between d-flex">
-                            <span class="fs-12 sr">Ketersediaan</span>
-                            <span id="ketersediaan" class="fs-14 sb">4/2</span>
+                    <div class="hr-divider" style="margin: 8px 0;"></div>
+                    <div class="d-flex flex-column" style=" gap: 12px;">
+                        <div class="justify-content-between d-flex modal-book-detail">
+                            <h5 class="">Ketersediaan</h5>
+                            <span id="ketersediaan" class="">4/2</span>
                         </div>
-                        <div style="margin: 5px 0px;" class="justify-content-between d-flex">
-                            <span class="fs-12 sr">ISBN</span>
-                            <span id="isbn" class="fs-14 sb">122124141243</span>
+                        <div class="justify-content-between d-flex modal-book-detail">
+                            <h5 class="r">ISBN</h5>
+                            <span id="isbn" class="">122124141243</span>
                         </div>
-                        <div style="margin: 5px 0px;" class="justify-content-between d-flex">
-                            <span class="fs-12 sr">Kode DDC</span>
-                            <span id="ddc_code" class="fs-14 sb">123.23</span>
+                        <div class="justify-content-between d-flex modal-book-detail">
+                            <h5 class="">Kode DDC</h5>
+                            <span id="ddc_code" class="">123.23</span>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-row mdl-footer">
+
+                <div class="d-flex modal-button-group" style="gap: 12px;">
                     <?php
                     if (!isset($_SESSION['level'])) {
                     ?>
-                        <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button>
+                        <!-- <button type="button" class="enabled secondary" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button> -->
                         <?php
                     } else {
                         if ($_SESSION['level'] == 'member') {
                         ?>
-                            <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button>
-                            <button type="button" class="btn btn-primary btn-footer sb fs-14" name="book" id="" onclick="addToCart(this);">Pinjam</button>
-                            <!-- <button type="button" class="btn btn-primary btn-footer sb fs-14" name="modalSkripsi" id="" onclick="addToCart(this);" >Pinjam</button> -->
+                            <!-- <button type="button" class="enabled" data-dismiss="modal" onclick="closeModal(this);" id="book">Batal</button> -->
+                            <button type="button" class="enabled modal-button-top-margin" id="pinjam">Pinjam</button>
                     <?php
                         }
                     }
@@ -186,72 +198,86 @@
     </div>
 
     <div class="modal" id="modalSkripsi">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content rounded-0" style="width: 450px; padding: 10px;">
-                <div class="modal-header border-0 d-flex row">
-                    <div class="d-flex">
-                        <h4 class="modal-title text-nowrap sb" id="exampleModalLongTitle">Detail Skripsi</h4>
-                        <button type="button" data-dismiss="modal" aria-label="Close" style="width: auto; height: auto; margin-left: auto; align-items: center;" onclick="closeModal(this);" id="thesis">
-                            <img src="assets/icon/close-circle-bl.svg" alt="">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content modal-custom">
+                <div class="modal-header border-0 d-flex">
+                    <div class="d-flex" style="padding: 0; width: 100%;">
+
+                        <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                            <h3 class="modal-heading" id="">Detail Buku</h3>
+                            <!-- id atas: exampleModalLongTitle -->
+                            <span class="modal-heading-id" style="font-size: small;" id="thesis_id"></span>
+                        </div>
+
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="thesis">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                                <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                            </svg>
                         </button>
+
                     </div>
-                    <span class="lh-1 sr" style="font-size: small;" id="thesis_id">#TH001</span>
+
                 </div>
+
                 <div class="modal-body">
-                    <div class="d-flex border-bottom">
-                        <div class="gambar" style="width: 111px;height: 134px;">
-                            <img src="cover/cover_buku2.png" class="img img-fluid" id="cover">
-                        </div>
-                        <div class="details row" style="margin-left: 10px;">
-                            <div class="judul sb">
-                                <h4 id="thesis_title" class="fs-18 sb">Judul Skripsi</h4>
+
+                <div class="d-flex" style="flex: auto; gap: 8px;">
+                        <!-- <div class="gambar" > -->
+                        <img src="cover/cover_buku2.png" class="book-cover-detail center-cropped" id="cover">
+                        <!-- </div> -->
+                        <div class="details d-flex flex-column" style="">
+                            <div class="judul">
+                                <h4 id="thesis_title" style="">Judul Skripsi</h4>
                             </div>
-                            <div class="row" style="height: 20px;">
-                                <div class="col-10">
-                                    <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
-                                        Penulis</p>
-                                    <p id="author" class="lh-1 fw-bold fs-14 sb" style="margin-bottom: 0px;">Libero S,
-                                        Rutrum N</p>
-                                </div>
-                                <!-- <div class="col-4">
-                        <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">Tahun Terbit</p>
-                        <p id="penulis" class="lh-1 fs-14 sb">2017</p>
-                      </div> -->
-                                <div class="col-2">
-                                    <p class="lh-1" style="font-size: x-small; color: darkgray; margin-bottom: 2px;">
-                                        Letak</p>
-                                    <p id="shelf" class="lh-1 fs-14 sb">R1</p>
-                                </div>
-                            </div>
-                            <span id="status" class="fw-bold d-flex fs-10 rounded-3 status">
+                            <div id="status" class="d-flex">
                                 <!-- <img src="assets/icon/ellipse-green.svg" style="padding-right: 5px;"> Tersedia -->
-                            </span>
+                            </div>
+                            <div class="d-flex justify-content-between" style="padding: 0;">
+                                <div class="info-modal-full-width">
+                                    <p class="book-collection-info-heading">Penulis</p>
+                                    <p id="author" class="book-collection-info-value">Libero S, Rutrum N</p>
+                                </div>
+                                <div class="">
+                                    <p class="book-collection-info-heading">Tahun</p>
+                                    <p id="year_published" class="book-collection-info-value">2017</p>
+                                </div>
+                                <div class="">
+                                    <p class="book-collection-info-heading">Letak</p>
+                                    <p id="shelf" class="book-collection-info-value">R1</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="d-flex flex-column">
-                        <div style="margin: 5px 0px;" class="justify-content-between d-flex">
-                            <span class="fs-12 sr">Dosen Pembimbing</span>
-                            <span id="dospem" class="fs-14 sb"></span>
-                        </div>
-                        <div style="margin: 5px 0px;" class="justify-content-between d-flex">
-                            <span class="fs-12 sr">Tahun Terbit</span>
-                            <span id="year" class="fs-14 sb">2020</span>
+
+                    <div class="hr-divider" style="margin: 8px 0;"></div>
+                    <div class="d-flex flex-column" style="gap: 12px;">
+                        <div class="justify-content-between d-flex modal-book-detail">
+                            <h5 class="">Dosen Pembimbing</h5>
+                            <span id="dospem" class=""></span>
                         </div>
                     </div>
+
                 </div>
-                <div class="d-flex flex-row mdl-footer">
+                <div class="d-flex modal-button-group" style="gap: 12px;">
                     <!-- <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button> -->
                     <!-- <button type="button" class="btn btn-primary btn-footer sb fs-14" id="pinjam">Pinjam</button> -->
                     <?php
                     if (!isset($_SESSION['level'])) {
                     ?>
-                        <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button>
+                        <!-- <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button> -->
                         <?php
                     } else {
                         if ($_SESSION['level'] == 'member') {
                         ?>
+<<<<<<< HEAD
                             <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button>
                             <button type="button" class="btn btn-primary btn-footer sb fs-14" name="thesis" id="" onclick="addToCart(this);" >Pinjam</button>
+=======
+                            <!-- <button type="button" class="btn btn-secondary btn-footer sb fs-14" data-dismiss="modal" onclick="closeModal(this);" id="thesis">Batal</button>
+                            <button type="button" class="btn btn-primary btn-footer sb fs-14" id="pinjam">Pinjam</button> -->
+                            <button type="button" class="enabled modal-button-top-margin" id="pinjam">Pinjam</button>
+>>>>>>> 0f62f1fc6597af9745c9533ea9f5888c626abfe4
                     <?php
                         }
                     }

@@ -613,7 +613,16 @@ button.dropdown-sorting{
     height: 32px;
     padding: 0 12px;
     background-color: var(--semantic-success-surface-color);
-    width: max-content;
+    width: max-content !important;
+    border-radius: 12px;
+}
+
+.book-status-not-avail{
+    align-items: center;
+    height: 32px;
+    padding: 0 12px;
+    background-color: var(--semantic-danger-surface-color);
+    width: max-content !important;
     border-radius: 12px;
 }
 
@@ -621,6 +630,14 @@ p#avail{
     font-size: 12px;
     font-family: 'Satoshi-Medium';
     color: var(--semantic-success-main-color);
+    margin: 0 !important;
+    height: fit-content;
+}
+
+p#not-avail{
+    font-size: 12px;
+    font-family: 'Satoshi-Medium';
+    color: var(--semantic-danger-main-color);
     margin: 0;
     height: fit-content;
 }
@@ -653,7 +670,7 @@ p.book-collection-title{
 }
 
 .book-collection-info-heading{
-    font-size: 10px;
+    font-size: 12px;
     font-family: 'Satoshi-Medium';
     color: var(--neutral-60-color);
     margin: 0;
@@ -666,6 +683,16 @@ p.book-collection-title{
     color: var(--neutral-100-color);
     margin: 0;
     height: fit-content;
+
+    /* text hidden */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* number of lines to show */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+
 }
 
 .book-collection-info-divider{
@@ -734,7 +761,7 @@ button.enabled[type='button']{
     height: 48px;
     padding: 0 12px;
     font-family: 'Satoshi-Bold';
-    min-width: 132px;
+    min-width: 120px;
     font-size: 16px;
     /* margin: 0; */
     color: var(--neutral-10-color);
@@ -745,6 +772,12 @@ button.enabled[type='button']{
 
 button.full-width[type='button']{
     width: 100% !important;
+}
+
+button.secondary[type='button']{
+    background-color: var(--neutral-30-color) !important;
+    color: var(--neutral-100-color) ;
+
 }
 
 
@@ -1345,3 +1378,106 @@ p.book-ordered-year{
 
 
 /* End: Guest Level */
+
+.modal-custom{
+    border-radius: 16px !important;
+    width: 410px !important;
+    padding: 24px 20px;
+    margin: 0 auto;
+}
+
+h3.modal-heading{
+    margin: 0 !important;
+    display: block;
+    font-family: 'Satoshi-Bold';
+    font-size: 20px;
+    color: var(--neutral-100-color);
+}
+
+span.modal-heading-id{
+    margin: 0;
+    display: block;
+    font-family: 'Satoshi-Medium';
+    font-size: 12px;
+    color: var(--neutral-50-color);
+}
+
+.modal-header{
+    padding: 0 !important;
+    margin-bottom: 12px;
+}
+
+.modal-body{
+    padding: 0 !important;
+}
+
+.book-cover-detail{
+    width: 111px;
+    height: 134px;
+    object-fit: cover;
+    object-position: 0 100%;
+}
+
+h4#book_title, h4#thesis_title{
+    margin: 0;
+    display: block;
+    font-family: 'Satoshi-Bold';
+    font-size: 18px;
+    color: var(--neutral-100-color);
+}
+
+.details{
+    gap: 4px;
+}
+
+.judul{
+    padding: 0 !important;
+}
+
+div#synopsis{
+    padding: 0;
+    margin-top: 8px;
+}
+
+div#synopsis > p{
+    margin: 0;
+    display: block;
+    font-family: 'Satoshi-Medium';
+    font-size: 16px;
+    color: var(--neutral-100-color);
+}
+
+.modal-book-detail > h5{
+    margin: 0;
+    display: block;
+    font-family: 'Satoshi-Regular';
+    font-size: 16px;
+    color: var(--neutral-90-color);
+}
+
+.modal-book-detail > span{
+    margin: 0;
+    display: block;
+    font-family: 'Satoshi-Medium';
+    font-size: 16px;
+    color: var(--neutral-100-color);
+    text-align: right;
+}
+
+.modal-button-top-margin{
+    margin-top: 40px;
+}
+
+.modal-button-group{
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.modal::-webkit-scrollbar {
+    display: none !important;
+}
+
+.info-modal-full-width{
+    max-width: 56%;
+}
+

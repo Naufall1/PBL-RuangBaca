@@ -1,4 +1,3 @@
-
 function close() {
     // $(".cart-container").removeClass("d-flex");
     $(".cart-container").css("display", "none");
