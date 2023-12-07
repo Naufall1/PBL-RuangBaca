@@ -62,7 +62,7 @@ class Author implements IManage
         }
     function delete()
     {
-        $query = "DELETE FROM aurhoe WHERE author_id = ?";
+        $query = "DELETE FROM author WHERE author_id = ?";
                 $parameters = [
                         $this->author_id
                 ];
