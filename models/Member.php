@@ -108,21 +108,22 @@ class Member extends User implements IManage
         $query = "
             UPDATE publisher
             SET
-                name = ?,
-            WHERE id = ?
+                user_id = ?,
+                nim = ?,
+                member_name = ?
+            WHERE member_id = ?
         ";
 
                 $parameters = [
-                        $this->member_id,
+                        $this->id,
                         $this->nim,
                         $this->name,
-                        $this->cart,
                 ];
 
                 $statement = Database::prepare($query);
 
                 // Dynamically bind parameters
-                $types = 'ss';
+                $types = 'iss';
                 $statement->bind_param($types, ...$parameters);
 
                 $statement->execute();
