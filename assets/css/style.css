@@ -1523,15 +1523,13 @@ div#synopsis > p{
     margin: 0 auto;
 }
 
-/* Start: Modal Confirmation Borrowing */
-
 .modal-details-areas{
     width: 100%;
     gap: 12px;
 }
 
-.modal-confrim-information-area{
-    max-width: 257px;
+.modal-confirm-information-area{
+    width: 257px;
 }
 
 h5.modal-confirm-heading{
@@ -1575,3 +1573,5 @@ h5.modal-confirm-heading{
 .font-size-16px{
     font-size: 16px !important;
 }
+
+/* End: Modal Confirmation Borrowing */
