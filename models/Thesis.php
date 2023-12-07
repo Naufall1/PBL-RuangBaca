@@ -168,6 +168,7 @@ class Thesis extends Readable implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($thesis),
+            'numPages' => (round($this->count() / LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count() / LIMIT_ROWS_PER_PAGE) : 1,
             'data' => $thesis
         );
         return $result;
@@ -176,7 +177,7 @@ class Thesis extends Readable implements IManage
     {
     }
     public function save()
-        {
+    {
         $query = "
             UPDATE thesis
             SET
@@ -190,37 +191,37 @@ class Thesis extends Readable implements IManage
             WHERE thesis_id = ?
         ";
 
-                $parameters = [
-                        $this->title,
-                        $this->year,
-                        $this->avail,
-                        $this->cover,
-                        $this->shelf->getShelfId(),
-                        $this->writer_name,
-                        $this->writer_nim,
-                        $this->id,
-                ];
+        $parameters = [
+            $this->title,
+            $this->year,
+            $this->avail,
+            $this->cover,
+            $this->shelf->getShelfId(),
+            $this->writer_name,
+            $this->writer_nim,
+            $this->id,
+        ];
 
-                $statement = Database::prepare($query);
+        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ssisssss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'ssisssss';
+        $statement->bind_param($types, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
     public function delete()
     {
-                $query = "DELETE FROM thesis WHERE thesis_id = ?";
-                $parameters = [
-                        $this->thesis_id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
+        $query = "DELETE FROM thesis WHERE thesis_id = ?";
+        $parameters = [
+            $this->id
+        ];
+        $statement = Database::prepare($query);
+        $type = 's';
+        $statement->bind_param($type, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
 
     public function toJSON()
     {

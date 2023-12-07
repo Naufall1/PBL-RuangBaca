@@ -1,6 +1,6 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
-    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Anggota">
+    <input type="text" name="search-member" class="search-fields" id="" placeholder="Cari Anggota">
     <button class="enabled" id="icon-button" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff" d="M18 12.75H6c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h12c.41 0 .75.34.75.75s-.34.75-.75.75Z" />

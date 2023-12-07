@@ -162,8 +162,15 @@ class Book extends Readable implements IManage
                 $book = array();
                 $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
                 $limit = LIMIT_ROWS_PER_PAGE;
-                $query = "SELECT book_id FROM book ORDER BY book_id LIMIT $limit OFFSET $start";
+                $query = "SELECT book_id FROM book";
+
+                if ($search !== '') {
+                        $query = $query . " WHERE book_title LIKE '%" . $search . "%'";
+                }
+
+                $query = $query . " ORDER BY book_id LIMIT $limit OFFSET $start";
                 $result = Database::query($query);
+
                 while ($id = $result->fetch_column()) {
                         $book[] = $this->getDetails($id);
                 }
@@ -172,6 +179,7 @@ class Book extends Readable implements IManage
                         'countAll' => $this->count(),
                         'start' => $start,
                         'end' => $start + count($book),
+                        'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
                         'data' => $book
                 );
                 return $result;

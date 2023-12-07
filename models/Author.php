@@ -8,6 +8,7 @@ class Author implements IManage
     function __construct($author_id = null)
     {
         if (!is_null($author_id)) {
+            // var_dump($author_id);
             $res = Database::query("SELECT * FROM author WHERE author_id='$author_id'")->fetch_assoc();
             $this->author_id = $res['author_id'];
             $this->author_name = $res['author_name'];
@@ -25,12 +26,14 @@ class Author implements IManage
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
         $query = "SELECT author_id FROM author";
-        // var_dump($search);
+
         if ($search != '') {
             $query = $query . " WHERE author_name LIKE '%" . $search . "%'";
         }
+
         $query = $query . " ORDER BY author_id LIMIT $limit OFFSET $start";
         $result = Database::query($query);
+
         while ($id = $result->fetch_column()) {
             $author[] = new Author($id);
         }
@@ -39,6 +42,7 @@ class Author implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($author),
+            'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
             'data' => $author
         );
         return $result;
@@ -99,6 +103,10 @@ class Author implements IManage
             $authors[] = new Author($id);
         }
         return [$authors, $start, $start + count($authors)];
+    }
+
+    public function toJSON(){
+        return json_encode(['id' => $this->author_id, 'name' => $this->author_name]);
     }
 
     public function getId()

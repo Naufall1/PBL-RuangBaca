@@ -17,7 +17,7 @@ include 'modules/staff/StaffController.php';
             $guestController = new GuestController();
             $MemberController = new MemberController();
             $StaffController = new StaffController();
-            $AdminController = new AdminController();
+            $adminController = new AdminController();
 
             $page = isset($_GET['page']) ? $_GET['page'] : 'index';
             $function = isset($_GET['function']) ? $_GET['function'] : null;
@@ -33,7 +33,7 @@ include 'modules/staff/StaffController.php';
                             } else if ($user->isStaff()) {
                                 $StaffController->index();
                             } else if ($user->isAdmin()) {
-                                $AdminController->index();
+                                $adminController->index();
                             }
                         } else {
                             $guestController->index();
@@ -74,7 +74,7 @@ include 'modules/staff/StaffController.php';
                         } else if ($user->isStaff()) {
                             $StaffController->book();
                         } else if ($user->isAdmin()){
-                            $AdminController->book();
+                            $adminController->book();
                         }
                         else {
                             echo "404 Not Found";
@@ -93,7 +93,7 @@ include 'modules/staff/StaffController.php';
                         if ($user->isStaff()) {
                             $StaffController->thesis();
                         } else if ($user->isAdmin()){
-                            $AdminController->thesis();
+                            $adminController->thesis();
                         } else {
                             echo "404 Not Found";
                         }
@@ -101,7 +101,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'author':
                         if ($user->isAdmin()) {
-                            $AdminController->author();
+                            $adminController->author();
                         } else {
                             echo "404 Not Found";
                         }
@@ -109,7 +109,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'publisher':
                         if ($user->isAdmin()) {
-                            $AdminController->publisher();
+                            $adminController->publisher();
                         } else {
                             echo "404 Not Found";
                         }
@@ -117,7 +117,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'category':
                         if ($user->isAdmin()) {
-                            $AdminController->category();
+                            $adminController->category();
                         } else {
                             echo "404 Not Found";
                         }
@@ -125,7 +125,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'lecture':
                         if ($user->isAdmin()) {
-                            $AdminController->lecturer();
+                            $adminController->lecturer();
                         } else {
                             echo "404 Not Found";
                         }
@@ -133,7 +133,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'borrowing':
                         if ($user->isAdmin()) {
-                            $AdminController->borrowing();
+                            $adminController->borrowing();
                         } else {
                             echo "404 Not Found";
                         }
@@ -141,7 +141,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'shelf':
                         if ($user->isAdmin()) {
-                            $AdminController->shelf();
+                            $adminController->shelf();
                         } else {
                             echo "404 Not Found";
                         }
@@ -151,7 +151,7 @@ include 'modules/staff/StaffController.php';
                         if ($user->isStaff()) {
                             $StaffController->member();
                         } else if ($user->isAdmin()){
-                            $AdminController->member();
+                            $adminController->member();
                         } else {
                             echo "404 Not Found";
                         }
@@ -163,6 +163,7 @@ include 'modules/staff/StaffController.php';
                 }
             } else {
                 switch (explode('/', $function)[0]) {
+
                     // CATALOG
                     case 'getFilters':
                         $catalog->getFilters();
@@ -177,7 +178,11 @@ include 'modules/staff/StaffController.php';
                         $catalog->getContent();
                         break;
                     case 'search':
-                        $catalog->search();
+                        if (isset(explode('/', $function)[1])) {
+                            $adminController->search($function);
+                        } else {
+                            $catalog->search();
+                        }
                         break;
 
                     // MEMBER
@@ -189,6 +194,9 @@ include 'modules/staff/StaffController.php';
                     case 'borrowing':
                         $StaffController->borrowing($function);
                         break;
+
+                    // ADMIN
+
                     default:
                         # code...
                         break;

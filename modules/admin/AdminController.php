@@ -12,14 +12,46 @@
             include 'modules/admin/admin_views/index.php';
             $template->footer();
         }
-        public function book(){
-            $books = $this->admin->view(new Book());
-            $numPage = (round($books['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($books['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
+        public function search($path) {
+            $arg = explode('/', $path)[1];
+            if (isset($_POST['q'])) {
+                # code...
+                switch ($arg) {
+                    case 'book':
+                        $data = ($this->admin->view(new Book(), search: $_POST['q']));
+                        $this->book(data:$data);
+                        break;
+                    case 'author':
+                        $data = ($this->admin->view(new Author(), search: $_POST['q']));
+                        $this->author(data:$data);
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            } else {
+                echo 'Failed';
+            }
+
+        }
+        public function book($data = null){
+            if ($data !== null) {
+                $books = $data;
+            } else {
+                $books = $this->admin->view(new Book());
+            }
+
+            $numPage = $books['numPages'];
             include 'modules/admin/admin_views/book.php';
         }
-        public function author(){
-            $authors = $this->admin->view(new Author(), search:'b');
-            $numPage = (round($authors['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($authors['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
+        public function author($data = null){
+            if ($data !== null) {
+                $authors = $data;
+            } else {
+                $authors = $this->admin->view(new Author());
+            }
+            $numPage = $authors['numPages'];
             include 'modules/admin/admin_views/author.php';
         }
         public function publisher(){

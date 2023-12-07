@@ -67,6 +67,7 @@
                 'countAll' => $this->count(),
                 'start' => $start,
                 'end' => $start + count($borrowing),
+                'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
                 'data' => $borrowing
             );
             return $result;
