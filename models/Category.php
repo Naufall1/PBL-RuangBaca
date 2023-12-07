@@ -56,8 +56,8 @@ class Category implements IManage
         ";
 
                 $parameters = [
-                        $this->category_id,
                         $this->category_name,
+                        $this->category_id,
                 ];
 
                 $statement = Database::prepare($query);
