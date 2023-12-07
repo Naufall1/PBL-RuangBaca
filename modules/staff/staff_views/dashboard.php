@@ -115,7 +115,6 @@
 
 
 <!-- Start: Modal Confirmation -->
-<!-- DELETE DISPLAY STYLE FIRST BELOW -->
 <div class="modal" id="modalBuku">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-confirmation">
