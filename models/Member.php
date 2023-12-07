@@ -115,7 +115,7 @@ class Member extends User implements IManage
         ";
 
                 $parameters = [
-                        $this->id,
+                        $this->getId(),
                         $this->nim,
                         $this->name,
                 ];

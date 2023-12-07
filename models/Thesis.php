@@ -197,7 +197,7 @@ class Thesis extends Readable implements IManage
                         $this->cover,
                         $this->shelf->getShelfId(),
                         $this->writer_name,
-                        $this->writer_NIM,
+                        $this->writer_nim,
                         $this->id,
                 ];
 
