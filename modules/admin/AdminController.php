@@ -18,7 +18,7 @@
             include 'modules/admin/admin_views/book.php';
         }
         public function author(){
-            $authors = $this->admin->view(new Author());
+            $authors = $this->admin->view(new Author(), search:'b');
             $numPage = (round($authors['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($authors['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/author.php';
         }

@@ -19,12 +19,17 @@ class Author implements IManage
         return (int) Database::query("SELECT count(author_id) FROM author")->fetch_column();
     }
 
-    function view(int $page, string $search)
+    function view(int $page, $search = '')
     {
         $author = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT author_id FROM author ORDER BY author_id LIMIT $limit OFFSET $start";
+        $query = "SELECT author_id FROM author";
+        // var_dump($search);
+        if ($search != '') {
+            $query = $query . " WHERE author_name LIKE '%" . $search . "%'";
+        }
+        $query = $query . " ORDER BY author_id LIMIT $limit OFFSET $start";
         $result = Database::query($query);
         while ($id = $result->fetch_column()) {
             $author[] = new Author($id);

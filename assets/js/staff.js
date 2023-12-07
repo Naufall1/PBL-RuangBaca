@@ -26,11 +26,29 @@ function addBook(cover, title, author, year) {
 }
 
 function rejectBorrowing(obj) {
-    alert($(obj).next('#borrowingID'));
+    var id = $(obj).attr('id');
+    $.ajax({
+        type: "POST",
+        url: "?function=borrowing/reject",
+        data: "id=" + id,
+        success: function (response) {
+            console.log(response);
+            loadModule('dashboard');
+        }
+    });
 }
 
 function confirmBorrowing(obj) {
-    alert($(obj).next('#borrowingID'));
+    var id = $(obj).attr('id');
+    $.ajax({
+        type: "POST",
+        url: "?function=borrowing/confirm",
+        data: "id=" + id,
+        success: function (response) {
+            console.log(response);
+            loadModule('dashboard');
+        }
+    });
 }
 
 function loadModal(id) {
@@ -48,7 +66,8 @@ function loadModal(id) {
             $('#modalBuku .borrowing-status').html('<p>' + borrowingDetails['status'] + '<p/>');
             $('#modalBuku #reserve_date').html(borrowingDetails['reserve_date']);
             $('#modalBuku #due_date').html(borrowingDetails['due_date']);
-            $('#modalBuku #borrowingID').html(borrowingDetails['id']);
+            $('#modalBuku button[name="reject"]').attr('id',borrowingDetails['id']);
+            $('#modalBuku button[name="confirm"]').attr('id',borrowingDetails['id']);
             readable.forEach(item => {
                 item = JSON.parse(item);
                 console.log(item);

@@ -8,7 +8,7 @@ class Staff extends User
         $countThesis = Database::query("SELECT count(thesis_id) FROM thesis")->fetch_column();
         $countMember = Database::query("SELECT count(*) FROM member")->fetch_column();
         $countBorrowing = Database::query("SELECT count(*) FROM borrowing")->fetch_column();
-        $countWaiting = Database::query("SELECT count(*) FROM borrowing WHERE status = 'waiting for confirmation'")->fetch_column();
+        $countWaiting = Database::query("SELECT count(*) FROM borrowing WHERE status = 'menunggu'")->fetch_column();
         $summarizes = array(
             'book' => (int) $countBook,
             'thesis' => (int) $countThesis,
@@ -35,15 +35,15 @@ class Staff extends User
                 break;
 
             case 'borrowed':
-                $query = $query . " WHERE b.status = 'borrowed'";
+                $query = $query . " WHERE b.status = 'dipinjam'";
                 break;
 
             case 'done':
-                $query = $query . " WHERE b.status = 'done'";
+                $query = $query . " WHERE b.status = 'selesai'";
                 break;
 
             case 'rejected':
-                $query = $query . " WHERE b.status = 'rejected'";
+                $query = $query . " WHERE b.status = 'ditolak'";
                 break;
         }
         $query = $query . " GROUP by b.BORROWING_ID";
@@ -58,17 +58,30 @@ class Staff extends User
         $borrowing = new Borrowing($id);
         return $borrowing->toJSON();
     }
+    public function confirmBorrowing($id){
+        $borrowing = new Borrowing(id:$id);
+        if ($borrowing->getStatus() == 'menunggu') {
+            $borrowing->setStatus('dipinjam');
+            $borrowing->save();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public function rejectBorrowing($id){
+        $borrowing = new Borrowing(id:$id);
+        if ($borrowing->getStatus() == 'menunggu') {
+            $borrowing->setStatus('ditolak');
+            $borrowing->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
     function view(IManage $object, int $page = 1, string $search = ''): array
     {
         $results = $object->view($page, $search);
         return $results;
-    }
-    function viewThesis(): array
-    {
-        return [];
-    }
-    function viewMember(): array
-    {
-        return [];
     }
 }

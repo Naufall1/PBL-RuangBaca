@@ -3,6 +3,13 @@ function changeTableHeading(title) {
     $('.subtitle-table-page').html('Table ' + title)
 }
 
+function loadSearch() {
+    $('input[name="search-author"]').keyup(function (e) {
+        if (e.keyCode == 13)
+            alert($(this).val());
+    });
+}
+
 function loadModule(moduleName) {
     switch (moduleName) {
         case 'book':

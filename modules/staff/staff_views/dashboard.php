@@ -183,9 +183,8 @@
 
 
             <div class="d-flex modal-button-group" style="gap: 12px;">
-                <span id="borrowingID" style="display: none;"></span>
-                <button type="button" class="enabled danger modal-button-top-margin" id="reject" onclick="rejectBorrowing(this);">Tolak</button>
-                <button type="button" class="enabled modal-button-top-margin" id="confirm" onclick="confirmBorrowing(this);">Konfirmasi</button>
+                <button type="button" class="enabled danger modal-button-top-margin" name="reject" id="" onclick="rejectBorrowing(this);">Tolak</button>
+                <button type="button" class="enabled modal-button-top-margin" name="confirm" id="" onclick="confirmBorrowing(this);">Konfirmasi</button>
             </div>
         </div>
     </div>

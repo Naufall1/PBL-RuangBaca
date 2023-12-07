@@ -114,25 +114,26 @@ class Member extends User implements IManage
             WHERE member_id = ?
         ";
 
-                $parameters = [
-                        $this->getId(),
-                        $this->nim,
-                        $this->name,
-                ];
+        $parameters = [
+            $this->getId(),
+            $this->nim,
+            $this->name,
+        ];
 
-                $statement = Database::prepare($query);
+        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'iss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'iss';
+        $statement->bind_param($types, ...$parameters);
 
-                $statement->execute();
+        $statement->execute();
     }
     public function delete()
     {
     }
 
-    public function toJSON(){
+    public function toJSON()
+    {
         $jsonArray = [
             'id' => $this->member_id,
             'nim' => $this->nim,

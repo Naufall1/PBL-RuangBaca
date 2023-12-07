@@ -143,5 +143,15 @@
         {
                 return $this->status;
         }
+
+        /**
+         * Set the value of status
+         */
+        public function setStatus($status): self
+        {
+                $this->status = $status;
+                $this->member->getId();
+                return $this;
+        }
     }
 ?>
