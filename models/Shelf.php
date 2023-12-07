@@ -51,8 +51,8 @@ class Shelf implements IManage
         ";
 
                 $parameters = [
-                        $this->shelf_id,
                         $this->categories,
+                        $this->shelf_id,
                 ];
 
                 $statement = Database::prepare($query);
