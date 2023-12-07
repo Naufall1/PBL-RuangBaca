@@ -211,7 +211,16 @@ class Thesis extends Readable implements IManage
         }
     public function delete()
     {
-    }
+                $query = "DELETE FROM thesis WHERE thesis_id = ?";
+                $parameters = [
+                        $this->thesis_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
+        }
 
     public function toJSON()
     {

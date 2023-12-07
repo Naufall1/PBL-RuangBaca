@@ -106,7 +106,7 @@ class Member extends User implements IManage
     public function save()
     {
         $query = "
-            UPDATE publisher
+            UPDATE member
             SET
                 user_id = ?,
                 nim = ?,
@@ -114,23 +114,33 @@ class Member extends User implements IManage
             WHERE member_id = ?
         ";
 
-        $parameters = [
-            $this->getId(),
-            $this->nim,
-            $this->name,
-        ];
+                $parameters = [
+                        $this->getId(),
+                        $this->nim,
+                        $this->name,
+                        $this->member_id,
+                ];
 
         $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'iss';
-        $statement->bind_param($types, ...$parameters);
+                // Dynamically bind parameters
+                $types = 'isss';
+                $statement->bind_param($types, ...$parameters);
 
         $statement->execute();
     }
     public function delete()
     {
-    }
+                $query = "DELETE FROM member WHERE member_id = ?";
+                $parameters = [
+                        $this->member_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
+        }
 
     public function toJSON()
     {

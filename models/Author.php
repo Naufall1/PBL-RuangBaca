@@ -48,7 +48,7 @@ class Author implements IManage
         $query = "
             UPDATE author
             SET
-                author_name = ?,
+                author_name = ?
             WHERE author_id = ?
         ";
 
@@ -67,6 +67,15 @@ class Author implements IManage
         }
     function delete()
     {
+        $query = "DELETE FROM author WHERE author_id = ?";
+                $parameters = [
+                        $this->author_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
     }
     function add($arg)
     {
