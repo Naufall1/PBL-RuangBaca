@@ -50,7 +50,7 @@
         $query = "
             UPDATE lecturer
             SET
-                lecturer_name = ?,
+                lecturer_name = ?
             WHERE NIDN = ?
         ";
 
@@ -68,7 +68,15 @@
                 $statement->execute();
         }
         public function delete(){
+        $query = "DELETE FROM lecturer WHERE nidn = ?";
+                $parameters = [
+                        $this->nidn
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
 
+                $statement->execute();
         }
         public function add($arg){
             

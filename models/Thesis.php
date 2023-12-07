@@ -197,7 +197,7 @@ class Thesis extends Readable implements IManage
                         $this->cover,
                         $this->shelf->getShelfId(),
                         $this->writer_name,
-                        $this->writer_NIM,
+                        $this->writer_nim,
                         $this->id,
                 ];
 
@@ -211,7 +211,16 @@ class Thesis extends Readable implements IManage
         }
     public function delete()
     {
-    }
+                $query = "DELETE FROM thesis WHERE thesis_id = ?";
+                $parameters = [
+                        $this->thesis_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
+        }
 
     public function toJSON()
     {
@@ -222,7 +231,7 @@ class Thesis extends Readable implements IManage
             'avail' => $this->avail,
             'cover' => $this->cover,
             'shelf' => $this->shelf->getShelfId(), // Jika Shelf juga memiliki metode toJSON
-            'writer_name' => $this->writer_name,
+            'author' => $this->writer_name,
             'writer_nim' => $this->writer_nim,
             'dospem' => $this->dospem
         ];

@@ -99,13 +99,45 @@
                 }
             }
         }
+        public function save()
+    {
+        $query = "
+            UPDATE borrowing
+            SET
+                member_id = ?,
+                reserve_date = ?,
+                due_date = ?,
+                return_date = ?,
+                status = ?,
+                penalty = ?
+            WHERE BORROWING_ID = ?
+        ";
+
+                $parameters = [
+                        $this->member->getMemberId(),
+                        $this->reserve_date,
+                        $this->due_date,
+                        $this->return_date,
+                        $this->status,
+                        $this->penalty,
+                        $this->id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'sssssss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+    }
         public function toJSON() {
             $jsonArray = [
                 'id' => $this->id,
                 'member' => $this->member->toJSON(),
-                'reserve_date' => $this->reserve_date,
-                'due_date' => $this->due_date,
-                'return_date' => $this->return_date,
+                'reserve_date' => date_format(date_create($this->reserve_date),"d F Y"),
+                'due_date' => date_format(date_create($this->due_date),"d F Y"),
+                'return_date' => date_format(date_create($this->return_date),"d F Y"),
                 'status' => $this->status,
                 'penalty' => $this->penalty,
                 'readable' => []
@@ -142,6 +174,16 @@
         public function getStatus()
         {
                 return $this->status;
+        }
+
+        /**
+         * Set the value of status
+         */
+        public function setStatus($status): self
+        {
+                $this->status = $status;
+                $this->member->getId();
+                return $this;
         }
     }
 ?>

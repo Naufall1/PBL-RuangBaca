@@ -29,18 +29,22 @@
         }
         public function borrowing($path){
             $arg = explode('/', $path)[1];
+            $id = $_POST['id'];
             // var_dump($arg);
             switch ($arg) {
                 case 'details':
-                    echo $this->staff->getBorrowingDetails($_POST['id']);
+                    echo $this->staff->getBorrowingDetails(id:$id);
+                    break;
+                case 'confirm':
+                    echo $this->staff->confirmBorrowing(id:$id);
+                    break;
+                case 'reject':
+                    echo $this->staff->rejectBorrowing(id:$id);
                     break;
                 default:
-                    # code...
+                    echo 'denied';
                     break;
             }
-        }
-        private function borrowingDetails($id) {
-
         }
         public function book() {
             $books = $this->staff->view(object: new Book());

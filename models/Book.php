@@ -222,6 +222,15 @@ class Book extends Readable implements IManage
         }
         public function delete()
         {
+                $query = "DELETE FROM book WHERE book_id = ?";
+                $parameters = [
+                        $this->id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
         }
 
         /**
