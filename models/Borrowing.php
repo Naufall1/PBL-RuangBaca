@@ -99,6 +99,38 @@
                 }
             }
         }
+        public function save()
+    {
+        $query = "
+            UPDATE borrowing
+            SET
+                member_id = ?,
+                reserve_date = ?,
+                due_date = ?,
+                return_date = ?,
+                status = ?,
+                penalty = ?
+            WHERE BORROWING_ID = ?
+        ";
+
+                $parameters = [
+                        $this->member>getId(),
+                        $this->reserve_date,
+                        $this->due_date,
+                        $this->return_date,
+                        $this->status,
+                        $this->penalty,
+                        $this->id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ssssss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+    }
         public function toJSON() {
             $jsonArray = [
                 'id' => $this->id,
