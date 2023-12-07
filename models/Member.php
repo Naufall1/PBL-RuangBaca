@@ -118,6 +118,7 @@ class Member extends User implements IManage
                         $this->getId(),
                         $this->nim,
                         $this->name,
+                        $this->member_id,
                 ];
 
                 $statement = Database::prepare($query);
