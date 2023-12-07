@@ -84,3 +84,106 @@
     </a>
 </div>
 <!-- End: Pagination View -->
+
+
+
+<!-- Start: Modal Confirmation -->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalBuku" style="display: block;">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-add-book">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Tambah Data</h3>
+                    </div>
+
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="book">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <form class=" flex-column d-flex">
+
+                    <div class="modal-form-addbook-areas d-flex">
+                        
+                        <div class="modal-form-addbook-area d-flex flex-column">
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="title">Judul</label>
+                                <input required type="text" id="title" name="title" placeholder="Masukkan Judul">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="synopsis">Sinposis</label>
+                                <textarea required id="synopsis" name="synopsis" placeholder="Masukkan Sinopsis"></textarea>
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="cover">Cover</label>
+                                <input required type="file" id="cover" name="cover">
+                            </div>
+                        </div>
+    
+                        <div class="modal-form-addbook-area d-flex flex-column">
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="author">Penulis</label>
+                                <input required type="text" id="author" name="author" placeholder="Pilih Penulis">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="add-author">Tambah Penulis</label>
+                                <input required type="text" id="add-author" name="add-author" placeholder="Masukkan Penulis">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="publisher">Penerbit</label>
+                                <input required type="text" id="publisher" name="publisher" placeholder="Pilih Penerbit">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="add-publisher">Tambah Penerbit</label>
+                                <input required type="text" id="add-publisher" name="add-publisher" placeholder="Masukkan Penerbit">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="year">Tahun Terbit</label>
+                                <input required type="number" id="year" name="year" placeholder="Masukkan Tahun Terbit">
+                            </div>
+                            <div class="addbook-input-field divider-half-input-field input-fields d-flex">
+                                <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
+                                    <label for="shelf">Rak</label>
+                                    <input required type="text" id="shelf" name="shelf" placeholder="Pilih Rak">
+                                </div>
+                                <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
+                                    <label for="stock">Stok</label>
+                                    <input required type="number" id="stock" name="stock" placeholder="Masukkan Stok">
+                                </div>
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="isbn">ISBN</label>
+                                <input required type="text" id="isbn" name="isbn" placeholder="Masukkan ISBN">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="ddc_code">Kode DDC</label>
+                                <input required type="text" id="ddc_code" name="ddc_code" placeholder="Masukkan Kode DDC">
+                            </div>
+    
+                        </div>
+                    </div>
+
+                    <div class="d-flex modal-button-group" style="gap: 12px;">
+
+                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="book" onclick="">Tambah</button>
+
+                    </div>
+                
+                </form>
+            </div>
+
+
+            
+        </div>
+    </div>
+</div>
+<!-- End: Modal Confirmation -->
