@@ -65,7 +65,7 @@ function getDesc(book) {
                 // $('#modalSkripsi').find('#synopsis').html(thesis['synopsis']);
                 var html;
                 if (thesis['avail'] < 1) {
-                    html = '<p id="avail">Tidak Tersedia</p>';
+                    html = '<p id="avail">Tersedia</p>';
                     $('#modalSkripsi').find('#status').removeClass('book-status-avail');
                     $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
                 } else {
@@ -73,7 +73,7 @@ function getDesc(book) {
                     $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
                     $('#modalSkripsi').find('#status').removeClass('book-status-avail');
                 }
-                $('#modalSkripsi').find('#status').html(html);
+                $('#modalSkripsi').find('div#status').html(html);
 
             }, error: function(err) {
                 console.log(err);

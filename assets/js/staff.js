@@ -1,29 +1,3 @@
-function changeTableHeading(title) {
-    $('.heading-table-page').html(title);
-    if (title != 'Dashboard') {
-        $('.subtitle-table-page').html('Table ' + title)
-    } else {
-        $('.subtitle-table-page').html(title)
-    }
-}
-
-function addBook(cover, title, author, year) {
-    html = "\
-        <div class='book-ordered-item d-flex' >\
-            <img class='book-ordered-image' src = 'uploads\\cover\\"+cover+"' alt = ''>\
-                <div class='book-ordered-item-content d-flex flex-column'>\
-                <p class='book-ordered-title font-size-1px'>"+title+"</p>\
-                <div class='book-orderd-sub-info d-flex'>\
-                    <div>\
-                        <p class='book-ordered-author'>"+author+"</p>\
-                        <p class='book-ordered-year'>"+year+"</p>\
-                    </div>\
-                </div>\
-            </div>\
-        </div >\
-        <div class='hr-divider'></div>";
-    $('.modal-confirm-detail-contianer').append(html);
-}
 
 function rejectBorrowing(obj) {
     var id = $(obj).attr('id');
@@ -53,7 +27,54 @@ function confirmBorrowing(obj) {
     });
 }
 
+
+function processBorrowing(obj){
+    var action = $(obj).attr('name');
+    var id = $(obj).attr('id');
+    $.ajax({
+        type: "POST",
+        url: "?function=borrowing/"+action,
+        data: "id=" + id,
+        success: function (response) {
+            console.log(response);
+            $('#modalBuku').modal('hide');
+            loadModule('dashboard');
+        }
+    });
+}
+
+function changeTableHeading(title) {
+    $('.heading-table-page').html(title);
+    if (title != 'Dashboard') {
+        $('.subtitle-table-page').html('Table ' + title)
+    } else {
+        $('.subtitle-table-page').html(title)
+    }
+}
+
+function addBook(cover, title, author, year) {
+    html = "\
+        <div class='book-ordered-item d-flex' >\
+            <img class='book-ordered-image' src = 'uploads\\cover\\"+cover+"' alt = ''>\
+                <div class='book-ordered-item-content d-flex flex-column'>\
+                <p class='book-ordered-title font-size-1px'>"+title+"</p>\
+                <div class='book-orderd-sub-info d-flex'>\
+                    <div>\
+                        <p class='book-ordered-author'>"+author+"</p>\
+                        <p class='book-ordered-year'>"+year+"</p>\
+                    </div>\
+                </div>\
+            </div>\
+        </div >\
+        <div class='hr-divider'></div>";
+    $('.modal-confirm-detail-contianer').append(html);
+}
+
 function loadModal(id) {
+    $('button[name="reject"]').css('display', 'none');
+    $('button[name="confirm"]').css('display', 'none');
+    $('button[name="pickUp"]').css('display', 'none');
+    $('button[name="finish"]').css('display', 'none');
     $.ajax({
         type: "POST",
         url: "?function=borrowing/details",
@@ -70,15 +91,21 @@ function loadModal(id) {
             $('#modalBuku #due_date').html(borrowingDetails['due_date']);
             $('#modalBuku button[name="reject"]').attr('id',borrowingDetails['id']);
             $('#modalBuku button[name="confirm"]').attr('id',borrowingDetails['id']);
+            $('#modalBuku button[name="pickUp"]').attr('id',borrowingDetails['id']);
+            $('#modalBuku button[name="finish"]').attr('id',borrowingDetails['id']);
             var statusId = '';
             switch (borrowingDetails['status']) {
                 case 'menunggu':
                     statusId = 'waiting';
+                    $('button[name="reject"]').css('display', 'flex');
+                    $('button[name="confirm"]').css('display', 'flex');
                     break;
                 case 'dikonfirmasi':
+                    $('button[name="pickUp"]').css('display', 'flex');
                     statusId = 'confirmed';
                     break;
                 case 'dipinjam':
+                    $('button[name="finish"]').css('display', 'flex');
                     statusId = 'borrowed';
                     break;
                 case 'terlambat':
@@ -92,6 +119,7 @@ function loadModal(id) {
                     break;
             }
             $('.borrowing-status[name="status-modal"]').attr('id', statusId);
+            $('.modal-confirm-detail-contianer').html('');
             readable.forEach(item => {
                 item = JSON.parse(item);
                 console.log(item);
