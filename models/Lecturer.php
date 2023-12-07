@@ -55,8 +55,8 @@
         ";
 
                 $parameters = [
-                        $this->nidn,
                         $this->name,
+                        $this->nidn,
                 ];
 
                 $statement = Database::prepare($query);
