@@ -23,6 +23,7 @@ class Admin extends User
         $borrowing = new Borrowing();
         return $borrowing->view(page:$page, search:$search);
     }
+    
     function editBorrowing()
     {
     }

@@ -89,7 +89,7 @@
 
 <!-- Start: Modal Confirmation -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku" style="display: block;">
+<div class="modal" id="modalBuku">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-add-book">
             <div class="modal-header border-0 d-flex">
@@ -113,7 +113,7 @@
                 <form class=" flex-column d-flex">
 
                     <div class="modal-form-addbook-areas d-flex">
-                        
+
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="title">Judul</label>
@@ -128,7 +128,7 @@
                                 <input required type="file" id="cover" name="cover">
                             </div>
                         </div>
-    
+
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="author">Penulis</label>
@@ -168,7 +168,7 @@
                                 <label for="ddc_code">Kode DDC</label>
                                 <input required type="text" id="ddc_code" name="ddc_code" placeholder="Masukkan Kode DDC">
                             </div>
-    
+
                         </div>
                     </div>
 
@@ -177,12 +177,12 @@
                         <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="book" onclick="">Tambah</button>
 
                     </div>
-                
+
                 </form>
             </div>
 
 
-            
+
         </div>
     </div>
 </div>

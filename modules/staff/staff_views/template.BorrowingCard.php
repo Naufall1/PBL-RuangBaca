@@ -1,4 +1,5 @@
 <?php
+    $statusId = '';
     foreach ($borrowingData as $row) {
         if ($row['id'] == null) {
             break;
@@ -10,9 +11,34 @@
 
             <div class="borrowing-card-header d-flex align-items-center justify-content-between">
                 <p class="borrowing-id">#<?= $row['id'] ?></p>
-                <div class="borrowing-status d-flex" id="borrowed">
+                <?php
+                    switch ($row['status']) {
+                        case 'menunggu':
+                            $statusId = 'waiting';
+                            break;
+                        case 'dikonfirmasi':
+                            $statusId = 'confirmed';
+                            break;
+                        case 'dipinjam':
+                            $statusId = 'borrowed';
+                            break;
+                        case 'selesai':
+                            $statusId = 'done';
+                            break;
+                        case 'ditolak':
+                            $statusId = 'reject';
+                            break;
+                        case 'terlambat':
+                            $statusId = 'reject';
+                            break;
+                        default:
+                            # code...
+                            break;
+                    }
+                ?>
+                <div class="borrowing-status d-flex" id="<?= $statusId ?>">
                     <p>
-                        <?= $row['status'] ?>
+                        <?= ucfirst($row['status']) ?>
                     </p>
                 </div>
             </div>

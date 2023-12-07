@@ -41,6 +41,12 @@
                 case 'reject':
                     echo $this->staff->rejectBorrowing(id:$id);
                     break;
+                case 'pickUp':
+                    echo $this->staff->pickUpBorrowing(id:$id);
+                    break;
+                case 'finish':
+                    echo $this->staff->finishBorrowing(id:$id);
+                    break;
                 default:
                     echo 'denied';
                     break;

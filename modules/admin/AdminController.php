@@ -19,11 +19,23 @@
                 switch ($arg) {
                     case 'book':
                         $data = ($this->admin->view(new Book(), search: $_POST['q']));
+                        $data['numPages'] = (round(count($data['data'])/LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data'])/LIMIT_ROWS_PER_PAGE) : 1;
                         $this->book(data:$data);
                         break;
                     case 'author':
                         $data = ($this->admin->view(new Author(), search: $_POST['q']));
+                        $data['numPages'] = (round(count($data['data'])/LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data'])/LIMIT_ROWS_PER_PAGE) : 1;
                         $this->author(data:$data);
+                        break;
+                    case 'publisher':
+                        $data = ($this->admin->view(new Publisher(), search: $_POST['q']));
+                        $data['numPages'] = (round(count($data['data'])/LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data'])/LIMIT_ROWS_PER_PAGE) : 1;
+                        $this->publisher(data:$data);
+                        break;
+                    case 'category':
+                        $data = ($this->admin->view(new Category(), search: $_POST['q']));
+                        $data['numPages'] = (round(count($data['data'])/LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data'])/LIMIT_ROWS_PER_PAGE) : 1;
+                        $this->category(data:$data);
                         break;
 
                     default:
@@ -41,7 +53,6 @@
             } else {
                 $books = $this->admin->view(new Book());
             }
-
             $numPage = $books['numPages'];
             include 'modules/admin/admin_views/book.php';
         }
@@ -54,37 +65,79 @@
             $numPage = $authors['numPages'];
             include 'modules/admin/admin_views/author.php';
         }
-        public function publisher(){
+        public function publisher($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $publishers = $this->admin->view(new Publisher());
             $numPage = (round($publishers['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($publishers['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/publisher.php';
         }
-        public function category(){
+        public function category($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $category = $this->admin->view(new Category());
             $numPage = (round($category['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($category['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/category.php';
         }
-        public function thesis(){
+        public function thesis($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $thesis = $this->admin->view(new Thesis());
             $numPage = (round($thesis['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($thesis['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/thesis.php';
         }
-        public function lecturer(){
+        public function lecturer($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $lecturer = $this->admin->view(new Lecturer());
             $numPage = (round($lecturer['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($lecturer['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/lecturer.php';
         }
-        public function member(){
+        public function member($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $members = $this->admin->view(new Member());
             $numPage = (round($members['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($members['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/member.php';
         }
-        public function borrowing(){
+        public function borrowing($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $borrowing = $this->admin->viewBorrowing();
             $numPage = (round($borrowing['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($borrowing['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/borrowing.php';
         }
-        public function shelf(){
+        public function shelf($data = null){
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            
             $shelf = $this->admin->view(new shelf());
             $numPage = (round($shelf['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($shelf['countAll']/LIMIT_ROWS_PER_PAGE) : 1;
             include 'modules/admin/admin_views/shelf.php';

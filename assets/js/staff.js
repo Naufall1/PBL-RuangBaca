@@ -65,11 +65,33 @@ function loadModal(id) {
             readable = borrowingDetails['readable'];
             $('#modalBuku #borrowing_id').html(borrowingDetails['id']);
             $('#modalBuku #member_name').html(member['name']);
-            $('#modalBuku .borrowing-status').html('<p>' + borrowingDetails['status'] + '<p/>');
+            $('#modalBuku .borrowing-status').html('<p>' +  borrowingDetails['status'].charAt(0).toUpperCase() + borrowingDetails['status'].slice(1)  + '<p/>');
             $('#modalBuku #reserve_date').html(borrowingDetails['reserve_date']);
             $('#modalBuku #due_date').html(borrowingDetails['due_date']);
             $('#modalBuku button[name="reject"]').attr('id',borrowingDetails['id']);
             $('#modalBuku button[name="confirm"]').attr('id',borrowingDetails['id']);
+            var statusId = '';
+            switch (borrowingDetails['status']) {
+                case 'menunggu':
+                    statusId = 'waiting';
+                    break;
+                case 'dikonfirmasi':
+                    statusId = 'confirmed';
+                    break;
+                case 'dipinjam':
+                    statusId = 'borrowed';
+                    break;
+                case 'terlambat':
+                    statusId = 'reject';
+                    break;
+                case 'selesai':
+                    statusId = 'done';
+                    break;
+                case 'ditolak':
+                    statusId = 'reject';
+                    break;
+            }
+            $('.borrowing-status[name="status-modal"]').attr('id', statusId);
             readable.forEach(item => {
                 item = JSON.parse(item);
                 console.log(item);

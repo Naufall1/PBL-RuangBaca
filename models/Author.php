@@ -42,7 +42,7 @@ class Author implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($author),
-            'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
+            'numPages' => (round($this->count() / LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count() / LIMIT_ROWS_PER_PAGE) : 1,
             'data' => $author
         );
         return $result;
@@ -56,30 +56,30 @@ class Author implements IManage
             WHERE author_id = ?
         ";
 
-                $parameters = [
-                        $this->author_name,
-                        $this->author_id,
-                ];
+        $parameters = [
+            $this->author_name,
+            $this->author_id,
+        ];
 
-                $statement = Database::prepare($query);
+        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'ss';
+        $statement->bind_param($types, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
     function delete()
     {
         $query = "DELETE FROM author WHERE author_id = ?";
-                $parameters = [
-                        $this->author_id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
+        $parameters = [
+            $this->author_id
+        ];
+        $statement = Database::prepare($query);
+        $type = 's';
+        $statement->bind_param($type, ...$parameters);
 
-                $statement->execute();
+        $statement->execute();
     }
     function add($arg)
     {
@@ -90,23 +90,6 @@ class Author implements IManage
         $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
         Database::query("INSERT INTO author (author_id, author_name) VALUES ('$id', '$arg')");
         return $id;
-    }
-
-    public function getAllAuthor($page): array
-    {
-        $authors = array();
-        $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
-        $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT author_id FROM author ORDER BY author_id LIMIT $limit OFFSET $start";
-        $result = Database::query($query);
-        while ($id = $result->fetch_column()) {
-            $authors[] = new Author($id);
-        }
-        return [$authors, $start, $start + count($authors)];
-    }
-
-    public function toJSON(){
-        return json_encode(['id' => $this->author_id, 'name' => $this->author_name]);
     }
 
     public function getId()

@@ -87,11 +87,17 @@
         <div class="tab-item d-flex justify-content-center align-items-center" id="all">
             <a href="#" class="tab-title">Semua</a>
         </div>
-        <div class="tab-item d-flex justify-content-center align-items-center" id="waiting">
-            <a href="#" class="tab-title">Menunggu</a>
+        <div class="tab-item d-flex justify-content-center align-items-center text-nowrap" id="waiting">
+            <a href="#" class="tab-title">Menunggu Konfirmasi</a>
+        </div>
+        <div class="tab-item d-flex justify-content-center align-items-center" id="confirmed">
+            <a href="#" class="tab-title">Dikonfirmasi</a>
         </div>
         <div class="tab-item d-flex justify-content-center align-items-center" id="borrowed">
             <a href="#" class="tab-title">Dipinjam</a>
+        </div>
+        <div class="tab-item d-flex justify-content-center align-items-center" id="late">
+            <a href="#" class="tab-title">Terlambat</a>
         </div>
         <div class="tab-item d-flex justify-content-center align-items-center" id="done">
             <a href="#" class="tab-title">Selesai</a>
@@ -150,7 +156,7 @@
                             </div>
                             <div class="not-editable-item d-flex flex-column">
                                 <h4 class="not-editable-item-heading">Status</h4>
-                                <div class="borrowing-status d-flex" id="borrowed">
+                                <div class="borrowing-status d-flex" name="status-modal" id="borrowed">
                                     <p>
                                         [STATUS]
                                     </p>

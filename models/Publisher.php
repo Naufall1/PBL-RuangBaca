@@ -23,8 +23,15 @@ class Publisher implements IManage
         $publisher = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT publisher_id FROM publisher ORDER BY publisher_id LIMIT $limit OFFSET $start";
+        $query = "SELECT publisher_id FROM publisher";
+
+        if ($search != '') {
+            $query = $query . " WHERE publisher_name LIKE '%" . $search . "%'";
+        }
+
+        $query = $query . " ORDER BY publisher_id LIMIT $limit OFFSET $start";
         $result = Database::query($query);
+
         while ($id = $result->fetch_column()) {
             $publisher[] = new Publisher($id);
         }
@@ -33,7 +40,7 @@ class Publisher implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($publisher),
-            'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
+            'numPages' => (round($this->count() / LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count() / LIMIT_ROWS_PER_PAGE) : 1,
             'data' => $publisher
         );
         return $result;
@@ -47,31 +54,31 @@ class Publisher implements IManage
             WHERE publisher_id = ?
         ";
 
-                $parameters = [
-                        $this->publisher_name,
-                        $this->publisher_id,
-                ];
+        $parameters = [
+            $this->publisher_name,
+            $this->publisher_id,
+        ];
 
-                $statement = Database::prepare($query);
+        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'ss';
+        $statement->bind_param($types, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
     public function delete()
     {
-                $query = "DELETE FROM publisher WHERE publisher_id = ?";
-                $parameters = [
-                        $this->publisher_id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
+        $query = "DELETE FROM publisher WHERE publisher_id = ?";
+        $parameters = [
+            $this->publisher_id
+        ];
+        $statement = Database::prepare($query);
+        $type = 's';
+        $statement->bind_param($type, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
 
     function add($publisher_name)
     {

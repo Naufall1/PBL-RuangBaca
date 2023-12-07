@@ -54,23 +54,30 @@ class Staff extends User
         return $data;
     }
 
-    public function getBorrowingDetails($id){
+    public function getBorrowingDetails($id)
+    {
         $borrowing = new Borrowing($id);
         return $borrowing->toJSON();
     }
-    public function confirmBorrowing($id){
-        $borrowing = new Borrowing(id:$id);
+    public function confirmBorrowing($id)
+    {
+        $borrowing = new Borrowing(id: $id);
         if ($borrowing->getStatus() == 'menunggu') {
-            $borrowing->setStatus('dipinjam');
+            $borrowing->setStatus('dikonfirmasi');
             $borrowing->save();
+            $readable = $borrowing->getReadable();
+            foreach ($readable as $item) {
+                $item->setAvail($item->getAvail() - 1);
+                $item->save();
+            }
             return true;
         } else {
             return false;
         }
-
     }
-    public function rejectBorrowing($id){
-        $borrowing = new Borrowing(id:$id);
+    public function rejectBorrowing($id)
+    {
+        $borrowing = new Borrowing(id: $id);
         if ($borrowing->getStatus() == 'menunggu') {
             $borrowing->setStatus('ditolak');
             $borrowing->save();
@@ -79,6 +86,32 @@ class Staff extends User
             return false;
         }
     }
+    public function pickUpBorrowing($id){
+        $borrowing = new Borrowing(id: $id);
+        if ($borrowing->getStatus() == 'dikonfirmasi') {
+            $borrowing->setStatus('dipinjam');
+            $borrowing->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function finishBorrowing($id){
+        $borrowing = new Borrowing(id: $id);
+        if ($borrowing->getStatus() == 'dipinjam') {
+            $borrowing->setStatus('selesai');
+            $borrowing->save();
+            $readable = $borrowing->getReadable();
+            foreach ($readable as $item) {
+                $item->setAvail($item->getAvail() + 1);
+                $item->save();
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function view(IManage $object, int $page = 1, string $search = ''): array
     {
         $results = $object->view($page, $search);
