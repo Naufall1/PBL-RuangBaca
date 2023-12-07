@@ -176,8 +176,39 @@ class Thesis extends Readable implements IManage
     {
     }
     public function save()
-    {
-    }
+        {
+        $query = "
+            UPDATE thesis
+            SET
+                thesis_title = ?,
+                year_published = ?,
+                avail = ?,
+                cover = ?,
+                shelf_id = ?,
+                writer_name = ?,
+                writer_NIM = ?
+            WHERE thesis_id = ?
+        ";
+
+                $parameters = [
+                        $this->title,
+                        $this->year,
+                        $this->avail,
+                        $this->cover,
+                        $this->shelf->getShelfId(),
+                        $this->writer_name,
+                        $this->writer_NIM,
+                        $this->id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ssissssssisss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+        }
     public function delete()
     {
     }
