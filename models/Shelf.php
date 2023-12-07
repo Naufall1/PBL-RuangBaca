@@ -46,13 +46,13 @@ class Shelf implements IManage
         $query = "
             UPDATE shelf
             SET
-                categories = ?,
+                categories = ?
             WHERE shelf_id = ?
         ";
 
                 $parameters = [
-                        $this->categories,
                         $this->shelf_id,
+                        $this->categories,
                 ];
 
                 $statement = Database::prepare($query);
@@ -65,6 +65,15 @@ class Shelf implements IManage
         }
     public function delete()
     {
+         $query = "DELETE FROM shelf WHERE shelf_id = ?";
+                $parameters = [
+                        $this->shelf_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
     }
     function addCategory($id, $category)
     {
