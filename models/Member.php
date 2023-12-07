@@ -124,7 +124,7 @@ class Member extends User implements IManage
                 $statement = Database::prepare($query);
 
                 // Dynamically bind parameters
-                $types = 'iss';
+                $types = 'isss';
                 $statement->bind_param($types, ...$parameters);
 
                 $statement->execute();
