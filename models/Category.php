@@ -47,8 +47,27 @@ class Category implements IManage
         return $result;
     }
     public function save()
-    {
-    }
+        {
+        $query = "
+            UPDATE category
+            SET
+                category_name = ?,
+            WHERE category_id = ?
+        ";
+
+                $parameters = [
+                        $this->category_name,
+                        $this->category_id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+        }
     public function delete()
     {
     }
