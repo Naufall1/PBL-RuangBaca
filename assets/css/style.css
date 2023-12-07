@@ -31,7 +31,7 @@ time, mark, audio, video {
 }
 
 body{
-    min-height: 110vh;
+    min-height: 100vh;
 }
 
 body::-webkit-scrollbar {
@@ -770,7 +770,7 @@ button.enabled[type='button'], button.enabled[type="submit"]{
     border-radius: 12px;
 }
 
-button.full-width[type='button']{
+button.full-width[type='button'], button.full-width[type="submit"]{
     width: 100% !important;
 }
 
@@ -1216,7 +1216,7 @@ p.not-editable-item-value{
     padding: 0;
 }
 
-input[type="text"], input[type="number"]{
+input[type="text"], input[type="password"], input[type="number"]{
     border-radius: 12px;
     height: 48px;
     display: block;
@@ -1634,3 +1634,95 @@ h5.modal-confirm-heading{
 }
 
 /* End: Modal Add Book */
+
+
+/* Start: Login */
+
+.login{
+    width: 100%;
+    height: 100vh;
+    flex: auto;
+}
+
+.login-form-container{
+    width: 560px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-illustration-container{
+    /* width: ; */
+    flex-grow: 1;
+    background-color: var(--neutral-20-color);
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-illustration-container > img{
+    aspect-ratio: 441.22/489.9;
+    height: 68%;
+}
+
+.login-register-area{
+    gap: 32px;
+    align-items: flex-start;
+}
+
+
+.login-register-area > img{
+    height: 34px;
+}
+
+.login-register-form-and-title{
+    gap: 28px;
+}
+
+h1.login-heading{
+    font-size: 24px;
+    font-family: 'Satoshi-Bold';
+    color: var(--neutral-100-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.login-subtitle p{
+    font-size: 16px;
+    font-family: 'Satoshi-Medium';
+    color: var(--neutral-60-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.login-submit{
+    margin-top: 20px;
+    align-items: center;
+    gap: 4px;
+}
+
+.login-submit > p{
+    font-size: 16px;
+    font-family: 'Satoshi-Medium';
+    color: var(--neutral-60-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+a.signup{
+    font-size: 16px;
+    font-family: 'Satoshi-Bold';
+    color: var(--primary-main-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* End: Login */
