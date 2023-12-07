@@ -55,8 +55,8 @@
         ";
 
                 $parameters = [
-                        $this->name,
                         $this->nidn,
+                        $this->name,
                 ];
 
                 $statement = Database::prepare($query);
@@ -68,7 +68,15 @@
                 $statement->execute();
         }
         public function delete(){
+        $query = "DELETE FROM lecturer WHERE nidn = ?";
+                $parameters = [
+                        $this->nidn
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
 
+                $statement->execute();
         }
         public function add($arg){
             
