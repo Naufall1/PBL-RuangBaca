@@ -114,7 +114,7 @@
         ";
 
                 $parameters = [
-                        $this->member>getId(),
+                        $this->member->getMemberId(),
                         $this->reserve_date,
                         $this->due_date,
                         $this->return_date,
@@ -126,7 +126,7 @@
                 $statement = Database::prepare($query);
 
                 // Dynamically bind parameters
-                $types = 'ssssss';
+                $types = 'sssssss';
                 $statement->bind_param($types, ...$parameters);
 
                 $statement->execute();

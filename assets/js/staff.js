@@ -33,6 +33,7 @@ function rejectBorrowing(obj) {
         data: "id=" + id,
         success: function (response) {
             console.log(response);
+            $('#modalBuku').modal('hide');
             loadModule('dashboard');
         }
     });
@@ -46,6 +47,7 @@ function confirmBorrowing(obj) {
         data: "id=" + id,
         success: function (response) {
             console.log(response);
+            $('#modalBuku').modal('hide');
             loadModule('dashboard');
         }
     });
