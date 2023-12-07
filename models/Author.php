@@ -48,8 +48,8 @@ class Author implements IManage
         ";
 
                 $parameters = [
-                        $this->author_id,
                         $this->author_name,
+                        $this->author_id,
                 ];
 
                 $statement = Database::prepare($query);
