@@ -56,8 +56,8 @@ class Category implements IManage
         ";
 
                 $parameters = [
-                        $this->category_name,
                         $this->category_id,
+                        $this->category_name,
                 ];
 
                 $statement = Database::prepare($query);
@@ -70,7 +70,16 @@ class Category implements IManage
         }
     public function delete()
     {
-    }
+                $query = "DELETE FROM category WHERE category_id = ?";
+                $parameters = [
+                        $this->category_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
+        }
 
     public function getId()
     {
