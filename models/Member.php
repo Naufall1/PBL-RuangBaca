@@ -130,7 +130,16 @@ class Member extends User implements IManage
     }
     public function delete()
     {
-    }
+                $query = "DELETE FROM member WHERE member_id = ?";
+                $parameters = [
+                        $this->member_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
+        }
 
     public function toJSON(){
         $jsonArray = [
