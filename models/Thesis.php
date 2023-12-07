@@ -173,7 +173,7 @@ class Thesis extends Readable implements IManage
         );
         return $result;
     }
-    public function add($arg)
+    public function add()
     {
     }
     public function save()

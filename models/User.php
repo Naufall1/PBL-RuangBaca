@@ -17,6 +17,21 @@ class User
         }
     }
 
+    function registerUser($username, $password, $level): int | string | bool {
+        $salt = bin2hex(random_bytes(16));
+        $combined_password = $salt . $password;
+        $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
+        $query = "INSERT INTO user (username, password, salt, level) VALUES (?, ?, ?, ?)";
+        $stm = Database::prepare($query);
+        $stm->bind_param('ssss', $username, $hashed_password, $salt, $level);
+        if ($stm->execute()) {
+            return $stm->insert_id;
+        } else {
+            return false;
+        }
+
+    }
+
 
     function login($username, $password): bool {
         $result = Database::query("SELECT user_id, username, level, salt, password as hashed_password FROM user WHERE username = '$username'");
@@ -99,4 +114,14 @@ class User
         {
                 return $this->id;
         }
+
+    /**
+     * Set the value of id
+     */
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

@@ -61,7 +61,7 @@ include 'modules/staff/StaffController.php';
                         break;
 
                     case 'register':
-                        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['nama']) && isset($_POST['nim'])) {
+                        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['full-name']) && isset($_POST['nim'])) {
                             $auth->processRegisterMember();
                         } else {
                             $auth->register();

@@ -79,7 +79,7 @@
 
                 $statement->execute();
         }
-        public function add($arg){
+        public function add(){
 
         }
         /**

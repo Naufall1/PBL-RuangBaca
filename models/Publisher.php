@@ -80,7 +80,7 @@ class Publisher implements IManage
         $statement->execute();
     }
 
-    function add($publisher_name)
+    function add()
     {
         $prefix = 'PUB';
         $len = 6;

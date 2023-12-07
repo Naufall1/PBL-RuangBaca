@@ -12,7 +12,7 @@ class Category implements IManage
             $this->category_name = $res['category_name'];
         }
     }
-    function add($category_name)
+    function add()
     {
         $prefix = 'PUB';
         $len = 6;

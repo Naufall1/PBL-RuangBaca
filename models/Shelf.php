@@ -12,7 +12,7 @@ class Shelf implements IManage
             $this->categories = $res['categories'];
         }
     }
-    function add($categories)
+    function add()
     {
         $prefix = 'R';
         $len = 3;

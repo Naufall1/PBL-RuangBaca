@@ -29,7 +29,7 @@ if (session_status() === PHP_SESSION_NONE)
                         <h1 class="login-heading">Selamat Datang!👋🏼</h1>
                         <p class="login-subtitle">Daftar sekarang dan pinjam buku yang kamu butuhkan</p>
                     </div>
-                    <form action="index.php?page=login" method="post" class="d-flex flex-column" style="gap: 12px;">
+                    <form action="index.php?page=register" method="post" class="d-flex flex-column" style="gap: 12px;">
                         <div class="addbook-input-field input-fields d-flex flex-column">
                             <label for="full-name">Nama Lengkap</label>
                             <input type="text" id="full-name" name="full-name" placeholder="Masukkan Nama Lengkap" required>

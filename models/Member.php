@@ -23,8 +23,13 @@ class Member extends User implements IManage
         }
     }
 
-    public function register($username, $password, $level, $name, $nim)
+    public function register($username, $password, $name, $nim)
     {
+        $user_id = $this->registerUser($username, $password,level:'member');
+        $this->nim = $nim;
+        $this->name = $name;
+        parent::setId($user_id);
+        return $this->add();
     }
 
     public function getAllMembers($page)
@@ -96,13 +101,32 @@ class Member extends User implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($member),
-            'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
+            'numPages' => (round($this->count() / LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count() / LIMIT_ROWS_PER_PAGE) : 1,
             'data' => $member
         );
         return $result;
     }
-    public function add($arg)
+    public function add()
     {
+        $prefix = 'M';
+        $len = 4;
+        $res = Database::query("SELECT member_id FROM member ORDER BY member_id DESC LIMIT 1")->fetch_array();
+        $prevId = intval(substr($res[0], 1, 5));
+        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+
+        $query = "INSERT INTO member (member_id, member_name, nim, user_id) VALUES ('$id', ?, ?, ?)";
+        $params = [
+            $this->name,
+            $this->nim,
+            $this->getId()
+        ];
+
+        $statement = Database::prepare($query);
+        // Dynamically bind parameters
+        $types = 'ssi';
+        $statement->bind_param($types, ...$params);
+        $statement->execute();
+        return $id;
     }
     public function save()
     {
@@ -115,33 +139,33 @@ class Member extends User implements IManage
             WHERE member_id = ?
         ";
 
-                $parameters = [
-                        $this->getId(),
-                        $this->nim,
-                        $this->name,
-                        $this->member_id,
-                ];
+        $parameters = [
+            $this->getId(),
+            $this->nim,
+            $this->name,
+            $this->member_id,
+        ];
 
         $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'isss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'isss';
+        $statement->bind_param($types, ...$parameters);
 
         $statement->execute();
     }
     public function delete()
     {
-                $query = "DELETE FROM member WHERE member_id = ?";
-                $parameters = [
-                        $this->member_id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
+        $query = "DELETE FROM member WHERE member_id = ?";
+        $parameters = [
+            $this->member_id
+        ];
+        $statement = Database::prepare($query);
+        $type = 's';
+        $statement->bind_param($type, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
 
     public function toJSON()
     {

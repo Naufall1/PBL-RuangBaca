@@ -154,7 +154,7 @@ class Book extends Readable implements IManage
                 return json_encode($jsonArray);
         }
 
-        public function add($arg)
+        public function add()
         {
         }
         public function view(int $page, string $search)

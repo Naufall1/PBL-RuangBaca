@@ -81,14 +81,14 @@ class Author implements IManage
 
         $statement->execute();
     }
-    function add($arg)
+    function add()
     {
         $prefix = 'PUB';
         $len = 6;
         $res = Database::query("SELECT author_id FROM author ORDER BY author_id DESC LIMIT 1")->fetch_array();
         $prevId = intval(substr($res[0], 3, 5));
         $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-        Database::query("INSERT INTO author (author_id, author_name) VALUES ('$id', '$arg')");
+        Database::query("INSERT INTO author (author_id, author_name) VALUES ('$id', '')");
         return $id;
     }
 
