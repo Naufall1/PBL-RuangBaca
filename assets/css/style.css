@@ -1666,6 +1666,7 @@ h5.modal-confirm-heading{
 }
 
 .login-register-area{
+    width: 320px;
     gap: 32px;
     align-items: flex-start;
 }
