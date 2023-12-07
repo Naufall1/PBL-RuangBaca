@@ -204,7 +204,7 @@ class Thesis extends Readable implements IManage
                 $statement = Database::prepare($query);
 
                 // Dynamically bind parameters
-                $types = 'ssissssssisss';
+                $types = 'ssisssss';
                 $statement->bind_param($types, ...$parameters);
 
                 $statement->execute();
