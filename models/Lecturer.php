@@ -50,7 +50,7 @@
         $query = "
             UPDATE lecturer
             SET
-                lecturer_name = ?,
+                lecturer_name = ?
             WHERE NIDN = ?
         ";
 
