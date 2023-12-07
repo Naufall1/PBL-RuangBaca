@@ -1633,6 +1633,12 @@ h5.modal-confirm-heading{
     width: 183px !important;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* End: Modal Add Book */
 
 

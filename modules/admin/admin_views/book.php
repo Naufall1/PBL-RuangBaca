@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
                                     <label for="stock">Stok</label>
-                                    <input required type="number" id="stock" name="stock" placeholder="Masukkan Stok">
+                                    <input required type="number" min="1" id="stock" name="stock" placeholder="Masukkan Stok">
                                 </div>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
