@@ -43,7 +43,7 @@ class Publisher implements IManage
             UPDATE publisher
             SET
                 publisher_name = ?,
-            WHERE apublisher_id = ?
+            WHERE publisher_id = ?
         ";
 
                 $parameters = [
