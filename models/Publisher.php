@@ -37,9 +37,28 @@ class Publisher implements IManage
         );
         return $result;
     }
-    public function save(){
+    public function save()
+    {
+        $query = "
+            UPDATE publisher
+            SET
+                publisher_name = ?,
+            WHERE publisher_id = ?
+        ";
 
-    }
+                $parameters = [
+                        $this->publisher_name,
+                        $this->publisher_id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+        }
     public function delete(){
         
     }

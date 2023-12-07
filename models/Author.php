@@ -40,7 +40,26 @@ class Author implements IManage
     }
     function save()
     {
-    }
+        $query = "
+            UPDATE author
+            SET
+                author_name = ?,
+            WHERE author_id = ?
+        ";
+
+                $parameters = [
+                        $this->author_name,
+                        $this->author_id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+        }
     function delete()
     {
     }
