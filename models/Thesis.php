@@ -191,7 +191,7 @@ class Thesis extends Readable implements IManage
             'avail' => $this->avail,
             'cover' => $this->cover,
             'shelf' => $this->shelf->getShelfId(), // Jika Shelf juga memiliki metode toJSON
-            'writer_name' => $this->writer_name,
+            'author' => $this->writer_name,
             'writer_nim' => $this->writer_nim,
             'dospem' => $this->dospem
         ];

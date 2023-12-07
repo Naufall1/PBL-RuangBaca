@@ -105,6 +105,7 @@ class Member extends User implements IManage
     }
     public function save()
     {
+        // $this->id
     }
     public function delete()
     {

@@ -103,9 +103,9 @@
             $jsonArray = [
                 'id' => $this->id,
                 'member' => $this->member->toJSON(),
-                'reserve_date' => $this->reserve_date,
-                'due_date' => $this->due_date,
-                'return_date' => $this->return_date,
+                'reserve_date' => date_format(date_create($this->reserve_date),"d F Y"),
+                'due_date' => date_format(date_create($this->due_date),"d F Y"),
+                'return_date' => date_format(date_create($this->return_date),"d F Y"),
                 'status' => $this->status,
                 'penalty' => $this->penalty,
                 'readable' => []
