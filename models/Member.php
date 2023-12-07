@@ -106,7 +106,7 @@ class Member extends User implements IManage
     public function save()
     {
         $query = "
-            UPDATE publisher
+            UPDATE member
             SET
                 user_id = ?,
                 nim = ?,
