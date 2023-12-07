@@ -37,6 +37,7 @@ class Shelf implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($shelf),
+            'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
             'data' => $shelf
         );
         return $result;

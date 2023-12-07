@@ -1,6 +1,6 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
-    <input type="text" name="search-author" class="search-fields" id="" placeholder="Cari Penulis">
+    <input type="text" name="search-author" class="search-fields" id="" placeholder="Cari Penulis" onkeypress="search(this);">
     <button class="enabled" id="icon-button" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff" d="M18 12.75H6c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h12c.41 0 .75.34.75.75s-.34.75-.75.75Z" />
@@ -40,8 +40,6 @@
                 <td class="no-column"><?= $i+$authors['start'] ?></td>
                 <td class="id-column" id=""><?= $author->getId(); ?></td>
                 <td class="title-column"><?= $author->getAuthorName(); ?></td>
-                <!-- <td class="number-column" id="stock">0</td>
-                <td class="number-column" id="available">0</td> -->
                 <td class="more-icon-column">
                     <a href="" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -49,8 +47,8 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="book" onclick="edit(this);" value="">Edit</a>
-                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
+                        <a class="dropdown-item" href="#" name="author" onclick="edit(this);" value="">Edit</a>
+                        <a class="dropdown-item" href="#" id="risk-action" name="author" onclick="detail(this);" value="">Hapus</a>
                     </div>
                 </td>
             </tr>

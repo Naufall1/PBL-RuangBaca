@@ -3,11 +3,56 @@ function changeTableHeading(title) {
     $('.subtitle-table-page').html('Table ' + title)
 }
 
-function loadSearch() {
-    $('input[name="search-author"]').keyup(function (e) {
-        if (e.keyCode == 13)
-            alert($(this).val());
-    });
+function loadSearch(moduleName) {
+    switch (moduleName) {
+        case 'book':
+            $('input[name="search-book"]').keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $.ajax({
+                        type: "POST",
+                        url: "?function=search/book",
+                        data: "q=" + $(this).val(),
+                        success: function (response) {
+                            $('main.container-main').html(response);
+                            // console.log(response);
+                            loadSearch(moduleName);
+                        }
+                    });
+                }
+            });
+            break;
+        case 'author':
+            $('input[name="search-author"]').keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $.ajax({
+                        type: "POST",
+                        url: "?function=search/author",
+                        data: "q=" + $(this).val(),
+                        success: function (response) {
+                            $('main.container-main').html(response);
+                            loadSearch(moduleName);
+                        }
+                    });
+                }
+            });
+            break;
+        case 'publisher':
+            break;
+        case 'category':
+            break;
+        case 'thesis':
+            break;
+        case 'lecture':
+            break;
+        case 'member':
+            break;
+        case 'borrowing':
+            break;
+        case 'shelf':
+            break;
+        default:
+            break;
+    }
 }
 
 function loadModule(moduleName) {
@@ -47,6 +92,8 @@ function loadModule(moduleName) {
         url: "?page=" + moduleName,
         success: function (response) {
             $('main.container-main').html(response);
+
+            loadSearch(moduleName);
 
             // Book
             $('.action-container button').click(function () {

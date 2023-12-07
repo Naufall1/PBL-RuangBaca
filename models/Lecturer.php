@@ -41,6 +41,7 @@
                 'countAll' => $this->count(),
                 'start' => $start,
                 'end' => $start + count($lecturer),
+                'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
                 'data' => $lecturer
             );
             return $result;
@@ -79,7 +80,7 @@
                 $statement->execute();
         }
         public function add($arg){
-            
+
         }
         /**
          * Get the value of nidn
