@@ -105,7 +105,28 @@ class Member extends User implements IManage
     }
     public function save()
     {
-        // $this->id
+        $query = "
+            UPDATE publisher
+            SET
+                user_id = ?,
+                nim = ?,
+                member_name = ?
+            WHERE member_id = ?
+        ";
+
+                $parameters = [
+                        $this->id,
+                        $this->nim,
+                        $this->name,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'iss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
     }
     public function delete()
     {

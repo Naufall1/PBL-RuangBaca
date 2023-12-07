@@ -45,8 +45,27 @@
             );
             return $result;
         }
-        public function save(){
+        public function save()
+        {
+        $query = "
+            UPDATE lecturer
+            SET
+                lecturer_name = ?,
+            WHERE NIDN = ?
+        ";
 
+                $parameters = [
+                        $this->name,
+                        $this->nidn,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
         }
         public function delete(){
 

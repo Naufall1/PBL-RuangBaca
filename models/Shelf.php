@@ -43,7 +43,26 @@ class Shelf implements IManage
     }
     public function save()
     {
-    }
+        $query = "
+            UPDATE shelf
+            SET
+                categories = ?,
+            WHERE shelf_id = ?
+        ";
+
+                $parameters = [
+                        $this->categories,
+                        $this->shelf_id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ss';
+                $statement->bind_param($types, ...$parameters);
+
+                $statement->execute();
+        }
     public function delete()
     {
     }
