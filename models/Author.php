@@ -43,7 +43,7 @@ class Author implements IManage
         $query = "
             UPDATE author
             SET
-                author_name = ?,
+                author_name = ?
             WHERE author_id = ?
         ";
 
