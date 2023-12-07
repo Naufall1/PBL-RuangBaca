@@ -163,30 +163,32 @@ include 'modules/staff/StaffController.php';
                 }
             } else {
                 switch (explode('/', $function)[0]) {
+                    // CATALOG
                     case 'getFilters':
                         $catalog->getFilters();
                         break;
-
                     case 'filter':
                         $catalog->filter();
                         break;
-
                     case 'getDesc':
                         $catalog->getDesc();
                         break;
-
                     case 'books':
                         $catalog->getContent();
                         break;
-
                     case 'search':
                         $catalog->search();
                         break;
 
+                    // MEMBER
                     case 'cart':
                         $MemberController->cart($function);
                         break;
 
+                    // STAFF
+                    case 'borrowing':
+                        $StaffController->borrowing($function);
+                        break;
                     default:
                         # code...
                         break;

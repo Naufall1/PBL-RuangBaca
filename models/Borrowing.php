@@ -2,25 +2,43 @@
     class Borrowing {
 
         private $id;
-        private $member_id;
+        private Member $member;
         private $reserve_date;
         private $due_date;
         private $return_date;
         private $status;
         private $penalty;
+        private array $readable;
 
         function __construct($id=null) {
+            $this->readable = array();
             // var_dump($id);
             if (isset($id)) {
                 $res = Database::query("SELECT * FROM borrowing WHERE BORROWING_ID='$id'")->fetch_assoc();
                 // var_dump($res['BORROWING_ID']);
                 $this->id = $res['BORROWING_ID'];
-                $this->member_id = $res['member_id'];
+                $this->member = new Member($res['member_id']);
                 $this->reserve_date = $res['reserve_date'];
                 $this->due_date = $res['due_date'];
                 $this->return_date = $res['return_date'];
                 $this->status = $res['status'];
                 $this->penalty = $res['penalty'];
+
+                $res = Database::query("SELECT id FROM (
+                    SELECT book_id AS id FROM borrowing_book WHERE borrowing_id = '$id'
+                    UNION
+                    SELECT thesis_id AS id FROM borrowing_thesis WHERE borrowing_id = '$id'
+                    ) as D"
+                );
+                if ($res->num_rows > 0) {
+                    while ($row = $res->fetch_column()) {
+                        if (str_starts_with($row, 'BK')) {
+                            $this->readable[] = new Book($row);
+                        } else {
+                            $this->readable[] = new Thesis($row);
+                        }
+                    }
+                }
             }
         }
         public function getAllBorrowing($page){
@@ -81,6 +99,22 @@
                 }
             }
         }
+        public function toJSON() {
+            $jsonArray = [
+                'id' => $this->id,
+                'member' => $this->member->toJSON(),
+                'reserve_date' => $this->reserve_date,
+                'due_date' => $this->due_date,
+                'return_date' => $this->return_date,
+                'status' => $this->status,
+                'penalty' => $this->penalty,
+                'readable' => []
+            ];
+            foreach ($this->readable as $item) {
+                $jsonArray['readable'][] = $item->toJSON();
+            }
+            return json_encode($jsonArray);
+        }
 
         /**
          * Get the value of id
@@ -91,7 +125,7 @@
         }
 
         public function getMember(): Member{
-            return new Member($this->member_id);
+            return $this->member;
         }
 
         /**

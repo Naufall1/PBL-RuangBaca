@@ -15,8 +15,6 @@
             $this->shelf = new Shelf($id);
         }
 
-
-
         /**
          * Get the value of id
          */

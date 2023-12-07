@@ -53,6 +53,11 @@ class Staff extends User
         }
         return $data;
     }
+
+    public function getBorrowingDetails($id){
+        $borrowing = new Borrowing($id);
+        return $borrowing->toJSON();
+    }
     function view(IManage $object, int $page = 1, string $search = ''): array
     {
         $results = $object->view($page, $search);

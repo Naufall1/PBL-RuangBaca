@@ -135,7 +135,6 @@ class Book extends Readable implements IManage
 
         public function toJSON()
         {
-
                 $jsonArray = [
                         'id' => $this->id,
                         'title' => $this->title,
@@ -155,10 +154,11 @@ class Book extends Readable implements IManage
                 return json_encode($jsonArray);
         }
 
-        public function add($arg){
-
+        public function add($arg)
+        {
         }
-        public function view(int $page, string $search){
+        public function view(int $page, string $search)
+        {
                 $book = array();
                 $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
                 $limit = LIMIT_ROWS_PER_PAGE;
@@ -173,11 +173,12 @@ class Book extends Readable implements IManage
                         'start' => $start,
                         'end' => $start + count($book),
                         'data' => $book
-                    );
+                );
                 return $result;
         }
-        public function save(){
-                $query = "
+        public function save()
+        {
+        $query = "
             UPDATE book
             SET
                 book_title = ?,
@@ -195,32 +196,32 @@ class Book extends Readable implements IManage
             WHERE book_id = ?
         ";
 
-        $parameters = [
-            $this->title,
-            $this->year,
-            $this->avail,
-            $this->cover,
-            $this->shelf->getShelfId(),
-            $this->isbn,
-            $this->publisher->getId(),
-            $this->category->getId(),
-            $this->author->getId(),
-            $this->stock,
-            $this->ddc_code,
-            $this->synopsis,
-            $this->id,
-        ];
+                $parameters = [
+                        $this->title,
+                        $this->year,
+                        $this->avail,
+                        $this->cover,
+                        $this->shelf->getShelfId(),
+                        $this->isbn,
+                        $this->publisher->getId(),
+                        $this->category->getId(),
+                        $this->author->getId(),
+                        $this->stock,
+                        $this->ddc_code,
+                        $this->synopsis,
+                        $this->id,
+                ];
 
-        $statement = Database::prepare($query);
+                $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ssissssssisss';
-        $statement->bind_param($types, ...$parameters);
+                // Dynamically bind parameters
+                $types = 'ssissssssisss';
+                $statement->bind_param($types, ...$parameters);
 
-        $statement->execute();
+                $statement->execute();
         }
-        public function delete(){
-
+        public function delete()
+        {
         }
 
         /**

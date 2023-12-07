@@ -110,6 +110,14 @@ class Member extends User implements IManage
     {
     }
 
+    public function toJSON(){
+        $jsonArray = [
+            'id' => $this->member_id,
+            'nim' => $this->nim,
+            'name' => $this->name,
+        ];
+        return json_encode($jsonArray);
+    }
     /**
      * Get the value of nim
      */

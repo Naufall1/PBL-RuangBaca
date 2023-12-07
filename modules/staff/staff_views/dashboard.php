@@ -116,7 +116,7 @@
 
 <!-- Start: Modal Confirmation -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku" style="display: block; !important">
+<div class="modal" id="modalBuku">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-confirmation">
             <div class="modal-header border-0 d-flex">
@@ -140,14 +140,14 @@
             <div class="modal-body">
 
                 <div class="modal-details-areas d-flex">
-                    
+
                     <div class="modal-confirm-information-area modal-confirm-detail-area d-flex flex-column">
                         <h5 class="modal-confirm-heading">Informasi</h5>
 
                         <div class="not-editable-information d-flex flex-column">
                             <div class="not-editable-item d-flex flex-column">
                                 <h4 class="not-editable-item-heading">Nama</h4>
-                                <p class="not-editable-item-value">Muhammad Naufal Kurniawan</p>
+                                <p class="not-editable-item-value" id="member_name" >Muhammad Naufal Kurniawan</p>
                             </div>
                             <div class="not-editable-item d-flex flex-column">
                                 <h4 class="not-editable-item-heading">Status</h4>
@@ -159,18 +159,18 @@
                             </div>
                             <div class="not-editable-item d-flex flex-column">
                                 <h4 class="not-editable-item-heading">Tanggal Ambil</h4>
-                                <p class="not-editable-item-value">12 November 2023</p>
+                                <p class="not-editable-item-value" id="reserve_date">12 November 2023</p>
                             </div>
                             <div class="not-editable-item d-flex flex-column">
                                 <h4 class="not-editable-item-heading">Tenggat Kembali</h4>
-                                <p class="not-editable-item-value">19 November 2023</p>
+                                <p class="not-editable-item-value" id="due_date">19 November 2023</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="modal-confirm-ordered-area modal-confirm-detail-area d-flex flex-column">
                         <h5 class="modal-confirm-heading">Daftar Buku</h5>
-                        
+
                         <div class="modal-confirm-detail-contianer not-editable-information d-flex flex-column">
                             <div class='book-ordered-item d-flex'>
                                 <img class='book-ordered-image' src='' alt=''>
@@ -185,10 +185,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class='hr-divider'></div>
-                                            
+
                         </div>
                     </div>
 

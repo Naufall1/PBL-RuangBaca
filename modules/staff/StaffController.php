@@ -27,6 +27,21 @@
                 $this->dashboardCards();
             }
         }
+        public function borrowing($path){
+            $arg = explode('/', $path)[1];
+            // var_dump($arg);
+            switch ($arg) {
+                case 'details':
+                    echo $this->staff->getBorrowingDetails($_POST['id']);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
+        private function borrowingDetails($id) {
+
+        }
         public function book() {
             $books = $this->staff->view(object: new Book());
             $numPage = (round($books['countAll']/LIMIT_ROWS_PER_PAGE) >= 1) ? round($books['countAll']/LIMIT_ROWS_PER_PAGE) : 1;

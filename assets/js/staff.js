@@ -6,6 +6,27 @@ function changeTableHeading(title) {
         $('.subtitle-table-page').html(title)
     }
 }
+
+function loadModal(id) {
+    $.ajax({
+        type: "POST",
+        url: "?function=borrowing/details",
+        data: "id=" + id,
+        success: function (response) {
+            borrowingDetails = JSON.parse(response);
+            console.log(borrowingDetails);
+            member = JSON.parse(borrowingDetails['member']);
+            $('#modalBuku #borrowing_id').html(borrowingDetails['id']);
+            $('#modalBuku #member_name').html(member['name']);
+            $('#modalBuku .borrowing-status').html('<p>'+borrowingDetails['status']+'<p/>');
+            $('#modalBuku #reserve_date').html(borrowingDetails['reserve_date']);
+            $('#modalBuku #due_date').html(borrowingDetails['due_date']);
+            // $('#modalBuku #member_name').html(member['name']);
+        }
+    });
+    $('#modalBuku').modal('show');
+}
+
 function loadModule(moduleName) {
     switch (moduleName) {
         case 'book':
@@ -30,8 +51,6 @@ function loadModule(moduleName) {
             $('main.container-main').html(response);
 
             // Dashboard
-
-
             $('.tab-menu .tab-item').click(function () {
                 $('.tab-item-active').addClass('tab-item');
                 $('.tab-item-active').find('.tab-title-active').addClass('tab-title');

@@ -6,7 +6,7 @@
         // var_dump($row);
 ?>
 
-        <div class="borrowing-card d-flex flex-column justify-content-between">
+        <div class="borrowing-card d-flex flex-column justify-content-between" onclick="loadModal('<?= $row['id'] ?>');">
 
             <div class="borrowing-card-header d-flex align-items-center justify-content-between">
                 <p class="borrowing-id">#<?= $row['id'] ?></p>

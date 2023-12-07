@@ -21,15 +21,6 @@ class Admin extends User
     function viewBorrowing($page = 1, $search = ''): array
     {
         $borrowing = new Borrowing();
-        // $results = $borrowing->getAllBorrowing($page);
-        // $result = array(
-        //     'page' => $page,
-        //     'countAll' => $borrowing->count(),
-        //     'start' => $results[1],
-        //     'end' => $results[2],
-        //     'data' => $results[0]
-        // );
-        // return $result;
         return $borrowing->view(page:$page, search:$search);
     }
     function editBorrowing()
