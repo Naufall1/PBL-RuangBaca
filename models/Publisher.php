@@ -47,8 +47,8 @@ class Publisher implements IManage
         ";
 
                 $parameters = [
-                        $this->publisher_id,
                         $this->publisher_name,
+                        $this->publisher_id,
                 ];
 
                 $statement = Database::prepare($query);
