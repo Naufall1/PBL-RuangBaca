@@ -42,13 +42,13 @@ class Publisher implements IManage
         $query = "
             UPDATE publisher
             SET
-                publisher_name = ?,
+                publisher_name = ?
             WHERE publisher_id = ?
         ";
 
                 $parameters = [
-                        $this->publisher_name,
                         $this->publisher_id,
+                        $this->publisher_name,
                 ];
 
                 $statement = Database::prepare($query);
@@ -59,9 +59,18 @@ class Publisher implements IManage
 
                 $statement->execute();
         }
-    public function delete(){
-        
-    }
+    public function delete()
+    {
+                $query = "DELETE FROM publisher WHERE publisher_id = ?";
+                $parameters = [
+                        $this->publisher_id
+                ];
+                $statement = Database::prepare($query);
+                $type = 's';
+                $statement->bind_param($type, ...$parameters);
+
+                $statement->execute();
+        }
 
     function add($publisher_name)
     {
