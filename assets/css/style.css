@@ -1216,7 +1216,7 @@ p.not-editable-item-value{
     padding: 0;
 }
 
-input[type="text"], input[type="password"], input[type="number"]{
+input[type="text"], input#reserve-date[type="date"], input[type="password"], input[type="number"]{
     border-radius: 12px;
     height: 48px;
     display: block;

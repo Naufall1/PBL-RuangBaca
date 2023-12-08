@@ -1,5 +1,6 @@
-function close() {
+function closeCart() {
     // $(".cart-container").removeClass("d-flex");
+    $(".container-main").css("margin-right", "calc(20px + 297px - 297px)");
     $(".cart-container").css("display", "none");
     // console.log('khdsafdad')
 }
@@ -235,6 +236,8 @@ function addToCart(obj) {
     }
 
     $(".cart-container").css("display", "flex");
+    $(".container-main").css("margin-right", "calc(20px + 297px)");
+
     // $('#modalSkripsi').modal('hide');
 }
 
