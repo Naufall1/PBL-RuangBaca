@@ -406,7 +406,7 @@ input.filter-search-fields{
     width: 100%;
     height: 40px;
     display: block;
-    padding: 9px 4px 9px 40px;
+    padding: 9px 4px 9px 40px !important;
     background-color: var(--neutral-20-color);
     border: solid 1px var(--neutral-30-color);
 }

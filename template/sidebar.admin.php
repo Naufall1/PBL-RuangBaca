@@ -112,6 +112,7 @@
                 </svg>
                 <p class="menu-title" id="logout">Logout</p>
             </a>
+            
         </div>
     </div>
     <!-- End: Logout -->
