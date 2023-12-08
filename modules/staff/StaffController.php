@@ -3,20 +3,22 @@
     require_once 'models/Staff.php';
     class StaffController {
         private Staff $staff;
+        private Template $template;
         public function __construct() {
+            $this->template = new Template('staff');
             $this->staff = new Staff();
         }
 
         public function index() {
-            $template = new Template('staff');
-            $template->header();
+            $this->template->header();
+            $template = $this->template;
             include 'modules/staff/staff_views/index.php';
-            $template->footer();
+            $this->template->footer();
         }
 
         private function dashboardCards() {
             $borrowingData = $this->staff->getBorrowing($_POST['status']);
-            include 'modules/staff/staff_views/template.BorrowingCard.php';
+            echo $this->template->renderCards(['borrowingData' => $borrowingData]);
         }
 
         public function dashboard() {

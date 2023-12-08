@@ -3,6 +3,7 @@ class Template
 {
     private $documentRoot;
     private $module;
+    private $path;
     private $titles = array(
         'guest' => 'Guest',
         'member' => 'Member',
@@ -13,13 +14,13 @@ class Template
     public function __construct(string $modeuleName)
     {
         $this->module = $modeuleName;
-        $this->documentRoot = $_SERVER['DOCUMENT_ROOT'];
+        $this->documentRoot = $_SERVER['DOCUMENT_ROOT'] . '/template/';
     }
 
     public function header()
     {
         $title = $this->titles[$this->module];
-        include $this->documentRoot . "/template/header.php";
+        include $this->documentRoot . "header.php";
     }
 
     public function footer()
@@ -27,28 +28,38 @@ class Template
         $file = '';
         if (isset($_SESSION['level'])) {
             if ($_SESSION['level'] == 'member') {
-                // include $this->documentRoot . '/template/sidebar.member.php';
                 $file = 'member.js';
             } else if ($_SESSION['level'] == 'staff') {
-                // include $this->documentRoot . '/template/sidebar.staff.php';
                 $file = 'staff.js';
             } else if ($_SESSION['level'] == 'admin') {
-                // include $this->documentRoot . '/template/sidebar.admin.php';
                 $file = 'admin.js';
             }
         }
-        include $this->documentRoot . "/template/footer.php";
+        include $this->documentRoot . "footer.php";
     }
     public function sidebar()
     {
         if (isset($_SESSION['level'])) {
             if ($_SESSION['level'] == 'member') {
-                include $this->documentRoot . '/template/sidebar.member.php';
+                include $this->documentRoot . 'sidebar.member.php';
             } else if ($_SESSION['level'] == 'staff') {
-                include $this->documentRoot . '/template/sidebar.staff.php';
+                include $this->documentRoot . 'sidebar.staff.php';
             } else if ($_SESSION['level'] == 'admin') {
-                include $this->documentRoot . '/template/sidebar.admin.php';
+                include $this->documentRoot . 'sidebar.admin.php';
             }
         }
+    }
+    public function renderCards($data = []): string{
+        // 'borrowingData' => array(
+        //                          (str) id,
+        //                          (str) status,
+        //                          (int) book,
+        //                          (int) thesis,
+        //                          (str date) reserve_date
+        // );
+        extract($data);
+        ob_start();
+        include $this->documentRoot . $this->path . 'template.BorrowingCard.php';
+        return ob_get_clean();
     }
 }

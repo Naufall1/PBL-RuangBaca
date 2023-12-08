@@ -15,7 +15,6 @@
             // var_dump($id);
             if (isset($id)) {
                 $res = Database::query("SELECT * FROM borrowing WHERE BORROWING_ID='$id'")->fetch_assoc();
-                // var_dump($res['BORROWING_ID']);
                 $this->id = $res['BORROWING_ID'];
                 $this->member = new Member($res['member_id']);
                 $this->reserve_date = $res['reserve_date'];
@@ -75,6 +74,24 @@
 
         public function count(){
             return (int) Database::query("SELECT count(BORROWING_ID) FROM borrowing")->fetch_column();
+        }
+        public function countBooks(): int{
+            $n = 0;
+            foreach ($this->readable as $item) {
+                if ($item instanceof Book) {
+                    $n++;
+                }
+            }
+            return $n;
+        }
+        public function countThesis(): int{
+            $n = 0;
+            foreach ($this->readable as $item) {
+                if ($item instanceof Thesis) {
+                    $n++;
+                }
+            }
+            return $n;
         }
 
         public function add(Member $member, $reserve_date,array $readable){

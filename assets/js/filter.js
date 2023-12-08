@@ -12,7 +12,7 @@ function sort(sort) {
         }
     });
 }
-function search(obj){
+function search(obj) {
     $.ajax({
         type: "POST",
         url: "?function=search",
@@ -46,18 +46,18 @@ function remove(obj) {
     removeFilterItem($(obj).attr("id"), 'blah');
 }
 
-function changePages(obj){
+function changePages(obj) {
     // $($('.total-views')[0]).html('Menampilkan ! dari 20 koleksi');
-    $('a.page.active').each(function(i, obj){
+    $('a.page.active').each(function (i, obj) {
         $(obj).removeClass('active');
     });
     $.ajax({
         type: "POST",
         url: "?function=books",
-        data: 'page='+obj.getAttribute('id').substr(2),
+        data: 'page=' + obj.getAttribute('id').substr(2),
         success: function (res) {
             $("#books-collection").html(res);
-            $('a.page#P-'+obj.getAttribute('id').substr(2)).addClass('active');
+            $('a.page#P-' + obj.getAttribute('id').substr(2)).addClass('active');
             $('#count').html($('.book-collection.d-flex').length);
         }, error: function (response) {
             console.log(response.responseText);
@@ -66,10 +66,47 @@ function changePages(obj){
 
 }
 $(document).ready(function () {
-    $('.filtered-items').on('DOMSubtreeModified', function () {
+    // $('.filtered-items').on('DOMSubtreeModified', function () {
+    //     filterData = {};
+    //     $('.filter-item').each(function(i, obj) {
+    //         // console.log(obj);
+    //         if (obj.getAttribute('name') in filterData) {
+    //             if (obj.getAttribute('name') != 'year') {
+    //                 filterData[obj.getAttribute('name')].push(obj.getAttribute('id'));
+    //             } else {
+    //                 filterData[obj.getAttribute('name')].push(obj.getAttribute('id').substr(1));
+    //             }
+    //         } else {
+    //             if (obj.getAttribute('name') != 'year') {
+    //                 filterData[obj.getAttribute('name')] = []
+    //                 filterData[obj.getAttribute('name')].push(obj.getAttribute('id'));
+    //             } else {
+    //                 filterData[obj.getAttribute('name')] = []
+    //                 filterData[obj.getAttribute('name')].push(obj.getAttribute('id').substr(1));
+    //             }
+    //         }
+    //     });
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '?function=filter',
+    //         data: 'filter='+JSON.stringify(filterData),
+    //         success: function (res) {
+    //             $("#books-collection").html(res);
+    //             // console.log(res);
+    //         }, error: function (response) {
+    //             console.log(response.responseText);
+    //         }
+    //     })
+    //     // $(this).ready(function(){
+    //         console.log(filterData);
+    //     // });
+    // });
+
+    // Create a function to handle the mutations
+    function handleMutations(mutationsList, observer) {
         filterData = {};
-        $('.filter-item').each(function(i, obj) {
-            // console.log(obj);
+        $('.filter-item').each(function (i, obj) {
+            console.log(obj);
             if (obj.getAttribute('name') in filterData) {
                 if (obj.getAttribute('name') != 'year') {
                     filterData[obj.getAttribute('name')].push(obj.getAttribute('id'));
@@ -85,25 +122,37 @@ $(document).ready(function () {
                     filterData[obj.getAttribute('name')].push(obj.getAttribute('id').substr(1));
                 }
             }
+
         });
         $.ajax({
             type: 'POST',
             url: '?function=filter',
-            data: 'filter='+JSON.stringify(filterData),
+            data: 'filter=' + JSON.stringify(filterData),
             success: function (res) {
                 $("#books-collection").html(res);
-                // console.log(res);
-            }, error: function (response) {
+            },
+            error: function (response) {
                 console.log(response.responseText);
             }
-        })
-        // $(this).ready(function(){
-            console.log(filterData);
-        // });
-    });
+        });
+        console.log(filterData);
+    }
+
+    // Create a MutationObserver instance
+    const observer = new MutationObserver(handleMutations);
+
+    // Target the element you want to observe
+    const targetNode = document.querySelector('.filtered-items');
+
+    // Configuration of the observer:
+    const config = { subtree: true, childList: true, characterData: true };
+
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode, config);
 
 
-    $('a#P-'+$.cookie("page")).addClass('active');
+
+    $('a#P-' + $.cookie("page")).addClass('active');
 
 
     $.ajax({
@@ -129,55 +178,110 @@ $(document).ready(function () {
     //     }
     // });
 
-    filter = JSON.parse($.cookie("filter"));
-    $.each(filter, function (propName, propVal) {
-        if (propName == 'jenis' || propName == 'ketersediaan') {
-            for (let i = 0; i < propVal.length; ++i) {
-                var title = $("button#" + propVal[i]).text();
-                var id = $("button#" + propVal[i]).attr('id');
-                var name = $("button#" + propVal[i]).attr('name');
-                addFilterItem(title, id, name);
+    try {
+        // page = JSON.parse($.cookie("page"));
+        filter = JSON.parse($.cookie("filter"));
+        $.each(filter, function (propName, propVal) {
+            if (propName == 'jenis' || propName == 'ketersediaan') {
+                for (let i = 0; i < propVal.length; ++i) {
+                    var title = $("button#" + propVal[i]).text();
+                    var id = $("button#" + propVal[i]).attr('id');
+                    var name = $("button#" + propVal[i]).attr('name');
+                    addFilterItem(title, id, name);
+                }
+            } else {
+                for (let i = 0; i < propVal.length; i++) {
+                    // console.log($("input[name="+propName+"]#"+propVal[i]).next("label").text());
+                    title = $("input[name=" + propName + "]#" + propVal[i]).next("label").text();
+                    name = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("name");
+                    id = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("id");
+                    addFilterItem(title, id, name);
+                }
             }
-        } else {
-            for (let i = 0; i < propVal.length; i++) {
-                // console.log($("input[name="+propName+"]#"+propVal[i]).next("label").text());
-                title = $("input[name=" + propName + "]#" + propVal[i]).next("label").text();
-                name = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("name");
-                id = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("id");
-                addFilterItem(title, id, name);
-            }
+        });
+        for (let i = 0; i < filter['jenis'].length; ++i) {
+            val = filter['jenis'][i];
+            $("button.btn-filter#" + val).css("background-color", "grey");
+            $("button.btn-filter#" + val).addClass('active')
         }
-    });
-    for (let i = 0; i < filter['jenis'].length; ++i) {
-        val = filter['jenis'][i];
-        $("button.btn-filter#" + val).css("background-color", "grey");
-        $("button.btn-filter#" + val).addClass('active')
+        for (let i = 0; i < filter['ketersediaan'].length; ++i) {
+            val = filter['ketersediaan'][i];
+            $("button.btn-filter#" + val).css("background-color", "grey");
+            $("button.btn-filter#" + val).addClass('active')
+        }
+        for (let i = 0; i < filter['lokasi'].length; ++i) {
+            val = filter['lokasi'][i];
+            $("input#" + val).prop("checked", true);
+        }
+        for (let i = 0; i < filter['kategori'].length; ++i) {
+            val = filter['kategori'][i];
+            $("input#" + val).prop("checked", true);
+        }
+        for (let i = 0; i < filter['pengarang'].length; ++i) {
+            val = filter['pengarang'][i];
+            $("input#" + val).prop("checked", true);
+        }
+        for (let i = 0; i < filter['penerbit'].length; ++i) {
+            val = filter['penerbit'][i];
+            $("input#" + val).prop("checked", true);
+        }
+        for (let i = 0; i < filter['tahun_terbit'].length; ++i) {
+            val = filter['tahun_terbit'][i];
+            $("input#" + val).prop("checked", true);
+        }
+    } catch (error) {
+        console.log('Error parsing cookie (Filter)');
     }
-    for (let i = 0; i < filter['ketersediaan'].length; ++i) {
-        val = filter['ketersediaan'][i];
-        $("button.btn-filter#" + val).css("background-color", "grey");
-        $("button.btn-filter#" + val).addClass('active')
-    }
-    for (let i = 0; i < filter['lokasi'].length; ++i) {
-        val = filter['lokasi'][i];
-        $("input#" + val).prop("checked", true);
-    }
-    for (let i = 0; i < filter['kategori'].length; ++i) {
-        val = filter['kategori'][i];
-        $("input#" + val).prop("checked", true);
-    }
-    for (let i = 0; i < filter['pengarang'].length; ++i) {
-        val = filter['pengarang'][i];
-        $("input#" + val).prop("checked", true);
-    }
-    for (let i = 0; i < filter['penerbit'].length; ++i) {
-        val = filter['penerbit'][i];
-        $("input#" + val).prop("checked", true);
-    }
-    for (let i = 0; i < filter['tahun_terbit'].length; ++i) {
-        val = filter['tahun_terbit'][i];
-        $("input#" + val).prop("checked", true);
-    }
+
+    // filter = JSON.parse($.cookie("filter"));
+    // $.each(filter, function (propName, propVal) {
+    //     if (propName == 'jenis' || propName == 'ketersediaan') {
+    //         for (let i = 0; i < propVal.length; ++i) {
+    //             var title = $("button#" + propVal[i]).text();
+    //             var id = $("button#" + propVal[i]).attr('id');
+    //             var name = $("button#" + propVal[i]).attr('name');
+    //             addFilterItem(title, id, name);
+    //         }
+    //     } else {
+    //         for (let i = 0; i < propVal.length; i++) {
+    //             // console.log($("input[name="+propName+"]#"+propVal[i]).next("label").text());
+    //             title = $("input[name=" + propName + "]#" + propVal[i]).next("label").text();
+    //             name = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("name");
+    //             id = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("id");
+    //             addFilterItem(title, id, name);
+    //         }
+    //     }
+    // });
+    // for (let i = 0; i < filter['jenis'].length; ++i) {
+    //     val = filter['jenis'][i];
+    //     $("button.btn-filter#" + val).css("background-color", "grey");
+    //     $("button.btn-filter#" + val).addClass('active')
+    // }
+    // for (let i = 0; i < filter['ketersediaan'].length; ++i) {
+    //     val = filter['ketersediaan'][i];
+    //     $("button.btn-filter#" + val).css("background-color", "grey");
+    //     $("button.btn-filter#" + val).addClass('active')
+    // }
+    // for (let i = 0; i < filter['lokasi'].length; ++i) {
+    //     val = filter['lokasi'][i];
+    //     $("input#" + val).prop("checked", true);
+    // }
+    // for (let i = 0; i < filter['kategori'].length; ++i) {
+    //     val = filter['kategori'][i];
+    //     $("input#" + val).prop("checked", true);
+    // }
+    // for (let i = 0; i < filter['pengarang'].length; ++i) {
+    //     val = filter['pengarang'][i];
+    //     $("input#" + val).prop("checked", true);
+    // }
+    // for (let i = 0; i < filter['penerbit'].length; ++i) {
+    //     val = filter['penerbit'][i];
+    //     $("input#" + val).prop("checked", true);
+    // }
+    // for (let i = 0; i < filter['tahun_terbit'].length; ++i) {
+    //     val = filter['tahun_terbit'][i];
+    //     $("input#" + val).prop("checked", true);
+    // }
 });
 
 $(".filter-group").change(function () {

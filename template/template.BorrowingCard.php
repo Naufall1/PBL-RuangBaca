@@ -5,6 +5,7 @@
             break;
         }
         // var_dump($row);
+        // id, status, book, thesis, reserve_date
 ?>
 
         <div class="borrowing-card d-flex flex-column justify-content-between" onclick="loadModal('<?= $row['id'] ?>');">

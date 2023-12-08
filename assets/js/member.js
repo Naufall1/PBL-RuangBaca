@@ -30,6 +30,7 @@ function loadModule(moduleName) {
         url: "?page=" + moduleName,
         success: function (response) {
             $('main.container-main').html(response);
+            // $(".cart-container").css("display", "flex");
             $('main.container-main').ready(function () {
                 $('.filtered-items').on('DOMSubtreeModified', function () {
                     filterData = {};
@@ -74,61 +75,65 @@ function loadModule(moduleName) {
                     url: "?function=books",
                     data: 'sort=title',
                     success: function (res) {
-                        console.log('test result');
+                        // console.log('test result');
                         $("#books-collection").html(res);
                     }, error: function (response) {
                         console.log(response.responseText);
                     }
                 });
-
-                filter = JSON.parse($.cookie("filter"));
-                $.each(filter, function (propName, propVal) {
-                    if (propName == 'jenis' || propName == 'ketersediaan') {
-                        for (let i = 0; i < propVal.length; ++i) {
-                            var title = $("button#" + propVal[i]).text();
-                            var id = $("button#" + propVal[i]).attr('id');
-                            var name = $("button#" + propVal[i]).attr('name');
-                            addFilterItem(title, id, name);
+                try {
+                    // page = JSON.parse($.cookie("page"));
+                    filter = JSON.parse($.cookie("filter"));
+                    $.each(filter, function (propName, propVal) {
+                        if (propName == 'jenis' || propName == 'ketersediaan') {
+                            for (let i = 0; i < propVal.length; ++i) {
+                                var title = $("button#" + propVal[i]).text();
+                                var id = $("button#" + propVal[i]).attr('id');
+                                var name = $("button#" + propVal[i]).attr('name');
+                                addFilterItem(title, id, name);
+                            }
+                        } else {
+                            for (let i = 0; i < propVal.length; i++) {
+                                // console.log($("input[name="+propName+"]#"+propVal[i]).next("label").text());
+                                title = $("input[name=" + propName + "]#" + propVal[i]).next("label").text();
+                                name = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("name");
+                                id = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("id");
+                                addFilterItem(title, id, name);
+                            }
                         }
-                    } else {
-                        for (let i = 0; i < propVal.length; i++) {
-                            // console.log($("input[name="+propName+"]#"+propVal[i]).next("label").text());
-                            title = $("input[name=" + propName + "]#" + propVal[i]).next("label").text();
-                            name = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("name");
-                            id = $("input[name=" + propName + "]#" + propVal[i]).next("label").attr("id");
-                            addFilterItem(title, id, name);
-                        }
+                    });
+                    for (let i = 0; i < filter['jenis'].length; ++i) {
+                        val = filter['jenis'][i];
+                        $("button.btn-filter#" + val).css("background-color", "grey");
+                        $("button.btn-filter#" + val).addClass('active')
                     }
-                });
-                for (let i = 0; i < filter['jenis'].length; ++i) {
-                    val = filter['jenis'][i];
-                    $("button.btn-filter#" + val).css("background-color", "grey");
-                    $("button.btn-filter#" + val).addClass('active')
-                }
-                for (let i = 0; i < filter['ketersediaan'].length; ++i) {
-                    val = filter['ketersediaan'][i];
-                    $("button.btn-filter#" + val).css("background-color", "grey");
-                    $("button.btn-filter#" + val).addClass('active')
-                }
-                for (let i = 0; i < filter['lokasi'].length; ++i) {
-                    val = filter['lokasi'][i];
-                    $("input#" + val).prop("checked", true);
-                }
-                for (let i = 0; i < filter['kategori'].length; ++i) {
-                    val = filter['kategori'][i];
-                    $("input#" + val).prop("checked", true);
-                }
-                for (let i = 0; i < filter['pengarang'].length; ++i) {
-                    val = filter['pengarang'][i];
-                    $("input#" + val).prop("checked", true);
-                }
-                for (let i = 0; i < filter['penerbit'].length; ++i) {
-                    val = filter['penerbit'][i];
-                    $("input#" + val).prop("checked", true);
-                }
-                for (let i = 0; i < filter['tahun_terbit'].length; ++i) {
-                    val = filter['tahun_terbit'][i];
-                    $("input#" + val).prop("checked", true);
+                    for (let i = 0; i < filter['ketersediaan'].length; ++i) {
+                        val = filter['ketersediaan'][i];
+                        $("button.btn-filter#" + val).css("background-color", "grey");
+                        $("button.btn-filter#" + val).addClass('active')
+                    }
+                    for (let i = 0; i < filter['lokasi'].length; ++i) {
+                        val = filter['lokasi'][i];
+                        $("input#" + val).prop("checked", true);
+                    }
+                    for (let i = 0; i < filter['kategori'].length; ++i) {
+                        val = filter['kategori'][i];
+                        $("input#" + val).prop("checked", true);
+                    }
+                    for (let i = 0; i < filter['pengarang'].length; ++i) {
+                        val = filter['pengarang'][i];
+                        $("input#" + val).prop("checked", true);
+                    }
+                    for (let i = 0; i < filter['penerbit'].length; ++i) {
+                        val = filter['penerbit'][i];
+                        $("input#" + val).prop("checked", true);
+                    }
+                    for (let i = 0; i < filter['tahun_terbit'].length; ++i) {
+                        val = filter['tahun_terbit'][i];
+                        $("input#" + val).prop("checked", true);
+                    }
+                } catch (error) {
+                    console.log('Error parsing cookie (Filter)');
                 }
             });
 
@@ -193,6 +198,26 @@ function loadModule(moduleName) {
                     $(this).next('.filter-contents').css("display", 'block');
                 }
             });
+
+            // History
+            $('.tab-menu .tab-item').click(function () {
+                $('.tab-item-active').addClass('tab-item');
+                $('.tab-item-active').find('.tab-title-active').addClass('tab-title');
+                $('.tab-item-active').find('.tab-title').removeClass('tab-title-active');
+                $('.tab-item-active').removeClass('tab-item-active');
+                $(this).find('.tab-title').addClass('tab-title-active');
+                $(this).find('.tab-title').removeClass('tab-title');
+                $(this).removeClass('tab-item');
+                $(this).addClass('tab-item-active');
+                loadBorrowingCards($(this).attr('id'));
+            });
+            $('.tab-item#all').find('.tab-title').addClass('tab-title-active');
+            $('.tab-item#all').find('.tab-title').removeClass('tab-title');
+            $('.tab-item#all').addClass('tab-item-active');
+            $('.tab-item#all').removeClass('tab-item');
+            if (moduleName === 'history') {
+                loadBorrowingCards('all');
+            }
 
         }
     });
@@ -310,7 +335,6 @@ function addToCart(obj) {
 }
 
 function pinjam() {
-    // alert(JSON.parse($.cookie("cart")));
     var tanggal = $('input#reserve-date');
     if (tanggal.val() == "") {
         alert('Tanggal Wajib Diisi!!!');
@@ -320,7 +344,6 @@ function pinjam() {
             url: "?function=cart/checkout",
             data: "date="+tanggal.val(),
             success: function (response) {
-                // alert(response);
                 console.log(response);
                 $('.books-ordered-group').html('');
                 close();
@@ -357,3 +380,20 @@ $(document).ready(function () {
         }
     });
 });
+
+
+// History Page
+function loadBorrowingCards(status) {
+    $.ajax({
+        type: "POST",
+        url: "?page=history",
+        data: "status=" + status,
+        success: function (response) {
+            var response = JSON.parse(atob(response));
+            console.log(response);
+            $('.borrowing-cards-container[name="main"]').html(response['data']);
+            $('.borrowing-cards-container[name="latest"]').html(response['latest']);
+            // console.log(JSON.parse(atob(response)));
+        }
+    });
+}

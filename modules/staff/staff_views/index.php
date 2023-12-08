@@ -4,7 +4,7 @@
         <!-- Start: Sidebar Menu -->
 
         <?php
-        $template->sidebar();
+            $template->sidebar();
         ?>
 
         <!-- End: Sidebar Menu -->
@@ -61,7 +61,7 @@
     <main class="container-main d-flex flex-column dashboard">
 
         <?php
-            // include 'modules/staff/staff_views/dashboard.php';
+        // include 'modules/staff/staff_views/dashboard.php';
         ?>
 
     </main>

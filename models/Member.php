@@ -23,6 +23,62 @@ class Member extends User implements IManage
         }
     }
 
+    public function getHistory($status = 'all'): array{
+         // array(
+        //     (str) id,
+        //     (str) status,
+        //     (int) book,
+        //     (int) thesis,
+        //     (str date) reserve_date
+        // );
+        $borrowing_data = array();
+        $query = "SELECT BORROWING_ID FROM borrowing WHERE member_id = ? ";
+
+        switch ($status) {
+            case 'all':
+                break;
+            case 'waiting':
+                $query = $query . " AND status = 'menunggu'";
+                break;
+
+            case 'confirmed':
+                $query = $query . " AND status = 'dikonfirmasi'";
+                break;
+
+            case 'borrowed':
+                $query = $query . " AND status = 'dipinjam'";
+                break;
+
+            case 'done':
+                $query = $query . " AND status = 'selesai'";
+                break;
+
+            case 'rejected':
+                $query = $query . " AND status = 'ditolak'";
+                break;
+
+            case 'latest':
+                $query = $query . " AND reserve_date >= CURDATE() - INTERVAL 7 DAY;";
+                break;
+        }
+
+        $stm = Database::prepare($query);
+        $stm->bind_param('s', $this->member_id);
+        $stm->execute();
+        $result = $stm->get_result();
+        while ($id = $result->fetch_column()) {
+            $tmp = new Borrowing($id);
+            $borrowing_data[] = array(
+                'id' => $tmp->getId(),
+                'status' => $tmp->getStatus(),
+                'book' => $tmp->countBooks(),
+                'thesis' => $tmp->countThesis(),
+                'reserve_date' => $tmp->getReserveDate(),
+            );
+        }
+        return $borrowing_data;
+    }
+
     public function register($username, $password, $name, $nim)
     {
         $user_id = $this->registerUser($username, $password,level:'member');
@@ -122,7 +178,6 @@ class Member extends User implements IManage
         ];
 
         $statement = Database::prepare($query);
-        // Dynamically bind parameters
         $types = 'ssi';
         $statement->bind_param($types, ...$params);
         $statement->execute();

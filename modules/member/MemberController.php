@@ -1,14 +1,20 @@
 <?php
     require_once 'core/Database.php';
+    require_once 'models/class.template.php';
 
     class MemberController {
         private $member;
+        private $template;
         public function __construct() {
             $this->member = new Member();
+            $this->template = new Template('member');
         }
 
         public function index() {
+            $this->template->header();
+            $template = $this->template;
             include 'modules/member/member_views/index.php';
+            $this->template->footer();
         }
 
         public function book() {
@@ -17,8 +23,20 @@
         }
 
         public function history() {
-            // echo 'History';
-            include 'modules/member/member_views/history.php';
+            if (isset($_POST['status'])) {
+                $this->borrowingCards();
+            } else {
+                include 'modules/member/member_views/history.php';
+            }
+        }
+        private function borrowingCards() {
+            $borrowingLatest = $this->member->getHistory('latest');
+            $borrowingData = $this->member->getHistory(status:$_POST['status']);
+            $response = array(
+                'latest' => $this->template->renderCards(['borrowingData' => $borrowingLatest]),
+                'data' => $this->template->renderCards(['borrowingData' => $borrowingData])
+            );
+            echo base64_encode(json_encode($response));
         }
 
         public function cart($path) {

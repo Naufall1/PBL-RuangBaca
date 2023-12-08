@@ -1,7 +1,5 @@
 <?php
-require_once 'models/class.template.php';
-$template = new Template('member');
-$template->header();
+
 ?>
 
 <body>
@@ -27,7 +25,9 @@ $template->header();
               Nama
             </h4>
             <p class="not-editable-item-value">
-              Muhammad Naufal Kurniawan
+              <?php
+              echo $_SESSION['member_name'];
+              ?>
             </p>
           </div>
         </div>
@@ -123,7 +123,7 @@ $template->header();
         <div class="account-profile d-flex">
           <img class="photo-profile" src="bunga2.jpeg" alt="" height="40px" width="40px">
           <div class="navbar-content-text d-flex">
-            <p class="navbar-content-name fw-bold lh-1 text-nowrap">Muhammad Naufal Kurniawan</p>
+            <p class="navbar-content-name fw-bold lh-1 text-nowrap"><?= $_SESSION['member_name']; ?></p>
             <p class="navbar-content-users">Member</p>
           </div>
         </div>
@@ -138,11 +138,11 @@ $template->header();
 
 
   <!-- Start: Main Layer -->
-  <main class="container-main d-flex">
+  <main class="container-main d-flex flex-column dashboard">
     <!-- Start: Collection Layer -->
 
     <?php
-      // include 'modules/member/member_views/book.php';
+    // include 'modules/member/member_views/book.php';
     ?>
 
     <!-- End: Collection Layer -->
@@ -156,11 +156,6 @@ $template->header();
   </main>
   <!-- End: Main Layer -->
 
-
-
-  <?php
-  $template->footer();
-  ?>
 
 </body>
 
