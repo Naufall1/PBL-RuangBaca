@@ -99,7 +99,7 @@
 
 <!-- Start: Modal Add Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalBuku" style="display: block;">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-add-book">
             <div class="modal-header border-0 d-flex">
@@ -145,7 +145,13 @@
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="author">Penulis</label>
-                                <input required type="text" id="author" name="author" placeholder="Pilih Penulis">
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 author"
+                                    name="author">
+                                    <option disabled selected>Pilih Penulis</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="add-author">Tambah Penulis</label>
@@ -154,8 +160,13 @@
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="publisher">Penerbit</label>
-                                <input required type="text" id="publisher" name="publisher"
-                                    placeholder="Pilih Penerbit">
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 publisher"
+                                    name="publisher">
+                                    <option disabled selected>Pilih Penerbit</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="add-publisher">Tambah Penerbit</label>
@@ -169,7 +180,13 @@
                             <div class="addbook-input-field divider-half-input-field input-fields d-flex">
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
                                     <label for="shelf">Rak</label>
-                                    <input required type="text" id="shelf" name="shelf" placeholder="Pilih Rak">
+                                    <select class="form-select input-group-custom" id="inputGroupSelect01 shelf"
+                                        name="shelf">
+                                        <option disabled selected>Pilih Rak</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
                                 </div>
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
                                     <label for="stock">Stok</label>

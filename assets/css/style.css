@@ -1250,17 +1250,20 @@ input[disabled]{
     padding: 0 12px;
 }
 
-textarea[placeholder], input[placeholder], option{
+textarea[placeholder], input[placeholder], option[disabled]{
     font-family: 'Satoshi-Medium' !important;
     /* font-size: 16px; */
-    color: var(--neutral-100-color) !important;
+    color: var(--neutral-60-color) !important;
 }
 
-input[value], select.form-select, textarea{
+input[value], select.form-select, textarea, option{
     font-family: 'Satoshi-Medium';
     color: var(--neutral-100-color) !important;
 }
 
+.form-select:focus{
+    box-shadow: 0 0 0 0 var(--neutral-30-color) !important;
+}
 
 textarea{
     border-radius: 12px;
