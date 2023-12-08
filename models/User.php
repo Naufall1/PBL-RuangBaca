@@ -57,8 +57,9 @@ class User
                 $this->salt = $row['salt'];
                 $this->level = $row['level'];
                 if ($this->isMember()) {
-                    $member_id = Database::query("SELECT member_id FROM member WHERE user_id = $this->id")->fetch_column();
-                    $_SESSION['member_id'] = $member_id;
+                    $member = Database::query("SELECT member_id, member_name FROM member WHERE user_id = $this->id")->fetch_assoc();
+                    $_SESSION['member_id'] = $member['member_id'];
+                    $_SESSION['member_name'] = $member['member_name'];
                 }
                 return true;
             } else {

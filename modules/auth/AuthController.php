@@ -28,15 +28,11 @@ class AuthController
 
     function processLogin()
     {
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            if ($this->user->login($_POST['username'], $_POST['password'])) {
-                header('Location: /index.php');
-            } else {
-                echo 'Login failed';
-                // header('Location: /index.php?page=login');
-            }
+        if ($this->user->login($_POST['username'], $_POST['password'])) {
+            header('Location: /index.php');
         } else {
-            // header('Location: /index.php?page=login');
+            echo 'Login failed';
+            header('Location: /index.php?page=login');
         }
     }
     function processRegisterMember()
@@ -47,6 +43,5 @@ class AuthController
         } else {
             header('Location: /index.php?page=register');
         }
-
     }
 }
