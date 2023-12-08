@@ -121,7 +121,7 @@
         <div class="vertical-divider"></div>
 
         <div class="account-profile d-flex">
-          <img class="photo-profile" src="bunga2.jpeg" alt="" height="40px" width="40px">
+          <img class="photo-profile" src="assets/icon/profile.svg" alt="" height="40px" width="40px">
           <div class="navbar-content-text d-flex">
             <p class="navbar-content-name fw-bold lh-1 text-nowrap"><?= $_SESSION['member_name']; ?></p>
             <p class="navbar-content-users">Member</p>

@@ -29,11 +29,15 @@ class Template
         if (isset($_SESSION['level'])) {
             if ($_SESSION['level'] == 'member') {
                 $file = 'member.js';
+                $file2 = 'catalog.js';
             } else if ($_SESSION['level'] == 'staff') {
                 $file = 'staff.js';
             } else if ($_SESSION['level'] == 'admin') {
                 $file = 'admin.js';
             }
+        } else {
+            $file = 'catalog.js';
+            $file2 = 'guest.js';
         }
         include $this->documentRoot . "footer.php";
     }

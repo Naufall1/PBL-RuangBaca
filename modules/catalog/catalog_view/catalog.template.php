@@ -224,7 +224,7 @@
 
                 <div class="d-flex" style="flex: auto; gap: 8px;">
                         <!-- <div class="gambar" > -->
-                        <img src="cover/cover_buku2.png" class="book-cover-detail center-cropped" id="cover">
+                        <img src="" class="book-cover-detail center-cropped" id="cover">
                         <!-- </div> -->
                         <div class="details d-flex flex-column">
                             <div class="judul">
