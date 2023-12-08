@@ -32,7 +32,13 @@ function loadModule(moduleName) {
             $('main.container-main').html(response);
             // $(".cart-container").css("display", "flex");
             $('main.container-main').ready(function () {
-                loadOnDocReady();
+                try {
+                    loadOnDocReady();
+                } catch (error) {
+                    if (!/Failed to execute 'observe'/.test(error.message)) {
+                        console.log(error.message);
+                    }
+                }
             });
 
 
