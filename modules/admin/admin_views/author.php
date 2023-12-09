@@ -130,7 +130,7 @@
 <!-- End: Modal Add Author -->
 
 
-<!-- Start: Modal Edit Book -->
+<!-- Start: Modal Edit Author -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
 <div class="modal" id="modalBuku">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -188,7 +188,7 @@
         </div>
     </div>
 </div>
-<!-- End: Modal Edit Book -->
+<!-- End: Modal Edit Author -->
 
 
 <!-- Start: Modal Delete-->
