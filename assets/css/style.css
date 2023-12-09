@@ -1272,6 +1272,12 @@ textarea[placeholder], input[placeholder], option[disabled]{
     color: var(--neutral-60-color) !important;
 }
 
+textarea:default, input:read-write{
+    font-family: 'Satoshi-Medium' !important;
+    /* font-size: 16px; */
+    color: var(--neutral-100-color) !important;
+}
+
 input[value], select.form-select, textarea, option{
     font-family: 'Satoshi-Medium';
     color: var(--neutral-100-color) !important;
@@ -1818,3 +1824,11 @@ p.delete-confirmation, p.delete-confirmation > span{
 }
 
 /* End: Modal Delete */
+
+.modal-custom-single-col{
+    border-radius: 16px !important;
+    border: 0 !important;
+    width: 422px !important;
+    padding: 24px 20px;
+    margin: 0 auto;
+}
