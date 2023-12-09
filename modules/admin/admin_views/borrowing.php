@@ -42,7 +42,15 @@
                 <td class="id-column" id=""><?= $dt->getId(); ?></td>
                 <td class="title-column"><?= $dt->getMember()->getName(); ?></td>
                 <td class="title-column"><?= $dt->getReserveDate(); ?></td>
-                <td class="title-column"><?= $dt->getStatus(); ?></td>
+                <!-- <td class="title-column"><?= $dt->getStatus(); ?></td> -->
+                <td class="title-column">
+                    <div class="borrowing-status d-flex" name="status-modal" id="borrowed">
+                        <p>
+                            <!-- [STATUS] -->
+                            <?= $dt->getStatus();?>
+                        </p>
+                    </div>
+                </td>
 
                 <td class="more-icon-column">
                     <a href="" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
