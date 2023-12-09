@@ -175,7 +175,7 @@
 
                     <div class="d-flex modal-button-group" style="gap: 12px;">
 
-                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="book"
+                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="author"
                             onclick="">Simpan</button>
 
                     </div>
@@ -224,7 +224,7 @@
                     
                     <div class="d-flex modal-button-group" style="gap: 12px;">
                         
-                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="book" onclick="">Hapus</button>
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="author" onclick="">Hapus</button>
 
                         <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
                         <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
