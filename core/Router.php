@@ -83,7 +83,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'history':
                         if ($user->isMember()) {
-                            $MemberController->history();
+                            $MemberController->history('');
                         } else {
                             echo "404 Not Found";
                         }
@@ -188,6 +188,9 @@ include 'modules/staff/StaffController.php';
                     // MEMBER
                     case 'cart':
                         $MemberController->cart($function);
+                        break;
+                    case 'history':
+                        $MemberController->history($function);
                         break;
 
                     // STAFF

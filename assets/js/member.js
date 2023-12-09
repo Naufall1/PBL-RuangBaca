@@ -1,35 +1,49 @@
-function closeCart() {
-    // $(".cart-container").removeClass("d-flex");
-    $(".container-main").css("margin-right", "calc(20px + 297px - 297px)");
-    $(".cart-container").css("display", "none");
-    // console.log('khdsafdad')
-}
 
-function refreshCatalog(){
-    try {
-        page = JSON.parse($.cookie("page"));
-    } catch (error) {
-        console.log('Error parsing cookie (page)');
-    }
-    $.ajax({
-        type: "POST",
-        url: "?function=books",
-        data: 'page='+page,
-        success: function (res) {
-            $("#books-collection").html(res);
-            $('a.page#P-'+page).addClass('active');
-            $('#count').html($('.book-collection.d-flex').length);
-        }, error: function (response) {
-            console.log(response.responseText);
+// MAIN
+var mod = 'book';
+
+$(document).ready(function () {
+    loadModule(mod);
+    loadCart();
+
+    $('a#rightSidebarToggler').click(function () {
+        if (mod == 'book') {
+            openCart();
+        }
+        // else if (mod == 'history') {
+        //     openDetails();
+        // }
+    });
+
+    $(".close-button").click(function () {
+        $(".cart-container").css("display", "none");
+    });
+
+    $(".menus-container > a").click(function () {
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+
+        }
+        $(".cart-container").css("display", "none");
+    });
+
+    $(".filter-header button").click(function () {
+        var display = $(this).next(".filter-box").css("display");
+        if (display != "none") {
+            $(this).next(".filter-box").fadeOut("fast");
+        } else {
+            $(this).next(".filter-box").fadeIn();
         }
     });
-}
+});
 
 function loadModule(moduleName) {
+    mod = moduleName;
     $.ajax({
         type: "GET",
         url: "?page=" + moduleName,
         success: function (response) {
+            resetRightSidebar();
             $('main.container-main').html(response);
             // $(".cart-container").css("display", "flex");
             $('main.container-main').ready(function () {
@@ -124,6 +138,37 @@ function loadModule(moduleName) {
                 loadBorrowingCards('all');
             }
 
+        }
+    });
+}
+
+function resetRightSidebar() {
+    closeCart();
+    closeDetails();
+}
+
+// CATALOG
+
+function close() {
+    $(".cart-container").css("display", "none");
+}
+
+function refreshCatalog(){
+    try {
+        page = JSON.parse($.cookie("page"));
+    } catch (error) {
+        console.log('Error parsing cookie (page)');
+    }
+    $.ajax({
+        type: "POST",
+        url: "?function=books",
+        data: 'page='+page,
+        success: function (res) {
+            $("#books-collection").html(res);
+            $('a.page#P-'+page).addClass('active');
+            $('#count').html($('.book-collection.d-flex').length);
+        }, error: function (response) {
+            console.log(response.responseText);
         }
     });
 }
@@ -234,11 +279,22 @@ function addToCart(obj) {
     } else {
         procAddToCart(id);
     }
+    openCart();
+}
 
+function openCart(){
+    $(".not-editable-item#status").css("display", "none");
+    $(".not-editable-item#reserve-date").css("display", "none");
+    $(".not-editable-item#due-date").css("display", "none");
     $(".cart-container").css("display", "flex");
     $(".container-main").css("margin-right", "calc(20px + 297px)");
-
-    // $('#modalSkripsi').modal('hide');
+    $('.input-fields#reserve-date').css('display', 'flex');
+    $('.submit-container > button').css("display", "flex");
+}
+function closeCart() {
+    $(".cart-container").css("display", "none");
+    $(".container-main").css("margin-right", "calc(20px + 297px - 297px)");
+    $('.books-ordered-group').html('');
 }
 
 function pinjam() {
@@ -262,45 +318,77 @@ function pinjam() {
     // alert(tanggal.val());
 }
 
-$(document).ready(function () {
-    loadModule('book');
-    loadCart();
-
-    $(".close-button").click(function () {
-        $(".cart-container").css("display", "none");
-    });
-
-    $(".menus-container > a").click(function () {
-        for (let index = 0; index < array.length; index++) {
-            const element = array[index];
-
-        }
-        $(".cart-container").css("display", "none");
-    });
-
-    $(".filter-header button").click(function () {
-        var display = $(this).next(".filter-box").css("display");
-        if (display != "none") {
-            $(this).next(".filter-box").fadeOut("fast");
-        } else {
-            $(this).next(".filter-box").fadeIn();
-        }
-    });
-});
-
 
 // History Page
 function loadBorrowingCards(status) {
     $.ajax({
         type: "POST",
-        url: "?page=history",
+        url: "?function=history/cards",
         data: "status=" + status,
         success: function (response) {
             var response = JSON.parse(atob(response));
-            console.log(response);
             $('.borrowing-cards-container[name="main"]').html(response['data']);
             $('.borrowing-cards-container[name="latest"]').html(response['latest']);
-            // console.log(JSON.parse(atob(response)));
         }
     });
+}
+
+function loadModal(id) {
+    // Reset Readable Item
+    $('.books-ordered-group').html('');
+    // Finish Reset Readable Item
+
+    // Request details borrowing
+    $.ajax({
+        type: "POST",
+        url: "?function=history/details",
+        data: "id=" + id,
+        success: function (response) {
+            console.log(JSON.parse(response));
+            data = JSON.parse(response);
+            if (data['readable'].length > 1) {
+                data['readable'].forEach(item => {
+                    readable = JSON.parse(item);
+                    addToDetails(readable['id'],readable['cover'],readable['title'],readable['author'],readable['year']);
+                    // console.log(readable);
+                })
+            } else {
+                readable = JSON.parse(data['readable']);
+                addToDetails(readable['id'],readable['cover'],readable['title'],readable['author'],readable['year']);
+            }
+            $(".not-editable-item#status").css("display", "flex");
+            $(".not-editable-item#reserve-date > p").html(data['reserve_date']);
+            $(".not-editable-item#due-date > p").html(data['due_date']);
+            openDetails();
+        }
+    });
+}
+
+function addToDetails(id, cover, title, author, year) {
+    html = "\
+    <div class='book-ordered-item d-flex' id='"+ id + "'>\
+        <img class='book-ordered-image' src='uploads/cover/"+ cover + "' alt=''>\
+        <div class='book-ordered-item-content d-flex flex-column'> \
+            <p class='book-ordered-title'>"+ title + "</p>\
+            <div class='book-orderd-sub-info d-flex'>\
+                <div>\
+                    <p class='book-ordered-author'>"+ author + "</p>\
+                    <p class='book-ordered-year'>"+ year + "</p>\
+                </div>\
+            </div>\
+        </div>\
+    </div>\
+    <div class='hr-divider'></div>";
+    $('.books-ordered-group').append(html);
+}
+function openDetails() {
+    $('.input-fields#reserve-date').css('display', 'none');
+    $(".cart-container").css("display", "flex");
+    $(".not-editable-item#status").css("display", "flex");
+    $(".not-editable-item#reserve-date").css("display", "flex");
+    $(".not-editable-item#due-date").css("display", "flex");
+    $('.submit-container > button').css("display", "none");
+}
+function closeDetails() {
+    $(".cart-container").css("display", "none");
 }

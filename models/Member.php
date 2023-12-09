@@ -78,6 +78,11 @@ class Member extends User implements IManage
         }
         return $borrowing_data;
     }
+    public function getHistoryDetails($id)
+    {
+        $borrowing = new Borrowing($id);
+        return $borrowing->toJSON();
+    }
 
     public function register($username, $password, $name, $nim)
     {
