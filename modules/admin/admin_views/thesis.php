@@ -84,3 +84,223 @@
     </a>
 </div>
 <!-- End: Pagination View -->
+
+<!-- Start: Modal Add thesis -->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalBuku">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-single-col">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Tambah Data</h3>
+                    </div>
+
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
+                        onclick="closeModal(this);" id="book">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M5 15 15 5m0 10-5-5-5-5" />
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <form class=" flex-column d-flex">
+                    <div class="modal-form-addbook-area d-flex flex-column">
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="thesis_title">Judul</label>
+                            <input required type="text" id="thesis_title" name="thesis_title" placeholder="Masukkan Judul">
+                        </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="writer_name">Nama Penulis</label>
+                            <input required type="text" id="writer_name" name="writer_name" placeholder="Masukkan Nama Penulis">
+                        </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="writer_NIM">NIM Penulis</label>
+                            <input required type="text" id="writer_NIM" name="writer_NIM" placeholder="Masukkan NIM Penulis">
+                        </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="year_published">Tahun</label>
+                            <input required type="text" id="year_published" name="year_published" placeholder="Masukkan Tahun">
+                        </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="lecturer_id1">Dosen Pembimbing 1</label>
+                            <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id1"
+                                name="lecturer_id1">
+                                <option disabled selected>Pilih Dosen</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="lecturer_id2">Dosen Pembimbing 2</label>
+                            <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id2"
+                                name="lecturer_id2">
+                                <option disabled selected>Pilih Dosen</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex modal-button-group" style="gap: 12px;">
+                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="thesis" onclick="">Tambah</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End: Modal Add thesis -->
+
+
+<!-- Start: Modal Edit thesis -->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalBuku">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-single-col">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Edit Data</h3>
+                    </div>
+
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
+                        onclick="closeModal(this);" id="book">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M5 15 15 5m0 10-5-5-5-5" />
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <form class=" flex-column d-flex">
+
+                    <div class="modal-form-addbook-areas d-flex">
+
+                        <div class="modal-form-addbook-area d-flex flex-column">
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="thesis_id">ID Skripsi</label>
+                                <input value="[THESIS ID]" disabled type="text" id="thesis_id" name="thesis_id">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="thesis_title">Judul</label>
+                                <input value="[FILLED TITLE]" required type="text" id="thesis_title" name="thesis_title" placeholder="Masukkan Judul">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="writer_name">Nama Penulis</label>
+                                <input value="[FILLED WRITER]" required type="text" id="writer_name" name="writer_name" placeholder="Masukkan Nama Penulis">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="writer_NIM">NIM Penulis</label>
+                                <input value="[FILLED WRITER'S NIM]" required type="text" id="writer_NIM" name="writer_NIM" placeholder="Masukkan NIM Penulis">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="year_published">Tahun</label>
+                                <input value="[FILLED YEAR]" required type="text" id="year_published" name="year_published" placeholder="Masukkan Tahun">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="lecturer_id1">Dosen Pembimbing 1</label>
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id1"
+                                    name="lecturer_id1">
+                                    <option disabled  selected>[CHOOSEN 1st LECTURER]</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="lecturer_id2">Dosen Pembimbing 2</label>
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id2"
+                                    name="lecturer_id2">
+                                    <option disabled selected>[CHOOSEN 2nd LECTURER]</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>                          
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex modal-button-group" style="gap: 12px;">
+
+                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="thesis"
+                            onclick="">Simpan</button>
+
+                    </div>
+
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- End: Modal Edit thesis -->
+
+
+<!-- Start: Modal Delete-->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalBuku">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-delete">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Hapus Data</h3>
+                    </div>
+
+                    <!-- <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
+                        onclick="closeModal(this);" id="book">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M5 15 15 5m0 10-5-5-5-5" />
+                        </svg>
+                    </button> -->
+                    
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                
+                <!-- <form class=" flex-column d-flex"> -->
+                    <p class="delete-confirmation">
+                        Apakah Anda yakin ingin menghapus Skripsi dengan ID Skripsi <span>BK0001</span>?
+                    </p>
+                    
+                    
+                    <div class="d-flex modal-button-group" style="gap: 12px;">
+                        
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="thesis" onclick="">Hapus</button>
+
+                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
+                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                    </div>
+
+                <!-- </form> -->
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- End: Modal Delete-->
