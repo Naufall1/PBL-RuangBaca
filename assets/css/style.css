@@ -753,6 +753,11 @@ a.page:hover{
     width: 212px;
 }
 
+.hide-content{
+    display: none !important;
+}
+
+
 button.enabled[type='button'], button.enabled[type="submit"]{
     gap: 4px;
     display: flex;
@@ -780,7 +785,7 @@ button.secondary[type='button']{
 }
 
 
-button.danger[type='button']{
+button.danger[type="button"]{
     background-color: var(--semantic-danger-main-color) !important;
     color: var(--neutral-10-color) ;
 }
@@ -1789,3 +1794,27 @@ a.signup{
 }
 
 /* End: Login */
+
+
+/* Start: Modal Delete */
+
+.modal-custom-delete{
+    border-radius: 16px !important;
+    border: 0 !important;
+    width: 440px !important;
+    padding: 24px 20px;
+    margin: 0 auto;
+}
+
+p.delete-confirmation, p.delete-confirmation > span{
+    font-size: 16px;
+    font-family: 'Satoshi-Medium';
+    color: var(--neutral-100-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline;
+}
+
+/* End: Modal Delete */

@@ -227,7 +227,7 @@
 
 <!-- Start: Modal Edit Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalBuku" >
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-add-book">
             <div class="modal-header border-0 d-flex">
@@ -354,3 +354,51 @@
     </div>
 </div>
 <!-- End: Modal Edit Book -->
+
+<!-- Start: Modal Delete-->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalBuku" style="display: block; ">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-delete">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Hapus Data</h3>
+                    </div>
+
+                    <!-- <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
+                        onclick="closeModal(this);" id="book">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M5 15 15 5m0 10-5-5-5-5" />
+                        </svg>
+                    </button> -->
+                    
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                
+                <!-- <form class=" flex-column d-flex"> -->
+                    <p class="delete-confirmation">
+                        Apakah Anda yakin ingin menghapus Buku dengan ID Buku <span>BK0001</span>?
+                    </p>
+                    
+                    
+                    <div class="d-flex modal-button-group" style="gap: 12px;">
+                        
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="book" onclick="">Hapus</button>
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
+                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                    </div>
+
+                <!-- </form> -->
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- End: Modal Delete-->
