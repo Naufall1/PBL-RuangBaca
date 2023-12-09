@@ -406,7 +406,7 @@ input.filter-search-fields{
     width: 100%;
     height: 40px;
     display: block;
-    padding: 9px 4px 9px 40px;
+    padding: 9px 4px 9px 40px !important;
     background-color: var(--neutral-20-color);
     border: solid 1px var(--neutral-30-color);
 }
@@ -1216,7 +1216,7 @@ p.not-editable-item-value{
     padding: 0;
 }
 
-input[type="text"], input[type="password"], input[type="number"]{
+input[type="text"], input#reserve-date[type="date"], input[type="password"], input[type="number"]{
     border-radius: 12px;
     height: 48px;
     display: block;
@@ -1224,6 +1224,45 @@ input[type="text"], input[type="password"], input[type="number"]{
     background-color: var(--neutral-20-color);
     border: solid 1px var(--neutral-30-color);
     padding: 0 12px;
+}
+
+input[disabled]{
+    border-radius: 12px;
+    height: 48px;
+    display: block;
+    padding: 9px 4px 9px 40px;
+    background-color: var(--neutral-10-color);
+    border: solid 1px var(--neutral-30-color);
+    padding: 0 12px;
+    input[value]{
+        color: var(--neutral-70-color);
+        font-family: 'Satoshi-Medium' !important;
+    }
+}
+
+.input-group-custom{
+    border-radius: 12px !important;
+    height: 48px;
+    display: block;
+    padding: 9px 4px 9px 40px;
+    background-color: var(--neutral-20-color) !important;
+    border: solid 1px var(--neutral-30-color) !important;
+    padding: 0 12px;
+}
+
+textarea[placeholder], input[placeholder], option[disabled]{
+    font-family: 'Satoshi-Medium' !important;
+    /* font-size: 16px; */
+    color: var(--neutral-60-color) !important;
+}
+
+input[value], select.form-select, textarea, option{
+    font-family: 'Satoshi-Medium';
+    color: var(--neutral-100-color) !important;
+}
+
+.form-select:focus{
+    box-shadow: 0 0 0 0 var(--neutral-30-color) !important;
 }
 
 textarea{

@@ -10,7 +10,7 @@
 
       <div class="d-flex justify-content-between">
         <h2 class="main-heading">Detail Peminjaman</h2>
-        <button class="close-button" type="button" onclick="close();">
+        <button title="close" class="close-button" type="button" onclick="closeCart();">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5" />
           </svg>
