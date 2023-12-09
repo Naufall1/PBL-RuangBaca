@@ -30,9 +30,33 @@
               ?>
             </p>
           </div>
+          <div class="not-editable-item flex-column" id="status" style="display: none">
+            <h4 class="not-editable-item-heading">
+              Status
+            </h4>
+            <p class="not-editable-item-value">
+              [ status ]
+            </p>
+          </div>
+          <div class="not-editable-item flex-column" id="reserve-date" style="display: none;">
+            <h4 class="not-editable-item-heading">
+              Tanggal Ambil
+            </h4>
+            <p class="not-editable-item-value">
+              11-11-1111
+            </p>
+          </div>
+          <div class="not-editable-item flex-column" id="due-date" style="display: none;">
+            <h4 class="not-editable-item-heading">
+              Tanggal Kembali
+            </h4>
+            <p class="not-editable-item-value">
+            11-11-1111
+            </p>
+          </div>
         </div>
 
-        <div class="input-fields d-flex flex-column">
+        <div class="input-fields flex-column" id="reserve-date">
           <label for="reserve-date">Tanggal Ambil</label>
           <input type="date" name="" id="reserve-date">
         </div>
@@ -111,7 +135,7 @@
       </div>
 
       <div class="navbar-content">
-        <a href="">
+        <a href="#" id="rightSidebarToggler">
           <svg class="navbar-borrowing-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.333 3.892V13.95c0 .8-.65 1.55-1.45 1.65l-.275.033c-1.816.242-4.616 1.167-6.216 2.05-.217.125-.575.125-.8 0l-.034-.016c-1.6-.875-4.391-1.792-6.2-2.034l-.241-.033c-.8-.1-1.45-.85-1.45-1.65V3.883a1.64 1.64 0 0 1 1.8-1.658c1.75.142 4.4 1.025 5.883 1.95l.208.125c.242.15.642.15.884 0l.141-.092a12.85 12.85 0 0 1 1.917-.941v3.4l1.667-1.109 1.666 1.109v-4.35c.225-.042.442-.067.642-.084h.05a1.642 1.642 0 0 1 1.808 1.659ZM10 4.575v12.5" />
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.833 2.317v4.35l-1.666-1.109L12.5 6.667v-3.4c1.092-.434 2.308-.784 3.333-.95Z" />

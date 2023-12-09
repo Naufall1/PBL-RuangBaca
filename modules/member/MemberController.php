@@ -22,12 +22,29 @@
             include 'modules/member/member_views/book.php';
         }
 
-        public function history() {
-            if (isset($_POST['status'])) {
-                $this->borrowingCards();
+        public function history($path) {
+            // var_dump($path);
+            if ($path !== '') {
+                $arg = explode('/', $path)[1];
+                switch ($arg) {
+                    case 'cards':
+                        $this->borrowingCards();
+                        break;
+                    case 'details':
+                        echo $this->member->getHistoryDetails($_POST['id']);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
             } else {
                 include 'modules/member/member_views/history.php';
             }
+
+            // if (isset($_POST['status'])) {
+            //     $this->borrowingCards();
+            // } else {
+            // }
         }
         private function borrowingCards() {
             $borrowingLatest = $this->member->getHistory('latest');
@@ -49,7 +66,6 @@
                     $item = new Thesis($id);
                 }
             }
-
             // var_dump($id);
             if ($arg == 'add') {
                 $this->member->addToCart($item);
