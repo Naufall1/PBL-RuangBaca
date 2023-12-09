@@ -1,5 +1,63 @@
 <body>
 
+    
+    <!-- Start: Sidebar Cart -->
+    <section class="cart-container" >
+
+    <div class="detail-readable-container d-flex flex-col ">
+
+        <div class="d-flex justify-content-between">
+            <h2 class="main-heading">Detail Buku</h2>
+            <button title="close" class="close-button" type="button" onclick="closeCart();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="cart-detail-information d-flex flex-column">
+
+            <div class="d-flex flex-column" style="flex: auto; gap: 8px;">
+                <!-- <div class="gambar" > -->
+                <img id="cover" src="" class="full-cover-cart book-cover-detail center-cropped">
+                <!-- </div> -->
+            </div>
+
+            <div id="title">
+                <h4 class="not-editable-item-heading">Judul</h4>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptate
+                    repellendus provident.</p>
+            </div>
+            <div id="synopsis">
+                <h4 class="not-editable-item-heading">Sinopsis</h4>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus voluptate
+                    repellendus provident
+                    officia consequatur sint id. Cum cupiditate impedit placeat.</p>
+            </div>
+            <div class="hr-divider" style="margin: 8px 0;"></div>
+            <div class="d-flex flex-column" style=" gap: 12px;">
+                <div class="justify-content-between d-flex modal-book-detail">
+                    <h5 class="">Ketersediaan</h5>
+                    <span id="ketersediaan" class="">4/2</span>
+                </div>
+                <div class="justify-content-between d-flex modal-book-detail">
+                    <h5 class="r">ISBN</h5>
+                    <span id="isbn" class="">122124141243</span>
+                </div>
+                <div class="justify-content-between d-flex modal-book-detail">
+                    <h5 class="">Kode DDC</h5>
+                    <span id="ddc_code" class="">123.23</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    </section>
+    <!-- End: Sidebar Cart -->
+
+
     <!-- Start: Fixed Layer -->
     <div class="fixed-layer d-flex">
         <!-- Start: Sidebar Menu -->

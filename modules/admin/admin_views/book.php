@@ -99,7 +99,7 @@
 
 <!-- Start: Modal Add Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku" style="display: block;">
+<div class="modal" id="modalBuku">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-add-book">
             <div class="modal-header border-0 d-flex">
@@ -354,4 +354,3 @@
     </div>
 </div>
 <!-- End: Modal Edit Book -->
-

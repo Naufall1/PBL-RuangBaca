@@ -1137,6 +1137,7 @@ p.borrowing-card-date{
 
 .cart-container{
     display: none;
+    z-index: 1;
     flex-direction: column;
     float: right;
     position: fixed;
@@ -1161,7 +1162,17 @@ p.borrowing-card-date{
     overflow: scroll;
 }
 
-.detail-borrowing-container::-webkit-scrollbar {
+.detail-readable-container{
+    padding: 20px;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+    gap: 12px;
+    overflow: scroll;
+}
+
+.detail-borrowing-container::-webkit-scrollbar, .detail-readable-container::-webkit-scrollbar{
     display: none;
 }
 
@@ -1398,6 +1409,12 @@ p.book-ordered-year{
     background-color: transparent;
 }
 
+img.full-cover-cart#cover{
+    /* aspect-ratio: 441.22/489.9 !important; */
+    aspect-ratio: 441.22/489 !important;
+    width: 100% !important;
+}
+
 /* End: Cart */
 
 
@@ -1526,7 +1543,7 @@ div#synopsis{
     margin-top: 8px;
 }
 
-div#synopsis > p{
+div#synopsis > p, div#title > p{
     margin: 0;
     display: block;
     font-family: 'Satoshi-Medium';
