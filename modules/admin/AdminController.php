@@ -226,7 +226,6 @@ class AdminController
                     echo 'failure';
                 }
             }
-
         } else {
             if ($data !== null) {
                 # code...
@@ -252,15 +251,32 @@ class AdminController
     }
     public function lecturer($data = null)
     {
-        if ($data !== null) {
-            # code...
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['id'])) {
+                # EDIT LECTURER HERE
+                
+            } else {
+                $nidn = $_POST['NIDN'];
+                $lecturer_name = $_POST['lecturer_name'];
+                $lecturer = new Lecturer();
+                $lecturer->setNidn($nidn);
+                $lecturer->setName($lecturer_name);
+                if ($lecturer->add()) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }
         } else {
-            # code...
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            $lecturer = $this->admin->view(new Lecturer());
+            $numPage = (round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            include 'modules/admin/admin_views/lecturer.php';
         }
-
-        $lecturer = $this->admin->view(new Lecturer());
-        $numPage = (round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
-        include 'modules/admin/admin_views/lecturer.php';
     }
     public function member($data = null)
     {
