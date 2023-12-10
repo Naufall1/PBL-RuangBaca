@@ -260,6 +260,27 @@ function loadModule(moduleName) {
 
             });
             // END FORM ADD LECTURER
+
+            // FORM ADD THESIS
+            $("#formAddThesis").submit(function (e) {
+                e.preventDefault(); // Mencegah pengiriman form secara default
+                // Mengumpulkan data form
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '?page=thesis',
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                        alert(data);
+                        $('#modalAdd').modal('hide');
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+
+            });
+            // END FORM ADD THESI
         }
     });
 }

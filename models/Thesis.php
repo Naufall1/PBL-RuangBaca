@@ -5,9 +5,11 @@ class Thesis extends Readable implements IManage
     private $writer_name;
     private $writer_nim;
     private $dospem;
+    private array $dospem2;
 
     function __construct($id = null)
     {
+        $this->dospem2 = array();
         if (!$id == null) {
             $result = Database::query("SELECT t.*,GROUP_CONCAT(l.lecturer_name) as dospem
                 from thesis as t
@@ -175,6 +177,76 @@ class Thesis extends Readable implements IManage
     }
     public function add()
     {
+        Database::beginTransaction();
+
+        try {
+            $prefix = 'TH';
+            $len = 5;
+            $res = Database::query("SELECT thesis_id FROM thesis ORDER BY thesis_id DESC LIMIT 1")->fetch_array();
+            $prevId = intval(substr($res[0], 2, 5));
+            $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+            $query = "INSERT INTO thesis
+            (
+                thesis_id,
+                thesis_title,
+                year_published,
+                avail,
+                cover,
+                shelf_id,
+                writer_name,
+                writer_NIM
+            ) VALUES (
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?
+            )";
+            $parameters = [
+                $id,
+                $this->title,
+                $this->year,
+                $this->avail,
+                $this->cover,
+                $this->shelf->getShelfId(),
+                $this->writer_name,
+                $this->writer_nim,
+            ];
+            $statement = Database::prepare($query);
+
+            // Dynamically bind parameters
+            $types = 'sssissss';
+            $statement->bind_param($types, ...$parameters);
+
+            if (!$statement->execute()) {
+                throw new Exception('Error add Thesis');
+            }
+
+            foreach ($this->dospem2 as $lecturer) {
+                $query = "INSERT INTO dospem (thesis_id, nidn) VALUES (?,?)";
+                $params = [
+                    $id,
+                    $lecturer
+                ];
+                $stm = Database::prepare($query);
+                $stm->bind_param('ss', ...$params);
+                if (!$stm->execute()) {
+                    throw new Exception('Error add Dospem');
+                }
+            }
+
+            Database::commit();
+
+            $this->id = $id;
+            return true;
+        } catch (Exception $e) {
+            Database::rollback();
+            // echo $e->getMessage();
+            return false;
+        }
     }
     public function save()
     {
@@ -238,5 +310,29 @@ class Thesis extends Readable implements IManage
         ];
 
         return json_encode($jsonArray);
+    }
+
+    public function addDospem($lecturer){
+        $this->dospem2[] = $lecturer;
+    }
+
+    /**
+     * Set the value of writer_name
+     */
+    public function setWriterName($writer_name): self
+    {
+        $this->writer_name = $writer_name;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of writer_nim
+     */
+    public function setWriterNim($writer_nim): self
+    {
+        $this->writer_nim = $writer_nim;
+
+        return $this;
     }
 }
