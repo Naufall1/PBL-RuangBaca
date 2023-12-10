@@ -40,7 +40,7 @@ class Publisher implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($publisher),
-            'numPages' => (round($this->count() / LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count() / LIMIT_ROWS_PER_PAGE) : 1,
+            'numPages' => ceil($this->count() / LIMIT_ROWS_PER_PAGE),
             'data' => $publisher
         );
         return $result;

@@ -17,7 +17,7 @@ class Admin extends User
         return $results;
     }
 
-    function add(IManage $object): bool
+    function add(IManage $object)
     {
         return $object->add();
     }

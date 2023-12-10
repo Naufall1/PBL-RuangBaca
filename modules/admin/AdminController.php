@@ -23,22 +23,22 @@ class AdminController
             switch ($arg) {
                 case 'book':
                     $data = ($this->admin->view(new Book(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->book(data: $data);
                     break;
                 case 'author':
                     $data = ($this->admin->view(new Author(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->author(data: $data);
                     break;
                 case 'publisher':
                     $data = ($this->admin->view(new Publisher(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->publisher(data: $data);
                     break;
                 case 'category':
                     $data = ($this->admin->view(new Category(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->category(data: $data);
                     break;
 
@@ -165,10 +165,11 @@ class AdminController
                 # EDIT AUTHOR HERE
 
             } else {
-                $author_name = $_POST['author_name'];
                 $author = new Author();
+                $author_name = $_POST['author_name'];
                 $author->setAuthorName(author_name:$author_name);
-                if ($author->add()) {
+                // $this->admin->add($author);
+                if ($this->admin->add($author)) {
                     echo 'success';
                 } else {
                     echo 'failure';
@@ -191,10 +192,10 @@ class AdminController
                 # EDIT PUBLISHER HERE
 
             } else {
-                $publisher_name = $_POST['publisher_name'];
                 $publisher = new Publisher();
+                $publisher_name = $_POST['publisher_name'];
                 $publisher->setPublisherName(publisher_name:$publisher_name);
-                if ($publisher->add()) {
+                if ($this->admin->add($publisher)) {
                     echo 'success';
                 } else {
                     echo 'failure';
@@ -207,7 +208,7 @@ class AdminController
                 # code...
             }
             $publishers = $this->admin->view(new Publisher());
-            $numPage = (round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $publishers['numPages'];
             include 'modules/admin/admin_views/publisher.php';
         }
     }
@@ -216,11 +217,12 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
                 # EDIT CATALOG HERE
+
             } else {
-                $category_name = $_POST['category_name'];
                 $category = new Category();
+                $category_name = $_POST['category_name'];
                 $category->setCategoryName(category_name:$category_name);
-                if ($category->add()) {
+                if ($this->admin->add($category)) {
                     echo 'success';
                 } else {
                     echo 'failure';
@@ -233,28 +235,58 @@ class AdminController
                 # code...
             }
             $category = $this->admin->view(new Category());
-            $numPage = (round($category['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($category['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $category['numPages'];
             include 'modules/admin/admin_views/category.php';
         }
     }
     public function thesis($data = null)
     {
-        if ($data !== null) {
-            # code...
-        } else {
-            # code...
-        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['id'])) {
+                # EDIT THESIS HERE
 
-        $thesis = $this->admin->view(new Thesis());
-        $numPage = (round($thesis['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($thesis['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
-        include 'modules/admin/admin_views/thesis.php';
+            } else {
+                $thesis_title = $_POST['thesis_title'];
+                $writer_name = $_POST['writer_name'];
+                $writer_nim = $_POST['writer_name'];
+                $year = $_POST['year_published'];
+                $lecturer_1 = $_POST['lecturer_id1'];
+                $lecturer_2 = $_POST['lecturer_id2'];
+                $thesis = new Thesis();
+                $thesis->setTitle($thesis_title);
+                $thesis->setWriterName($writer_name);
+                $thesis->setWriterNim($writer_nim);
+                $thesis->setYear((int)$year);
+                $thesis->setAvail(1);
+                $thesis->addDospem($lecturer_1);
+                $thesis->addDospem($lecturer_2);
+                $thesis->setCover('default.png');
+                $thesis->setShelf('R01');
+                // var_dump($this->admin->add($thesis));
+                if ($this->admin->add($thesis) == true) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }
+
+        } else {
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            $thesis = $this->admin->view(new Thesis());
+            $numPage = $thesis['numPages'];
+            include 'modules/admin/admin_views/thesis.php';
+        }
     }
     public function lecturer($data = null)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
                 # EDIT LECTURER HERE
-                
+
             } else {
                 $nidn = $_POST['NIDN'];
                 $lecturer_name = $_POST['lecturer_name'];
@@ -274,7 +306,7 @@ class AdminController
                 # code...
             }
             $lecturer = $this->admin->view(new Lecturer());
-            $numPage = (round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $lecturer['numPages'];
             include 'modules/admin/admin_views/lecturer.php';
         }
     }
@@ -287,7 +319,7 @@ class AdminController
         }
 
         $members = $this->admin->view(new Member());
-        $numPage = (round($members['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($members['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+        $numPage = $members['numPages'];
         include 'modules/admin/admin_views/member.php';
     }
     public function borrowing($data = null)
@@ -299,7 +331,7 @@ class AdminController
         }
 
         $borrowing = $this->admin->viewBorrowing();
-        $numPage = (round($borrowing['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($borrowing['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+        $numPage = $borrowing['numPages'];
         include 'modules/admin/admin_views/borrowing.php';
     }
     public function shelf($data = null)
@@ -311,7 +343,7 @@ class AdminController
         }
 
         $shelf = $this->admin->view(new shelf());
-        $numPage = (round($shelf['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($shelf['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+        $numPage = $shelf['numPages'];
         include 'modules/admin/admin_views/shelf.php';
     }
 }

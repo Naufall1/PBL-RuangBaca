@@ -37,7 +37,7 @@ class Shelf implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($shelf),
-            'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
+            'numPages' => ceil($this->count() / LIMIT_ROWS_PER_PAGE),
             'data' => $shelf
         );
         return $result;
@@ -51,30 +51,30 @@ class Shelf implements IManage
             WHERE shelf_id = ?
         ";
 
-                $parameters = [
-                        $this->categories,
-                        $this->shelf_id,
-                ];
+        $parameters = [
+            $this->categories,
+            $this->shelf_id,
+        ];
 
-                $statement = Database::prepare($query);
+        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'ss';
+        $statement->bind_param($types, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
     public function delete()
     {
-         $query = "DELETE FROM shelf WHERE shelf_id = ?";
-                $parameters = [
-                        $this->shelf_id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
+        $query = "DELETE FROM shelf WHERE shelf_id = ?";
+        $parameters = [
+            $this->shelf_id
+        ];
+        $statement = Database::prepare($query);
+        $type = 's';
+        $statement->bind_param($type, ...$parameters);
 
-                $statement->execute();
+        $statement->execute();
     }
     function addCategory($id, $category)
     {
