@@ -81,6 +81,21 @@ function resetForm() {
     $('input[name="add-category"]').prop('required', true);
 }
 
+function uploadDataAdd(mod, data) {
+    $.ajax({
+        url: '?page='+mod,
+        type: 'POST',
+        data: data,
+        success: function (res) {
+            alert(res);
+            $('#modalAdd').modal('hide');
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+
 function loadModule(moduleName) {
     switch (moduleName) {
         case 'book':
@@ -159,18 +174,7 @@ function loadModule(moduleName) {
                 if (validateFormBook()) {
                     // Mengumpulkan data form
                     var formData = new FormData(this);
-                    $.ajax({
-                        url: '?page=book',
-                        type: 'POST',
-                        data: formData,
-                        success: function (data) {
-                            alert(data);
-                            $('#modalAdd').modal('hide');
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    });
+                    uploadDataAdd(moduleName,formData);
                 } else {
                     alert('Pilih Rak!');
                 }
@@ -182,19 +186,7 @@ function loadModule(moduleName) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
                 // Mengumpulkan data form
                 var formData = new FormData(this);
-                $.ajax({
-                    url: '?page=author',
-                    type: 'POST',
-                    data: formData,
-                    success: function (data) {
-                        alert(data);
-                        $('#modalAdd').modal('hide');
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-
+                uploadDataAdd(moduleName,formData);
             });
             // END FORM ADD AUTHOR
 
@@ -203,19 +195,7 @@ function loadModule(moduleName) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
                 // Mengumpulkan data form
                 var formData = new FormData(this);
-                $.ajax({
-                    url: '?page=publisher',
-                    type: 'POST',
-                    data: formData,
-                    success: function (data) {
-                        alert(data);
-                        $('#modalAdd').modal('hide');
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-
+                uploadDataAdd(moduleName,formData);
             });
             // END FORM ADD PUBLISHER
 
@@ -224,19 +204,7 @@ function loadModule(moduleName) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
                 // Mengumpulkan data form
                 var formData = new FormData(this);
-                $.ajax({
-                    url: '?page=category',
-                    type: 'POST',
-                    data: formData,
-                    success: function (data) {
-                        alert(data);
-                        $('#modalAdd').modal('hide');
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-
+                uploadDataAdd(moduleName,formData);
             });
             // END FORM ADD CATEGORY
 
@@ -245,19 +213,7 @@ function loadModule(moduleName) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
                 // Mengumpulkan data form
                 var formData = new FormData(this);
-                $.ajax({
-                    url: '?page=lecture',
-                    type: 'POST',
-                    data: formData,
-                    success: function (data) {
-                        alert(data);
-                        $('#modalAdd').modal('hide');
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-
+                uploadDataAdd(moduleName,formData);
             });
             // END FORM ADD LECTURER
 
@@ -266,19 +222,7 @@ function loadModule(moduleName) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
                 // Mengumpulkan data form
                 var formData = new FormData(this);
-                $.ajax({
-                    url: '?page=thesis',
-                    type: 'POST',
-                    data: formData,
-                    success: function (data) {
-                        alert(data);
-                        $('#modalAdd').modal('hide');
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-
+                uploadDataAdd(moduleName,formData);
             });
             // END FORM ADD THESI
         }
