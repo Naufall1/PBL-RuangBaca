@@ -57,9 +57,9 @@ function loadSearch(moduleName) {
 
 function validateFormBook() {
     var isValid = true;
-        if ($('select[name="shelf"]').val() === "Pilih Rak" || $('select[name="shelf"]').val() === null) {
-            isValid = false;
-        }
+    if ($('select[name="shelf"]').val() === "Pilih Rak" || $('select[name="shelf"]').val() === null) {
+        isValid = false;
+    }
     return isValid;
 }
 
@@ -72,6 +72,13 @@ function resetForm() {
 
     // Reset nilai file input
     $("#cover").val("");
+
+    $('input[name="add-publisher"]').prop('disabled', false);
+    $('input[name="add-publisher"]').prop('required', true);
+    $('input[name="add-author"]').prop('disabled', false);
+    $('input[name="add-author"]').prop('required', true);
+    $('input[name="add-category"]').prop('disabled', false);
+    $('input[name="add-category"]').prop('required', true);
 }
 
 function loadModule(moduleName) {
@@ -114,14 +121,13 @@ function loadModule(moduleName) {
 
             loadSearch(moduleName);
 
-            // Book
             $('.action-container button').click(function () {
                 resetForm();
-                $('#modalBuku').modal('show');
+                // $('#modalBuku').modal('show');
             });
 
             // FORM ADD BOOK
-            $('select[name="category"]').change(function (){
+            $('select[name="category"]').change(function () {
                 if ($(this).val() != 'add') {
                     $('input[name="add-category"]').prop('disabled', true);
                     $('input[name="add-category"]').prop('required', false);
@@ -130,7 +136,7 @@ function loadModule(moduleName) {
                     $('input[name="add-category"]').prop('required', true);
                 }
             });
-            $('select[name="author"]').change(function (){
+            $('select[name="author"]').change(function () {
                 if ($(this).val() != 'add') {
                     $('input[name="add-author"]').prop('disabled', true);
                     $('input[name="add-author"]').prop('required', false);
@@ -139,7 +145,7 @@ function loadModule(moduleName) {
                     $('input[name="add-author"]').prop('required', true);
                 }
             });
-            $('select[name="publisher"]').change(function (){
+            $('select[name="publisher"]').change(function () {
                 if ($(this).val() != 'add') {
                     $('input[name="add-publisher"]').prop('disabled', true);
                     $('input[name="add-publisher"]').prop('required', false);
@@ -148,9 +154,8 @@ function loadModule(moduleName) {
                     $('input[name="add-publisher"]').prop('required', true);
                 }
             });
-            $("#formData").submit(function(e) {
+            $("#formAddBook").submit(function (e) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
-
                 if (validateFormBook()) {
                     // Mengumpulkan data form
                     var formData = new FormData(this);
@@ -160,7 +165,7 @@ function loadModule(moduleName) {
                         data: formData,
                         success: function (data) {
                             alert(data);
-                            $('#modalBuku').modal('hide');
+                            $('#modalAdd').modal('hide');
                         },
                         cache: false,
                         contentType: false,
@@ -170,6 +175,49 @@ function loadModule(moduleName) {
                     alert('Pilih Rak!');
                 }
             });
+            // END FORM ADD BOOK
+
+            // FORM ADD AUTHOR
+            $("#formAddAuthor").submit(function (e) {
+                e.preventDefault(); // Mencegah pengiriman form secara default
+                // Mengumpulkan data form
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '?page=author',
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                        alert(data);
+                        $('#modalAdd').modal('hide');
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+
+            });
+            // END FORM ADD AUTHOR
+
+            // FORM ADD PUBLISHER
+            $("#formAddPublisher").submit(function (e) {
+                e.preventDefault(); // Mencegah pengiriman form secara default
+                // Mengumpulkan data form
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '?page=publisher',
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                        alert(data);
+                        $('#modalAdd').modal('hide');
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+
+            });
+            // END FORM ADD PUBLISHER
         }
     });
 }

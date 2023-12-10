@@ -2,7 +2,7 @@
 <div class="action-container d-flex justify-content-between">
     <input type="text" name="search-book" class="search-fields" id="" placeholder="Cari Buku"
         onkeypress="search(this);">
-    <button class="enabled" id="icon-button" type="button" data-toggle="modal" data-target="#modalBuku">
+    <button class="enabled" id="icon-button" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff"
                 d="M18 12.75H6c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h12c.41 0 .75.34.75.75s-.34.75-.75.75Z" />
@@ -99,7 +99,7 @@
 
 <!-- Start: Modal Add Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalAdd">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-add-book">
             <div class="modal-header border-0 d-flex">
@@ -110,7 +110,7 @@
                     </div>
 
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                    data-bs-dismiss="modal" aria-label="Close" id="book">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M5 15 15 5m0 10-5-5-5-5" />
@@ -122,7 +122,7 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex" id="formData" enctype="multipart/form-data">
+                <form class=" flex-column d-flex" id="formAddBook" enctype="multipart/form-data">
 
                     <div class="modal-form-addbook-areas d-flex">
 
@@ -265,7 +265,7 @@
 
 <!-- Start: Modal Edit Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku" >
+<div class="modal" id="modalEdit" >
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-add-book">
             <div class="modal-header border-0 d-flex">
@@ -395,7 +395,7 @@
 
 <!-- Start: Modal Delete-->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalDelete">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-delete">
             <div class="modal-header border-0 d-flex">

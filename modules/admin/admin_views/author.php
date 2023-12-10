@@ -1,7 +1,7 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
     <input type="text" name="search-author" class="search-fields" id="" placeholder="Cari Penulis" onkeypress="search(this);">
-    <button class="enabled" id="icon-button" type="button">
+    <button class="enabled" id="icon-button" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff" d="M18 12.75H6c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h12c.41 0 .75.34.75.75s-.34.75-.75.75Z" />
             <path fill="#fff" d="M12 18.75c-.41 0-.75-.34-.75-.75V6c0-.41.34-.75.75-.75s.75.34.75.75v12c0 .41-.34.75-.75.75Z" />
@@ -86,7 +86,7 @@
 
 <!-- Start: Modal Add Author -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalAdd">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
@@ -97,7 +97,7 @@
                     </div>
 
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                         id="book" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M5 15 15 5m0 10-5-5-5-5" />
@@ -109,7 +109,7 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class="flex-column d-flex" id="formAddAuthor" method="post">
                     <div class="modal-form-addbook-area d-flex flex-column">
                         <div class="addbook-input-field input-fields d-flex flex-column">
                             <label for="author_name">Nama Penulis</label>
@@ -120,7 +120,6 @@
                     <div class="d-flex modal-button-group" style="gap: 12px;">
                         <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="author" onclick="">Tambah</button>
                     </div>
-
                 </form>
             </div>
 
@@ -168,7 +167,7 @@
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="author_name">Nama Penulis</label>
                                 <input value="[FILLED AUTHOR NAME]"  required type="text" id="author_name" name="author_name" placeholder="Masukkan Nama Penulis">
-                            </div>                            
+                            </div>
                         </div>
 
                     </div>
@@ -210,20 +209,20 @@
                                 d="M5 15 15 5m0 10-5-5-5-5" />
                         </svg>
                     </button> -->
-                    
+
                 </div>
             </div>
-            
+
             <div class="modal-body">
-                
+
                 <!-- <form class=" flex-column d-flex"> -->
                     <p class="delete-confirmation">
                         Apakah Anda yakin ingin menghapus Penulis dengan ID Penulis <span>BK0001</span>?
                     </p>
-                    
-                    
+
+
                     <div class="d-flex modal-button-group" style="gap: 12px;">
-                        
+
                         <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="author" onclick="">Hapus</button>
 
                         <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->

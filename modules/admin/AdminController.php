@@ -99,7 +99,7 @@ class AdminController
             return implode("<br>", $errors);
         }
     }
-    public function addBook()
+    private function addBook()
     {
         // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_FILES['cover']) && $this->uploadCover() == true) {
@@ -160,25 +160,56 @@ class AdminController
     }
     public function author($data = null)
     {
-        if ($data !== null) {
-            $authors = $data;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['id'])) {
+                # EDIT AUTHOR HERE
+
+            } else {
+                $author_name = $_POST['author_name'];
+                $author = new Author();
+                $author->setAuthorName(author_name:$author_name);
+                if ($author->add()) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }
         } else {
-            $authors = $this->admin->view(new Author());
+            if ($data !== null) {
+                $authors = $data;
+            } else {
+                $authors = $this->admin->view(new Author());
+            }
+            $numPage = $authors['numPages'];
+            include 'modules/admin/admin_views/author.php';
         }
-        $numPage = $authors['numPages'];
-        include 'modules/admin/admin_views/author.php';
     }
     public function publisher($data = null)
     {
-        if ($data !== null) {
-            # code...
-        } else {
-            # code...
-        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['id'])) {
+                # EDIT PUBLISHER HERE
 
-        $publishers = $this->admin->view(new Publisher());
-        $numPage = (round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
-        include 'modules/admin/admin_views/publisher.php';
+            } else {
+                $publisher_name = $_POST['publisher_name'];
+                $publisher = new Publisher();
+                $publisher->setPublisherName(publisher_name:$publisher_name);
+                if ($publisher->add()) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }
+        } else {
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            $publishers = $this->admin->view(new Publisher());
+            $numPage = (round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            include 'modules/admin/admin_views/publisher.php';
+        }
     }
     public function category($data = null)
     {

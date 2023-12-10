@@ -15,7 +15,7 @@ class Publisher implements IManage
 
     public function count()
     {
-        return (int) Database::query("SELECT count(author_id) FROM author")->fetch_column();
+        return (int) Database::query("SELECT count(publisher_id) FROM publisher")->fetch_column();
     }
 
     public function view(int $page, string $search)
