@@ -126,7 +126,7 @@
 
                 <div class="modal-body">
 
-                    <div class="d-flex" style="flex: auto; gap: 8px;">
+                    <div class="d-flex" style="flex: auto; gap: 8px; width: 100%;">
                         <!-- <div class="gambar" > -->
                         <img id="cover" src="" class="book-cover-detail center-cropped">
                         <!-- </div> -->

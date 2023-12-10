@@ -1373,7 +1373,7 @@ img.book-ordered-image{
     height: 94px;
 
     /* VVV DELETE SOON VVV*/
-    border: solid 1px blue;
+    /* border: solid 1px blue; */
     /* ^^^ DELETE SOON ^^^ */
 }
 
@@ -1542,7 +1542,8 @@ h4#book_title, h4#thesis_title{
 }
 
 .details{
-    gap: 4px;
+    gap: 12px !important;
+    flex-grow: 1;
 }
 
 .judul{
