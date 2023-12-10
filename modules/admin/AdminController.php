@@ -213,15 +213,30 @@ class AdminController
     }
     public function category($data = null)
     {
-        if ($data !== null) {
-            # code...
-        } else {
-            # code...
-        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['id'])) {
+                # EDIT CATALOG HERE
+            } else {
+                $category_name = $_POST['category_name'];
+                $category = new Category();
+                $category->setCategoryName(category_name:$category_name);
+                if ($category->add()) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }
 
-        $category = $this->admin->view(new Category());
-        $numPage = (round($category['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($category['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
-        include 'modules/admin/admin_views/category.php';
+        } else {
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            $category = $this->admin->view(new Category());
+            $numPage = (round($category['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($category['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            include 'modules/admin/admin_views/category.php';
+        }
     }
     public function thesis($data = null)
     {
