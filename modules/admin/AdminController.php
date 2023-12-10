@@ -23,22 +23,22 @@ class AdminController
             switch ($arg) {
                 case 'book':
                     $data = ($this->admin->view(new Book(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->book(data: $data);
                     break;
                 case 'author':
                     $data = ($this->admin->view(new Author(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->author(data: $data);
                     break;
                 case 'publisher':
                     $data = ($this->admin->view(new Publisher(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->publisher(data: $data);
                     break;
                 case 'category':
                     $data = ($this->admin->view(new Category(), search: $_POST['q']));
-                    $data['numPages'] = (round(count($data['data']) / LIMIT_ROWS_PER_PAGE) >= 1) ? round(count($data['data']) / LIMIT_ROWS_PER_PAGE) : 1;
+                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
                     $this->category(data: $data);
                     break;
 
@@ -208,7 +208,7 @@ class AdminController
                 # code...
             }
             $publishers = $this->admin->view(new Publisher());
-            $numPage = (round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($publishers['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $publishers['numPages'];
             include 'modules/admin/admin_views/publisher.php';
         }
     }
@@ -235,7 +235,7 @@ class AdminController
                 # code...
             }
             $category = $this->admin->view(new Category());
-            $numPage = (round($category['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($category['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $category['numPages'];
             include 'modules/admin/admin_views/category.php';
         }
     }
@@ -277,7 +277,7 @@ class AdminController
                 # code...
             }
             $thesis = $this->admin->view(new Thesis());
-            $numPage = (round($thesis['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($thesis['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $thesis['numPages'];
             include 'modules/admin/admin_views/thesis.php';
         }
     }
@@ -306,7 +306,7 @@ class AdminController
                 # code...
             }
             $lecturer = $this->admin->view(new Lecturer());
-            $numPage = (round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($lecturer['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+            $numPage = $lecturer['numPages'];
             include 'modules/admin/admin_views/lecturer.php';
         }
     }
@@ -319,7 +319,7 @@ class AdminController
         }
 
         $members = $this->admin->view(new Member());
-        $numPage = (round($members['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($members['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+        $numPage = $members['numPages'];
         include 'modules/admin/admin_views/member.php';
     }
     public function borrowing($data = null)
@@ -331,7 +331,7 @@ class AdminController
         }
 
         $borrowing = $this->admin->viewBorrowing();
-        $numPage = (round($borrowing['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($borrowing['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+        $numPage = $borrowing['numPages'];
         include 'modules/admin/admin_views/borrowing.php';
     }
     public function shelf($data = null)
@@ -343,7 +343,7 @@ class AdminController
         }
 
         $shelf = $this->admin->view(new shelf());
-        $numPage = (round($shelf['countAll'] / LIMIT_ROWS_PER_PAGE) >= 1) ? round($shelf['countAll'] / LIMIT_ROWS_PER_PAGE) : 1;
+        $numPage = $shelf['numPages'];
         include 'modules/admin/admin_views/shelf.php';
     }
 }
