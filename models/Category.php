@@ -14,13 +14,43 @@ class Category implements IManage
     }
     function add()
     {
-        $prefix = 'PUB';
+        $prefix = 'CAT';
         $len = 6;
         $res = Database::query("SELECT category_id FROM category ORDER BY category_id DESC LIMIT 1")->fetch_array();
         $prevId = intval(substr($res[0], 3, 5));
         $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-        Database::query("INSERT INTO category (category_id, category_name) VALUES ('$id', '$category_name')");
-        return $id;
+        // Database::query("INSERT INTO category (category_id, category_name) VALUES ('$id', '$category_name')");
+        // return $id;
+        $query = "
+            INSERT INTO category
+            (
+                category_id,
+                category_name
+            )
+            VALUES
+            (
+                ?,
+                ?
+            )
+        ";
+
+        $parameters = [
+            $id,
+            $this->category_name,
+        ];
+
+        $statement = Database::prepare($query);
+
+        // Dynamically bind parameters
+        $types = 'ss';
+        $statement->bind_param($types, ...$parameters);
+
+        if ($statement->execute()) {
+            $this->category_id = $id;
+            return $id;
+        } else {
+            return false;
+        }
     }
 
     public function count()
@@ -95,5 +125,15 @@ class Category implements IManage
     {
         $res = Database::query("SELECT * FROM category");
         return $res;
+    }
+
+    /**
+     * Set the value of category_name
+     */
+    public function setCategoryName($category_name): self
+    {
+        $this->category_name = $category_name;
+
+        return $this;
     }
 }

@@ -11,7 +11,7 @@
         abstract protected function getDetails($id);
         abstract public function toJSON();
 
-        protected function setShelf($id){
+        public function setShelf($id){
             $this->shelf = new Shelf($id);
         }
 
@@ -61,6 +61,37 @@
         public function setAvail($avail): self
         {
                 $this->avail = $avail;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of title
+         */
+        public function setTitle($title): self
+        {
+                $this->title = $title;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of year
+         */
+        public function setYear(int $year): self
+        {
+                $this->year = $year;
+
+                return $this;
+        }
+
+
+        /**
+         * Set the value of cover
+         */
+        public function setCover($cover): self
+        {
+                $this->cover = $cover;
 
                 return $this;
         }

@@ -2,7 +2,7 @@
 <div class="action-container d-flex justify-content-between">
     <input type="text" name="search-book" class="search-fields" id="" placeholder="Cari Buku"
         onkeypress="search(this);">
-    <button class="enabled" id="icon-button" type="button">
+    <button class="enabled" id="icon-button" type="button" data-toggle="modal" data-target="#modalBuku">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff"
                 d="M18 12.75H6c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h12c.41 0 .75.34.75.75s-.34.75-.75.75Z" />
@@ -122,7 +122,7 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class=" flex-column d-flex" id="formData" enctype="multipart/form-data">
 
                     <div class="modal-form-addbook-areas d-flex">
 
@@ -137,6 +137,27 @@
                                     placeholder="Masukkan Sinopsis"></textarea>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="category">Category</label>
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 category"
+                                    name="category">
+                                    <option disabled selected>Pilih Category</option>
+                                    <option value="add">Tambah...</option>
+                                    <?php
+                                        $categories = Category::getAll();
+                                        while ($cat = $categories->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $cat['category_id'] ?>"><?= $cat['category_name'] ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="add-category">Tambah Category</label>
+                                <input required type="text" id="add-category" name="add-category"
+                                    placeholder="Masukkan Category">
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="cover">Cover</label>
                                 <input required type="file" id="cover" name="cover">
                             </div>
@@ -148,9 +169,15 @@
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 author"
                                     name="author">
                                     <option disabled selected>Pilih Penulis</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="add">Tambah...</option>
+                                    <?php
+                                        $author = Author::getAll();
+                                        while ($aut = $author->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $aut['author_id'] ?>"><?= $aut['author_name'] ?></option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
@@ -163,9 +190,15 @@
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 publisher"
                                     name="publisher">
                                     <option disabled selected>Pilih Penerbit</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="add">Tambah...</option>
+                                    <?php
+                                        $publisher = Publisher::getAll();
+                                        while ($pub = $publisher->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $pub['publisher_id']?>"><?= $pub['publisher_name']?></option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
@@ -181,11 +214,16 @@
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
                                     <label for="shelf">Rak</label>
                                     <select class="form-select input-group-custom" id="inputGroupSelect01 shelf"
-                                        name="shelf">
+                                        name="shelf" required>
                                         <option disabled selected>Pilih Rak</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <?php
+                                            $rak = Shelf::getAll();
+                                            foreach ($rak as $rak_id) {
+                                        ?>
+                                            <option value="<?= $rak_id[0]?>"><?= $rak_id[0]?></option>
+                                        <?php
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
@@ -250,7 +288,7 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class=" flex-column d-flex" method="post" enctype="multipart/form-data">
 
                     <div class="modal-form-addbook-areas d-flex">
 
@@ -374,20 +412,20 @@
                                 d="M5 15 15 5m0 10-5-5-5-5" />
                         </svg>
                     </button> -->
-                    
+
                 </div>
             </div>
-            
+
             <div class="modal-body">
-                
+
                 <!-- <form class=" flex-column d-flex"> -->
                     <p class="delete-confirmation">
                         Apakah Anda yakin ingin menghapus Buku dengan ID Buku <span>BK0001</span>?
                     </p>
-                    
-                    
+
+
                     <div class="d-flex modal-button-group" style="gap: 12px;">
-                        
+
                         <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="book" onclick="">Hapus</button>
                         <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
                         <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->

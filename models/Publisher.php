@@ -87,8 +87,38 @@ class Publisher implements IManage
         $res = Database::query("SELECT publisher_id FROM publisher ORDER BY publisher_id DESC LIMIT 1")->fetch_array();
         $prevId = intval(substr($res[0], 3, 5));
         $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-        Database::query("INSERT INTO publisher (publisher_id, publisher_name) VALUES ('$id', '$publisher_name')");
-        return $id;
+        // Database::query("INSERT INTO publisher (publisher_id, publisher_name) VALUES ('$id', '$publisher_name')");
+
+        $query = "
+            INSERT INTO publisher
+            (
+                publisher_id,
+                publisher_name
+            )
+            VALUES
+            (
+                ?,
+                ?
+            );
+        ";
+
+        $parameters = [
+            $id,
+            $this->publisher_name,
+        ];
+
+        $statement = Database::prepare($query);
+
+        // Dynamically bind parameters
+        $types = 'ss';
+        $statement->bind_param($types, ...$parameters);
+
+        if ($statement->execute()) {
+            $this->publisher_id = $id;
+            return $id;
+        } else {
+            return false;
+        }
     }
 
     public function getAllPublisher($page)
@@ -118,6 +148,16 @@ class Publisher implements IManage
     {
         $res = Database::query("SELECT * FROM publisher");
         return $res;
+    }
+
+    /**
+     * Set the value of publisher_name
+     */
+    public function setPublisherName($publisher_name): self
+    {
+        $this->publisher_name = $publisher_name;
+
+        return $this;
     }
 }
 

@@ -17,13 +17,18 @@ class Admin extends User
         return $results;
     }
 
+    function add(IManage $object): bool
+    {
+        return $object->add();
+    }
+
 
     function viewBorrowing($page = 1, $search = ''): array
     {
         $borrowing = new Borrowing();
-        return $borrowing->view(page:$page, search:$search);
+        return $borrowing->view(page: $page, search: $search);
     }
-    
+
     function editBorrowing()
     {
     }

@@ -156,6 +156,54 @@ class Book extends Readable implements IManage
 
         public function add()
         {
+                $prefix = 'BK';
+                $len = 5;
+                $res = Database::query("SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1")->fetch_array();
+                $prevId = intval(substr($res[0], 2, 5));
+                $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+                $query = "INSERT INTO book
+                (
+                        book_title,
+                        year_published,
+                        avail,
+                        cover,
+                        shelf_id,
+                        isbn,
+                        publisher_id,
+                        category_id,
+                        author_id,
+                        stock,
+                        ddc_code,
+                        synopsis,
+                        book_id
+                )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ";
+
+                $parameters = [
+                        $this->title,
+                        (string) $this->year,
+                        $this->stock,
+                        $this->cover,
+                        $this->shelf->getShelfId(),
+                        $this->isbn,
+                        $this->publisher->getId(),
+                        $this->category->getId(),
+                        $this->author->getId(),
+                        $this->stock,
+                        $this->ddc_code,
+                        $this->synopsis,
+                        $id,
+                ];
+
+                $statement = Database::prepare($query);
+
+                // Dynamically bind parameters
+                $types = 'ssissssssisss';
+                $statement->bind_param($types, ...$parameters);
+                // var_dump();
+
+                return $statement->execute();
         }
         public function view(int $page, string $search)
         {
@@ -179,14 +227,14 @@ class Book extends Readable implements IManage
                         'countAll' => $this->count(),
                         'start' => $start,
                         'end' => $start + count($book),
-                        'numPages' => (round($this->count()/LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count()/LIMIT_ROWS_PER_PAGE) : 1,
+                        'numPages' => (round($this->count() / LIMIT_ROWS_PER_PAGE) >= 1) ? round($this->count() / LIMIT_ROWS_PER_PAGE) : 1,
                         'data' => $book
                 );
                 return $result;
         }
         public function save()
         {
-        $query = "
+                $query = "
             UPDATE book
             SET
                 book_title = ?,
@@ -255,5 +303,75 @@ class Book extends Readable implements IManage
         public function getStock()
         {
                 return $this->stock;
+        }
+
+        /**
+         * Set the value of isbn
+         */
+        public function setIsbn($isbn): self
+        {
+                $this->isbn = $isbn;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of publisher
+         */
+        public function setPublisher(Publisher $publisher): self
+        {
+                $this->publisher = $publisher;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of category
+         */
+        public function setCategory(Category $category): self
+        {
+                $this->category = $category;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of author
+         */
+        public function setAuthor(Author $author): self
+        {
+                $this->author = $author;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of stock
+         */
+        public function setStock($stock): self
+        {
+                $this->stock = $stock;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of ddc_code
+         */
+        public function setDdcCode($ddc_code): self
+        {
+                $this->ddc_code = $ddc_code;
+
+                return $this;
+        }
+
+        /**
+         * Set the value of synopsis
+         */
+        public function setSynopsis($synopsis): self
+        {
+                $this->synopsis = $synopsis;
+
+                return $this;
         }
 }
