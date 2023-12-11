@@ -132,8 +132,14 @@ class Catalog implements IFilter, ISearch
 
         $querySearch = $search;
         if (!is_null($querySearch)) {
-            $queryBook = $queryBook . " WHERE book_title LIKE '%" . $querySearch . "%'";
-            $queryThesis = $queryThesis . " WHERE thesis_title LIKE '%" . $querySearch . "%'";
+            if (isset($_SESSION['filters']) && !empty($_SESSION['filters'])) {
+                $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
+                $queryThesis = $queryThesis . " AND thesis_title LIKE '%" . $querySearch . "%'";
+            } else {
+                $queryBook = $queryBook . " WHERE book_title LIKE '%" . $querySearch . "%'";
+                $queryThesis = $queryThesis . " WHERE thesis_title LIKE '%" . $querySearch . "%'";
+            }
+
         }
 
         if ($sort == 'title') {
