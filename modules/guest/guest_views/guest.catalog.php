@@ -36,7 +36,7 @@
 
         <div class="landing-text d-flex">
             <h1>Ruang Baca Jurusan Teknologi Informasi</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            <p>Buku Adalah Jendela Dunia</p>
         </div>
 
         <input type="text" name="search" class="search-fields custom-landing-search" placeholder="Cari Buku dan Skripsi" onkeyup="search(this);">

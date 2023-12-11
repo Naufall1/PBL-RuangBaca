@@ -216,7 +216,7 @@ class AdminController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT CATALOG HERE
+                # EDIT CATEGORY HERE
 
             } else {
                 $category = new Category();
