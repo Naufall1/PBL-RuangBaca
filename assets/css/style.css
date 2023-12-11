@@ -1825,3 +1825,101 @@ p.delete-confirmation, p.delete-confirmation > span{
     padding: 24px 20px;
     margin: 0 auto;
 }
+
+/* Start: Footer */
+
+footer{
+    margin-top: 40px;
+    min-height: 300px;
+    max-height: 30vh;
+    width: 100vw;
+    background-color: var(--primary-main-color);
+    padding: 60px 60px 0 60px;
+    justify-content: space-between;
+}
+
+.project-overview-container{
+    /* width: ; */
+}
+
+.logos{
+    gap: 8px;
+}
+
+.project-overview-container{
+    gap: 16px;
+    /* flex-grow: 1; */
+    max-width: 30%;
+}
+
+.project-detail-container{
+    width: max-content;
+    gap: 16px;
+    
+}
+
+/* ul li#project-overview{
+    list-style: none;
+    text-decoration: none;
+} */
+
+.project-detail-container > h2{
+    font-size: 20px;
+    font-family: 'Satoshi-Bold';
+    color: var(--neutral-10-color);
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+}
+
+.project-detail-container > ul > li{
+    font-size: 16px;
+    font-family: 'Satoshi-Medium';
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+}
+
+ ul.project-detail-names{
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 12px;
+}
+
+.project-detail-container > ul > li{
+    
+}
+.project-detail-container > ul > li > a, .project-overview-container > ul > li > a{
+    font-size: 16px;
+    font-family: 'Satoshi-Medium';
+    display: block;
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+}
+
+a#dev-team:hover{
+    color: rgba(255, 255, 255, 1.0);
+}
+
+a#lecturers-and-subjects{
+    /* cursor: default; */
+}
+
+a#lecturers-and-subjects:hover, a#lecturers-and-subjects:active, a#lecturers-and-subjects:focus{
+    /* cursor: default; */
+    color: rgba(255, 255, 255, 1.0) !important;
+}
+
+
+
+
+/* End: Footer */

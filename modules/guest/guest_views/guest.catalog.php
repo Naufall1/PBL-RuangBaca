@@ -39,7 +39,7 @@
             <p>Buku Adalah Jendela Dunia</p>
         </div>
 
-        <input type="text" name="search" class="search-fields custom-landing-search" placeholder="Cari Buku dan Skripsi" onkeyup="search(this);">
+        <!-- <input type="text" name="search" class="search-fields custom-landing-search" placeholder="Cari Buku dan Skripsi" onkeyup="search(this);"> -->
 
     </section>
 
@@ -59,6 +59,43 @@
 
     </main>
     <!-- End: Main Layer -->
+
+    <footer class="d-flex">
+
+        <div class="project-overview-container d-flex flex-column">
+            <div class="logos d-flex">
+                <img src="/assets/icon/logo-polinema.svg" alt="polinema">
+                <img src="/assets/icon/logo-jti.svg" alt="jti">
+                <img src="/assets/icon/logo-ruangBaca.svg" alt="ruangBaca">
+            </div>
+
+            <ul class="project-detail-names d-flex flex-column">
+                <li><a class="project-detail-name" id="lecturers-and-subjects">Proyek akhir semester 3 dengan topik digitalisasi katalog Ruang Baca Jurusan Teknologi Informasi Politeknik Negeri Malang</a></li>
+            </ul>
+
+        </div>
+        
+        <div class="project-detail-container d-flex flex-column">
+            <h2>Pengembang</h2>
+            <ul class="project-detail-names d-flex flex-column">
+                <li><a href="" class="project-detail-name" id="dev-team">2241720207 - Ahmad Taufiq Hidayatulloh</a></li>
+                <li><a href="" class="project-detail-name" id="dev-team">2241720153 - Amanda Vanika Putri</a></li>
+                <li><a href="" class="project-detail-name" id="dev-team">2241720214 - Muhammad Naufal Kurniawan</a></li>
+                <li><a href="" class="project-detail-name" id="dev-team">2241720170 - Rizky Fitri Andini</a></li>
+            </ul>
+        </div>
+        
+        <div class="project-detail-container d-flex flex-column">
+            <h2>Dosen & Mata Kuliah Terkait</h2>
+            <ul class="project-detail-names d-flex flex-column">
+                <li><a class="project-detail-name" id="lecturers-and-subjects">Elok Nur Hamdana, S.T, M.T. (Desain dan Pemrograman Web)</a></li>
+                <li><a class="project-detail-name" id="lecturers-and-subjects">Anugrah Nur Rahmanto, S.Sn., M.Ds. (Desain Antarmuka)</a></li>
+                <li><a class="project-detail-name" id="lecturers-and-subjects">Imam Fahrur Rozi, S.T., M.T. (Pemrograman Berbasis Objek)</a></li>
+                <li><a class="project-detail-name" id="lecturers-and-subjects">Dwi Puspitasari, S.Kom., M.Kom. (Basis Data Lanjut)</a></li>
+            </ul>
+        </div>
+
+    </footer>
 
 </body>
 
