@@ -287,7 +287,7 @@ function openCart(){
     $(".not-editable-item#reserve-date").css("display", "none");
     $(".not-editable-item#due-date").css("display", "none");
     $(".cart-container").css("display", "flex");
-    $(".container-main").css("margin-right", "calc(20px + 297px)");
+    $(".container-main").css("margin-right", "calc(297px)");
     $('.input-fields#reserve-date').css('display', 'flex');
     $('.submit-container > button').css("display", "flex");
 }
