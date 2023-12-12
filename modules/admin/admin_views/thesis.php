@@ -38,7 +38,7 @@
         ?>
             <tr>
                 <td class="no-column"><?= $i + $thesis['start'] ?></td>
-                <td class="id-column" id=""><?= $th->getId(); ?></td>
+                <td class="id-column"><?= $th->getId(); ?></td>
                 <td class="title-column"><?= $th->getTitle(); ?></td>
                 <td class="title-column"><?= $th->getAuthor()->getAuthorName(); ?></td>
                 <!-- <td class="number-column" id="available">0</td> -->
@@ -49,7 +49,7 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="book" onclick="edit(this);" value="">Edit</a>
+                        <a class="dropdown-item" href="#" name="book" onclick="editThesis('<?= $th->getId(); ?>');" value="">Edit</a>
                         <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
                     </div>
                 </td>
@@ -154,6 +154,20 @@
                                 ?>
                             </select>
                         </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="shelf">Rak</label>
+                            <select class="form-select input-group-custom" id="inputGroupSelect01 shelf" name="shelf" required>
+                                <option disabled selected>Pilih Rak</option>
+                                <?php
+                                $rak = Shelf::getAll();
+                                foreach ($rak as $rak_id) {
+                                ?>
+                                    <option value="<?= $rak_id[0] ?>"><?= $rak_id[0] ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="d-flex modal-button-group" style="gap: 12px;">
@@ -171,7 +185,7 @@
 
 <!-- Start: Modal Edit thesis -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalEdit">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
@@ -192,14 +206,14 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class=" flex-column d-flex" id="formEdit" method="post" enctype="multipart/form-data">
 
                     <div class="modal-form-addbook-areas d-flex">
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="thesis_id">ID Skripsi</label>
-                                <input value="[THESIS ID]" disabled type="text" id="thesis_id" name="thesis_id">
+                                <input value="[THESIS ID]" disabled type="text" id="thesis_id" name="id">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="thesis_title">Judul</label>
@@ -220,19 +234,40 @@
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="lecturer_id1">Dosen Pembimbing 1</label>
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id1" name="lecturer_id1">
-                                    <option disabled selected>[CHOOSEN 1st LECTURER]</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <?php
+                                    $lecturer = Lecturer::getAll();
+                                    while ($row = $lecturer->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $row['NIDN'] ?>"><?= $row['lecturer_name'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="lecturer_id2">Dosen Pembimbing 2</label>
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id2" name="lecturer_id2">
-                                    <option disabled selected>[CHOOSEN 2nd LECTURER]</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <?php
+                                    $lecturer = Lecturer::getAll();
+                                    while ($row = $lecturer->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $row['NIDN'] ?>"><?= $row['lecturer_name'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="shelf">Rak</label>
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 shelf" name="shelf" required>
+                                    <?php
+                                    $rak = Shelf::getAll();
+                                    foreach ($rak as $rak_id) {
+                                    ?>
+                                        <option value="<?= $rak_id[0] ?>"><?= $rak_id[0] ?></option>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>

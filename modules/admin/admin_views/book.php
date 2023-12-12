@@ -54,7 +54,7 @@
                     </svg>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" name="book" onclick="edit(this);"
+                    <a class="dropdown-item" href="#" name="book" onclick="editBook('<?= $book->getId() ?>');"
                         value="<?= $book->getId() ?>">Edit</a>
                     <a class="dropdown-item" href="#" name="book" onclick="detail(this);"
                         value="<?= $book->getId() ?>">Detail</a>
@@ -275,8 +275,8 @@
                         <h3 class="modal-heading" id="">Edit Data</h3>
                     </div>
 
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="close-button"
+                         id="book">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M5 15 15 5m0 10-5-5-5-5" />
@@ -288,16 +288,16 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex" method="post" enctype="multipart/form-data">
+                <form class="flex-column d-flex" id="formEdit" method="post" enctype="multipart/form-data">
 
                     <div class="modal-form-addbook-areas d-flex">
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="cover">Cover</label>
-                                <img src="<?= COVER_DIR . '/' . $book->getCover() ?>" alt="" class="book-cover"
+                                <img id="cover" src="" alt="" class="book-cover"
                                     style="object-fit: cover; object-position: 0 80%;">
-                                <input required type="file" id="cover" name="cover">
+                                <input type="file" id="cover" name="cover">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="title">Judul</label>
@@ -306,15 +306,30 @@
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="synopsis">Sinposis</label>
-                                <textarea id="synopsis" name="synopsis" placeholder="Masukkan Sinopsis">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut quam eaque facilis repellat expedita corrupti dolores eius, possimus sequi beatae dolorem nam enim, dicta quo soluta magni voluptatum recusandae? Labore dolorem magnam, suscipit maxime dignissimos magni dicta quam porro at.
+                                <textarea id="synopsis" name="synopsis" placeholder="Masukkan Sinopsis">
+                                    Lorem ipsum dolor sit amet.
                                 </textarea>
+                            </div>
+                            <div class="addbook-input-field input-fields d-flex flex-column">
+                                <label for="category">Category</label>
+                                <select class="form-select input-group-custom" id="inputGroupSelect01 category"
+                                    name="category">
+                                    <?php
+                                        $categories = Category::getAll();
+                                        while ($cat = $categories->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $cat['category_id'] ?>"><?= $cat['category_name'] ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="book_id">ID Buku</label>
-                                <input value="[BOOK ID]" disabled type="text" id="book_id" name="book_id"
+                                <input value="[BOOK ID]" disabled type="text" id="book_id" name="id"
                                     placeholder="Masukkan Penerbit">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
@@ -323,10 +338,15 @@
                                 <!-- <label class="input-group-text" for="inputGroupSelect01">Options</label> -->
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 author"
                                     name="author">
-                                    <option selected>[SELECTED AUTHOR]</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <!-- <option selected>[SELECTED AUTHOR]</option> -->
+                                    <?php
+                                        $author = Author::getAll();
+                                        while ($aut = $author->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $aut['author_id'] ?>"><?= $aut['author_name'] ?></option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select>
                                 <!-- </div> -->
                             </div>
@@ -334,15 +354,19 @@
                                 <label for="publisher">Penerbit</label>
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 publisher"
                                     name="publisher">
-                                    <option selected>[SELECTED PUBLISHER]</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <?php
+                                        $publisher = Publisher::getAll();
+                                        while ($pub = $publisher->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $pub['publisher_id']?>"><?= $pub['publisher_name']?></option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select>
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="year">Tahun Terbit</label>
-                                <input value="[FILLED YEAR]" required type="number" id="year" name="year"
+                                <input value="(FILLED YEAR)" required type="number" id="year" name="year"
                                     placeholder="Masukkan Tahun Terbit">
                             </div>
                             <div class="addbook-input-field divider-half-input-field input-fields d-flex">
@@ -350,15 +374,19 @@
                                     <label for="shelf">Rak</label>
                                     <select class="form-select input-group-custom" id="inputGroupSelect01 shelf"
                                         name="shelf">
-                                        <option selected>[SELECTED SHELF]</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <?php
+                                            $rak = Shelf::getAll();
+                                            foreach ($rak as $rak_id) {
+                                        ?>
+                                            <option value="<?= $rak_id[0]?>"><?= $rak_id[0]?></option>
+                                        <?php
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
                                     <label for="stock">Stok</label>
-                                    <input value="[STOCK LEFT]" required type="number" min="1" id="stock" name="stock"
+                                    <input value="STOCK LEFT" required type="number" min="1" id="stock" name="stock"
                                         placeholder="Masukkan Stok">
                                 </div>
                             </div>

@@ -38,8 +38,8 @@
         ?>
             <tr>
                 <td class="no-column"><?= $i+$publishers['start'] ?></td>
-                <td class="id-column" id=""><?= $publisher->getId(); ?></td>
-                <td class="title-column"><?= $publisher->getPublisherName(); ?></td>
+                <td class="id-column" name="id"><?= $publisher->getId(); ?></td>
+                <td class="title-column" name="main"><?= $publisher->getPublisherName(); ?></td>
                 <!-- <td class="number-column" id="stock">0</td>
                 <td class="number-column" id="available">0</td> -->
                 <td class="more-icon-column">
@@ -49,7 +49,7 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="book" onclick="edit(this);" value="">Edit</a>
+                        <a class="dropdown-item" href="#" name="book" onclick="editSingle('<?= $publisher->getId(); ?>');" value="">Edit</a>
                         <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
                     </div>
                 </td>
@@ -130,7 +130,7 @@
 
 <!-- Start: Modal Edit Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalEdit">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
@@ -140,8 +140,7 @@
                         <h3 class="modal-heading" id="">Edit Data</h3>
                     </div>
 
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="close-button" id="book">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M5 15 15 5m0 10-5-5-5-5" />
@@ -153,19 +152,19 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class=" flex-column d-flex" id="formEdit" method="post">
 
                     <div class="modal-form-addbook-areas d-flex">
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="publisher_id">ID Penerbit</label>
-                                <input value="[PUBLISHER ID]" disabled type="text" id="publisher_id" name="publisher_id"
+                                <input value="[PUBLISHER ID]" disabled type="text" id="id" name="id"
                                     placeholder="Masukkan Penerbit">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="publisher_name">Nama Penerbit</label>
-                                <input value="[FILLED PUBLISHER NAME]"  required type="text" id="publisher_name" name="publisher_name" placeholder="Masukkan Nama Penerbit">
+                                <input value="[FILLED PUBLISHER NAME]"  required type="text" id="main" name="publisher_name" placeholder="Masukkan Nama Penerbit">
                             </div>
                         </div>
 
