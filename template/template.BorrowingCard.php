@@ -4,38 +4,39 @@
         if ($row['id'] == null) {
             break;
         }
+        switch ($row['status']) {
+            case 'menunggu':
+                $statusId = 'waiting';
+                break;
+            case 'dikonfirmasi':
+                $statusId = 'confirmed';
+                break;
+            case 'dipinjam':
+                $statusId = 'borrowed';
+                break;
+            case 'selesai':
+                $statusId = 'done';
+                break;
+            case 'ditolak':
+                $statusId = 'reject';
+                break;
+            case 'terlambat':
+                $statusId = 'reject';
+                break;
+            default:
+                # code...
+                break;
+        }
         // var_dump($row);
         // id, status, book, thesis, reserve_date
 ?>
 
-        <div class="borrowing-card d-flex flex-column justify-content-between" onclick="loadModal('<?= $row['id'] ?>');">
+        <div class="borrowing-card d-flex flex-column justify-content-between" onclick="loadModal('<?= $row['id'] ?>', '<?= $statusId?>');">
 
             <div class="borrowing-card-header d-flex align-items-center justify-content-between">
                 <p class="borrowing-id">#<?= $row['id'] ?></p>
                 <?php
-                    switch ($row['status']) {
-                        case 'menunggu':
-                            $statusId = 'waiting';
-                            break;
-                        case 'dikonfirmasi':
-                            $statusId = 'confirmed';
-                            break;
-                        case 'dipinjam':
-                            $statusId = 'borrowed';
-                            break;
-                        case 'selesai':
-                            $statusId = 'done';
-                            break;
-                        case 'ditolak':
-                            $statusId = 'reject';
-                            break;
-                        case 'terlambat':
-                            $statusId = 'reject';
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
+
                 ?>
                 <div class="borrowing-status d-flex" id="<?= $statusId ?>">
                     <p>

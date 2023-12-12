@@ -18,7 +18,6 @@
       </div>
 
       <div class="cart-detail-information d-flex flex-column">
-
         <div class="not-editable-information d-flex flex-column">
           <div class="not-editable-item d-flex flex-column">
             <h4 class="not-editable-item-heading">
@@ -34,9 +33,11 @@
             <h4 class="not-editable-item-heading">
               Status
             </h4>
-            <p class="not-editable-item-value">
-              [ status ]
-            </p>
+            <div class="borrowing-status d-flex" id="">
+              <p>
+                Test
+              </p>
+            </div>
           </div>
           <div class="not-editable-item flex-column" id="reserve-date" style="display: none;">
             <h4 class="not-editable-item-heading">
@@ -51,7 +52,7 @@
               Tanggal Kembali
             </h4>
             <p class="not-editable-item-value">
-            11-11-1111
+              11-11-1111
             </p>
           </div>
         </div>
