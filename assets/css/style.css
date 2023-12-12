@@ -588,6 +588,23 @@ a.more-filter{
     gap: 4px;
 }
 
+a.delete-filter-item{
+    justify-content: center;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    width: fit-content;
+    padding: 0 8px;
+    /* border: solid 2px var(--primary-main-color); */
+    border-radius: 16px;
+    font-family: 'Satoshi-Medium';
+    font-size: 14px;
+    color: var(--primary-main-color);
+    background-color: var(--neutral-10-color);
+    gap: 4px;
+}
+
 p.filtered-title{
     font-size: 14px;
     font-family: 'Satoshi-Medium';

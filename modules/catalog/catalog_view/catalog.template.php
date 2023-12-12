@@ -43,6 +43,8 @@
                     </div> -->
             <!-- End: R2 Filter Item -->
 
+            <a class="d-flex delete-filter-item text-nowrap" href="">Hapus Semua</a>
+
         </div>
         <!-- End: Filtered Layer -->
 
