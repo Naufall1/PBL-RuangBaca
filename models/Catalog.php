@@ -129,7 +129,6 @@ class Catalog implements IFilter, ISearch
                 $i++;
             }
         }
-
         $querySearch = $search;
         if (!is_null($querySearch)) {
             if (isset($_SESSION['filters']) && !empty($_SESSION['filters'])) {
