@@ -90,7 +90,7 @@
     </div>
 
     <div class="filter-contents d-flex">
-        <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Kategori">
+        <!-- <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Kategori"> -->
         <form action="" class="form-data d-flex">
 
             <?php
@@ -107,14 +107,55 @@
 
             <?php
             }
+
             ?>
 
         </form>
-        <a href="" class="more-filter" id="categories">Lihat Selengkapnya</a>
+        <!-- <a href="" class="more-filter" id="categories">Lihat Selengkapnya</a> -->
     </div>
 
 </div>
 <!-- End: Filter Kategori -->
+
+<div class="hr-divider"></div>
+
+<!-- Start: Filter Prodi -->
+<div class="filter-group d-flex" id="categories">
+
+    <div class="filter-title d-flex">
+        <p class="filter-heading">Prodi</p>
+        <svg class="dropdown-icon" id="categories" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
+        </svg>
+    </div>
+
+    <div class="filter-contents d-flex">
+        <!-- <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Kategori"> -->
+        <form action="" class="form-data d-flex">
+
+            <?php
+            $categories = Thesis::getAllCategories();
+            while ($cat = $categories->fetch_assoc()) {
+            ?>
+
+                <div class="form-check">
+                    <input name="prodi" class="form-check-input checkbox-filter" type="checkbox" value="<?= $cat['category'] ?>" id="<?= $cat['category'] ?>">
+                    <label class="form-check-label" for="<?= $cat['category'] ?>">
+                        <?= $cat['category'] ?>
+                    </label>
+                </div>
+
+            <?php
+            }
+
+            ?>
+
+        </form>
+        <!-- <a href="" class="more-filter" id="categories">Lihat Selengkapnya</a> -->
+    </div>
+
+</div>
+<!-- End: Filter Prodi -->
 
 <div class="hr-divider"></div>
 
@@ -129,7 +170,7 @@
     </div>
 
     <div class="filter-contents d-flex">
-        <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Penulis">
+        <!-- <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Penulis"> -->
         <form action="" class="form-data d-flex">
             <?php
             $author = Author::getAll();
@@ -148,7 +189,7 @@
             ?>
 
         </form>
-        <a href="" class="more-filter" id="authors">Lihat Selengkapnya</a>
+        <!-- <a href="" class="more-filter" id="authors">Lihat Selengkapnya</a> -->
     </div>
 
 </div>
@@ -167,7 +208,7 @@
     </div>
 
     <div class="filter-contents d-flex">
-        <input type="text" name="search" class="filter-search-fields" id="publishers" placeholder="Cari Penerbit">
+        <!-- <input type="text" name="search" class="filter-search-fields" id="publishers" placeholder="Cari Penerbit"> -->
         <form action="" class="form-data d-flex">
             <?php
             $publisher = Publisher::getAll();
@@ -186,7 +227,7 @@
             ?>
 
         </form>
-        <a href="" class="more-filter" id="publishers">Lihat Selengkapnya</a>
+        <!-- <a href="" class="more-filter" id="publishers">Lihat Selengkapnya</a> -->
     </div>
 
 </div>
@@ -205,7 +246,7 @@
     </div>
 
     <div class="filter-contents d-flex">
-        <input type="text" name="search" class="filter-search-fields" id="years" placeholder="Cari Tahun Terbit">
+        <!-- <input type="text" name="search" class="filter-search-fields" id="years" placeholder="Cari Tahun Terbit"> -->
         <form action="" class="form-data d-flex">
             <?php
             foreach (Catalog::getAllYearPublished() as $year) {
@@ -221,7 +262,7 @@
             ?>
 
         </form>
-        <a href="" class="more-filter" id="publishers">Lihat Selengkapnya</a>
+        <!-- <a href="" class="more-filter" id="publishers">Lihat Selengkapnya</a> -->
     </div>
 
 </div>
