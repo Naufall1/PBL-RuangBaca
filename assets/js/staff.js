@@ -95,26 +95,26 @@ function loadModal(id) {
             $('#modalBuku button[name="finish"]').attr('id',borrowingDetails['id']);
             var statusId = '';
             switch (borrowingDetails['status']) {
-                case 'menunggu':
+                case 'Menunggu':
                     statusId = 'waiting';
                     $('button[name="reject"]').css('display', 'flex');
                     $('button[name="confirm"]').css('display', 'flex');
                     break;
-                case 'dikonfirmasi':
+                case 'Dikonfirmasi':
                     $('button[name="pickUp"]').css('display', 'flex');
                     statusId = 'confirmed';
                     break;
-                case 'dipinjam':
+                case 'Dipinjam':
                     $('button[name="finish"]').css('display', 'flex');
                     statusId = 'borrowed';
                     break;
-                case 'terlambat':
+                case 'Terlambat':
                     statusId = 'reject';
                     break;
-                case 'selesai':
+                case 'Selesai':
                     statusId = 'done';
                     break;
-                case 'ditolak':
+                case 'Ditolak':
                     statusId = 'reject';
                     break;
             }
