@@ -427,14 +427,13 @@ p, .navbar-content-users{
     min-width: 220px;
     padding: 16px;
     height: max-content;
-
+    flex-wrap: wrap;
 }
 
 .filter-groups{
     width: 100%;
     flex-direction: column;
     gap: 8px;
-
 }
 
 .filter-group{
@@ -469,6 +468,7 @@ p.filter-heading{
     display: none;
     flex-direction: column;
     gap: 8px;
+    transition: all 0.2s ease;
 }
 
 button.btn-filter{
@@ -573,7 +573,7 @@ a.more-filter{
 .filtered-items{
     /* background-color: greenyellow; */
     /* flex: auto; */
-    height: 48px;
+    height: max-content;
     gap: 16px;
     align-items: end;
     align-items: center;
