@@ -43,7 +43,7 @@
             <h1>Ruang Baca Jurusan Teknologi Informasi</h1>
             <p>Buku Adalah Jendela Dunia</p>
         </div>
-        <button class="enabled" type="button" onclick="#catalog" >Jelajahi</button>
+        <a class="anchor-enabled" href="#catalog" >Jelajahi</a>
 
         <!-- <input type="text" name="search" class="search-fields custom-landing-search" placeholder="Cari Buku dan Skripsi" onkeyup="search(this);"> -->
 
