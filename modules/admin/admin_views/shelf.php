@@ -69,7 +69,7 @@
     <?php
     for ($i = 1; $i <= $numPage; $i++) {
     ?>
-        <a href="#" class="<?= ($shelf['page'] == $i) ? 'active' : '' ?>"><?= $i ?></a>
+        <a href="#" name="pagination" class="<?= ($shelf['page'] == $i) ? 'active' : '' ?>"><?= $i ?></a>
     <?php
     }
     ?>

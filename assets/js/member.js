@@ -36,12 +36,12 @@ $(document).ready(function () {
         }
     });
 
-    $(".menu#history").click(function () { 
+    $(".menu#history").click(function () {
         $(".container-nav > .content-nav > input").css("display", "none");
         $(".container-nav > .content-nav > .heading-page").css("display", "flex");
     });
 
-    $("#book").click(function () { 
+    $("#book").click(function () {
         console.log('book');
         $(".container-nav > .content-nav > input").css("display", "block");
         $(".container-nav > .content-nav > .heading-page").css("display", "none");
@@ -66,8 +66,6 @@ function loadModule(moduleName) {
                     }
                 }
             });
-
-
             $(".filter-group").change(function () {
                 var array = {
                     "name": $(this).attr('name'),

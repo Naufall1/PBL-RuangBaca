@@ -16,54 +16,17 @@ function loadSearch(moduleName) {
             });
         }
     });
+}
 
-    // switch (moduleName) {
-    //     case 'book':
-    //         $('input[name="search-book"]').keyup(function (e) {
-    //             if (e.keyCode == 13) {
-    //                 $.ajax({
-    //                     type: "GET",
-    //                     url: "?function=search/book&q=" + $(this).val(),
-    //                     success: function (response) {
-    //                         $('main.container-main').html(response);
-    //                         loadSearch(moduleName);
-    //                     }
-    //                 });
-    //             }
-    //         });
-    //         break;
-    //     case 'author':
-    //         $('input[name="search-author"]').keyup(function (e) {
-    //             if (e.keyCode == 13) {
-    //                 $.ajax({
-    //                     type: "POST",
-    //                     url: "?function=search/author",
-    //                     data: "q=" + $(this).val(),
-    //                     success: function (response) {
-    //                         $('main.container-main').html(response);
-    //                         loadSearch(moduleName);
-    //                     }
-    //                 });
-    //             }
-    //         });
-    //         break;
-    //     case 'publisher':
-    //         break;
-    //     case 'category':
-    //         break;
-    //     case 'thesis':
-    //         break;
-    //     case 'lecture':
-    //         break;
-    //     case 'member':
-    //         break;
-    //     case 'borrowing':
-    //         break;
-    //     case 'shelf':
-    //         break;
-    //     default:
-    //         break;
-    // }
+function changePage(mod, page) {
+    $.ajax({
+        type: "GET",
+        url: "?page=" + mod,
+        data: "num=" + page,
+        success: function (response) {
+            $('main.container-main').html(response);
+        }
+    });
 }
 
 /**
@@ -123,8 +86,12 @@ function uploadDataAdd(mod, data) {
         type: 'POST',
         data: data,
         success: function (res) {
-            alert(res);
-            $('#modalAdd').modal('hide');
+            if (res == 'success') {
+                alert(res);
+                $('#modalAdd').modal('hide');
+            } else {
+                alert(res);
+            }
         },
         cache: false,
         contentType: false,
@@ -239,7 +206,7 @@ function processDelete() {
     });
 }
 
-function loadModule(moduleName) {
+function loadModule(moduleName, page = 1) {
     switch (moduleName) {
         case 'book':
             changeTableHeading('Buku');
@@ -274,6 +241,7 @@ function loadModule(moduleName) {
     $.ajax({
         type: "GET",
         url: "?page=" + moduleName,
+        data: "num=" + page,
         success: function (response) {
             $('main.container-main').html(response);
 
@@ -284,8 +252,13 @@ function loadModule(moduleName) {
                 // $('#modalBuku').modal('show');
             });
 
+            $('a[name="pagination"]').click(function (e) {
+                loadModule(moduleName, $(this).html());
+            });
+
             // FORM ADD BOOK
             $('select[name="category"]').change(function () {
+                alert('change');
                 if ($(this).val() != 'add') {
                     $('input[name="add-category"]').prop('disabled', true);
                     $('input[name="add-category"]').prop('required', false);

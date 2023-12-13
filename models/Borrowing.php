@@ -56,10 +56,17 @@
             $borrowing = array();
             $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
             $limit = LIMIT_ROWS_PER_PAGE;
-            $query = "SELECT BORROWING_ID FROM borrowing ORDER BY BORROWING_ID LIMIT $limit OFFSET $start";
+            $query = "SELECT BORROWING_ID FROM borrowing AS b LEFT JOIN member AS m ON b.member_id=m.member_id";
+
+            if ($search != '') {
+                $query = $query . " WHERE m.member_name LIKE '%" . $search . "%'";
+            }
+
+            $query = $query . " ORDER BY BORROWING_ID LIMIT $limit OFFSET $start";
+
             $result = Database::query($query);
             while ($id = $result->fetch_column()) {
-                $borrowing[] = new borrowing($id);
+                $borrowing[] = new Borrowing($id);
             }
             $result = array(
                 'page' => $page,
