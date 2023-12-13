@@ -15,11 +15,11 @@
                         <p class="content-message">Pesan</p>
                     </div>  
                 </div>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="thesis">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                        <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
-                    </svg>
-                </button>
+                <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                      <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                  </svg>
+                </a>
             </div>
         </div>
         <!-- Success -->
@@ -38,11 +38,11 @@
                         <p class="content-message">Pesan</p>
                     </div>  
                 </div>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="thesis">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                        <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
-                    </svg>
-                </button>
+                <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                      <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                  </svg>
+                </a>
             </div>
         </div>
         <!-- Warning -->
@@ -62,11 +62,11 @@
                         <p class="content-message">Pesan</p>
                     </div>  
                 </div>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="thesis">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                        <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
-                    </svg>
-                </button>
+                <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                      <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
+                  </svg>
+                </a>
             </div>
         </div>
         <!-- Danger -->
