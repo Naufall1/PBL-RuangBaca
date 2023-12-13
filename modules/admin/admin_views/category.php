@@ -14,7 +14,7 @@
 <!-- Start: View Books Layer -->
 <div class="collection-views d-flex justify-content-between">
     <p class="total-views">
-        Menampilkan <?= $category['start']+1 ?>-<?= $category['end'] ?> dari <?= $category['countAll'] ?> koleksi
+        Menampilkan <?= $category['start'] + 1 ?>-<?= $category['end'] ?> dari <?= $category['countAll'] ?> koleksi
     </p>
 </div>
 <!-- End: View Books Layer -->
@@ -35,11 +35,9 @@
         foreach ($category['data'] as $cat) {
         ?>
             <tr>
-                <td class="no-column"><?= $i+$category['start'] ?></td>
-                <td class="id-column" id=""><?= $cat->getId(); ?></td>
-                <td class="title-column"><?= $cat->getCategoryName(); ?></td>
-                <!-- <td class="number-column" id="stock">0</td>
-                <td class="number-column" id="available">0</td> -->
+                <td class="no-column"><?= $i + $category['start'] ?></td>
+                <td class="id-column" name="id"><?= $cat->getId(); ?></td>
+                <td class="title-column" name="main"><?= $cat->getCategoryName(); ?></td>
                 <td class="more-icon-column">
                     <a href="" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -47,8 +45,8 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="book" onclick="edit(this);" value="">Edit</a>
-                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
+                        <a class="dropdown-item" href="#" name="book" onclick="editSingle('<?= $cat->getId(); ?>');" value="">Edit</a>
+                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="deleteById('<?= $cat->getId(); ?>');" value="">Hapus</a>
                     </div>
                 </td>
             </tr>
@@ -69,11 +67,11 @@
     </a>
 
     <?php
-        for ($i=1; $i <= $numPage; $i++) {
+    for ($i = 1; $i <= $numPage; $i++) {
     ?>
-            <a href="#" class="<?= ($category['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
+        <a href="#" class="<?= ($category['page'] == $i) ? 'active' : '' ?>"><?= $i ?></a>
     <?php
-        }
+    }
     ?>
     <a href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
@@ -98,8 +96,7 @@
 
                     <button type="button" class="close-button" id="book" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M5 15 15 5m0 10-5-5-5-5" />
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5" />
                         </svg>
                     </button>
 
@@ -131,7 +128,7 @@
 
 <!-- Start: Modal Edit Category -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalEdit">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
@@ -141,11 +138,9 @@
                         <h3 class="modal-heading" id="">Edit Data</h3>
                     </div>
 
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="close-button" id="book">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M5 15 15 5m0 10-5-5-5-5" />
+                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5" />
                         </svg>
                     </button>
 
@@ -154,19 +149,18 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class=" flex-column d-flex" id="formEdit" method="post">
 
                     <div class="modal-form-addbook-areas d-flex">
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="category_id">ID Kategori</label>
-                                <input value="[CATEGORY ID]" disabled type="text" id="category_id" name="category_id"
-                                    placeholder="Masukkan Penerbit">
+                                <input value="[CATEGORY ID]" disabled type="text" id="id" name="id" placeholder="Masukkan Penerbit">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="category_name">Nama Kategori</label>
-                                <input value="[FILLED CATEGORY NAME]"  required type="text" id="category_name" name="category_name" placeholder="Masukkan Nama Kategori">
+                                <input value="[FILLED CATEGORY NAME]" required type="text" id="main" name="category_name" placeholder="Masukkan Nama Kategori">
                             </div>
                         </div>
 
@@ -174,16 +168,10 @@
 
                     <div class="d-flex modal-button-group" style="gap: 12px;">
 
-                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="category"
-                            onclick="">Simpan</button>
-
+                        <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="category" onclick="">Simpan</button>
                     </div>
-
                 </form>
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -192,7 +180,7 @@
 
 <!-- Start: Modal Delete-->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalDelete">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-delete">
             <div class="modal-header border-0 d-flex">
@@ -216,19 +204,15 @@
             <div class="modal-body">
 
                 <!-- <form class=" flex-column d-flex"> -->
-                    <p class="delete-confirmation">
-                        Apakah Anda yakin ingin menghapus Kategori dengan ID Kategori <span>BK0001</span>?
-                    </p>
+                <p class="delete-confirmation" mod="category">
+                    Apakah Anda yakin ingin menghapus Kategori dengan ID Kategori <span>BK0001</span>?
+                </p>
 
 
-                    <div class="d-flex modal-button-group" style="gap: 12px;">
-
-                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="category" onclick="">Hapus</button>
-
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
-                        <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
-                    </div>
+                <div class="d-flex modal-button-group" style="gap: 12px;">
+                    <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
+                </div>
 
                 <!-- </form> -->
             </div>

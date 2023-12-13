@@ -55,14 +55,29 @@ function loadSearch(moduleName) {
     }
 }
 
+/**
+ * Create Section
+ */
 function validateFormBook() {
     var isValid = true;
-    if ($('select[name="shelf"]').val() === "Pilih Rak" || $('select[name="shelf"]').val() === null) {
+    if ($('select[name="shelf"]').val() === "Pilih Rak"  || $('select[name="shelf"]').val() === null) {
         isValid = false;
     }
     return isValid;
 }
-
+function validateFormThesis() {
+    var isValid = true;
+    if ($('select[name="shelf"]').val() === "Pilih Rak" || $('select[name="shelf"]').val() === null){
+        isValid = false;
+    }
+    if ($('select[name="lecturer_id1"]').val() === "Pilih Dosen" || $('select[name="lecturer_id1"]').val() === null) {
+        isValid = false;
+    }
+    if ($('select[name="lecturer_id2"]').val() === "Pilih Dosen" || $('select[name="lecturer_id2"]').val() === null) {
+        isValid = false;
+    }
+    return isValid;
+}
 function resetForm() {
     // Reset nilai input teks dan textarea
     $("#title, #synopsis, #add-category, #add-author, #add-publisher, #year, #stock, #isbn, #ddc_code").val("");
@@ -80,7 +95,17 @@ function resetForm() {
     $('input[name="add-category"]').prop('disabled', false);
     $('input[name="add-category"]').prop('required', true);
 }
-
+function addShelf() {
+    $.ajax({
+        type: "POST",
+        url: "?page=shelf",
+        data: "nextId",
+        success: function (response) {
+            $('#modalAdd input[name="id"]').val(response);
+            $('#modalAdd').modal('show');
+        }
+    });
+}
 function uploadDataAdd(mod, data) {
     $.ajax({
         url: '?page='+mod,
@@ -96,6 +121,113 @@ function uploadDataAdd(mod, data) {
     });
 }
 
+/**
+ *
+ * Update section
+*/
+function uploadDataEdit(mod, data) {
+    $.ajax({
+        url: '?page='+mod,
+        type: 'POST',
+        data: data,
+        success: function (res) {
+            alert(res);
+            $('#modalEdit').modal('hide');
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+function editBook(id) {
+    $.ajax({
+        type: 'POST',
+        url: '?function=getDesc',
+        data: 'book_id=' + id,
+        success: function(res) {
+            // console.log(JSON.parse(res));
+            var book = JSON.parse(res);
+            $('#modalEdit').find('#book_id').val(book['id']);
+            $('#modalEdit').find('#title').val(book['title']);
+            $('#modalEdit').find('#cover').attr('src','uploads/cover/'+ book['cover']);
+            $('#modalEdit').find('select[name="author"] > option[value="'+book['author_id']+'"]').prop('selected',true);
+            $('#modalEdit').find('select[name="publisher"] > option[value="'+book['publisher_id']+'"]').prop('selected',true);
+            $('#modalEdit').find('select[name="category"] > option[value="'+book['category_id']+'"]').prop('selected',true);
+            $('#modalEdit').find('input[name="year"]').val(book['year']);
+            $('#modalEdit').find('select[name="shelf"] > option[value="'+book['shelf']+'"]').prop('selected',true);
+            $('#modalEdit').find('textarea[name="synopsis"]').html(book['synopsis']);
+            $('#modalEdit').find('input[name="stock"]').val(book['avail']);
+            $('#modalEdit').find('input[name="isbn"]').val(book['isbn']);
+            $('#modalEdit').find('input[name="ddc_code"]').val(book['ddc_code']);
+            $('#modalEdit').find('input[name="cover"]').val('');
+            $('#modalEdit').find('button[name="book"]').attr('id', book['id']);
+        }, error: function(err) {
+            console.log(err);
+        }
+    });
+
+    setTimeout(function() {
+        $('#modalEdit').modal('show');
+    }, 50);
+}
+function editThesis(id) {
+    $.ajax({
+        type: 'POST',
+        url: '?function=getDesc',
+        data: 'thesis_id=' + id,
+        success: function(res) {
+            console.log(JSON.parse(res));
+            var thesis = JSON.parse(res);
+            var dospem = thesis['dospem'].split(',');
+            $('#modalEdit').find('input[name="id"]').val(thesis['id']);
+            $('#modalEdit').find('input[name="thesis_title"]').val(thesis['title']);
+            // $('#modalEdit').find('#cover').attr('src','uploads/cover/default.png');
+            $('#modalEdit').find('input[name="writer_name"]').val(thesis['author']);
+            $('#modalEdit').find('input[name="writer_NIM"]').val(thesis['writer_nim']);
+            $('#modalEdit').find('input[name="year_published"]').val(thesis['year']);
+
+            $('#modalEdit').find('select[name="lecturer_id1"] > option:contains("'+dospem[0]+'")').prop('selected',true);
+            $('#modalEdit').find('select[name="lecturer_id2"] > option:contains("'+dospem[1]+'")').prop('selected',true);
+            $('#modalEdit').find('select[name="shelf"] > option[value="'+thesis['shelf']+'"]').prop('selected',true);
+        }, error: function(err) {
+            console.log(err);
+        }
+    });
+    setTimeout(function() {
+        $('#modalEdit').modal('show');
+    }, 50);
+}
+function editSingle(id) {
+    var value = $('td[name="id"]:contains("'+id+'")').next('td[name="main"]').html();
+    $('#modalEdit').find('#id').val(id);
+    $('#modalEdit').find('#main').val(value);
+    $('#modalEdit').modal('show');
+}
+
+/**
+ *
+ * Delete section
+ */
+
+function deleteById(id) {
+    $('.delete-confirmation > span').html(id);
+    $('#modalDelete').modal('show');
+}
+
+function processDelete() {
+    var id = $('.delete-confirmation > span').html();
+    var mod = $('.delete-confirmation').attr('mod');
+    $.ajax({
+        type: "POST",
+        url: "?page="+mod,
+        data: "id="+id+"&delete",
+        success: function (res) {
+            alert(res);
+            $('#modalDelete').modal('hide');
+        }
+    });
+}
+
 function loadModule(moduleName) {
     switch (moduleName) {
         case 'book':
@@ -104,7 +236,7 @@ function loadModule(moduleName) {
         case 'author':
             changeTableHeading('Penulis');
             break;
-        case 'publisher':
+        case 'category':
             changeTableHeading('Penerbit');
             break;
         case 'category':
@@ -220,16 +352,36 @@ function loadModule(moduleName) {
             // FORM ADD THESIS
             $("#formAddThesis").submit(function (e) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
+                if (validateFormThesis()) {
+                    // Mengumpulkan data form
+                    var formData = new FormData(this);
+                    uploadDataAdd(moduleName,formData);
+                } else {
+                    alert("Please fill all fields!");
+                }
+            });
+            // END FORM ADD THESIS
+
+            // FORM ADD
+            $("#formAdd").submit(function (e) {
+                e.preventDefault(); // Mencegah pengiriman form secara default
+                $('input[type="text"][name="id"]').prop('disabled', false);
                 // Mengumpulkan data form
                 var formData = new FormData(this);
                 uploadDataAdd(moduleName,formData);
             });
-            // END FORM ADD THESI
+            // END FORM ADD
+
+            // FORM EDIT SINGLE
+            $("#formEdit").submit(function (e) {
+                e.preventDefault();
+                $('input[type="text"][name="id"]').prop('disabled', false);
+                var formData = new FormData(this);
+                uploadDataEdit(moduleName,formData);
+            });
+            // END FORM EDIT SINGLE
         }
     });
-}
-function edit(id) {
-    console.log($(id).attr('name'));
 }
 
 $(document).ready(function () {

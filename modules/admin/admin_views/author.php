@@ -38,8 +38,8 @@
         ?>
             <tr>
                 <td class="no-column"><?= $i+$authors['start'] ?></td>
-                <td class="id-column" id=""><?= $author->getId(); ?></td>
-                <td class="title-column"><?= $author->getAuthorName(); ?></td>
+                <td class="id-column" name="id"><?= $author->getId(); ?></td>
+                <td class="title-column" name="main"><?= $author->getAuthorName(); ?></td>
                 <td class="more-icon-column">
                     <a href="" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -47,8 +47,8 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="author" onclick="edit(this);" value="">Edit</a>
-                        <a class="dropdown-item" href="#" id="risk-action" name="author" onclick="detail(this);" value="">Hapus</a>
+                        <a class="dropdown-item" href="#" name="author" onclick="editSingle('<?= $author->getId(); ?>');" value="">Edit</a>
+                        <a class="dropdown-item" href="#" id="risk-action" name="author" onclick="deleteById('<?= $author->getId(); ?>');" value="">Hapus</a>
                     </div>
                 </td>
             </tr>
@@ -96,7 +96,7 @@
                         <h3 class="modal-heading" id="">Tambah Data</h3>
                     </div>
 
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
+                    <button type="button" class="close-button"
                          id="book" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -131,7 +131,7 @@
 
 <!-- Start: Modal Edit Author -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalEdit">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
@@ -141,8 +141,7 @@
                         <h3 class="modal-heading" id="">Edit Data</h3>
                     </div>
 
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                    <button type="button" class="close-button" id="book" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M5 15 15 5m0 10-5-5-5-5" />
@@ -154,19 +153,18 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class="flex-column d-flex"  id="formEdit" method="post">
 
                     <div class="modal-form-addbook-areas d-flex">
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="author_id">ID Penulis</label>
-                                <input value="[AUTHOR ID]" disabled type="text" id="author_id" name="author_id"
-                                    placeholder="Masukkan Penerbit">
+                                <input value="[AUTHOR ID]" disabled type="text" id="id" name="id" placeholder="Masukkan Penerbit">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="author_name">Nama Penulis</label>
-                                <input value="[FILLED AUTHOR NAME]"  required type="text" id="author_name" name="author_name" placeholder="Masukkan Nama Penulis">
+                                <input value="[FILLED AUTHOR NAME]"  required type="text" id="main" name="author_name" placeholder="Masukkan Nama Penulis">
                             </div>
                         </div>
 
@@ -192,7 +190,7 @@
 
 <!-- Start: Modal Delete-->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalDelete">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-delete">
             <div class="modal-header border-0 d-flex">
@@ -216,18 +214,14 @@
             <div class="modal-body">
 
                 <!-- <form class=" flex-column d-flex"> -->
-                    <p class="delete-confirmation">
+                    <p class="delete-confirmation" mod="author">
                         Apakah Anda yakin ingin menghapus Penulis dengan ID Penulis <span>BK0001</span>?
                     </p>
 
 
                     <div class="d-flex modal-button-group" style="gap: 12px;">
-
-                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="author" onclick="">Hapus</button>
-
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
-                        <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
                     </div>
 
                 <!-- </form> -->

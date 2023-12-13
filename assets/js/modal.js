@@ -84,18 +84,6 @@ function getDesc(book) {
         }, 50);
     }
 
-
-    // $.ajax({
-    //   type: "POST",
-    //   url: "fungsi/catalog.php?catalog=book",
-    //   data: "book="+book_id,
-    //   success: function(res) {
-    //     // $("#panel-cart").html(res);
-    //   },
-    //   error: function(response) {
-    //     console.log(response.responseText);
-    //   }
-    // });
 }
 
 function closeModal(obj) {

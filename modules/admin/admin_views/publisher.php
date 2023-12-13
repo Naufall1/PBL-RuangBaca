@@ -38,8 +38,8 @@
         ?>
             <tr>
                 <td class="no-column"><?= $i+$publishers['start'] ?></td>
-                <td class="id-column" id=""><?= $publisher->getId(); ?></td>
-                <td class="title-column"><?= $publisher->getPublisherName(); ?></td>
+                <td class="id-column" name="id"><?= $publisher->getId(); ?></td>
+                <td class="title-column" name="main"><?= $publisher->getPublisherName(); ?></td>
                 <!-- <td class="number-column" id="stock">0</td>
                 <td class="number-column" id="available">0</td> -->
                 <td class="more-icon-column">
@@ -49,8 +49,8 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="book" onclick="edit(this);" value="">Edit</a>
-                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
+                        <a class="dropdown-item" href="#" name="book" onclick="editSingle('<?= $publisher->getId(); ?>');" value="">Edit</a>
+                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="deleteById('<?= $publisher->getId(); ?>');" value="">Hapus</a>
                     </div>
                 </td>
             </tr>
@@ -130,7 +130,7 @@
 
 <!-- Start: Modal Edit Book -->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalEdit">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
@@ -140,8 +140,7 @@
                         <h3 class="modal-heading" id="">Edit Data</h3>
                     </div>
 
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="close-button" id="book">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M5 15 15 5m0 10-5-5-5-5" />
@@ -153,19 +152,19 @@
 
             <div class="modal-body">
 
-                <form class=" flex-column d-flex">
+                <form class=" flex-column d-flex" id="formEdit" method="post">
 
                     <div class="modal-form-addbook-areas d-flex">
 
                         <div class="modal-form-addbook-area d-flex flex-column">
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="publisher_id">ID Penerbit</label>
-                                <input value="[PUBLISHER ID]" disabled type="text" id="publisher_id" name="publisher_id"
+                                <input value="[PUBLISHER ID]" disabled type="text" id="id" name="id"
                                     placeholder="Masukkan Penerbit">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="publisher_name">Nama Penerbit</label>
-                                <input value="[FILLED PUBLISHER NAME]"  required type="text" id="publisher_name" name="publisher_name" placeholder="Masukkan Nama Penerbit">
+                                <input value="[FILLED PUBLISHER NAME]"  required type="text" id="main" name="publisher_name" placeholder="Masukkan Nama Penerbit">
                             </div>
                         </div>
 
@@ -190,49 +189,27 @@
 
 <!-- Start: Modal Delete-->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku" >
+<div class="modal" id="modalDelete" >
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-delete">
             <div class="modal-header border-0 d-flex">
                 <div class="d-flex" style="padding: 0; width: 100%;">
-
-                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                    <div class="d-flex flex-column align-content-between" style="width: 100%;">
                         <h3 class="modal-heading" id="">Hapus Data</h3>
                     </div>
-
-                    <!-- <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M5 15 15 5m0 10-5-5-5-5" />
-                        </svg>
-                    </button> -->
-
                 </div>
             </div>
-
             <div class="modal-body">
-
                 <!-- <form class=" flex-column d-flex"> -->
-                    <p class="delete-confirmation">
+                    <p class="delete-confirmation" mod="publisher">
                         Apakah Anda yakin ingin menghapus Penerbit dengan ID Penerbit <span>BK0001</span>?
                     </p>
-
-
                     <div class="d-flex modal-button-group" style="gap: 12px;">
-
-                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="">Hapus</button>
-
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
-                        <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
                     </div>
-
                 <!-- </form> -->
             </div>
-
-
-
         </div>
     </div>
 </div>

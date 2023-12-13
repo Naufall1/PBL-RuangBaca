@@ -18,6 +18,8 @@ class Thesis extends Readable implements IManage
                 WHERE t.thesis_id  ='$id'
                 GROUP BY t.thesis_id;
             ")->fetch_assoc();
+            // var_dump($result);
+            // echo '<br>';
             $this->id = $result['thesis_id'];
             $this->title = $result['thesis_title'];
             $this->year = $result['year_published'];
@@ -38,7 +40,7 @@ class Thesis extends Readable implements IManage
             WHERE t.thesis_id  ='$id'
             GROUP BY t.thesis_id;
         ")->fetch_assoc();
-
+        // var_dump($id);
         $thesis = new Thesis();
         $thesis->id = $result['thesis_id'];
         $thesis->title = $result['thesis_title'];
@@ -162,8 +164,9 @@ class Thesis extends Readable implements IManage
         $limit = LIMIT_ROWS_PER_PAGE;
         $query = "SELECT thesis_id FROM thesis ORDER BY thesis_id LIMIT $limit OFFSET $start";
         $result = Database::query($query);
+        // var_dump($result->fetch_all());
         while ($id = $result->fetch_column()) {
-            $thesis[] = $this->getDetails($id);
+            $thesis[] = new Thesis($id);
         }
         $result = array(
             'page' => $page,
@@ -250,9 +253,11 @@ class Thesis extends Readable implements IManage
     }
     public function save()
     {
-        $query = "
-            UPDATE thesis
-            SET
+        Database::beginTransaction();
+        try {
+            // Update data di tabel 'thesis'
+            $query = "UPDATE thesis
+                SET
                 thesis_title = ?,
                 year_published = ?,
                 avail = ?,
@@ -260,39 +265,93 @@ class Thesis extends Readable implements IManage
                 shelf_id = ?,
                 writer_name = ?,
                 writer_NIM = ?
-            WHERE thesis_id = ?
-        ";
+                WHERE
+                thesis_id = ?
+            ";
+            $parameters = [
+                $this->title,
+                $this->year,
+                $this->avail,
+                $this->cover,
+                $this->shelf->getShelfId(),
+                $this->writer_name,
+                $this->writer_nim,
+                $this->id,
+            ];
+            $statement = Database::prepare($query);
+            $types = 'ssiissss';
+            $statement->bind_param($types, ...$parameters);
 
-        $parameters = [
-            $this->title,
-            $this->year,
-            $this->avail,
-            $this->cover,
-            $this->shelf->getShelfId(),
-            $this->writer_name,
-            $this->writer_nim,
-            $this->id,
-        ];
+            if (!$statement->execute()) {
+                throw new Exception('Error updating Thesis');
+            }
 
-        $statement = Database::prepare($query);
+            // Update data di tabel 'dospem'
+            $deleteDospemQuery = "DELETE FROM dospem WHERE thesis_id = ?";
+            $deleteDospemStatement = Database::prepare($deleteDospemQuery);
+            $deleteDospemStatement->bind_param('s', $this->id);
 
-        // Dynamically bind parameters
-        $types = 'ssisssss';
-        $statement->bind_param($types, ...$parameters);
+            if (!$deleteDospemStatement->execute()) {
+                throw new Exception('Error deleting Dospem');
+            }
 
-        $statement->execute();
+            // Menambahkan kembali data dospem yang baru
+            foreach ($this->dospem2 as $lecturer) {
+                $insertDospemQuery = "INSERT INTO dospem (thesis_id, nidn) VALUES (?,?)";
+                $insertDospemParams = [
+                    $this->id,
+                    $lecturer
+                ];
+                $insertDospemStatement = Database::prepare($insertDospemQuery);
+                $insertDospemStatement->bind_param('ss', ...$insertDospemParams);
+
+                if (!$insertDospemStatement->execute()) {
+                    throw new Exception('Error adding Dospem');
+                }
+            }
+            Database::commit();
+            return array(
+                'status' => 'success'
+            );
+        } catch (Exception $e) {
+            Database::rollback();
+            return array(
+                'status' => 'failed',
+                'error' => $e->getMessage(),
+                'blah' => $this->writer_nim
+            );
+        }
     }
     public function delete()
     {
-        $query = "DELETE FROM thesis WHERE thesis_id = ?";
-        $parameters = [
-            $this->id
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
+        Database::beginTransaction();
+        try {
+            $query = "DELETE FROM thesis WHERE thesis_id = ?";
+            $queryDeleteDospem = "DELETE FROM dospem WHERE thesis_id = ?";
+            $parameters = [
+                $this->id
+            ];
 
-        $statement->execute();
+            $statement2 = Database::prepare($queryDeleteDospem);
+            $type = 's';
+            $statement2->bind_param($type, ...$parameters);
+
+            if (!$statement2->execute()) {
+                throw new Exception('Error updating Thesis');
+            }
+
+            $statement1 = Database::prepare($query);
+            $statement1->bind_param($type, ...$parameters);
+            if (!$statement1->execute()) {
+                throw new Exception('Error updating Thesis');
+            }
+
+            Database::commit();
+            return true;
+        } catch (Exception $e) {
+            Database::rollback();
+            return false;
+        }
     }
 
     public function toJSON()
@@ -312,7 +371,8 @@ class Thesis extends Readable implements IManage
         return json_encode($jsonArray);
     }
 
-    public function addDospem($lecturer){
+    public function addDospem($lecturer)
+    {
         $this->dospem2[] = $lecturer;
     }
 

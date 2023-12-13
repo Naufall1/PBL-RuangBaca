@@ -54,9 +54,24 @@ class AdminController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT BOOK HERE
-
+                if (isset($_POST['delete'])) {
+                    /**
+                     * Delete Book
+                     */
+                    $id = $_POST['id'];
+                    $book = new Book($id);
+                    echo ($book->delete()) ? 'success' : 'failed';
+                } else {
+                    # EDIT BOOK HERE
+                    $res = $this->editBook();
+                    if ($res['status'] == true) {
+                        echo 'success';
+                    } else {
+                        echo 'failed: ' . implode($res['errors']);
+                    }
+                }
             } else {
+                #ADD BOOK HERE
                 if ($this->addBook()) {
                     echo 'success';
                 } else {
@@ -135,7 +150,6 @@ class AdminController
                     return;
                 }
             }
-
             $year = $_POST['year'];
             $stock = $_POST['stock'];
             $isbn = $_POST['isbn'];
@@ -158,17 +172,81 @@ class AdminController
             return false;
         }
     }
+    private function editBook()
+    {
+        $errors = array();
+        $book = new Book($_POST['id']);
+        $title = $_POST['title'];
+        $synopsis = $_POST['synopsis'];
+        if (isset($_POST['author'])) {
+            $author = new Author($_POST['author']);
+            $book->setAuthor($author);
+        }
+        if (isset($_POST['publisher'])) {
+            $publisher = new Publisher($_POST['publisher']);
+            $book->setPublisher($publisher);
+        }
+        if (isset($_POST['category'])) {
+            $category = new Category($_POST['category']);
+            $book->setCategory($category);
+        }
+        $year = $_POST['year'];
+        $stock = $_POST['stock'];
+        $isbn = $_POST['isbn'];
+        $ddc_code = $_POST['ddc_code'];
+        $shelf_id = $_POST['shelf'];
+        $book->setTitle($title);
+        $book->setsynopsis($synopsis);
+        $book->setShelf($shelf_id);
+        $book->setYear($year);
+        $book->setStock($stock);
+        $book->setIsbn($isbn);
+        $book->setDdcCode($ddc_code);
+        if (!empty($_FILES['cover']['name'])) {
+            if ($this->uploadCover() == true) {
+                $book->setCover($_FILES['cover']['name']);
+            } else {
+                $errors[] = 'error uploading cover';
+            }
+        }
+        if (count($errors) == 0) {
+            if (!$book->save()) {
+                $errors[] = $book->getErrorMessage();
+            } else {
+                return array(
+                    'status' => true,
+                );
+            }
+        } else {
+            return array(
+                'status' => false,
+                'errors' => $errors
+            );
+        }
+    }
     public function author($data = null)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT AUTHOR HERE
-
+                if (isset($_POST['delete'])) {
+                    /**
+                     * Delete author here
+                     */
+                    $id = $_POST['id'];
+                    $author = new Author($id);
+                    echo ($author->delete()) ? 'success' : 'failed';
+                } else {
+                    # EDIT AUTHOR HERE
+                    $author_id = $_POST['id'];
+                    $author_name = $_POST['author_name'];
+                    $author = new Author($author_id);
+                    $author->setAuthorName($author_name);
+                    $author->save();
+                }
             } else {
                 $author = new Author();
                 $author_name = $_POST['author_name'];
-                $author->setAuthorName(author_name:$author_name);
-                // $this->admin->add($author);
+                $author->setAuthorName(author_name: $author_name);
                 if ($this->admin->add($author)) {
                     echo 'success';
                 } else {
@@ -189,12 +267,25 @@ class AdminController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT PUBLISHER HERE
-
+                if (isset($_POST['delete'])) {
+                    /**
+                     * Delete published here
+                     */
+                    $id = $_POST['id'];
+                    $publisher = new Publisher($id);
+                    echo ($publisher->delete()) ? 'success' : 'failed';
+                } else {
+                    # EDIT PUBLISHER HERE
+                    $publisher_id = $_POST['id'];
+                    $publisher_name = $_POST['publisher_name'];
+                    $publisher = new Publisher($publisher_id);
+                    $publisher->setPublisherName($publisher_name);
+                    $publisher->save();
+                }
             } else {
                 $publisher = new Publisher();
                 $publisher_name = $_POST['publisher_name'];
-                $publisher->setPublisherName(publisher_name:$publisher_name);
+                $publisher->setPublisherName(publisher_name: $publisher_name);
                 if ($this->admin->add($publisher)) {
                     echo 'success';
                 } else {
@@ -216,12 +307,25 @@ class AdminController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT CATEGORY HERE
-
+                if (isset($_POST['delete'])) {
+                    /**
+                     * Delete Category Here
+                     */
+                    $id = $_POST['id'];
+                    $category = new Category($id);
+                    echo ($category->delete()) ? 'success' : 'failed';
+                } else {
+                    # EDIT CATEGORY HERE
+                    $category_id = $_POST['id'];
+                    $category_name = $_POST['category_name'];
+                    $category = new Category($category_id);
+                    $category->setCategoryName($category_name);
+                    $category->save();
+                }
             } else {
                 $category = new Category();
                 $category_name = $_POST['category_name'];
-                $category->setCategoryName(category_name:$category_name);
+                $category->setCategoryName(category_name: $category_name);
                 if ($this->admin->add($category)) {
                     echo 'success';
                 } else {
@@ -243,8 +347,33 @@ class AdminController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT THESIS HERE
-
+                if (isset($_POST['delete'])) {
+                    /**
+                     * Delete Thesis Here
+                     */
+                    $id = $_POST['id'];
+                    $thesis = new Thesis($id);
+                    echo ($thesis->delete()) ? 'success' : 'failed';
+                } else {
+                    # EDIT THESIS HERE
+                    $thesis = new Thesis($_POST['id']);
+                    $thesis_title = $_POST['thesis_title'];
+                    $writer_name = $_POST['writer_name'];
+                    $writer_nim = $_POST['writer_NIM'];
+                    $year = $_POST['year_published'];
+                    $lecturer_1 = $_POST['lecturer_id1'];
+                    $lecturer_2 = $_POST['lecturer_id2'];
+                    $shelf = $_POST['shelf'];
+                    $thesis->setTitle($thesis_title);
+                    $thesis->setWriterName($writer_name);
+                    $thesis->setWriterNim($writer_nim);
+                    $thesis->setYear((int)$year);
+                    $thesis->addDospem($lecturer_1);
+                    $thesis->addDospem($lecturer_2);
+                    $thesis->setShelf($shelf);
+                    $res = $thesis->save();
+                    echo  json_encode($res);
+                }
             } else {
                 $thesis_title = $_POST['thesis_title'];
                 $writer_name = $_POST['writer_name'];
@@ -252,6 +381,7 @@ class AdminController
                 $year = $_POST['year_published'];
                 $lecturer_1 = $_POST['lecturer_id1'];
                 $lecturer_2 = $_POST['lecturer_id2'];
+                $shelf = $_POST['shelf'];
                 $thesis = new Thesis();
                 $thesis->setTitle($thesis_title);
                 $thesis->setWriterName($writer_name);
@@ -261,7 +391,7 @@ class AdminController
                 $thesis->addDospem($lecturer_1);
                 $thesis->addDospem($lecturer_2);
                 $thesis->setCover('default.png');
-                $thesis->setShelf('R01');
+                $thesis->setShelf($shelf);
                 // var_dump($this->admin->add($thesis));
                 if ($this->admin->add($thesis) == true) {
                     echo 'success';
@@ -269,7 +399,6 @@ class AdminController
                     echo 'failure';
                 }
             }
-
         } else {
             if ($data !== null) {
                 # code...
@@ -285,8 +414,19 @@ class AdminController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
-                # EDIT LECTURER HERE
-
+                if (isset($_POST['delete'])) {
+                    # DELETE LECTURER HERE
+                    $id = $_POST['id'];
+                    $lecturer = new Lecturer($id);
+                    echo ($lecturer->delete()) ? 'success' : 'failed';
+                } else {
+                    # EDIT LECTURER HERE
+                    $lecturer_id = $_POST['id'];
+                    $lecturer_name = $_POST['lecturer_name'];
+                    $lecturer = new Lecturer($lecturer_id);
+                    $lecturer->setName($lecturer_name);
+                    $lecturer->save();
+                }
             } else {
                 $nidn = $_POST['NIDN'];
                 $lecturer_name = $_POST['lecturer_name'];
@@ -336,14 +476,59 @@ class AdminController
     }
     public function shelf($data = null)
     {
-        if ($data !== null) {
-            # code...
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['nextId'])) {
+                $shelf = new Shelf();
+                echo $shelf->getNext();
+            } else if (isset($_POST['id'])) {
+                $shelf = new Shelf();
+                if ($shelf->getNext() == $_POST['id']) {
+                    /**
+                     * Add Shelf
+                     */
+                    $id = $_POST['id'];
+                    $keterangan = $_POST['keterangan'];
+                    $shelf->setShelfId($id);
+                    $shelf->setCategories($keterangan);
+                    if ($shelf->add() != false) {
+                        echo 'success';
+                    } else {
+                        echo 'failure';
+                    }
+                } else if (isset($_POST['delete'])) {
+                    /**
+                     * Delete Shelf
+                     */
+                    $id = $_POST['id'];
+                    $shelf = new Shelf($id);
+                    echo ($shelf->delete()) ? 'success' : 'failed';
+                } else {
+                    /**
+                     * Edit Shelf
+                     */
+                    $id = $_POST['id'];
+                    $keterangan = $_POST['keterangan'];
+                    $shelf->setShelfId($id);
+                    $shelf->setCategories($keterangan);
+                    if ($shelf->save() != false) {
+                        echo 'success';
+                    } else {
+                        echo 'failure';
+                    }
+                }
+            }
         } else {
-            # code...
+            /**
+             * View Shelf
+             */
+            if ($data !== null) {
+                # code...
+            } else {
+                # code...
+            }
+            $shelf = $this->admin->view(new shelf());
+            $numPage = $shelf['numPages'];
+            include 'modules/admin/admin_views/shelf.php';
         }
-
-        $shelf = $this->admin->view(new shelf());
-        $numPage = $shelf['numPages'];
-        include 'modules/admin/admin_views/shelf.php';
     }
 }

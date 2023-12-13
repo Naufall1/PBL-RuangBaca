@@ -15,6 +15,7 @@ class Book extends Readable implements IManage
         private $stock;
         private $ddc_code;
         private $synopsis;
+        private $error_message;
 
         function __construct($id = null)
         {
@@ -144,8 +145,11 @@ class Book extends Readable implements IManage
                         'shelf' => $this->shelf->getShelfId(),
                         'isbn' => $this->isbn,
                         'publisher' => $this->publisher->getPublisherName(),
+                        'publisher_id' => $this->publisher->getId(),
                         'category' => $this->category->getCategoryName(),
+                        'category_id' => $this->category->getId(),
                         'author' => $this->author->getAuthorName(),
+                        'author_id' => $this->author->getId(),
                         'stock' => $this->stock,
                         'ddc_code' => $this->ddc_code,
                         'synopsis' => $this->synopsis,
@@ -273,8 +277,11 @@ class Book extends Readable implements IManage
                 // Dynamically bind parameters
                 $types = 'ssissssssisss';
                 $statement->bind_param($types, ...$parameters);
-
-                $statement->execute();
+                $res = $statement->execute();
+                if (!empty($statement->error)) {
+                        $this->error_message = $statement->error;
+                }
+                return $res;
         }
         public function delete()
         {
@@ -287,6 +294,14 @@ class Book extends Readable implements IManage
                 $statement->bind_param($type, ...$parameters);
 
                 $statement->execute();
+        }
+
+
+        /**
+         * Get the value of error message
+         */
+        public function getErrorMessage(){
+                return $this->error_message;
         }
 
         /**

@@ -69,7 +69,7 @@ class Lecturer implements IManage
         $type = 's';
         $statement->bind_param($type, ...$parameters);
 
-        $statement->execute();
+        return $statement->execute();
     }
     public function add()
     {

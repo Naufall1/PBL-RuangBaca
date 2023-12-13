@@ -333,7 +333,7 @@ function loadBorrowingCards(status) {
     });
 }
 
-function loadModal(id) {
+function loadModal(id, statusId) {
     // Reset Readable Item
     $('.books-ordered-group').html('');
     // Finish Reset Readable Item
@@ -357,8 +357,11 @@ function loadModal(id) {
                 addToDetails(readable['id'],readable['cover'],readable['title'],readable['author'],readable['year']);
             }
             $(".not-editable-item#status").css("display", "flex");
+            $(".not-editable-item#status .borrowing-status").attr('id', statusId);
+            $(".not-editable-item#status .borrowing-status > p").html(data['status'].charAt(0).toUpperCase() + data['status'].slice(1));
             $(".not-editable-item#reserve-date > p").html(data['reserve_date']);
             $(".not-editable-item#due-date > p").html(data['due_date']);
+
             openDetails();
         }
     });

@@ -72,45 +72,48 @@ class Category implements IManage
             'countAll' => $this->count(),
             'start' => $start,
             'end' => $start + count($category),
-            'numPages' => ceil($this->count()/LIMIT_ROWS_PER_PAGE),
+            'numPages' => ceil($this->count() / LIMIT_ROWS_PER_PAGE),
             'data' => $category
         );
         return $result;
     }
     public function save()
-        {
+    {
         $query = "
             UPDATE category
             SET
-                category_name = ?,
+                category_name = ?
             WHERE category_id = ?
         ";
 
-                $parameters = [
-                        $this->category_name,
-                        $this->category_id,
-                ];
+        $parameters = [
+            $this->category_name,
+            $this->category_id
+        ];
 
-                $statement = Database::prepare($query);
+        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ss';
-                $statement->bind_param($types, ...$parameters);
+        // Dynamically bind parameters
+        $types = 'ss';
+        $statement->bind_param($types, ...$parameters);
 
-                $statement->execute();
-        }
+        $statement->execute();
+    }
     public function delete()
     {
-                $query = "DELETE FROM category WHERE category_id = ?";
-                $parameters = [
-                        $this->category_id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
-
-                $statement->execute();
+        try {
+            $query = "DELETE FROM category WHERE category_id = ?";
+            $parameters = [
+                $this->category_id
+            ];
+            $statement = Database::prepare($query);
+            $type = 's';
+            $statement->bind_param($type, ...$parameters);
+            return $statement->execute();
+        } catch (Exception $e) {
+            return false;
         }
+    }
 
     public function getId()
     {
