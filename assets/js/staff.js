@@ -198,4 +198,20 @@ $(document).ready(function () {
         }
     });
 
+    $(".menu").click(function () { 
+        if ($(".container-main").hasClass("dashboard")) {
+            $(".container-main").removeClass("dashboard");
+            $(".container-main").addClass("container-main-table");
+        }
+    });
+    
+    $("#dashboard").click(function () { 
+        if ($(".container-main").hasClass("container-main-table")) {
+            $(".container-main").removeAttr("transition");
+            $(".container-main").removeClass("container-main-table");
+            $(".container-main").addClass("dashboard");
+        }
+        // $(".container-main").removeClass("container-main-table");
+    });
+
 });
