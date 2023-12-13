@@ -109,6 +109,7 @@ function loadModal(id) {
                     statusId = 'borrowed';
                     break;
                 case 'Terlambat':
+                    $('button[name="finish"]').css('display', 'flex');
                     statusId = 'reject';
                     break;
                 case 'Selesai':
@@ -247,7 +248,7 @@ $(document).ready(function () {
     });
 
     $(".menu").click(function () {
-        if ($(".container-main").hasClass("dashboard")) {
+        if ($(".container-main").hasClass("dashboard") && $(this).prop('id') != 'logout') {
             $(".container-main").removeClass("dashboard");
             $(".container-main").addClass("container-main-table");
         }
