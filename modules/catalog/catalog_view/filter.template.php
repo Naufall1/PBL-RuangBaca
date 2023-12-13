@@ -8,14 +8,14 @@
 <!-- Start: Filter Jenis -->
 <div class="filter-group d-flex" id="types">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="types">
         <p class="filter-heading">Jenis</p>
-        <svg class="dropdown-icon" id="type" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+        <svg class="dropdown-icon" id="types" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <button class="btn-filter d-flex" name="type" id="buku">Buku</button>
         <button class="btn-filter d-flex" name="type" id="skripsi">Skripsi</button>
     </div>
@@ -28,14 +28,14 @@
 <!-- Start: Filter Ketersediaan -->
 <div class="filter-group d-flex" id="avail-status">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="avail-status">
         <p class="filter-heading">Ketersediaan</p>
-        <svg class="dropdown-icon" id="type" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+        <svg class="dropdown-icon" id="avail-status" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <button class="btn-filter d-flex" name="avail-status" id="avail">Tersedia</button>
         <button class="btn-filter d-flex" name="avail-status" id="not-avail">Tidak Tersedia</button>
     </div>
@@ -48,14 +48,14 @@
 <!-- Start: Filter Lokasi -->
 <div class="filter-group d-flex" id="locations">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="locations">
         <p class="filter-heading">Lokasi</p>
         <svg class="dropdown-icon" id="locations" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <form action="" class="form-data d-flex">
 
             <?php
@@ -82,14 +82,14 @@
 <!-- Start: Filter Kategori -->
 <div class="filter-group d-flex" id="categories">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="categories">
         <p class="filter-heading">Kategori</p>
         <svg class="dropdown-icon" id="categories" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <!-- <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Kategori"> -->
         <form action="" class="form-data d-flex">
 
@@ -120,16 +120,16 @@
 <div class="hr-divider"></div>
 
 <!-- Start: Filter Prodi -->
-<div class="filter-group d-flex" id="categories">
+<div class="filter-group d-flex" id="prodis">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="prodis">
         <p class="filter-heading">Prodi</p>
-        <svg class="dropdown-icon" id="categories" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+        <svg class="dropdown-icon" id="prodis" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <!-- <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Kategori"> -->
         <form action="" class="form-data d-flex">
 
@@ -162,14 +162,14 @@
 <!-- Start: Filter Author -->
 <div class="filter-group d-flex" id="authors">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="authors">
         <p class="filter-heading">Penulis</p>
-        <svg class="dropdown-icon" id="author" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+        <svg class="dropdown-icon" id="authors" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <!-- <input type="text" name="search" class="filter-search-fields" id="categories" placeholder="Cari Penulis"> -->
         <form action="" class="form-data d-flex">
             <?php
@@ -200,14 +200,14 @@
 <!-- Start: Filter Penerbit -->
 <div class="filter-group d-flex" id="publishers">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="publishers">
         <p class="filter-heading">Penerbit</p>
         <svg class="dropdown-icon" id="publishers" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <!-- <input type="text" name="search" class="filter-search-fields" id="publishers" placeholder="Cari Penerbit"> -->
         <form action="" class="form-data d-flex">
             <?php
@@ -238,14 +238,14 @@
 <!-- Start: Filter Tahun Terbit -->
 <div class="filter-group d-flex" id="years">
 
-    <div class="filter-title d-flex">
+    <div class="filter-title d-flex" id="years">
         <p class="filter-heading">Tahun Terbit</p>
         <svg class="dropdown-icon" id="years" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m16.6 12.542-5.433-5.434a1.655 1.655 0 0 0-2.334 0L3.4 12.542" />
         </svg>
     </div>
 
-    <div class="filter-contents d-flex">
+    <div class="filter-contents">
         <!-- <input type="text" name="search" class="filter-search-fields" id="years" placeholder="Cari Tahun Terbit"> -->
         <form action="" class="form-data d-flex">
             <?php

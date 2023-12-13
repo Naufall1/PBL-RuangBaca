@@ -112,20 +112,7 @@ function loadModule(moduleName) {
                 // console.log($(this).attr('id'));
             });
 
-            $('.filter-title').click(function () {
-                // console.log($(this).next('.filter-contents').css("display"));
-                if ($(this).next('.filter-contents').css("display") == "flex") {
-                    $(this).next('.filter-contents').removeClass('d-flex');
-                    $(this).next('.filter-contents').css('display', 'none');
-                    // console.log($(this).find('img').attr('src'));
-                    $(this).find('img').attr('src', 'assets/icon/arrow-down.svg');
-                } else if ($(this).next('.filter-contents').css("display") == "none") {
-                    $(this).next('.filter-contents').addClass('d-flex');
-                    console.log(2131231);
-                    $(this).find('img').attr('src', 'assets/icon/arrow-up.svg');
-                    $(this).next('.filter-contents').css("display", 'block');
-                }
-            });
+            loadFilter();
 
             // History
             $('.tab-menu .tab-item').click(function () {

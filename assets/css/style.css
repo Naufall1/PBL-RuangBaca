@@ -427,14 +427,13 @@ p, .navbar-content-users{
     min-width: 220px;
     padding: 16px;
     height: max-content;
-
+    flex-wrap: wrap;
 }
 
 .filter-groups{
     width: 100%;
     flex-direction: column;
     gap: 8px;
-
 }
 
 .filter-group{
@@ -442,6 +441,7 @@ p, .navbar-content-users{
     gap: 8px;
     flex-direction: column;
     margin-bottom: 8px;
+    margin-top: 8px !important;
 }
 
 .filter-title{
@@ -449,6 +449,10 @@ p, .navbar-content-users{
     height: 32px;
     align-items: center;
     justify-content: space-between;
+}
+
+.filter-title > svg{
+    transform: rotate(180deg);
 }
 
 p.filter-heading{
@@ -461,9 +465,10 @@ p.filter-heading{
 }
 
 .filter-contents{
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 8px;
+    transition: all 0.2s ease;
 }
 
 button.btn-filter{
@@ -568,7 +573,7 @@ a.more-filter{
 .filtered-items{
     /* background-color: greenyellow; */
     /* flex: auto; */
-    height: 48px;
+    height: max-content;
     gap: 16px;
     align-items: end;
     align-items: center;
