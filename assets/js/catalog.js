@@ -228,11 +228,15 @@ function loadFilter(){
             $(this).next('.filter-contents').removeClass('d-flex');
             $(this).next('.filter-contents').css('display', 'none');
             $(this).find('.dropdown-icon#' + filterId).css('transform', 'rotate(180deg)');
-            $(this).find('img').attr('src', 'assets/icon/arrow-down.svg');
+            // $(this).find('img').attr('src', 'assets/icon/arrow-down.svg');
         } else if ($(this).next('.filter-contents').css("display") == "none") {
+            $(".filter-group").each(function (index, obj) {
+                $(obj).find('.filter-contents').removeClass('d-flex');
+                $(obj).find('.filter-contents').css('display', 'none');
+                $(obj).find('.dropdown-icon').css('transform', 'rotate(180deg)');
+            });
             $(this).next('.filter-contents').addClass('d-flex');
-            console.log(filterId);
-            $(this).find('img').attr('src', 'assets/icon/arrow-up.svg');
+            // $(this).find('img').attr('src', 'assets/icon/arrow-up.svg');
             $(this).next('.filter-contents').css("display", 'flex');
             $(this).find('.dropdown-icon#' + filterId).css('transform', 'rotate(0deg)');
         }

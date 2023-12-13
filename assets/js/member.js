@@ -112,8 +112,6 @@ function loadModule(moduleName) {
                 // console.log($(this).attr('id'));
             });
 
-            loadFilter();
-
             // History
             $('.tab-menu .tab-item').click(function () {
                 $('.tab-item-active').addClass('tab-item');

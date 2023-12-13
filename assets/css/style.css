@@ -468,7 +468,8 @@ p.filter-heading{
     display: none;
     flex-direction: column;
     gap: 8px;
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
+    /* transition: all 1s ease !important; */
 }
 
 button.btn-filter{
