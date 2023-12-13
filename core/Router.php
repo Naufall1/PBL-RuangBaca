@@ -125,7 +125,7 @@ include 'modules/staff/StaffController.php';
 
                     case 'lecture':
                         if ($user->isAdmin()) {
-                            $adminController->lecturer();
+                            $adminController->lecture();
                         } else {
                             echo "404 Not Found";
                         }

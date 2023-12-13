@@ -62,7 +62,14 @@ class Category implements IManage
         $category = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT category_id FROM category ORDER BY category_id LIMIT $limit OFFSET $start";
+        $query = "SELECT category_id FROM category";
+
+        if ($search != '') {
+            $query = $query . " WHERE category_name LIKE '%" . $search . "%'";
+        }
+
+        $query = $query . " ORDER BY category_id LIMIT $limit OFFSET $start";
+
         $result = Database::query($query);
         while ($id = $result->fetch_column()) {
             $category[] = new Category($id);

@@ -162,9 +162,15 @@ class Thesis extends Readable implements IManage
         $thesis = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT thesis_id FROM thesis ORDER BY thesis_id LIMIT $limit OFFSET $start";
+        $query = "SELECT thesis_id FROM thesis";
+
+        if ($search != '') {
+            $query = $query . " WHERE thesis_title LIKE '%" . $search . "%'";
+        }
+
+        $query = $query . " ORDER BY thesis_id LIMIT $limit OFFSET $start";
+
         $result = Database::query($query);
-        // var_dump($result->fetch_all());
         while ($id = $result->fetch_column()) {
             $thesis[] = new Thesis($id);
         }

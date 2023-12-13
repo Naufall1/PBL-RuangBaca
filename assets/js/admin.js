@@ -4,55 +4,66 @@ function changeTableHeading(title) {
 }
 
 function loadSearch(moduleName) {
-    switch (moduleName) {
-        case 'book':
-            $('input[name="search-book"]').keyup(function (e) {
-                if (e.keyCode == 13) {
-                    $.ajax({
-                        type: "POST",
-                        url: "?function=search/book",
-                        data: "q=" + $(this).val(),
-                        success: function (response) {
-                            $('main.container-main').html(response);
-                            // console.log(response);
-                            loadSearch(moduleName);
-                        }
-                    });
+    $('input[name="search"]').keyup(function (e) {
+        if (e.keyCode == 13) {
+            $.ajax({
+                type: "GET",
+                url: "?function=search/"+moduleName+"&q=" + $(this).val(),
+                success: function (response) {
+                    $('main.container-main').html(response);
+                    loadSearch(moduleName);
                 }
             });
-            break;
-        case 'author':
-            $('input[name="search-author"]').keyup(function (e) {
-                if (e.keyCode == 13) {
-                    $.ajax({
-                        type: "POST",
-                        url: "?function=search/author",
-                        data: "q=" + $(this).val(),
-                        success: function (response) {
-                            $('main.container-main').html(response);
-                            loadSearch(moduleName);
-                        }
-                    });
-                }
-            });
-            break;
-        case 'publisher':
-            break;
-        case 'category':
-            break;
-        case 'thesis':
-            break;
-        case 'lecture':
-            break;
-        case 'member':
-            break;
-        case 'borrowing':
-            break;
-        case 'shelf':
-            break;
-        default:
-            break;
-    }
+        }
+    });
+
+    // switch (moduleName) {
+    //     case 'book':
+    //         $('input[name="search-book"]').keyup(function (e) {
+    //             if (e.keyCode == 13) {
+    //                 $.ajax({
+    //                     type: "GET",
+    //                     url: "?function=search/book&q=" + $(this).val(),
+    //                     success: function (response) {
+    //                         $('main.container-main').html(response);
+    //                         loadSearch(moduleName);
+    //                     }
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'author':
+    //         $('input[name="search-author"]').keyup(function (e) {
+    //             if (e.keyCode == 13) {
+    //                 $.ajax({
+    //                     type: "POST",
+    //                     url: "?function=search/author",
+    //                     data: "q=" + $(this).val(),
+    //                     success: function (response) {
+    //                         $('main.container-main').html(response);
+    //                         loadSearch(moduleName);
+    //                     }
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'publisher':
+    //         break;
+    //     case 'category':
+    //         break;
+    //     case 'thesis':
+    //         break;
+    //     case 'lecture':
+    //         break;
+    //     case 'member':
+    //         break;
+    //     case 'borrowing':
+    //         break;
+    //     case 'shelf':
+    //         break;
+    //     default:
+    //         break;
+    // }
 }
 
 /**
@@ -236,7 +247,7 @@ function loadModule(moduleName) {
         case 'author':
             changeTableHeading('Penulis');
             break;
-        case 'category':
+        case 'publisher':
             changeTableHeading('Penerbit');
             break;
         case 'category':

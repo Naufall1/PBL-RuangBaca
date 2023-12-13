@@ -1,6 +1,6 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
-    <input type="text" name="search-member" class="search-fields" id="" placeholder="Cari Anggota">
+    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Anggota">
 </div>
 <!-- End: Action Container Layer -->
 

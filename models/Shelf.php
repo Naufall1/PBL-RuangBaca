@@ -57,7 +57,14 @@ class Shelf implements IManage
         $shelf = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT shelf_id FROM shelf ORDER BY shelf_id LIMIT $limit OFFSET $start";
+        $query = "SELECT shelf_id FROM shelf";
+
+        if ($search != '') {
+            $query = $query . " WHERE shelf_id LIKE '%" . $search . "%'";
+        }
+
+        $query = $query . " ORDER BY shelf_id LIMIT $limit OFFSET $start";
+
         $result = Database::query($query);
         while ($id = $result->fetch_column()) {
             $shelf[] = new Shelf($id);

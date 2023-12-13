@@ -22,7 +22,14 @@ class Lecturer implements IManage
         $lecturer = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT NIDN FROM lecturer ORDER BY NIDN LIMIT $limit OFFSET $start";
+        $query = "SELECT NIDN FROM lecturer";
+
+        if ($search != '') {
+            $query = $query . " WHERE lecturer_name LIKE '%" . $search . "%'";
+        }
+
+        $query = $query . " ORDER BY NIDN LIMIT $limit OFFSET $start";
+
         $result = Database::query($query);
         while ($id = $result->fetch_column()) {
             $lecturer[] = new Lecturer($id);
