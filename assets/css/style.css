@@ -442,6 +442,7 @@ p, .navbar-content-users{
     gap: 8px;
     flex-direction: column;
     margin-bottom: 8px;
+    margin-top: 8px !important;
 }
 
 .filter-title{
@@ -449,6 +450,10 @@ p, .navbar-content-users{
     height: 32px;
     align-items: center;
     justify-content: space-between;
+}
+
+.filter-title > svg{
+    transform: rotate(180deg);
 }
 
 p.filter-heading{
@@ -461,7 +466,7 @@ p.filter-heading{
 }
 
 .filter-contents{
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 8px;
 }
