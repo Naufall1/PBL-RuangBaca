@@ -71,7 +71,7 @@
     <?php
         for ($i=1; $i <= $numPage; $i++) {
     ?>
-            <a href="#" class="<?= ($authors['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
+            <a href="#" name="pagination" class="<?= ($authors['page'] == $i) ? 'active':'' ?>"><?= $i ?></a>
     <?php
         }
     ?>
@@ -167,21 +167,13 @@
                                 <input value="[FILLED AUTHOR NAME]"  required type="text" id="main" name="author_name" placeholder="Masukkan Nama Penulis">
                             </div>
                         </div>
-
                     </div>
-
                     <div class="d-flex modal-button-group" style="gap: 12px;">
-
                         <button type="submit" class="enabled modal-button-top-margin" id="tambah" name="author"
                             onclick="">Simpan</button>
-
                     </div>
-
                 </form>
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -199,36 +191,19 @@
                     <div class="d-flex flex-column align-content-between " style="width: 100%;">
                         <h3 class="modal-heading" id="">Hapus Data</h3>
                     </div>
-
-                    <!-- <button type="button" data-dismiss="modal" aria-label="Close" class="close-button"
-                        onclick="closeModal(this);" id="book">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                            <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M5 15 15 5m0 10-5-5-5-5" />
-                        </svg>
-                    </button> -->
-
                 </div>
             </div>
-
             <div class="modal-body">
-
                 <!-- <form class=" flex-column d-flex"> -->
                     <p class="delete-confirmation" mod="author">
                         Apakah Anda yakin ingin menghapus Penulis dengan ID Penulis <span>BK0001</span>?
                     </p>
-
-
                     <div class="d-flex modal-button-group" style="gap: 12px;">
                         <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
                         <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
                     </div>
-
                 <!-- </form> -->
             </div>
-
-
-
         </div>
     </div>
 </div>

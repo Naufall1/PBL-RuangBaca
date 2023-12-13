@@ -32,11 +32,17 @@ class AdminController
 
         if (isset($_GET['q']) && isset($classMap[$arg])) {
             $className = $classMap[$arg];
-            $data = $this->admin->view(new $className(), search: $_GET['q']);
+            $data = $this->admin->view(new $className(),page:(isset($_GET['num']))? $_GET['num']:1, search: $_GET['q']);
             $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
+            var_dump(count($data['data']));
 
             $methodName = $arg;
             $this->$methodName(data: $data);
+        } else if (isset($_GET['q']) && $arg == 'borrowing') {
+            $data = $this->admin->viewBorrowing(page:(isset($_GET['num']))? $_GET['num']:1, search: $_GET['q']);
+            $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
+            var_dump(count($data['data']));
+            $this->borrowing($data);
         } else {
             echo 'failed';
         }
@@ -73,7 +79,7 @@ class AdminController
             if ($data !== null) {
                 $books = $data;
             } else {
-                $books = $this->admin->view(new Book());
+                $books = $this->admin->view(new Book(), page:(isset($_GET['num']))? $_GET['num']:1);
             }
             $numPage = $books['numPages'];
             include 'modules/admin/admin_views/book.php';
@@ -248,7 +254,7 @@ class AdminController
             if ($data !== null) {
                 $authors = $data;
             } else {
-                $authors = $this->admin->view(new Author());
+                $authors = $this->admin->view(new Author(),page:(isset($_GET['num']))? $_GET['num']:1);
             }
             $numPage = $authors['numPages'];
             include 'modules/admin/admin_views/author.php';
@@ -450,12 +456,10 @@ class AdminController
     public function borrowing($data = null)
     {
         if ($data !== null) {
-            # code...
+            $borrowing = $data;
         } else {
-            # code...
+            $borrowing = $this->admin->viewBorrowing(page:(isset($_GET['num']))? $_GET['num']:1);
         }
-
-        $borrowing = $this->admin->viewBorrowing();
         $numPage = $borrowing['numPages'];
         include 'modules/admin/admin_views/borrowing.php';
     }

@@ -76,7 +76,7 @@
     <?php
         for ($i=1; $i <= $numPage; $i++) {
     ?>
-            <a href="#" class="<?= ($borrowing['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
+            <a href="#" name="pagination" class="<?= ($borrowing['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
     <?php
         }
     ?>
