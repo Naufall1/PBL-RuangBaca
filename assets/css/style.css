@@ -2069,7 +2069,75 @@ a#lecturers-and-subjects:hover, a#lecturers-and-subjects:active, a#lecturers-and
     color: rgba(255, 255, 255, 1.0) !important;
 }
 
-
-
-
 /* End: Footer */
+
+/* Start: Flash Message */
+
+#message {
+    position: fixed;
+    top: 6%;
+    left: 50%;
+    /* left: 0; */
+    /* width: 100vw; */
+    z-index: 9999;
+    gap: 8px;
+    transform: translate(-50%);
+}
+#inner-message {
+    /* position: absolute;
+    left: 0; */
+    /* margin: 12px auto; */
+}
+
+.alert-success-custom{
+    --bs-alert-bg: var(--semantic-success-tint-color) !important;
+    --bs-alert-border-color: var(--semantic-success-surface-color) !important;
+    --bs-alert-color: var(--neutral-100-color) !important;
+}
+
+.alert-warning-custom{
+    --bs-alert-bg: var(--semantic-warning-tint-color) !important;
+    --bs-alert-border-color: var(--semantic-warning-surface-color) !important;
+    --bs-alert-color: var(--neutral-100-color) !important;
+}
+
+.alert-danger-custom{
+    --bs-alert-bg: var(--semantic-danger-tint-color) !important;
+    --bs-alert-border-color: var(--semantic-danger-surface-color) !important;
+    --bs-alert-color: var(--neutral-100-color) !important;
+}
+
+.alert-custom{
+    /* position: relative; */
+    /* align-self: center; */
+    border-radius: 12px !important;
+    border: solid 2px var(--bs-alert-border-color) !important;
+    width: 478px !important;
+    /* left: 50%; */
+    /* top: ; */
+    /* transform: translate(-50%); */
+}
+
+h4.heading-message{
+    font-size: 18px;
+    font-family: 'Satoshi-Bold';
+    display: block;
+    color: var(--neutral-100-color);
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+}
+
+p.content-message{
+    font-size: 16px;
+    font-family: 'Satoshi-Medium';
+    display: block;
+    color: var(--neutral-100-color);
+    height: max-content;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+}
+
+/* End: Flash Message */

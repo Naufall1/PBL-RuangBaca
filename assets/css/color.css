@@ -16,12 +16,15 @@
 
     --semantic-success-main-color: #14AE5C;
     --semantic-success-surface-color: #D0EFDE;
+    --semantic-success-tint-color: #FCFEFD;
 
     --semantic-danger-main-color: #E20000;
     --semantic-danger-surface-color: #F9CCCC;
+    --semantic-danger-tint-color: #FDF0F0;
 
     --semantic-warning-main-color: #F1CB01;
     --semantic-warning-surface-color: #FCF5CC;
+    --semantic-warning-tint-color: #FEFCF0;
 
     --shadows-color:  rgba(27, 132, 255, 0.06);
 
