@@ -21,7 +21,7 @@
                 $this->due_date = $res['due_date'];
                 $this->return_date = $res['return_date'];
                 $this->status = $res['status'];
-                $this->penalty = $res['penalty'];
+                // $this->penalty = $res['penalty'];
 
                 $res = Database::query("SELECT id FROM (
                     SELECT book_id AS id FROM borrowing_book WHERE borrowing_id = '$id'
@@ -102,7 +102,7 @@
             $id = $prefix . str_pad($prevId+1, $len - strlen($prefix), "0", STR_PAD_LEFT);
             $member_id = $member->getMemberId();
             $due_date = date('Y-m-d', strtotime($reserve_date. ' + 7 days'));
-            $query = "INSERT INTO borrowing (BORROWING_ID, member_id, reserve_date, due_date, return_date, status, penalty) VALUES ('$id', '$member_id', '$reserve_date', '$due_date','0000-00-00', 'menunggu', 0)";
+            $query = "INSERT INTO borrowing (BORROWING_ID, member_id, reserve_date, due_date, return_date, status) VALUES ('$id', '$member_id', '$reserve_date', '$due_date','0000-00-00', 'menunggu')";
             // var_dump($query);
 
             Database::insert($query);
@@ -155,7 +155,7 @@
                 'due_date' => date_format(date_create($this->due_date),"d F Y"),
                 'return_date' => date_format(date_create($this->return_date),"d F Y"),
                 'status' => $this->status,
-                'penalty' => $this->penalty,
+                // 'penalty' => $this->penalty,
                 'readable' => []
             ];
             foreach ($this->readable as $item) {

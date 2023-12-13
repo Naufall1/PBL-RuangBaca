@@ -4,23 +4,24 @@
         if ($row['id'] == null) {
             break;
         }
+        // var_dump($row['status']);
         switch ($row['status']) {
-            case 'menunggu':
+            case 'Menunggu':
                 $statusId = 'waiting';
                 break;
-            case 'dikonfirmasi':
+            case 'Dikonfirmasi':
                 $statusId = 'confirmed';
                 break;
-            case 'dipinjam':
+            case 'Dipinjam':
                 $statusId = 'borrowed';
                 break;
-            case 'selesai':
+            case 'Selesai':
                 $statusId = 'done';
                 break;
-            case 'ditolak':
+            case 'Ditolak':
                 $statusId = 'reject';
                 break;
-            case 'terlambat':
+            case 'Terlambat':
                 $statusId = 'reject';
                 break;
             default:
