@@ -65,7 +65,7 @@
     <?php
         for ($i=1; $i <= $numPage; $i++) {
     ?>
-            <a href="#" class="<?= ($thesis['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
+            <a href="#" name="pagination" class="<?= ($thesis['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
     <?php
         }
     ?>
