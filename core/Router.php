@@ -169,7 +169,11 @@ include 'modules/staff/StaffController.php';
                         $catalog->getFilters();
                         break;
                     case 'filter':
-                        $catalog->filter();
+                        if ($user->isStaff()) {
+                            $StaffController->filter();
+                        } else {
+                            $catalog->filter();
+                        }
                         break;
                     case 'getDesc':
                         $catalog->getDesc();

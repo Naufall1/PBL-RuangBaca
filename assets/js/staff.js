@@ -173,8 +173,28 @@ function loadModule(moduleName, page=-1) {
              * pagigation
              */
             $('a[name="pagination"]').click(function (e) {
-                console.log('change pagination');
                 loadModule(moduleName, $(this).html());
+            });
+
+            /**
+             * filter thesis
+             */
+            $('select[name="prodi"]').change(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "?function=filter",
+                    data: "prodi="+$(this).val(),
+                    success: function (response) {
+                        if (JSON.parse(response).success) {
+                            loadModule(moduleName);
+                        } else {
+                            alert(response);
+                        }
+                    }, error : function (e) {
+                        alert('Error: ' + e);
+                    }
+                });
             });
 
             /**
