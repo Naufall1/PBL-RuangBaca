@@ -1108,6 +1108,17 @@ tr:first-child th:last-child {
     border-radius: 8px;
 }
 
+.icon-container-danger{
+    background-color: var(--semantic-danger-surface-color);
+}
+
+.icon-container-warning{
+    background-color: var(--semantic-warning-surface-color);
+}
+.icon-container-success{
+    background-color: var(--semantic-success-surface-color);
+}
+
 .icon-container > svg{
     align-items: center;
 }
