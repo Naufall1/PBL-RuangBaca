@@ -73,55 +73,75 @@ class Staff extends User
     public function confirmBorrowing($id)
     {
         $borrowing = new Borrowing(id: $id);
-        if ($borrowing->getStatus() == 'menunggu') {
-            $borrowing->setStatus('dikonfirmasi');
+        if ($borrowing->getStatus() == 'Menunggu') {
+            $borrowing->setStatus('Dikonfirmasi');
             $borrowing->save();
             $readable = $borrowing->getReadable();
             foreach ($readable as $item) {
                 $item->setAvail($item->getAvail() - 1);
                 $item->save();
             }
-            return true;
+            return array(
+                'status' => 'success',
+            );
         } else {
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Status Tidak Sesuai'
+            );
         }
     }
     public function rejectBorrowing($id)
     {
         $borrowing = new Borrowing(id: $id);
-        if ($borrowing->getStatus() == 'menunggu') {
-            $borrowing->setStatus('ditolak');
+        if ($borrowing->getStatus() == 'Menunggu') {
+            $borrowing->setStatus('Ditolak');
             $borrowing->save();
-            return true;
+            return array(
+                'status' => 'success',
+            );
         } else {
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Status Tidak Sesuai'
+            );
         }
     }
     public function pickUpBorrowing($id)
     {
         $borrowing = new Borrowing(id: $id);
-        if ($borrowing->getStatus() == 'dikonfirmasi') {
-            $borrowing->setStatus('dipinjam');
+        if ($borrowing->getStatus() == 'Dikonfirmasi') {
+            $borrowing->setStatus('Dipinjam');
             $borrowing->save();
-            return true;
+            return array(
+                'status' => 'success',
+            );
         } else {
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Status Tidak Sesuai'
+            );
         }
     }
     public function finishBorrowing($id)
     {
         $borrowing = new Borrowing(id: $id);
-        if ($borrowing->getStatus() == 'dipinjam') {
-            $borrowing->setStatus('selesai');
+        if ($borrowing->getStatus() == 'Dipinjam') {
+            $borrowing->setStatus('Selesai');
             $borrowing->save();
             $readable = $borrowing->getReadable();
             foreach ($readable as $item) {
                 $item->setAvail($item->getAvail() + 1);
                 $item->save();
             }
-            return true;
+            return array(
+                'status' => 'success',
+            );
         } else {
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Status Tidak Sesuai'
+            );
         }
     }
 
