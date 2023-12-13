@@ -71,14 +71,14 @@ function getDesc(book) {
                 // $('#modalSkripsi').find('#synopsis').html(thesis['synopsis']);
                 var html;
                 if (thesis['avail'] < 1) {
-                    html = '<p id="avail">Tidak Tersedia</p>';
+                    html = '<p id="not-avail">Tidak Tersedia</p>';
                     $('#modalSkripsi').find('#status').removeClass('book-status-avail');
                     $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
                     $('#modalSkripsi').find('button[name="thesis"]').prop('disabled', true);
                     $('#modalSkripsi').find('button[name="thesis"]').removeClass('enabled');
                     $('#modalSkripsi').find('button[name="thesis"]').addClass('disabled');
                 } else {
-                    html = '<p id="not-avail">Tersedia</p>';
+                    html = '<p id="avail">Tersedia</p>';
                     $('#modalSkripsi').find('#status').removeClass('book-status-not-avail');
                     $('#modalSkripsi').find('#status').addClass('book-status-avail');
                     $('#modalSkripsi').find('button[name="thesis"]').prop('disabled', false);
