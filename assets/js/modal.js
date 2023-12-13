@@ -26,12 +26,18 @@ function getDesc(book) {
                     $('#modalBuku').find('#status').removeClass('book-status-avail');
                     $('#modalBuku').find('#status').addClass('book-status-not-avail');
                     $('#modalBuku').find('button[name="book"]').prop('disabled', true);
-
+                    $('#modalBuku').find('button[name="book"]').removeClass('enabled');
+                    $('#modalBuku').find('button[name="book"]').addClass('disabled');
+                    // $(selector).attr(attributeName, value);
+                    
+                    
                 } else {
                     html = '<p id="avail">Tersedia</p>';
                     $('#modalBuku').find('#status').addClass('book-status-avail');
                     $('#modalBuku').find('#status').removeClass('book-status-not-avail');
                     $('#modalBuku').find('button[name="book"]').prop('disabled', false);
+                    $('#modalBuku').find('button[name="book"]').removeClass('disabled');
+                    $('#modalBuku').find('button[name="book"]').addClass('enabled');
                 }
                 $('#modalBuku').find('div#status').html(html);
 
@@ -65,13 +71,19 @@ function getDesc(book) {
                 // $('#modalSkripsi').find('#synopsis').html(thesis['synopsis']);
                 var html;
                 if (thesis['avail'] < 1) {
-                    html = '<p id="avail">Tersedia</p>';
+                    html = '<p id="avail">Tidak Tersedia</p>';
                     $('#modalSkripsi').find('#status').removeClass('book-status-avail');
                     $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
+                    $('#modalSkripsi').find('button[name="thesis"]').prop('disabled', true);
+                    $('#modalSkripsi').find('button[name="thesis"]').removeClass('enabled');
+                    $('#modalSkripsi').find('button[name="thesis"]').addClass('disabled');
                 } else {
-                    html = '<p id="not-avail">Tidak Tersedia</p>';
-                    $('#modalSkripsi').find('#status').addClass('book-status-not-avail');
-                    $('#modalSkripsi').find('#status').removeClass('book-status-avail');
+                    html = '<p id="not-avail">Tersedia</p>';
+                    $('#modalSkripsi').find('#status').removeClass('book-status-not-avail');
+                    $('#modalSkripsi').find('#status').addClass('book-status-avail');
+                    $('#modalSkripsi').find('button[name="thesis"]').prop('disabled', false);
+                    $('#modalSkripsi').find('button[name="thesis"]').removeClass('disabled');
+                    $('#modalSkripsi').find('button[name="thesis"]').addClass('enabled');
                 }
                 $('#modalSkripsi').find('div#status').html(html);
 

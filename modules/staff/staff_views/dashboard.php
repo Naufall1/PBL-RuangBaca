@@ -190,8 +190,8 @@
             <div class="d-flex modal-button-group" style="gap: 12px;">
                 <button type="button" class="enabled danger modal-button-top-margin" name="reject" id="" onclick="processBorrowing(this);">Tolak</button>
                 <button type="button" class="enabled modal-button-top-margin" name="confirm" id="" onclick="processBorrowing(this);">Konfirmasi</button>
-                <button type="button" class="enabled modal-button-top-margin" name="pickUp" id="" onclick="processBorrowing(this);">Pick Up</button>
-                <button type="button" class="enabled modal-button-top-margin" name="finish" id="" onclick="processBorrowing(this);">Finish</button>
+                <button type="button" class="enabled modal-button-top-margin" name="pickUp" id="" onclick="processBorrowing(this);">Diambil</button>
+                <button type="button" class="enabled modal-button-top-margin" name="finish" id="" onclick="processBorrowing(this);">Selesai</button>
             </div>
         </div>
     </div>
