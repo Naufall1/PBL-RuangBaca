@@ -258,11 +258,11 @@ button.expand-sidebar{
 /* Start: Navbar */
 
 .container-nav{
-    margin-left: 260px;
+    margin-left: 86px;
     height: 88px;
     position: fixed;
     /* width: 1282px; */
-    width: calc(100vw - 260px);
+    width: calc(100vw - 86px);
     /* flex-grow: 1; */
     z-index: 0;
 
@@ -402,7 +402,7 @@ p, .navbar-content-users{
 .container-main{
     transition: all 0.5s ease;
     /* border: solid 2px red; */
-    margin-left: calc(260px + 20px);
+    margin-left: calc(86px + 20px);
     margin-top: calc(88px + 20px);
     margin-right: calc(20px);
     margin-bottom: 20px;
@@ -410,7 +410,7 @@ p, .navbar-content-users{
     height: fit-content;
     height: calc(100vh - 88px - 20px);
     /* width: 100%; */
-    width: calc(100% - 260px - 20px - 20px);
+    width: calc(100% - 86px - 20px - 20px);
     /* position: relative; */
 }
 
@@ -571,6 +571,9 @@ a.more-filter{
     height: 48px;
     gap: 16px;
     align-items: end;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 }
 
 .filter-item{
@@ -846,7 +849,7 @@ a.page:hover{
 /* TABLE */
 
 .container-main-table{
-    width: calc(100% - 260px - 20px - 20px);
+    /* width: calc(100% - 2px - 20px - 20px); */
     background-color: var(--neutral-10-color);
     border: solid 2px var(--neutral-20-color);
     height: fit-content;
@@ -1106,6 +1109,17 @@ tr:first-child th:last-child {
     /* padding: 6px; */
     background-color: var(--primary-tint-color);
     border-radius: 8px;
+}
+
+.icon-container-danger{
+    background-color: var(--semantic-danger-surface-color);
+}
+
+.icon-container-warning{
+    background-color: var(--semantic-warning-surface-color);
+}
+.icon-container-success{
+    background-color: var(--semantic-success-surface-color);
 }
 
 .icon-container > svg{

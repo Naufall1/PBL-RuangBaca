@@ -1,4 +1,4 @@
-<div class="sidebar d-flex">
+<div class="sidebar sidebar-minimize d-flex">
     
     <!-- Start: Logo -->
     <a href="#" class="d-flex logo">
