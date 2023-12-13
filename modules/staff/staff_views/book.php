@@ -30,7 +30,7 @@
         foreach ($books['data'] as $book) {
         ?>
             <tr>
-                <td class="no-column"><?= $i ?></td>
+                <td class="no-column"><?= $i+$books['start'] ?></td>
                 <td class="id-column" id=""><?= $book->getId(); ?></td>
                 <td class="title-column"><?= $book->getTitle(); ?></td>
                 <td class="number-column" id="stock"><?= $book->getStock(); ?></td>
@@ -64,7 +64,7 @@
     <?php
         for ($i=1; $i <= $numPage; $i++) {
     ?>
-            <a href="#" class="<?= ($books['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
+            <a href="#" name="pagination" class="<?= ($books['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
     <?php
         }
     ?>

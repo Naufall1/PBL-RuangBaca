@@ -13,7 +13,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Success</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -36,7 +36,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Warning</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -55,12 +55,10 @@
                     <rect width="48" height="48" fill="#E20000" rx="24"/>
                     <path fill="#fff" d="M24 10.667c-7.347 0-13.334 5.986-13.334 13.333S16.654 37.333 24 37.333c7.346 0 13.333-5.986 13.333-13.333S31.347 10.667 24 10.667Zm4.48 16.4a1.006 1.006 0 0 1 0 1.413.99.99 0 0 1-.707.293.989.989 0 0 1-.706-.293L24 25.413l-3.067 3.067a.99.99 0 0 1-.706.293.99.99 0 0 1-.707-.293 1.006 1.006 0 0 1 0-1.413L22.587 24l-3.067-3.067a1.006 1.006 0 0 1 0-1.413 1.006 1.006 0 0 1 1.413 0L24 22.587l3.067-3.067a1.006 1.006 0 0 1 1.413 0 1.006 1.006 0 0 1 0 1.413L25.413 24l3.067 3.067Z"/>
                 </svg>
-
-
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Danger</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -74,7 +72,7 @@
     </div>
     <!-- End: Flash Message -->
 
-    
+
     <!-- Start: Sidebar Cart -->
     <section class="cart-container" >
 
@@ -149,7 +147,7 @@
             <div class="d-flex align-items-center">
 
 
-                
+
                 <div class="d-flex flex-column heading-page">
                     <h1 class="heading-table-page">Buku</h1>
                     <p class="subtitle-table-page">Tabel Buku</p>
@@ -193,12 +191,12 @@
     </main>
     <!-- End: Main Layer -->
 
-    
+
     <script>
 
 
         $(document).ready(function() {
-            
+
         });
     </script>
 

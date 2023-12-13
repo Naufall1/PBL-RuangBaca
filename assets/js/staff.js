@@ -130,7 +130,22 @@ function loadModal(id) {
     $('#modalBuku').modal('show');
 }
 
-function loadModule(moduleName) {
+function loadSearch(moduleName) {
+    $('input[name="search"]').keyup(function (e) {
+        if (e.keyCode == 13) {
+            $.ajax({
+                type: "GET",
+                url: "?function=search/"+moduleName+"&q=" + $(this).val(),
+                success: function (response) {
+                    $('main.container-main').html(response);
+                    loadSearch(moduleName);
+                }
+            });
+        }
+    });
+}
+
+function loadModule(moduleName, page=-1) {
     switch (moduleName) {
         case 'book':
             changeTableHeading('Buku');
@@ -149,11 +164,22 @@ function loadModule(moduleName) {
     }
     $.ajax({
         type: "GET",
-        url: "?page=" + moduleName,
+        url: "?page=" + moduleName + (page >= 1 ? "&num=" + page : ""),
         success: function (response) {
             $('main.container-main').html(response);
+            loadSearch(moduleName);
 
-            // Dashboard
+            /**
+             * pagigation
+             */
+            $('a[name="pagination"]').click(function (e) {
+                console.log('change pagination');
+                loadModule(moduleName, $(this).html());
+            });
+
+            /**
+             * dashboard
+             */
             $('.tab-menu .tab-item').click(function () {
                 $('.tab-item-active').addClass('tab-item');
                 $('.tab-item-active').find('.tab-title-active').addClass('tab-title');
@@ -165,11 +191,13 @@ function loadModule(moduleName) {
                 $(this).addClass('tab-item-active');
                 loadBorrowingCards($(this).attr('id'));
             });
-            $('.tab-item#all').find('.tab-title').addClass('tab-title-active');
-            $('.tab-item#all').find('.tab-title').removeClass('tab-title');
-            $('.tab-item#all').addClass('tab-item-active');
-            $('.tab-item#all').removeClass('tab-item');
-            loadBorrowingCards('all');
+            if (moduleName == 'dashboard') {
+                $('.tab-item#all').find('.tab-title').addClass('tab-title-active');
+                $('.tab-item#all').find('.tab-title').removeClass('tab-title');
+                $('.tab-item#all').addClass('tab-item-active');
+                $('.tab-item#all').removeClass('tab-item');
+                loadBorrowingCards('all');
+            }
         }
     });
 }
@@ -198,14 +226,14 @@ $(document).ready(function () {
         }
     });
 
-    $(".menu").click(function () { 
+    $(".menu").click(function () {
         if ($(".container-main").hasClass("dashboard")) {
             $(".container-main").removeClass("dashboard");
             $(".container-main").addClass("container-main-table");
         }
     });
-    
-    $("#dashboard").click(function () { 
+
+    $("#dashboard").click(function () {
         if ($(".container-main").hasClass("container-main-table")) {
             $(".container-main").removeAttr("transition");
             $(".container-main").removeClass("container-main-table");

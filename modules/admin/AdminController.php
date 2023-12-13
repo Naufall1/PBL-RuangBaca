@@ -32,14 +32,14 @@ class AdminController
 
         if (isset($_GET['q']) && isset($classMap[$arg])) {
             $className = $classMap[$arg];
-            $data = $this->admin->view(new $className(),page:(isset($_GET['num']))? $_GET['num']:1, search: $_GET['q']);
+            $data = $this->admin->view(new $className(), page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $_GET['q']);
             $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
             var_dump(count($data['data']));
 
             $methodName = $arg;
             $this->$methodName(data: $data);
         } else if (isset($_GET['q']) && $arg == 'borrowing') {
-            $data = $this->admin->viewBorrowing(page:(isset($_GET['num']))? $_GET['num']:1, search: $_GET['q']);
+            $data = $this->admin->viewBorrowing(page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $_GET['q']);
             $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
             var_dump(count($data['data']));
             $this->borrowing($data);
@@ -79,7 +79,11 @@ class AdminController
             if ($data !== null) {
                 $books = $data;
             } else {
-                $books = $this->admin->view(new Book(), page:(isset($_GET['num']))? $_GET['num']:1);
+                if (isset($_GET['num'])) {
+                    $_SESSION['bk-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['bk-page'])) ? $_SESSION['bk-page'] : 1;
+                $books = $this->admin->view(new Book(), $page);
             }
             $numPage = $books['numPages'];
             include 'modules/admin/admin_views/book.php';
@@ -241,6 +245,9 @@ class AdminController
                     $author->save();
                 }
             } else {
+                /**
+                 * Add author here
+                 */
                 $author = new Author();
                 $author_name = $_POST['author_name'];
                 $author->setAuthorName(author_name: $author_name);
@@ -254,7 +261,14 @@ class AdminController
             if ($data !== null) {
                 $authors = $data;
             } else {
-                $authors = $this->admin->view(new Author(),page:(isset($_GET['num']))? $_GET['num']:1);
+                /**
+                 * save Pagination to session
+                 */
+                if (isset($_GET['num'])) {
+                    $_SESSION['aut-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['aut-page'])) ? $_SESSION['aut-page'] : 1;
+                $authors = $this->admin->view(new Author(), page: $page);
             }
             $numPage = $authors['numPages'];
             include 'modules/admin/admin_views/author.php';
@@ -293,7 +307,11 @@ class AdminController
             if ($data !== null) {
                 $publishers = $data;
             } else {
-                $publishers = $this->admin->view(new Publisher());
+                if (isset($_GET['num'])) {
+                    $_SESSION['pub-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['pub-page'])) ? $_SESSION['pub-page'] : 1;
+                $publishers = $this->admin->view(new Publisher(), page: $page);
             }
             $numPage = $publishers['numPages'];
             include 'modules/admin/admin_views/publisher.php';
@@ -332,7 +350,11 @@ class AdminController
             if ($data !== null) {
                 $category = $data;
             } else {
-                $category = $this->admin->view(new Category());
+                if (isset($_GET['num'])) {
+                    $_SESSION['cat-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['cat-page'])) ? $_SESSION['cat-page'] : 1;
+                $category = $this->admin->view(new Category(), page: $page);
             }
             $numPage = $category['numPages'];
             include 'modules/admin/admin_views/category.php';
@@ -398,7 +420,11 @@ class AdminController
             if ($data !== null) {
                 $thesis = $data;
             } else {
-                $thesis = $this->admin->view(new Thesis());
+                if (isset($_GET['num'])) {
+                    $_SESSION['th-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['th-page'])) ? $_SESSION['th-page'] : 1;
+                $thesis = $this->admin->view(new Thesis(), page: $page);
             }
             $numPage = $thesis['numPages'];
             include 'modules/admin/admin_views/thesis.php';
@@ -437,7 +463,11 @@ class AdminController
             if ($data !== null) {
                 $lecturer = $data;
             } else {
-                $lecturer = $this->admin->view(new Lecturer());
+                if (isset($_GET['num'])) {
+                    $_SESSION['lt-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['lt-page'])) ? $_SESSION['lt-page'] : 1;
+                $lecturer = $this->admin->view(new Lecturer(), page: $page);
             }
             $numPage = $lecturer['numPages'];
             include 'modules/admin/admin_views/lecturer.php';
@@ -448,7 +478,11 @@ class AdminController
         if ($data !== null) {
             $members = $data;
         } else {
-            $members = $this->admin->view(new Member());
+            if (isset($_GET['num'])) {
+                $_SESSION['m-page'] = $_GET['num'];
+            }
+            $page = (isset($_SESSION['m-page'])) ? $_SESSION['m-page'] : 1;
+            $members = $this->admin->view(new Member(), page: $page);
         }
         $numPage = $members['numPages'];
         include 'modules/admin/admin_views/member.php';
@@ -458,7 +492,11 @@ class AdminController
         if ($data !== null) {
             $borrowing = $data;
         } else {
-            $borrowing = $this->admin->viewBorrowing(page:(isset($_GET['num']))? $_GET['num']:1);
+            if (isset($_GET['num'])) {
+                $_SESSION['br-page'] = $_GET['num'];
+            }
+            $page = (isset($_SESSION['br-page'])) ? $_SESSION['br-page'] : 1;
+            $borrowing = $this->admin->viewBorrowing(page: $page);
         }
         $numPage = $borrowing['numPages'];
         include 'modules/admin/admin_views/borrowing.php';
@@ -513,7 +551,11 @@ class AdminController
             if ($data !== null) {
                 $shelf = $data;
             } else {
-                $shelf = $this->admin->view(new shelf());
+                if (isset($_GET['num'])) {
+                    $_SESSION['shelf-page'] = $_GET['num'];
+                }
+                $page = (isset($_SESSION['shelf-page'])) ? $_SESSION['shelf-page'] : 1;
+                $shelf = $this->admin->view(new shelf(), page: $page);
             }
             $numPage = $shelf['numPages'];
             include 'modules/admin/admin_views/shelf.php';

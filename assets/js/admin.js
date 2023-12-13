@@ -18,16 +18,16 @@ function loadSearch(moduleName) {
     });
 }
 
-function changePage(mod, page) {
-    $.ajax({
-        type: "GET",
-        url: "?page=" + mod,
-        data: "num=" + page,
-        success: function (response) {
-            $('main.container-main').html(response);
-        }
-    });
-}
+// function changePage(mod, page) {
+//     $.ajax({
+//         type: "GET",
+//         url: "?page=" + mod,
+//         data: "num=" + page,
+//         success: function (response) {
+//             $('main.container-main').html(response);
+//         }
+//     });
+// }
 
 /**
  * Create Section
@@ -88,6 +88,7 @@ function uploadDataAdd(mod, data) {
         success: function (res) {
             if (res == 'success') {
                 alert(res);
+                loadModule(mod);
                 $('#modalAdd').modal('hide');
             } else {
                 alert(res);
@@ -201,12 +202,13 @@ function processDelete() {
         data: "id="+id+"&delete",
         success: function (res) {
             alert(res);
+            loadModule(mod);
             $('#modalDelete').modal('hide');
         }
     });
 }
 
-function loadModule(moduleName, page = 1) {
+function loadModule(moduleName, page=-1) {
     switch (moduleName) {
         case 'book':
             changeTableHeading('Buku');
@@ -240,8 +242,8 @@ function loadModule(moduleName, page = 1) {
     }
     $.ajax({
         type: "GET",
-        url: "?page=" + moduleName,
-        data: "num=" + page,
+        url: "?page=" + moduleName + (page >= 1 ? "&num=" + page : ""),
+        // data: "num=" + page,
         success: function (response) {
             $('main.container-main').html(response);
 

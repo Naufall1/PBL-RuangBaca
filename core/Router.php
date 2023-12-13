@@ -179,7 +179,11 @@ include 'modules/staff/StaffController.php';
                         break;
                     case 'search':
                         if (isset(explode('/', $function)[1])) {
-                            $adminController->search($function);
+                            if ($user->isAdmin()) {
+                                $adminController->search($function);
+                            } else if ($user->isStaff()) {
+                                $StaffController->search($function);
+                            }
                         } else {
                             $catalog->search();
                         }
