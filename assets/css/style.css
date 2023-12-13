@@ -921,6 +921,24 @@ button.enabled[type='button'], button.enabled[type="submit"]{
     border-radius: 12px;
 }
 
+.anchor-enabled{
+    text-decoration: none;
+    gap: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    padding: 0 12px;
+    font-family: 'Satoshi-Bold';
+    min-width: 120px;
+    font-size: 16px;
+    /* margin: 0; */
+    color: var(--neutral-10-color);
+    background-color: var(--primary-main-color);
+    border: 0;
+    border-radius: 12px;
+}
+
 button.full-width[type='button'], button.full-width[type="submit"]{
     width: 100% !important;
 }

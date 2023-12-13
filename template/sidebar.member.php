@@ -43,7 +43,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.833 2.317v4.35l-1.666-1.109L12.5 6.667v-3.4c1.092-.434 2.308-.784 3.333-.95Z" />
                     </svg>
 
-                    <p class="menu-title" id="history">Peminjmaan</p>
+                    <p class="menu-title" id="history">Peminjaman</p>
                 </a>
             </div>
         </div>

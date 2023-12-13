@@ -195,8 +195,15 @@
     <!-- Start: NAVBAR -->
     <div class="container-nav d-flex">
 
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center content-nav">
+
         <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku dan Skripsi">
+
+        <div class="flex-column heading-page" style="display: none;">
+            <h1 class="heading-table-page">Peminjaman</h1>
+            <p class="subtitle-table-page">Laporan Peminjaman</p>
+        </div>
+
       </div>
 
       <div class="navbar-content">

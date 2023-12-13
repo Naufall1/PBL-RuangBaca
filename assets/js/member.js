@@ -35,6 +35,17 @@ $(document).ready(function () {
             $(this).next(".filter-box").fadeIn();
         }
     });
+
+    $(".menu#history").click(function () { 
+        $(".container-nav > .content-nav > input").css("display", "none");
+        $(".container-nav > .content-nav > .heading-page").css("display", "flex");
+    });
+
+    $("#book").click(function () { 
+        console.log('book');
+        $(".container-nav > .content-nav > input").css("display", "block");
+        $(".container-nav > .content-nav > .heading-page").css("display", "none");
+    });
 });
 
 function loadModule(moduleName) {
@@ -291,6 +302,7 @@ function openCart(){
     $('.input-fields#reserve-date').css('display', 'flex');
     $('.submit-container > button').css("display", "flex");
 }
+
 function closeCart() {
     $(".cart-container").css("display", "none");
     $(".container-main").css("margin-right", "calc(20px + 297px - 297px)");
