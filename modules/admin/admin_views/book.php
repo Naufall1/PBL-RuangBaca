@@ -58,7 +58,7 @@
                         value="<?= $book->getId() ?>">Edit</a>
                     <a class="dropdown-item" href="#" name="book" onclick="detail(this);"
                         value="<?= $book->getId() ?>">Detail</a>
-                    <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);"
+                    <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="deleteById('<?= $book->getId() ?>');"
                         value="<?= $book->getId() ?>">Hapus</a>
                 </div>
             </td>
@@ -447,16 +447,13 @@
             <div class="modal-body">
 
                 <!-- <form class=" flex-column d-flex"> -->
-                    <p class="delete-confirmation">
+                    <p class="delete-confirmation" mod="book">
                         Apakah Anda yakin ingin menghapus Buku dengan ID Buku <span>BK0001</span>?
                     </p>
 
-
                     <div class="d-flex modal-button-group" style="gap: 12px;">
-
-                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="book" onclick="">Hapus</button>
-                        <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
-                        <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
                     </div>
 
                 <!-- </form> -->

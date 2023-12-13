@@ -101,15 +101,18 @@ class Category implements IManage
     }
     public function delete()
     {
-        $query = "DELETE FROM category WHERE category_id = ?";
-        $parameters = [
-            $this->category_id
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
-
-        $statement->execute();
+        try {
+            $query = "DELETE FROM category WHERE category_id = ?";
+            $parameters = [
+                $this->category_id
+            ];
+            $statement = Database::prepare($query);
+            $type = 's';
+            $statement->bind_param($type, ...$parameters);
+            return $statement->execute();
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function getId()

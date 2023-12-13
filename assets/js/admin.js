@@ -55,6 +55,9 @@ function loadSearch(moduleName) {
     }
 }
 
+/**
+ * Create Section
+ */
 function validateFormBook() {
     var isValid = true;
     if ($('select[name="shelf"]').val() === "Pilih Rak"  || $('select[name="shelf"]').val() === null) {
@@ -75,7 +78,6 @@ function validateFormThesis() {
     }
     return isValid;
 }
-
 function resetForm() {
     // Reset nilai input teks dan textarea
     $("#title, #synopsis, #add-category, #add-author, #add-publisher, #year, #stock, #isbn, #ddc_code").val("");
@@ -93,7 +95,6 @@ function resetForm() {
     $('input[name="add-category"]').prop('disabled', false);
     $('input[name="add-category"]').prop('required', true);
 }
-
 function addShelf() {
     $.ajax({
         type: "POST",
@@ -105,7 +106,6 @@ function addShelf() {
         }
     });
 }
-
 function uploadDataAdd(mod, data) {
     $.ajax({
         url: '?page='+mod,
@@ -120,6 +120,11 @@ function uploadDataAdd(mod, data) {
         processData: false
     });
 }
+
+/**
+ *
+ * Update section
+*/
 function uploadDataEdit(mod, data) {
     $.ajax({
         url: '?page='+mod,
@@ -134,7 +139,6 @@ function uploadDataEdit(mod, data) {
         processData: false
     });
 }
-
 function editBook(id) {
     $.ajax({
         type: 'POST',
@@ -166,7 +170,6 @@ function editBook(id) {
         $('#modalEdit').modal('show');
     }, 50);
 }
-
 function editThesis(id) {
     $.ajax({
         type: 'POST',
@@ -194,12 +197,35 @@ function editThesis(id) {
         $('#modalEdit').modal('show');
     }, 50);
 }
-
 function editSingle(id) {
     var value = $('td[name="id"]:contains("'+id+'")').next('td[name="main"]').html();
     $('#modalEdit').find('#id').val(id);
     $('#modalEdit').find('#main').val(value);
     $('#modalEdit').modal('show');
+}
+
+/**
+ *
+ * Delete section
+ */
+
+function deleteById(id) {
+    $('.delete-confirmation > span').html(id);
+    $('#modalDelete').modal('show');
+}
+
+function processDelete() {
+    var id = $('.delete-confirmation > span').html();
+    var mod = $('.delete-confirmation').attr('mod');
+    $.ajax({
+        type: "POST",
+        url: "?page="+mod,
+        data: "id="+id+"&delete",
+        success: function (res) {
+            alert(res);
+            $('#modalDelete').modal('hide');
+        }
+    });
 }
 
 function loadModule(moduleName) {

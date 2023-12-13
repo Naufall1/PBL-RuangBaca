@@ -104,7 +104,7 @@ class Shelf implements IManage
         $type = 's';
         $statement->bind_param($type, ...$parameters);
 
-        $statement->execute();
+        return $statement->execute();
     }
     function addCategory($id, $category)
     {

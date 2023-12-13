@@ -4,7 +4,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'ruangbaca');
+define('DB_NAME', 'ruangbaca2');
 
 define('UPLOAD_DIR', 'uploads/');
 
@@ -15,6 +15,6 @@ define('COVER_DIR', 'uploads/cover/');
 define('MAX_NUMS_ITEM', 8);
 
 // Jumlah maksimal baris tiap tabel
-define('LIMIT_ROWS_PER_PAGE', 5);
+define('LIMIT_ROWS_PER_PAGE', 30);
 
 ?>

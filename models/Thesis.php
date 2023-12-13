@@ -253,6 +253,7 @@ class Thesis extends Readable implements IManage
     }
     public function save()
     {
+        Database::beginTransaction();
         try {
             // Update data di tabel 'thesis'
             $query = "UPDATE thesis
@@ -314,7 +315,6 @@ class Thesis extends Readable implements IManage
             );
         } catch (Exception $e) {
             Database::rollback();
-            // echo $e->getMessage();
             return array(
                 'status' => 'failed',
                 'error' => $e->getMessage(),
@@ -324,15 +324,34 @@ class Thesis extends Readable implements IManage
     }
     public function delete()
     {
-        $query = "DELETE FROM thesis WHERE thesis_id = ?";
-        $parameters = [
-            $this->id
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
+        Database::beginTransaction();
+        try {
+            $query = "DELETE FROM thesis WHERE thesis_id = ?";
+            $queryDeleteDospem = "DELETE FROM dospem WHERE thesis_id = ?";
+            $parameters = [
+                $this->id
+            ];
 
-        $statement->execute();
+            $statement2 = Database::prepare($queryDeleteDospem);
+            $type = 's';
+            $statement2->bind_param($type, ...$parameters);
+
+            if (!$statement2->execute()) {
+                throw new Exception('Error updating Thesis');
+            }
+
+            $statement1 = Database::prepare($query);
+            $statement1->bind_param($type, ...$parameters);
+            if (!$statement1->execute()) {
+                throw new Exception('Error updating Thesis');
+            }
+
+            Database::commit();
+            return true;
+        } catch (Exception $e) {
+            Database::rollback();
+            return false;
+        }
     }
 
     public function toJSON()

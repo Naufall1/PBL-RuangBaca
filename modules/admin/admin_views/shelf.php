@@ -38,8 +38,6 @@
                 <td class="no-column"><?= $i + $shelf['start'] ?></td>
                 <td class="id-column" name="id"><?= $cat->getShelfId(); ?></td>
                 <td class="title-column" name="main"><?= $cat->getShelfCategories(); ?></td>
-                <!-- <td class="number-column" id="stock">0</td>
-                <td class="number-column" id="available">0</td> -->
                 <td class="more-icon-column">
                     <a href="" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -47,8 +45,8 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" name="book" onclick="editSingle('<?= $cat->getShelfId(); ?>');" value="">Edit</a>
-                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
+                        <a class="dropdown-item" href="#" onclick="editSingle('<?= $cat->getShelfId(); ?>');" value="">Edit</a>
+                        <a class="dropdown-item" href="#" id="risk-action" onclick="deleteById('<?= $cat->getShelfId(); ?>');" value="">Hapus</a>
                     </div>
                 </td>
             </tr>
@@ -164,3 +162,31 @@
     </div>
 </div>
 <!-- End: Modal Edit Shelf -->
+
+<!-- Start: Modal Delete-->
+<!-- DELETE DISPLAY STYLE FIRST BELOW -->
+<div class="modal" id="modalDelete" >
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-custom-delete">
+            <div class="modal-header border-0 d-flex">
+                <div class="d-flex" style="padding: 0; width: 100%;">
+                    <div class="d-flex flex-column align-content-between " style="width: 100%;">
+                        <h3 class="modal-heading" id="">Hapus Data</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- <form class=" flex-column d-flex"> -->
+                    <p class="delete-confirmation" mod="shelf">
+                        Apakah Anda yakin ingin menghapus Rak dengan ID Rak <span>BK0001</span>?
+                    </p>
+                    <div class="d-flex modal-button-group" style="gap: 12px;">
+                        <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
+                    </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End: Modal Delete-->

@@ -38,8 +38,6 @@
                 <td class="no-column"><?= $i + $category['start'] ?></td>
                 <td class="id-column" name="id"><?= $cat->getId(); ?></td>
                 <td class="title-column" name="main"><?= $cat->getCategoryName(); ?></td>
-                <!-- <td class="number-column" id="stock">0</td>
-                <td class="number-column" id="available">0</td> -->
                 <td class="more-icon-column">
                     <a href="" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -48,7 +46,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#" name="book" onclick="editSingle('<?= $cat->getId(); ?>');" value="">Edit</a>
-                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="detail(this);" value="">Hapus</a>
+                        <a class="dropdown-item" href="#" id="risk-action" name="book" onclick="deleteById('<?= $cat->getId(); ?>');" value="">Hapus</a>
                     </div>
                 </td>
             </tr>
@@ -182,7 +180,7 @@
 
 <!-- Start: Modal Delete-->
 <!-- DELETE DISPLAY STYLE FIRST BELOW -->
-<div class="modal" id="modalBuku">
+<div class="modal" id="modalDelete">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-custom-delete">
             <div class="modal-header border-0 d-flex">
@@ -206,18 +204,14 @@
             <div class="modal-body">
 
                 <!-- <form class=" flex-column d-flex"> -->
-                <p class="delete-confirmation">
+                <p class="delete-confirmation" mod="category">
                     Apakah Anda yakin ingin menghapus Kategori dengan ID Kategori <span>BK0001</span>?
                 </p>
 
 
                 <div class="d-flex modal-button-group" style="gap: 12px;">
-
-                    <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="category" onclick="">Hapus</button>
-
-                    <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" onclick="closeModal(this);" id="modalBuku">Batal</button>
-                    <!-- BUTTON BATAL GA GELEM CLOSE, BLM KETEMU SOLUSINYA -->
+                    <button type="button" class="enabled danger modal-button-top-margin" id="hapus" name="publisher" onclick="processDelete();">Hapus</button>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="enabled secondary modal-button-top-margin" id="modalBuku">Batal</button>
                 </div>
 
                 <!-- </form> -->
