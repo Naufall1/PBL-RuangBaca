@@ -44,19 +44,19 @@ class StaffController
                 echo $this->staff->getBorrowingDetails(id: $id);
                 break;
             case 'confirm':
-                echo $this->staff->confirmBorrowing(id: $id);
+                echo json_encode($this->staff->confirmBorrowing(id: $id));
                 break;
             case 'reject':
-                echo $this->staff->rejectBorrowing(id: $id);
+                echo json_encode($this->staff->rejectBorrowing(id: $id));
                 break;
             case 'pickUp':
-                echo $this->staff->pickUpBorrowing(id: $id);
+                echo json_encode($this->staff->pickUpBorrowing(id: $id));
                 break;
             case 'finish':
-                echo $this->staff->finishBorrowing(id: $id);
+                echo json_encode($this->staff->finishBorrowing(id: $id));
                 break;
             default:
-                echo 'denied';
+                echo json_encode(array('status' => 'denied', 'message' => 'Akses Ditolak'));
                 break;
         }
     }
