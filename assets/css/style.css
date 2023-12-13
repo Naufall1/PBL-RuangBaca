@@ -571,6 +571,9 @@ a.more-filter{
     height: 48px;
     gap: 16px;
     align-items: end;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 }
 
 .filter-item{
