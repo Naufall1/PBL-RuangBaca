@@ -30,6 +30,7 @@ class Catalog implements IFilter, ISearch
             'author' => ' author_id IN (',
             'publisher' => ' publisher_id IN (',
             'year' => ' year_published IN (',
+            'prodi' => 'category IN ('
         );
         $query = '';
         if (isset($args['type'])) {
@@ -92,7 +93,7 @@ class Catalog implements IFilter, ISearch
 
         $i = 0;
         foreach ($_SESSION['filters'] as $key => $value) {
-            if (isset($_SESSION['filters']['jenis']) && $_SESSION['filters']['jenis'][0] == 'skripsi') {
+            if ((isset($_SESSION['filters']['jenis']) && $_SESSION['filters']['jenis'][0] == 'skripsi') || isset($_SESSION['filters']['prodi'])) {
                 # code...
                 $queryUnion = str_replace('UNION', '', $queryUnion);
                 $queryBook = '';
@@ -118,7 +119,6 @@ class Catalog implements IFilter, ISearch
             if (isset($_SESSION['filters']['jenis']) && $_SESSION['filters']['jenis'][0] == 'buku') {
                 $queryUnion = str_replace('UNION', '', $queryUnion);
                 $queryThesis = '';
-                # code...
             } else {
                 if ($key != 'jenis') {
                     $queryThesis = $queryThesis . $value;

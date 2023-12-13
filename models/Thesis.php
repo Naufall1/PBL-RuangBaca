@@ -371,6 +371,11 @@ class Thesis extends Readable implements IManage
         return json_encode($jsonArray);
     }
 
+    public static function getAllCategories(){
+        $res = Database::query("SELECT DISTINCT category FROM thesis");
+        return $res;
+    }
+
     public function addDospem($lecturer)
     {
         $this->dospem2[] = $lecturer;
