@@ -7,7 +7,7 @@
 <!-- Start: View Books Layer -->
 <div class="collection-views d-flex justify-content-between">
     <p class="total-views">
-        Menampilkan <?= $books['start']+1 ?>-<?= $books['end'] ?> dari <?= $books['countAll'] ?> koleksi
+        Menampilkan <?= $books['start'] + 1 ?>-<?= $books['end'] ?> dari <?= $books['countAll'] ?> koleksi
     </p>
 </div>
 <!-- End: View Books Layer -->
@@ -30,7 +30,7 @@
         foreach ($books['data'] as $book) {
         ?>
             <tr>
-                <td class="no-column"><?= $i+$books['start'] ?></td>
+                <td class="no-column"><?= $i + $books['start'] ?></td>
                 <td class="id-column" id=""><?= $book->getId(); ?></td>
                 <td class="title-column"><?= $book->getTitle(); ?></td>
                 <td class="number-column" id="stock"><?= $book->getStock(); ?></td>
@@ -42,7 +42,7 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#"  name="book" onclick="detail(this);" value="<?= $book->getId() ?>">Detail</a>
+                        <a class="dropdown-item" href="#" name="book" onclick="detail(this);" value="<?= $book->getId() ?>">Detail</a>
                     </div>
                 </td>
             </tr>
@@ -62,11 +62,11 @@
         </svg>
     </a>
     <?php
-        for ($i=1; $i <= $numPage; $i++) {
+    for ($i = 1; $i <= $numPage; $i++) {
     ?>
-            <a href="#" name="pagination" class="<?= ($books['page'] == $i) ? 'active':'' ?>" ><?= $i ?></a>
+        <a href="#" name="pagination" class="<?= ($books['page'] == $i) ? 'active' : '' ?>"><?= $i ?></a>
     <?php
-        }
+    }
     ?>
     <a href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">

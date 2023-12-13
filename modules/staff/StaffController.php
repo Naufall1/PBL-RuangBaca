@@ -60,6 +60,19 @@ class StaffController
                 break;
         }
     }
+    public function filter(){
+        if (isset($_POST['prodi'])) {
+            $_SESSION['prodi'] = $_POST['prodi'];
+            echo json_encode(array(
+                'success' => true,
+            ));
+        } else {
+            echo json_encode(array(
+                'success' => true,
+                'status' => 'not found',
+            ));
+        }
+    }
     public function search($path)
     {
         $arg = explode('/', $path)[1];

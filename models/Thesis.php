@@ -164,12 +164,19 @@ class Thesis extends Readable implements IManage
         $limit = LIMIT_ROWS_PER_PAGE;
         $query = "SELECT thesis_id FROM thesis";
 
+        if (isset($_SESSION['prodi']) && $_SESSION['prodi'] != 'all') {
+            $query = $query . " WHERE category = '" . $_SESSION['prodi'] . "'";
+        }
+
         if ($search != '') {
-            $query = $query . " WHERE thesis_title LIKE '%" . $search . "%'";
+            if (isset($_SESSION['prodi'])) {
+                $query = $query . " AND thesis_title LIKE '%" . $search . "%'";
+            } else {
+                $query = $query . " WHERE thesis_title LIKE '%" . $search . "%'";
+            }
         }
 
         $query = $query . " ORDER BY thesis_id LIMIT $limit OFFSET $start";
-
         $result = Database::query($query);
         while ($id = $result->fetch_column()) {
             $thesis[] = new Thesis($id);

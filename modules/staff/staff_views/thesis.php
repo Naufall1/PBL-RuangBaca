@@ -1,6 +1,20 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
     <input type="text" name="search" class="search-fields" id="" placeholder="Cari Skripsi">
+    <div class="d-flex align-items-center">
+        <span class="me-2">Prodi : </span>
+        <select class="form-select w-auto" name="prodi">
+            <option value="all">Semua</option>
+            <?php
+            $categories = Thesis::getAllCategories();
+            while ($cat = $categories->fetch_assoc()) {
+            ?>
+                <option value="<?= $cat['category'] ?>" <?= (isset($_SESSION['prodi']) && $_SESSION['prodi'] == $cat['category']) ? 'selected':'' ?> ><?= $cat['category'] ?></option>
+            <?php
+            }
+            ?>
+        </select>
+    </div>
 </div>
 <!-- End: Action Container Layer -->
 

@@ -13,7 +13,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Success</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -36,7 +36,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Warning</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -60,7 +60,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Danger</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -108,7 +108,7 @@
                 <div class="account-profile d-flex">
                     <img class="photo-profile" src="assets/icon/profile.svg" alt="" height="40px" width="40px">
                     <div class="navbar-content-text d-flex">
-                        <p class="navbar-content-name fw-bold lh-1 text-nowrap">Muhammad Naufal Kurniawan</p>
+                        <p class="navbar-content-name fw-bold lh-1 text-nowrap">Staff</p>
                         <p class="navbar-content-users">Staf</p>
                     </div>
                 </div>
