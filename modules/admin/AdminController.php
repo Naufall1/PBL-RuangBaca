@@ -18,36 +18,27 @@ class AdminController
     public function search($path)
     {
         $arg = explode('/', $path)[1];
-        if (isset($_POST['q'])) {
-            # code...
-            switch ($arg) {
-                case 'book':
-                    $data = ($this->admin->view(new Book(), search: $_POST['q']));
-                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
-                    $this->book(data: $data);
-                    break;
-                case 'author':
-                    $data = ($this->admin->view(new Author(), search: $_POST['q']));
-                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
-                    $this->author(data: $data);
-                    break;
-                case 'publisher':
-                    $data = ($this->admin->view(new Publisher(), search: $_POST['q']));
-                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
-                    $this->publisher(data: $data);
-                    break;
-                case 'category':
-                    $data = ($this->admin->view(new Category(), search: $_POST['q']));
-                    $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
-                    $this->category(data: $data);
-                    break;
 
-                default:
-                    # code...
-                    break;
-            }
+        $classMap = [
+            'book'      => 'Book',
+            'author'    => 'Author',
+            'publisher' => 'Publisher',
+            'category'  => 'Category',
+            'thesis'    => 'Thesis',
+            'lecture'   => 'Lecturer',
+            'member'    => 'Member',
+            'shelf'     => 'Shelf',
+        ];
+
+        if (isset($_GET['q']) && isset($classMap[$arg])) {
+            $className = $classMap[$arg];
+            $data = $this->admin->view(new $className(), search: $_GET['q']);
+            $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
+
+            $methodName = $arg;
+            $this->$methodName(data: $data);
         } else {
-            echo 'Failed';
+            echo 'failed';
         }
     }
     public function book($data = null)
@@ -294,11 +285,10 @@ class AdminController
             }
         } else {
             if ($data !== null) {
-                # code...
+                $publishers = $data;
             } else {
-                # code...
+                $publishers = $this->admin->view(new Publisher());
             }
-            $publishers = $this->admin->view(new Publisher());
             $numPage = $publishers['numPages'];
             include 'modules/admin/admin_views/publisher.php';
         }
@@ -334,11 +324,10 @@ class AdminController
             }
         } else {
             if ($data !== null) {
-                # code...
+                $category = $data;
             } else {
-                # code...
+                $category = $this->admin->view(new Category());
             }
-            $category = $this->admin->view(new Category());
             $numPage = $category['numPages'];
             include 'modules/admin/admin_views/category.php';
         }
@@ -401,16 +390,15 @@ class AdminController
             }
         } else {
             if ($data !== null) {
-                # code...
+                $thesis = $data;
             } else {
-                # code...
+                $thesis = $this->admin->view(new Thesis());
             }
-            $thesis = $this->admin->view(new Thesis());
             $numPage = $thesis['numPages'];
             include 'modules/admin/admin_views/thesis.php';
         }
     }
-    public function lecturer($data = null)
+    public function lecture($data = null)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['id'])) {
@@ -441,11 +429,10 @@ class AdminController
             }
         } else {
             if ($data !== null) {
-                # code...
+                $lecturer = $data;
             } else {
-                # code...
+                $lecturer = $this->admin->view(new Lecturer());
             }
-            $lecturer = $this->admin->view(new Lecturer());
             $numPage = $lecturer['numPages'];
             include 'modules/admin/admin_views/lecturer.php';
         }
@@ -453,12 +440,10 @@ class AdminController
     public function member($data = null)
     {
         if ($data !== null) {
-            # code...
+            $members = $data;
         } else {
-            # code...
+            $members = $this->admin->view(new Member());
         }
-
-        $members = $this->admin->view(new Member());
         $numPage = $members['numPages'];
         include 'modules/admin/admin_views/member.php';
     }
@@ -522,11 +507,10 @@ class AdminController
              * View Shelf
              */
             if ($data !== null) {
-                # code...
+                $shelf = $data;
             } else {
-                # code...
+                $shelf = $this->admin->view(new shelf());
             }
-            $shelf = $this->admin->view(new shelf());
             $numPage = $shelf['numPages'];
             include 'modules/admin/admin_views/shelf.php';
         }

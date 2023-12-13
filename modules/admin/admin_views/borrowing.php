@@ -1,6 +1,6 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
-    <input type="text" name="search-borrowing" class="search-fields" id="" placeholder="Cari Peminjaman">
+    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Peminjaman">
 </div>
 <!-- End: Action Container Layer -->
 

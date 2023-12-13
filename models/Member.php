@@ -152,7 +152,14 @@ class Member extends User implements IManage
         $member = array();
         $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
         $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT member_id FROM member ORDER BY member_id LIMIT $limit OFFSET $start";
+        $query = "SELECT member_id FROM member";
+
+        if ($search != '') {
+            $query = $query . " WHERE member_name LIKE '%" . $search . "%'";
+        }
+
+        $query = $query . " ORDER BY member_id LIMIT $limit OFFSET $start";
+
         $result = Database::query($query);
         while ($id = $result->fetch_column()) {
             $member[] = new Member($id);
