@@ -239,6 +239,7 @@ button.expand-sidebar{
 
 .expand-sidebar > svg{
     transform: rotate(180deg);
+    transition: transform 0.3s linear;
 }
 
 .sidebar.sidebar-minimize .expand-sidebar > svg{
@@ -428,12 +429,14 @@ p, .navbar-content-users{
     padding: 16px;
     height: max-content;
     flex-wrap: wrap;
+    transition: all 0.5s ease;
 }
 
 .filter-groups{
     width: 100%;
     flex-direction: column;
     gap: 8px;
+    transition: all 0.5s ease;
 }
 
 .filter-group{
@@ -442,17 +445,20 @@ p, .navbar-content-users{
     flex-direction: column;
     margin-bottom: 8px;
     margin-top: 8px !important;
+    transition: all 0.5s ease;
 }
 
 .filter-title{
     width: 100%;
     height: 32px;
+    margin-bottom: -8px;
     align-items: center;
     justify-content: space-between;
 }
 
 .filter-title > svg{
     transform: rotate(180deg);
+    transition: transform 0.3s linear;
 }
 
 p.filter-heading{
@@ -465,11 +471,14 @@ p.filter-heading{
 }
 
 .filter-contents{
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 8px;
+    /* transition: all 0.5s ease; */
+    min-height: max-content;
+    overflow: hidden;
+    max-height: 0;
     transition: all 0.5s ease;
-    /* transition: all 1s ease !important; */
 }
 
 button.btn-filter{
