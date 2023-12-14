@@ -4,7 +4,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'ruangbaca4');
+define('DB_NAME', 'ruangbaca');
 
 define('UPLOAD_DIR', 'uploads/');
 

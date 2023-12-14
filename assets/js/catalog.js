@@ -194,6 +194,8 @@ function loadOnDocReady() {
             $("input#" + val).prop("checked", true);
         }
     } catch (error) {
+        $('.delete-filter-item').removeClass('d-flex');
+        $('.delete-filter-item').css('display','none');
         console.log('Error parsing cookie (Filter)');
     }
 }
