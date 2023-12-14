@@ -260,7 +260,7 @@ function loadModule(moduleName, page=-1) {
 
             // FORM ADD BOOK
             $('select[name="category"]').change(function () {
-                alert('change');
+                // alert('change');
                 if ($(this).val() != 'add') {
                     $('input[name="add-category"]').prop('disabled', true);
                     $('input[name="add-category"]').prop('required', false);

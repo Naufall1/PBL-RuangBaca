@@ -29,8 +29,8 @@ function getDesc(book) {
                     $('#modalBuku').find('button[name="book"]').removeClass('enabled');
                     $('#modalBuku').find('button[name="book"]').addClass('disabled');
                     // $(selector).attr(attributeName, value);
-                    
-                    
+
+
                 } else {
                     html = '<p id="avail">Tersedia</p>';
                     $('#modalBuku').find('#status').addClass('book-status-avail');
@@ -63,7 +63,7 @@ function getDesc(book) {
                 $('#modalSkripsi').find('#thesis_title').html(thesis['title']);
                 // $('#modalSkripsi').find('#cover').attr('src','uploads/cover/'+ thesis['cover']);
                 $('#modalSkripsi').find('#cover').attr('src','uploads/cover/default.png');
-                $('#modalSkripsi').find('#author').html(thesis['writer_name']);
+                $('#modalSkripsi').find('#author').html(thesis['author']);
                 $('#modalSkripsi').find('#year').html(thesis['year']);
                 $('#modalSkripsi').find('#shelf').html(thesis['shelf']);
                 $('#modalSkripsi').find('#dospem').html(thesis['dospem']);

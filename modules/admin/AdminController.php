@@ -121,7 +121,7 @@ class AdminController
         if (isset($_FILES['cover']) && $this->uploadCover() == true) {
             $title = $_POST['title'];
             $synopsis = $_POST['synopsis'];
-            if (isset($_POST['author'])) {
+            if (isset($_POST['author']) && $_POST['author'] != 'add') {
                 $author = new Author($_POST['author']);
             } else {
                 $author = new Author();
@@ -131,7 +131,7 @@ class AdminController
                     return;
                 }
             }
-            if (isset($_POST['publisher'])) {
+            if (isset($_POST['publisher']) && $_POST['publisher']  != 'add' ) {
                 $publisher = new Publisher($_POST['publisher']);
             } else {
                 $publisher = new Publisher();
@@ -141,7 +141,7 @@ class AdminController
                     return;
                 }
             }
-            if (isset($_POST['category'])) {
+            if (isset($_POST['category']) && $_POST['category'] != 'add') {
                 $category = new Category($_POST['category']);
             } else {
                 $category = new Category();
@@ -235,7 +235,7 @@ class AdminController
                      */
                     $id = $_POST['id'];
                     $author = new Author($id);
-                    echo ($author->delete()) ? 'success' : 'failed';
+                    echo ($author->delete() == true) ? 'success' : 'failed';
                 } else {
                     # EDIT AUTHOR HERE
                     $author_id = $_POST['id'];

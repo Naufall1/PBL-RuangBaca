@@ -41,6 +41,12 @@ function remove(obj) {
     removeFilterItem($(obj).attr("id"), 'blah');
 }
 
+function clearFilter() {
+    $('.filter-item').each(function (index, element) {
+        removeFilterItem($(element).attr("id"));
+    });
+}
+
 function changePages(obj) {
     $('a.page.active').each(function (i, obj) {
         $(obj).removeClass('active');
@@ -62,7 +68,7 @@ function changePages(obj) {
 function handleMutations(mutationsList, observer) {
     filterData = {};
     $('.filter-item').each(function (i, obj) {
-        console.log(obj);
+        // console.log(obj);
         if (obj.getAttribute('name') in filterData) {
             if (obj.getAttribute('name') != 'year') {
                 filterData[obj.getAttribute('name')].push(obj.getAttribute('id'));
