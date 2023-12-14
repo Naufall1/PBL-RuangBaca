@@ -470,6 +470,10 @@ p.filter-heading{
     height: fit-content;
 }
 
+input[type="checkbox"]:focus{
+    box-shadow: 0 0 0 0 var(--neutral-30-color) !important;;
+}
+
 .filter-contents{
     display: flex;
     flex-direction: column;
@@ -478,7 +482,7 @@ p.filter-heading{
     min-height: max-content;
     overflow: hidden;
     max-height: 0;
-    transition: all 0.5s ease;
+    transition: max-height 0.8s ease-in-out;
 }
 
 button.btn-filter{
