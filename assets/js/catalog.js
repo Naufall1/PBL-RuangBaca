@@ -37,6 +37,7 @@ function removeFilterItem(id, name) {
     $("button.btn-filter#" + id).removeClass('active');
     $('.form-check input#' + id).prop('checked', false);
 }
+
 function remove(obj) {
     removeFilterItem($(obj).attr("id"), 'blah');
 }
@@ -84,7 +85,6 @@ function handleMutations(mutationsList, observer) {
                 filterData[obj.getAttribute('name')].push(obj.getAttribute('id').substr(1));
             }
         }
-
     });
     $.ajax({
         type: 'POST',
@@ -97,6 +97,15 @@ function handleMutations(mutationsList, observer) {
             console.log(response.responseText);
         }
     });
+        
+    if(Object.keys(filterData).length === 0){
+        $('.delete-filter-item').removeClass('d-flex');
+        $('.delete-filter-item').css('display','none');
+    } else {
+        $('.delete-filter-item').removeAttr('display');
+        $('.delete-filter-item').addClass('d-flex');
+    }
+
     console.log(filterData);
 }
 
@@ -169,6 +178,7 @@ function loadOnDocReady() {
         }
         for (let i = 0; i < filter['kategori'].length; ++i) {
             val = filter['kategori'][i];
+            console.log('tes');
             $("input#" + val).prop("checked", true);
         }
         for (let i = 0; i < filter['pengarang'].length; ++i) {
