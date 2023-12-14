@@ -43,7 +43,7 @@
                     </div> -->
             <!-- End: R2 Filter Item -->
 
-            <a class="d-flex delete-filter-item text-nowrap" href="">Hapus Semua</a>
+            <a class="d-flex delete-filter-item text-nowrap" href="#" onclick="clearFilter();">Hapus Semua</a>
 
         </div>
         <!-- End: Filtered Layer -->
@@ -207,7 +207,7 @@
                     <div class="d-flex" style="padding: 0; width: 100%;">
 
                         <div class="d-flex flex-column align-content-between " style="width: 100%;">
-                            <h3 class="modal-heading" id="">Detail Buku</h3>
+                            <h3 class="modal-heading" id="">Detail Skripsi</h3>
                             <!-- id atas: exampleModalLongTitle -->
                             <span class="modal-heading-id" style="font-size: small;" id="thesis_id"></span>
                         </div>
