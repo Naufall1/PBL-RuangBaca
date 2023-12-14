@@ -391,7 +391,9 @@ class AdminController
                     $thesis->setWriterNim($writer_nim);
                     $thesis->setYear((int)$year);
                     $thesis->addDospem($lecturer_1);
-                    $thesis->addDospem($lecturer_2);
+                    if (!is_null($lecturer_2) && $lecturer_2 != '-') {
+                        $thesis->addDospem($lecturer_2);
+                    }
                     $thesis->setShelf($shelf);
                     $res = $thesis->save();
                     echo  json_encode($res);
@@ -402,7 +404,7 @@ class AdminController
                 $writer_nim = $_POST['writer_NIM'];
                 $year = $_POST['year_published'];
                 $lecturer_1 = $_POST['lecturer_id1'];
-                $lecturer_2 = $_POST['lecturer_id2'];
+                $lecturer_2 = (isset($_POST['lecturer_id2'])) ? $_POST['lecturer_id2'] : '-';
                 $shelf = $_POST['shelf'];
                 $prodi = $_POST['prodi'];
                 $thesis = new Thesis();
@@ -412,7 +414,9 @@ class AdminController
                 $thesis->setYear((int)$year);
                 $thesis->setAvail(1);
                 $thesis->addDospem($lecturer_1);
-                $thesis->addDospem($lecturer_2);
+                if (!is_null($lecturer_2) && $lecturer_2 != '-') {
+                    $thesis->addDospem($lecturer_2);
+                }
                 $thesis->setProdi($prodi);
                 $thesis->setCover('default.png');
                 $thesis->setShelf($shelf);

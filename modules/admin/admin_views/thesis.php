@@ -144,6 +144,7 @@
                             <label for="lecturer_id2">Dosen Pembimbing 2</label>
                             <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id2" name="lecturer_id2">
                                 <option disabled selected>Pilih Dosen</option>
+                                <option value="-">-</option>
                                 <?php
                                 $lecturer = Lecturer::getAll();
                                 while ($row = $lecturer->fetch_assoc()) {
@@ -200,12 +201,10 @@
         <div class="modal-content modal-custom-single-col">
             <div class="modal-header border-0 d-flex">
                 <div class="d-flex" style="padding: 0; width: 100%;">
-
                     <div class="d-flex flex-column align-content-between " style="width: 100%;">
                         <h3 class="modal-heading" id="">Edit Data</h3>
                     </div>
-
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close-button" onclick="closeModal(this);" id="book">
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="close-button" id="book">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5" />
                         </svg>
@@ -257,6 +256,7 @@
                             <div class="addbook-input-field input-fields d-flex flex-column">
                                 <label for="lecturer_id2">Dosen Pembimbing 2</label>
                                 <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id2" name="lecturer_id2">
+                                <option value="-">-</option>
                                     <?php
                                     $lecturer = Lecturer::getAll();
                                     while ($row = $lecturer->fetch_assoc()) {
