@@ -111,6 +111,7 @@ function uploadDataEdit(mod, data) {
         data: data,
         success: function (res) {
             alert(res);
+            loadModule(mod);
             $('#modalEdit').modal('hide');
         },
         cache: false,
@@ -209,6 +210,7 @@ function processDelete() {
 }
 
 function loadModule(moduleName, page=-1) {
+    console.log(moduleName);
     switch (moduleName) {
         case 'book':
             changeTableHeading('Buku');

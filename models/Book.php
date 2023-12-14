@@ -160,54 +160,73 @@ class Book extends Readable implements IManage
 
         public function add()
         {
-                $prefix = 'BK';
-                $len = 5;
-                $res = Database::query("SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1")->fetch_array();
-                $prevId = intval(substr($res[0], 2, 5));
-                $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-                $query = "INSERT INTO book
-                (
-                        book_title,
-                        year_published,
-                        avail,
-                        cover,
-                        shelf_id,
-                        isbn,
-                        publisher_id,
-                        category_id,
-                        author_id,
-                        stock,
-                        ddc_code,
-                        synopsis,
-                        book_id
-                )
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ";
+                try {
+                        $prefix = 'BK';
+                        $len = 5;
+                        $res = Database::query("SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1")->fetch_array();
+                        $prevId = intval(substr($res[0], 2, 5));
+                        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+                        $query = "INSERT INTO book
+                        (
+                                book_title,
+                                year_published,
+                                avail,
+                                cover,
+                                shelf_id,
+                                isbn,
+                                publisher_id,
+                                category_id,
+                                author_id,
+                                stock,
+                                ddc_code,
+                                synopsis,
+                                book_id
+                        )
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ";
 
-                $parameters = [
-                        $this->title,
-                        (string) $this->year,
-                        $this->stock,
-                        $this->cover,
-                        $this->shelf->getShelfId(),
-                        $this->isbn,
-                        $this->publisher->getId(),
-                        $this->category->getId(),
-                        $this->author->getId(),
-                        $this->stock,
-                        $this->ddc_code,
-                        $this->synopsis,
-                        $id,
-                ];
+                        $parameters = [
+                                $this->title,
+                                (string) $this->year,
+                                $this->stock,
+                                $this->cover,
+                                $this->shelf->getShelfId(),
+                                $this->isbn,
+                                $this->publisher->getId(),
+                                $this->category->getId(),
+                                $this->author->getId(),
+                                $this->stock,
+                                $this->ddc_code,
+                                $this->synopsis,
+                                $id,
+                        ];
 
-                $statement = Database::prepare($query);
+                        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ssissssssisss';
-                $statement->bind_param($types, ...$parameters);
-                // var_dump();
+                        // Dynamically bind parameters
+                        $types = 'ssissssssisss';
+                        $statement->bind_param($types, ...$parameters);
 
-                return $statement->execute();
+                        return $statement->execute();
+                        if ($statement->execute() == true) {
+                                return array(
+                                        'status' => 'success',
+                                        'message' => 'Berhasil menambahakan buku.'
+                                );
+                        } else {
+                                return array(
+                                        'status' => 'failed',
+                                        'message' => 'Gagal Menambahkan Buku: ',
+                                        'error' => $statement->error
+                                );
+                        }
+                } catch (Exception $th) {
+                        return array(
+                                'status' => 'failed',
+                                'message' => 'Gagal Menambahkan Buku',
+                                'error' => $th->getMessage(),
+                        );
+                }
         }
         public function view(int $page, string $search)
         {
@@ -238,69 +257,105 @@ class Book extends Readable implements IManage
         }
         public function save()
         {
-                $query = "
-            UPDATE book
-            SET
-                book_title = ?,
-                year_published = ?,
-                avail = ?,
-                cover = ?,
-                shelf_id = ?,
-                isbn = ?,
-                publisher_id = ?,
-                category_id = ?,
-                author_id = ?,
-                stock = ?,
-                ddc_code = ?,
-                synopsis = ?
-            WHERE book_id = ?
-        ";
+                try {
+                        $query = "
+                        UPDATE book
+                        SET
+                                book_title = ?,
+                                year_published = ?,
+                                avail = ?,
+                                cover = ?,
+                                shelf_id = ?,
+                                isbn = ?,
+                                publisher_id = ?,
+                                category_id = ?,
+                                author_id = ?,
+                                stock = ?,
+                                ddc_code = ?,
+                                synopsis = ?
+                        WHERE book_id = ?
+                        ";
 
-                $parameters = [
-                        $this->title,
-                        $this->year,
-                        $this->avail,
-                        $this->cover,
-                        $this->shelf->getShelfId(),
-                        $this->isbn,
-                        $this->publisher->getId(),
-                        $this->category->getId(),
-                        $this->author->getId(),
-                        $this->stock,
-                        $this->ddc_code,
-                        $this->synopsis,
-                        $this->id,
-                ];
+                        $parameters = [
+                                $this->title,
+                                $this->year,
+                                $this->avail,
+                                $this->cover,
+                                $this->shelf->getShelfId(),
+                                $this->isbn,
+                                $this->publisher->getId(),
+                                $this->category->getId(),
+                                $this->author->getId(),
+                                $this->stock,
+                                $this->ddc_code,
+                                $this->synopsis,
+                                $this->id,
+                        ];
 
-                $statement = Database::prepare($query);
+                        $statement = Database::prepare($query);
 
-                // Dynamically bind parameters
-                $types = 'ssissssssisss';
-                $statement->bind_param($types, ...$parameters);
-                $res = $statement->execute();
-                if (!empty($statement->error)) {
-                        $this->error_message = $statement->error;
+                        // Dynamically bind parameters
+                        $types = 'ssissssssisss';
+                        $statement->bind_param($types, ...$parameters);
+                        $res = $statement->execute();
+                        if ($statement->execute() == true) {
+                                return array(
+                                        'status' => 'success',
+                                        'message' => 'Brhasil Edit Buku',
+                                );
+                        } else {
+                                return array(
+                                        'status' => 'failed',
+                                        'message' => 'Gagal Edit Buku',
+                                        'error' => $statement->error,
+                                );
+                        }
+                } catch (Exception $th) {
+                        return array(
+                                'status' => 'failed',
+                                'message' => 'Gagal Edit Buku',
+                                'error' => $th->getMessage(),
+                        );
                 }
-                return $res;
         }
         public function delete()
         {
-                $query = "DELETE FROM book WHERE book_id = ?";
-                $parameters = [
-                        $this->id
-                ];
-                $statement = Database::prepare($query);
-                $type = 's';
-                $statement->bind_param($type, ...$parameters);
+                try {
+                        $query = "DELETE FROM book WHERE book_id = ?";
+                        $parameters = [
+                                $this->id
+                        ];
+                        $statement = Database::prepare($query);
+                        $type = 's';
+                        $statement->bind_param($type, ...$parameters);
 
-                $statement->execute();
+                        if ($statement->execute() == true) {
+                                return array(
+                                        'status' => 'success',
+                                        'message' => 'Brhasil Hapus Buku',
+                                );
+                        } else {
+                                return array(
+                                        'status' => 'failed',
+                                        'message' => 'Gagal Hapus Buku',
+                                        'error' => $statement->error,
+                                );
+                        }
+                } catch (Exception $th) {
+                        return array(
+                                'status' => 'failed',
+                                'message' => 'Gagal Hapus Buku',
+                                'error' => $th->getMessage(),
+                        );
+                }
         }
 
 
         /**
          * Get the value of error message
          */
-        public function getErrorMessage(){
+        public function getErrorMessage()
+        {
                 return $this->error_message;
         }
 

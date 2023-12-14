@@ -5,6 +5,7 @@ class Thesis extends Readable implements IManage
     private $writer_name;
     private $writer_nim;
     private $dospem;
+    private $prodi;
     private array $dospem2;
 
     function __construct($id = null)
@@ -18,8 +19,6 @@ class Thesis extends Readable implements IManage
                 WHERE t.thesis_id  ='$id'
                 GROUP BY t.thesis_id;
             ")->fetch_assoc();
-            // var_dump($result);
-            // echo '<br>';
             $this->id = $result['thesis_id'];
             $this->title = $result['thesis_title'];
             $this->year = $result['year_published'];
@@ -29,6 +28,7 @@ class Thesis extends Readable implements IManage
             $this->writer_name = $result['writer_name'];
             $this->writer_nim = $result['writer_NIM'];
             $this->dospem = $result['dospem'];
+            $this->prodi = $result['category'];
         }
     }
     public function getDetails($id): Thesis
@@ -40,7 +40,6 @@ class Thesis extends Readable implements IManage
             WHERE t.thesis_id  ='$id'
             GROUP BY t.thesis_id;
         ")->fetch_assoc();
-        // var_dump($id);
         $thesis = new Thesis();
         $thesis->id = $result['thesis_id'];
         $thesis->title = $result['thesis_title'];
@@ -51,6 +50,7 @@ class Thesis extends Readable implements IManage
         $thesis->writer_name = $result['writer_name'];
         $thesis->writer_nim = $result['writer_NIM'];
         $thesis->dospem = $result['dospem'];
+        $thesis->prodi = $result['category'];
         return $thesis;
     }
 
@@ -210,8 +210,10 @@ class Thesis extends Readable implements IManage
                 cover,
                 shelf_id,
                 writer_name,
-                writer_NIM
+                writer_NIM,
+                category
             ) VALUES (
+                ?,
                 ?,
                 ?,
                 ?,
@@ -230,11 +232,13 @@ class Thesis extends Readable implements IManage
                 $this->shelf->getShelfId(),
                 $this->writer_name,
                 $this->writer_nim,
+                $this->prodi
             ];
             $statement = Database::prepare($query);
+            var_dump($this->prodi);
 
             // Dynamically bind parameters
-            $types = 'sssissss';
+            $types = 'sssisssss';
             $statement->bind_param($types, ...$parameters);
 
             if (!$statement->execute()) {
@@ -257,11 +261,17 @@ class Thesis extends Readable implements IManage
             Database::commit();
 
             $this->id = $id;
-            return true;
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Menambahkan Skripsi'
+            );
         } catch (Exception $e) {
             Database::rollback();
-            // echo $e->getMessage();
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Thesis',
+                'error' => $e->getMessage(),
+            );
         }
     }
     public function save()
@@ -324,14 +334,15 @@ class Thesis extends Readable implements IManage
             }
             Database::commit();
             return array(
-                'status' => 'success'
+                'status' => 'success',
+                'message' => 'Berhasil Edit Skripsi'
             );
         } catch (Exception $e) {
             Database::rollback();
             return array(
                 'status' => 'failed',
+                'message' => 'Gagal Edit Thesis',
                 'error' => $e->getMessage(),
-                'blah' => $this->writer_nim
             );
         }
     }
@@ -412,5 +423,23 @@ class Thesis extends Readable implements IManage
         $this->writer_nim = $writer_nim;
 
         return $this;
+    }
+
+    /**
+     * Set the value of prodi
+     */
+    public function setProdi($prodi): self
+    {
+        $this->prodi = $prodi;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of prodi
+     */
+    public function getProdi()
+    {
+        return $this->prodi;
     }
 }

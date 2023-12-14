@@ -155,6 +155,16 @@
                             </select>
                         </div>
                         <div class="addbook-input-field input-fields d-flex flex-column">
+                            <label for="lecturer_id2">Prodi</label>
+                            <select class="form-select input-group-custom" id="inputGroupSelect01 lecturer_id2" name="prodi">
+                                <option disabled selected>Pilih Prodi</option>
+                                <option value="D4-TI">D4-TI</option>
+                                <option value="D3-MI">D3-MI</option>
+                                <option value="D4-SIB">D4-SIB</option>
+                                <option value="D2-PPLS">D2-PPLS</option>
+                            </select>
+                        </div>
+                        <div class="addbook-input-field input-fields d-flex flex-column">
                             <label for="shelf">Rak</label>
                             <select class="form-select input-group-custom" id="inputGroupSelect01 shelf" name="shelf" required>
                                 <option disabled selected>Pilih Rak</option>
