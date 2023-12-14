@@ -47,9 +47,6 @@ function validateFormThesis() {
     if ($('select[name="lecturer_id1"]').val() === "Pilih Dosen" || $('select[name="lecturer_id1"]').val() === null) {
         isValid = false;
     }
-    if ($('select[name="lecturer_id2"]').val() === "Pilih Dosen" || $('select[name="lecturer_id2"]').val() === null) {
-        isValid = false;
-    }
     return isValid;
 }
 function resetForm() {
@@ -86,13 +83,9 @@ function uploadDataAdd(mod, data) {
         type: 'POST',
         data: data,
         success: function (res) {
-            if (res == 'success') {
-                alert(res);
-                loadModule(mod);
-                $('#modalAdd').modal('hide');
-            } else {
-                alert(res);
-            }
+            alert(res);
+            loadModule(mod);
+            $('#modalAdd').modal('hide');
         },
         cache: false,
         contentType: false,
@@ -111,6 +104,7 @@ function uploadDataEdit(mod, data) {
         data: data,
         success: function (res) {
             alert(res);
+            loadModule(mod);
             $('#modalEdit').modal('hide');
         },
         cache: false,
@@ -166,7 +160,11 @@ function editThesis(id) {
             $('#modalEdit').find('input[name="year_published"]').val(thesis['year']);
 
             $('#modalEdit').find('select[name="lecturer_id1"] > option:contains("'+dospem[0]+'")').prop('selected',true);
-            $('#modalEdit').find('select[name="lecturer_id2"] > option:contains("'+dospem[1]+'")').prop('selected',true);
+            if (dospem[1] != undefined) {
+                console.log(dospem[1] == undefined);
+                $('#modalEdit').find('select[name="lecturer_id2"] > option:contains("'+dospem[1]+'")').prop('selected',true);
+            }
+            $('#modalEdit').find('select[name="lecturer_id2"] > option:contains("-")').prop('selected',true);
             $('#modalEdit').find('select[name="shelf"] > option[value="'+thesis['shelf']+'"]').prop('selected',true);
         }, error: function(err) {
             console.log(err);
@@ -209,6 +207,7 @@ function processDelete() {
 }
 
 function loadModule(moduleName, page=-1) {
+    console.log(moduleName);
     switch (moduleName) {
         case 'book':
             changeTableHeading('Buku');

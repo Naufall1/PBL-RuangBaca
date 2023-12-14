@@ -60,29 +60,33 @@ class AdminController
                     echo ($book->delete()) ? 'success' : 'failed';
                 } else {
                     # EDIT BOOK HERE
-                    $res = $this->editBook();
-                    if ($res['status'] == true) {
-                        echo 'success';
-                    } else {
-                        echo 'failed: ' . implode($res['errors']);
-                    }
+                    echo json_encode($this->editBook());
+                    // $res = $this->editBook();
+                    // if ($res['status'] == true) {
+                    //     echo 'success';
+                    // } else {
+                    //     echo 'failed: ' . implode($res['errors']);
+                    // }
                 }
             } else {
                 #ADD BOOK HERE
-                if ($this->addBook()) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo json_encode($this->addBook());
+                // if ($this->addBook()) {
+                //     echo 'success';
+                // } else {
+                //     echo 'failure';
+                // }
             }
         } else {
             if ($data !== null) {
                 $books = $data;
             } else {
+                $temp = $this->admin->view(new Book());
                 if (isset($_GET['num'])) {
                     $_SESSION['bk-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['bk-page'])) ? $_SESSION['bk-page'] : 1;
+                $page = (isset($_SESSION['bk-page'])) ? (($_SESSION['bk-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['bk-page']) : 1;
+                // $page = (isset($_SESSION['bk-page'])) ? $_SESSION['bk-page'] : 1;
                 $books = $this->admin->view(new Book(), $page);
             }
             $numPage = $books['numPages'];
@@ -204,24 +208,20 @@ class AdminController
         $book->setIsbn($isbn);
         $book->setDdcCode($ddc_code);
         if (!empty($_FILES['cover']['name'])) {
-            if ($this->uploadCover() == true) {
+            $coverRes = $this->uploadCover();
+            if ($coverRes == true) {
                 $book->setCover($_FILES['cover']['name']);
             } else {
-                $errors[] = 'error uploading cover';
+                $errors = $coverRes;
             }
         }
         if (count($errors) == 0) {
-            if (!$book->save()) {
-                $errors[] = $book->getErrorMessage();
-            } else {
-                return array(
-                    'status' => true,
-                );
-            }
+            return $book->save();
         } else {
             return array(
-                'status' => false,
-                'errors' => $errors
+                'status' => 'failed',
+                'message' => 'Gagal Upload Cover',
+                'error' => $errors
             );
         }
     }
@@ -261,13 +261,15 @@ class AdminController
             if ($data !== null) {
                 $authors = $data;
             } else {
+                $temp = $this->admin->view(new Author());
                 /**
                  * save Pagination to session
                  */
                 if (isset($_GET['num'])) {
                     $_SESSION['aut-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['aut-page'])) ? $_SESSION['aut-page'] : 1;
+                // $page = (isset($_SESSION['aut-page'])) ? $_SESSION['aut-page'] : 1;
+                $page = (isset($_SESSION['aut-page'])) ? (($_SESSION['aut-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['aut-page']) : 1;
                 $authors = $this->admin->view(new Author(), page: $page);
             }
             $numPage = $authors['numPages'];
@@ -307,10 +309,11 @@ class AdminController
             if ($data !== null) {
                 $publishers = $data;
             } else {
+                $temp = $this->admin->view(new Publisher());
                 if (isset($_GET['num'])) {
                     $_SESSION['pub-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['pub-page'])) ? $_SESSION['pub-page'] : 1;
+                $page = (isset($_SESSION['pub-page'])) ? (($_SESSION['pub-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['pub-page']) : 1;
                 $publishers = $this->admin->view(new Publisher(), page: $page);
             }
             $numPage = $publishers['numPages'];
@@ -350,10 +353,12 @@ class AdminController
             if ($data !== null) {
                 $category = $data;
             } else {
+                $temp = $this->admin->view(new Category());
                 if (isset($_GET['num'])) {
                     $_SESSION['cat-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['cat-page'])) ? $_SESSION['cat-page'] : 1;
+                $page = (isset($_SESSION['cat-page'])) ? (($_SESSION['cat-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['cat-page']) : 1;
+                // $page = (isset($_SESSION['cat-page'])) ? $_SESSION['cat-page'] : 1;
                 $category = $this->admin->view(new Category(), page: $page);
             }
             $numPage = $category['numPages'];
@@ -386,7 +391,9 @@ class AdminController
                     $thesis->setWriterNim($writer_nim);
                     $thesis->setYear((int)$year);
                     $thesis->addDospem($lecturer_1);
-                    $thesis->addDospem($lecturer_2);
+                    if (!is_null($lecturer_2) && $lecturer_2 != '-') {
+                        $thesis->addDospem($lecturer_2);
+                    }
                     $thesis->setShelf($shelf);
                     $res = $thesis->save();
                     echo  json_encode($res);
@@ -394,11 +401,12 @@ class AdminController
             } else {
                 $thesis_title = $_POST['thesis_title'];
                 $writer_name = $_POST['writer_name'];
-                $writer_nim = $_POST['writer_name'];
+                $writer_nim = $_POST['writer_NIM'];
                 $year = $_POST['year_published'];
                 $lecturer_1 = $_POST['lecturer_id1'];
-                $lecturer_2 = $_POST['lecturer_id2'];
+                $lecturer_2 = (isset($_POST['lecturer_id2'])) ? $_POST['lecturer_id2'] : '-';
                 $shelf = $_POST['shelf'];
+                $prodi = $_POST['prodi'];
                 $thesis = new Thesis();
                 $thesis->setTitle($thesis_title);
                 $thesis->setWriterName($writer_name);
@@ -406,15 +414,13 @@ class AdminController
                 $thesis->setYear((int)$year);
                 $thesis->setAvail(1);
                 $thesis->addDospem($lecturer_1);
-                $thesis->addDospem($lecturer_2);
+                if (!is_null($lecturer_2) && $lecturer_2 != '-') {
+                    $thesis->addDospem($lecturer_2);
+                }
+                $thesis->setProdi($prodi);
                 $thesis->setCover('default.png');
                 $thesis->setShelf($shelf);
-                // var_dump($this->admin->add($thesis));
-                if ($this->admin->add($thesis) == true) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo json_encode($this->admin->add($thesis));
             }
         } else {
             if ($data !== null) {
@@ -423,7 +429,9 @@ class AdminController
                 if (isset($_GET['num'])) {
                     $_SESSION['th-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['th-page'])) ? $_SESSION['th-page'] : 1;
+                $temp = $this->admin->view(new Thesis());
+                $page = (isset($_SESSION['th-page'])) ? (($_SESSION['th-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['th-page']) : 1;
+                // $page = (isset($_SESSION['th-page'])) ? $_SESSION['th-page'] : 1;
                 $thesis = $this->admin->view(new Thesis(), page: $page);
             }
             $numPage = $thesis['numPages'];
@@ -466,7 +474,9 @@ class AdminController
                 if (isset($_GET['num'])) {
                     $_SESSION['lt-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['lt-page'])) ? $_SESSION['lt-page'] : 1;
+                $temp = $this->admin->view(new Lecturer());
+                $page = (isset($_SESSION['lt-page'])) ? (($_SESSION['lt-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['lt-page']) : 1;
+                // $page = (isset($_SESSION['lt-page'])) ? $_SESSION['lt-page'] : 1;
                 $lecturer = $this->admin->view(new Lecturer(), page: $page);
             }
             $numPage = $lecturer['numPages'];
@@ -551,10 +561,12 @@ class AdminController
             if ($data !== null) {
                 $shelf = $data;
             } else {
+                $temp = $this->admin->view(new Shelf());
                 if (isset($_GET['num'])) {
                     $_SESSION['shelf-page'] = $_GET['num'];
                 }
-                $page = (isset($_SESSION['shelf-page'])) ? $_SESSION['shelf-page'] : 1;
+                $page = (isset($_SESSION['shelf-page'])) ? (($_SESSION['shelf-page'] > $temp['numPages']) ? $temp['numPages']  : $_SESSION['shelf-page']) : 1;
+                // $page = (isset($_SESSION['shelf-page'])) ? $_SESSION['shelf-page'] : 1;
                 $shelf = $this->admin->view(new shelf(), page: $page);
             }
             $numPage = $shelf['numPages'];
