@@ -4,17 +4,16 @@ class Staff extends User
 {
     function getSummarizes(): array
     {
-        $countBook = Database::query("SELECT count(book_id) FROM book")->fetch_column();
-        $countThesis = Database::query("SELECT count(thesis_id) FROM thesis")->fetch_column();
-        $countMember = Database::query("SELECT count(*) FROM member")->fetch_column();
-        $countBorrowing = Database::query("SELECT count(*) FROM borrowing")->fetch_column();
-        $countWaiting = Database::query("SELECT count(*) FROM borrowing WHERE status = 'menunggu'")->fetch_column();
+        $queryExecSP = "CALL `getStaffSummarizes`(@p0, @p1, @p2, @p3, @p4);";
+        $queryGetSPResult = "SELECT @p0 AS `totalBuku`, @p1 AS `totalSkripsi`, @p2 AS `totalAnggota`, @p3 AS `totalPeminjaman`, @p4 AS `totalPeminjamanMenunggu`;";
+        Database::query($queryExecSP);
+        $data = Database::query($queryGetSPResult)->fetch_assoc();
         $summarizes = array(
-            'book' => (int) $countBook,
-            'thesis' => (int) $countThesis,
-            'member' => (int) $countMember,
-            'borrowing' => (int) $countBorrowing,
-            'waiting' => (int) $countWaiting
+            'book' => (int) $data['totalBuku'],
+            'thesis' => (int) $data['totalSkripsi'],
+            'member' => (int) $data['totalAnggota'],
+            'borrowing' => (int) $data['totalPeminjaman'],
+            'waiting' => (int) $data['totalPeminjamanMenunggu']
         );
         return $summarizes;
     }

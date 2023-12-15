@@ -25,7 +25,7 @@ class Database
         return self::$conn;
     }
 
-    public static function query($query): mysqli_result
+    public static function query($query): mysqli_result | bool
     {
         $conn = self::getConnection();
         $result = $conn->query($query);

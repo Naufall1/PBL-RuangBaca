@@ -38,19 +38,9 @@
                         break;
                 }
             } else {
-                $summarizes = array(
-                    'kompen' => count([0]),
-                    'confirmed' => count($this->member->getHistory('confirmed')),
-                    'borrowed' => count($this->member->getHistory('borrowed')),
-                    'done' => count($this->member->getHistory('done')),
-                );
+                $summarizes = $this->member->getSummarizes();
                 include 'modules/member/member_views/history.php';
             }
-
-            // if (isset($_POST['status'])) {
-            //     $this->borrowingCards();
-            // } else {
-            // }
         }
         private function borrowingCards() {
             $borrowingLatest = $this->member->getHistory('latest');

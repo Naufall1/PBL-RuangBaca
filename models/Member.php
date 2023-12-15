@@ -57,6 +57,10 @@ class Member extends User implements IManage
                 $query = $query . " AND status = 'Ditolak'";
                 break;
 
+            case 'late':
+                $query = $query . " AND status = 'Terlambat'";
+                break;
+
             case 'latest':
                 $query = $query . " AND reserve_date >= CURDATE() - INTERVAL 7 DAY " . " AND status = 'Selesai'";
                 break;
@@ -84,6 +88,25 @@ class Member extends User implements IManage
         return $borrowing->toJSON();
     }
 
+    public function getSummarizes(): array {
+        $id = $this->member_id;
+
+        $queryDeclareVar = "SET @p0='$id';";
+        Database::query($queryDeclareVar);
+
+        $queryExecSP = "CALL `getMemberSummarizes`(@p0, @p1, @p2, @p3, @p4);";
+        Database::query($queryExecSP);
+
+        $queryGetSPResult = "SELECT @p1 AS `confirmed`, @p2 AS `borrowed`, @p3 AS `done`, @p4 AS `kompen`;";
+        $data = Database::query($queryGetSPResult)->fetch_assoc();
+        return array(
+            'kompen' => $data['kompen'],
+            'confirmed' => $data['confirmed'],
+            'borrowed' => $data['borrowed'],
+            'done' => $data['done']
+        );
+    }
+
     public function register($username, $password, $name, $nim)
     {
         $user_id = $this->registerUser($username, $password,level:'member');
@@ -91,19 +114,6 @@ class Member extends User implements IManage
         $this->name = $name;
         parent::setId($user_id);
         return $this->add();
-    }
-
-    public function getAllMembers($page)
-    {
-        $members = array();
-        $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
-        $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT member_id FROM member ORDER BY member_id LIMIT $limit OFFSET $start";
-        $result = Database::query($query);
-        while ($id = $result->fetch_column()) {
-            $members[] = new Member($id);
-        }
-        return [$members, $start, $start + count($members)];
     }
 
     public function count()
