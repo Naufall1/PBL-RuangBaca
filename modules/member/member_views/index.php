@@ -7,7 +7,7 @@
     <!-- Start: Flash Message -->
     <div id="message">
         <!-- Success -->
-        <div id="inner-message" class="alert alert-custom alert-success-custom">
+        <div id="inner-message" message="success" class="alert alert-custom alert-success-custom hide" style="display: none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -17,7 +17,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Success</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -29,7 +29,7 @@
         <!-- Success -->
 
         <!-- Warning -->
-        <div id="inner-message" class="alert alert-custom alert-warning-custom">
+        <div id="inner-message" message="warning" class="alert alert-custom alert-warning-custom hide" style="display: none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -40,7 +40,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Warning</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -52,7 +52,7 @@
         <!-- Warning -->
 
         <!-- Danger -->
-        <div id="inner-message" class="alert alert-custom alert-danger-custom">
+        <div id="inner-message" message="danger" class="alert alert-custom alert-danger-custom hide" style="display: none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -64,7 +64,7 @@
                     <div class="d-flex flex-column" style="justify-content: center; gap: 2px;">
                         <h4 class="heading-message">Danger</h4>
                         <p class="content-message">Pesan</p>
-                    </div>  
+                    </div>
                 </div>
                 <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">

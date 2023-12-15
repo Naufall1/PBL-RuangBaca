@@ -83,6 +83,7 @@ class Author implements IManage
     }
     function add()
     {
+        
         $prefix = 'AUT';
         $len = 6;
         $res = Database::query("SELECT author_id FROM author ORDER BY author_id DESC LIMIT 1")->fetch_array();

@@ -9,7 +9,7 @@ $(document).ready(function () {
             $(obj).find('.menu-title').removeClass('menu-title-active');
         });
 
-        if($(this).prop('id') != 'logout'){
+        if ($(this).prop('id') != 'logout') {
             $(this).addClass('menu-active');
             $(this).removeClass('menu');
             $(this).find('.menu-icon-active').removeClass('menu-icon');
@@ -20,30 +20,30 @@ $(document).ready(function () {
         }
     });
 
-    $(".expand-sidebar").click(function() {
+    $(".expand-sidebar").click(function () {
         if ($(".menus-heading").css("display") == 'none') {
             $(".container-main").css("margin-left", "calc(260px + 20px - 174px + 174px)");
-            $(".container-main").css("width", "calc(100vw - 246px - 54px)");                    
-            $(".container-nav").css("margin-left", "calc(260px - 174px + 174px)");                    
-            $(".container-nav").css("width", "calc(100vw - 260px)");                    
-        } else if(!$(".sidebar").hasClass(".sidebar-minimize")){
+            $(".container-main").css("width", "calc(100vw - 246px - 54px)");
+            $(".container-nav").css("margin-left", "calc(260px - 174px + 174px)");
+            $(".container-nav").css("width", "calc(100vw - 260px)");
+        } else if (!$(".sidebar").hasClass(".sidebar-minimize")) {
             $(".container-main").css("margin-left", "calc(260px + 20px - 174px)");
             $(".container-main").css("width", "calc(100vw - 126px)");
             $(".container-nav").css("margin-left", "calc(260px - 174px)");
-            $(".container-nav").css("width", "calc(100vw - 86px)");                    
-        } 
+            $(".container-nav").css("width", "calc(100vw - 86px)");
+        }
         $(".sidebar").toggleClass("sidebar-minimize");
     });
 
-    showFlashMassage();
+    // showFlashMassage();
     // closeFlashMessage();
 });
 
-function showFlashMassage(){
-    $('.container-nav').click(function () { 
+function showFlashMassage() {
+    $('.container-nav').click(function () {
         console.log('luar');
-        $.each($('#inner-message.hide'), function (indexInArray, obj) { 
-            if($(obj).hasClass('hide')){
+        $.each($('#inner-message.hide'), function (indexInArray, obj) {
+            if ($(obj).hasClass('hide')) {
                 // $(obj).css('display', 'block');
                 $(obj).removeAttr('style');
                 $(obj).removeClass('hide');
@@ -56,21 +56,31 @@ function showFlashMassage(){
                         $(obj).css('display', 'none');
                     }, 1000);
                 }, 5000);
-
             }
         })
     });
 }
 
-function closeFlashMessage(obj){
-    // $('#inner-message').click(function () { 
-        // $.each($('#inner-message.hide'), function (indexInArray, obj) { 
-            $(obj).addClass('hide');
-            $(obj).removeClass('show');
-            setTimeout(() => {
-                $(obj).css('display', 'none');
-            }, 1000);
+function flashMessage(status, action, message) {
+    obj = $('#inner-message.hide[message="'+status+'"]');
+    $(obj).removeAttr('style');
+    $(obj).removeClass('hide');
+    $(obj).addClass('show');
+    $(obj).find('h4').html(action);
+    $(obj).find('p.content-message').html(message);
+    setTimeout(() => {
+        $(obj).removeClass('show');
+        $(obj).addClass('hide');
+        setTimeout(() => {
+            $(obj).css('display', 'none');
+        }, 1000);
+    }, 5000);
+}
 
-        // });
-    // });
+function closeFlashMessage(obj) {
+    $(obj).addClass('hide');
+    $(obj).removeClass('show');
+    setTimeout(() => {
+        $(obj).css('display', 'none');
+    }, 1000);
 }

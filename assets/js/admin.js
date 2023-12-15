@@ -83,7 +83,9 @@ function uploadDataAdd(mod, data) {
         type: 'POST',
         data: data,
         success: function (res) {
-            alert(res);
+            console.log(res);
+            res = JSON.parse(res);
+            flashMessage(res['status'], res['message']);
             loadModule(mod);
             $('#modalAdd').modal('hide');
         },
@@ -103,7 +105,8 @@ function uploadDataEdit(mod, data) {
         type: 'POST',
         data: data,
         success: function (res) {
-            alert(res);
+            res = JSON.parse(res);
+            flashMessage(res['status'], res['message']);
             loadModule(mod);
             $('#modalEdit').modal('hide');
         },

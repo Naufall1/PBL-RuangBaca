@@ -3,7 +3,7 @@
     <!-- Start: Flash Message -->
     <div id="message">
         <!-- Success -->
-        <div id="inner-message" class="alert hide alert-custom alert-success-custom" onclick="closeFlashMessage(this)" style="display:none;">
+        <div id="inner-message" message="success" class="alert hide alert-custom alert-success-custom" onclick="closeFlashMessage(this)" style="display:none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -105,7 +105,7 @@
 
             <div class="vertical-divider"></div> -->
 
-                <div class="account-profile d-flex">
+                <div class="account-profile d-flex" onclick="flashMessage('success', 'blah');">
                     <img class="photo-profile" src="assets/icon/profile.svg" alt="" height="40px" width="40px">
                     <div class="navbar-content-text d-flex">
                         <p class="navbar-content-name fw-bold lh-1 text-nowrap">Staff</p>

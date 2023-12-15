@@ -269,7 +269,8 @@ function addToCart(obj) {
         cart = [];
     }
     if (cart.includes(id)) {
-        alert('exist');
+        flashMessage('warning', 'Peringatan', 'Sudah ada dalam daftar!');
+        // alert('exist');
     } else {
         procAddToCart(id);
     }
