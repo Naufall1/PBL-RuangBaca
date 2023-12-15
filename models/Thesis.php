@@ -10,15 +10,17 @@ class Thesis extends Readable implements IManage
 
     function __construct($id = null)
     {
+        // var_dump($id);
         $this->dospem2 = array();
         if (!$id == null) {
             $result = Database::query("SELECT t.*,GROUP_CONCAT(l.lecturer_name) as dospem
                 from thesis as t
-                join dospem as dp on t.thesis_id = dp.thesis_id
-                JOIN lecturer as l ON dp.nidn=l.NIDN
+                left join dospem as dp on t.thesis_id = dp.thesis_id
+                left join lecturer as l ON dp.nidn=l.NIDN
                 WHERE t.thesis_id  ='$id'
                 GROUP BY t.thesis_id;
             ")->fetch_assoc();
+            // var_dump($result);
             $this->id = $result['thesis_id'];
             $this->title = $result['thesis_title'];
             $this->year = $result['year_published'];
@@ -35,8 +37,8 @@ class Thesis extends Readable implements IManage
     {
         $result = Database::query("SELECT t.*,GROUP_CONCAT(l.lecturer_name) as dospem
             from thesis as t
-            join dospem as dp on t.thesis_id = dp.thesis_id
-            JOIN lecturer as l ON dp.nidn=l.NIDN
+            left join dospem as dp on t.thesis_id = dp.thesis_id
+            left JOIN lecturer as l ON dp.nidn=l.NIDN
             WHERE t.thesis_id  ='$id'
             GROUP BY t.thesis_id;
         ")->fetch_assoc();
