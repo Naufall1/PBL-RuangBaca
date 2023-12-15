@@ -304,7 +304,7 @@
                                     placeholder="Masukkan Judul">
                             </div>
                             <div class="addbook-input-field input-fields d-flex flex-column">
-                                <label for="synopsis">Sinposis</label>
+                                <label for="synopsis">Sinopsis</label>
                                 <textarea id="synopsis" name="synopsis" placeholder="Masukkan Sinopsis">
                                     Lorem ipsum dolor sit amet.
                                 </textarea>

@@ -38,6 +38,12 @@
                         break;
                 }
             } else {
+                $summarizes = array(
+                    'kompen' => count([0]),
+                    'confirmed' => count($this->member->getHistory('confirmed')),
+                    'borrowed' => count($this->member->getHistory('borrowed')),
+                    'done' => count($this->member->getHistory('done')),
+                );
                 include 'modules/member/member_views/history.php';
             }
 

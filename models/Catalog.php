@@ -153,9 +153,10 @@ class Catalog implements IFilter, ISearch
 
         while ($row = $collection->fetch_column()) {
             if (str_starts_with($row, 'BK')) {
-                $content[] = $book->getDetails($row);
+                $content[] = new Book($row);
             } else {
-                $content[] = $thesis->getDetails($row);
+                // var_dump($row);
+                $content[] = new Thesis($row);
             }
         }
         $_SESSION['count'] = count($content);

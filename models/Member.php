@@ -38,27 +38,27 @@ class Member extends User implements IManage
             case 'all':
                 break;
             case 'waiting':
-                $query = $query . " AND status = 'menunggu'";
+                $query = $query . " AND status = 'Menunggu'";
                 break;
 
             case 'confirmed':
-                $query = $query . " AND status = 'dikonfirmasi'";
+                $query = $query . " AND status = 'Dikonfirmasi'";
                 break;
 
             case 'borrowed':
-                $query = $query . " AND status = 'dipinjam'";
+                $query = $query . " AND status = 'Dipinjam'";
                 break;
 
             case 'done':
-                $query = $query . " AND status = 'selesai'";
+                $query = $query . " AND status = 'Selesai'";
                 break;
 
             case 'rejected':
-                $query = $query . " AND status = 'ditolak'";
+                $query = $query . " AND status = 'Ditolak'";
                 break;
 
             case 'latest':
-                $query = $query . " AND reserve_date >= CURDATE() - INTERVAL 7 DAY;";
+                $query = $query . " AND reserve_date >= CURDATE() - INTERVAL 7 DAY " . " AND status = 'Selesai'";
                 break;
         }
 

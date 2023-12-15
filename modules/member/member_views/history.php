@@ -13,8 +13,7 @@
         <div class="summmarize-content">
             <p class="summarize-title">Tanggungan Kompen</p>
             <p class="summarize-value">
-                <!-- <?= $summarizes['book'] ?> -->
-                0
+                <?= $summarizes['kompen'] ?>
             </p>
         </div>
     </div>
@@ -31,8 +30,7 @@
         <div class="summmarize-content">
             <p class="summarize-title">Dikonfirmasi</p>
             <p class="summarize-value">
-                <!-- <?= $summarizes['book'] ?> -->
-                0
+                <?= $summarizes['confirmed'] ?>
             </p>
         </div>
     </div>
@@ -49,8 +47,7 @@
         <div class="summmarize-content">
             <p class="summarize-title">Dipinjam</p>
             <p class="summarize-value">
-                <!-- <?= $summarizes['book'] ?> -->
-                0
+                <?= $summarizes['borrowed'] ?>
             </p>
         </div>
     </div>
@@ -67,8 +64,7 @@
         <div class="summmarize-content">
             <p class="summarize-title">Selesai</p>
             <p class="summarize-value">
-                <!-- <?= $summarizes['book'] ?> -->
-                0
+                <?= $summarizes['done'] ?>
             </p>
         </div>
     </div>
