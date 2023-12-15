@@ -3,7 +3,7 @@
     <!-- Start: Flash Message -->
     <div id="message">
         <!-- Success -->
-        <div id="inner-message" class="alert alert-custom alert-success-custom">
+        <div id="inner-message" class="alert hide alert-custom alert-success-custom" onclick="closeFlashMessage(this)" style="display:none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -15,7 +15,7 @@
                         <p class="content-message">Pesan</p>
                     </div>
                 </div>
-                <a href="#" class="close" data-bs-dismiss="alert" aria-label="close">
+                <a href="#" class="close close-flash">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
                       <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15 15 5m0 10-5-5-5-5"/>
                   </svg>
@@ -25,7 +25,7 @@
         <!-- Success -->
 
         <!-- Warning -->
-        <div id="inner-message" class="alert alert-custom alert-warning-custom">
+        <div id="inner-message" class="alert hide alert-custom alert-warning-custom" onclick="closeFlashMessage(this)" style="display:none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -48,7 +48,7 @@
         <!-- Warning -->
 
         <!-- Danger -->
-        <div id="inner-message" class="alert alert-custom alert-danger-custom">
+        <!-- <div id="inner-message" class="alert hide alert-custom alert-danger-custom" onclick="closeFlashMessage(this)" style="display:none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -68,7 +68,7 @@
                   </svg>
                 </a>
             </div>
-        </div>
+        </div> -->
         <!-- Danger -->
 
     </div>
