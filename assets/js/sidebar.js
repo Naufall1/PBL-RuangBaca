@@ -61,12 +61,16 @@ function showFlashMassage() {
     });
 }
 
-function flashMessage(status, action, message) {
-    obj = $('#inner-message.hide[message="'+status+'"]');
+function flashMessage(status, message, action = {}) {
+    type = {
+        'success': 'success',
+        'failed': 'danger'
+    };
+    obj = $('#inner-message.hide[message="'+type[status]+'"]');
     $(obj).removeAttr('style');
     $(obj).removeClass('hide');
     $(obj).addClass('show');
-    $(obj).find('h4').html(action);
+    $(obj).find('h4').html(action[status]);
     $(obj).find('p.content-message').html(message);
     setTimeout(() => {
         $(obj).removeClass('show');

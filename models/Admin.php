@@ -22,6 +22,15 @@ class Admin extends User
         return $object->add();
     }
 
+    function save(IManage $object)
+    {
+        return $object->save();
+    }
+
+    function delete(IManage $object)
+    {
+        return $object->delete();
+    }
 
     function viewBorrowing($page = 1, $search = ''): array
     {

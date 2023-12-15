@@ -235,14 +235,15 @@ class AdminController
                      */
                     $id = $_POST['id'];
                     $author = new Author($id);
-                    echo ($author->delete() == true) ? 'success' : 'failed';
+                    // echo ($author->delete() == true) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($author));
                 } else {
                     # EDIT AUTHOR HERE
                     $author_id = $_POST['id'];
                     $author_name = $_POST['author_name'];
                     $author = new Author($author_id);
                     $author->setAuthorName($author_name);
-                    $author->save();
+                    echo json_encode($this->admin->save($author));
                 }
             } else {
                 /**
@@ -251,11 +252,7 @@ class AdminController
                 $author = new Author();
                 $author_name = $_POST['author_name'];
                 $author->setAuthorName(author_name: $author_name);
-                if ($this->admin->add($author)) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo json_encode($this->admin->add($author));
             }
         } else {
             if ($data !== null) {

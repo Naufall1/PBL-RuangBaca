@@ -85,7 +85,14 @@ function uploadDataAdd(mod, data) {
         success: function (res) {
             console.log(res);
             res = JSON.parse(res);
-            flashMessage(res['status'], res['message']);
+            // flashMessage(res['status'], 'Berhasil', res['message']);
+            flashMessage(
+                res['status'],
+                res['message'],
+                {
+                    'success': 'Berhasil',
+                    'failed': 'Gagal'
+                });
             loadModule(mod);
             $('#modalAdd').modal('hide');
         },
@@ -106,7 +113,14 @@ function uploadDataEdit(mod, data) {
         data: data,
         success: function (res) {
             res = JSON.parse(res);
-            flashMessage(res['status'], res['message']);
+            // flashMessage(res['status'], 'Berhasil', res['message']);
+            flashMessage(
+                res['status'],
+                res['message'],
+                {
+                    'success': 'Berhasil',
+                    'failed': 'Gagal'
+                });
             loadModule(mod);
             $('#modalEdit').modal('hide');
         },
@@ -202,7 +216,15 @@ function processDelete() {
         url: "?page="+mod,
         data: "id="+id+"&delete",
         success: function (res) {
-            alert(res);
+            var res = JSON.parse(res);
+            // flashMessage(res['status'], 'Berhasil', res['message']);
+            flashMessage(
+                res['status'],
+                res['message'],
+                {
+                    'success': 'Berhasil',
+                    'failed': 'Gagal'
+                });
             loadModule(mod);
             $('#modalDelete').modal('hide');
         }

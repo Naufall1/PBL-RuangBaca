@@ -25,7 +25,7 @@
         <!-- Success -->
 
         <!-- Warning -->
-        <div id="inner-message" message="warning" class="alert alert-custom alert-warning-custom">
+        <div id="inner-message" message="warning" class="alert alert-custom alert-warning-custom hide" style="display: none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -48,7 +48,7 @@
         <!-- Warning -->
 
         <!-- Danger -->
-        <div id="inner-message" message="danger" class="alert alert-custom alert-danger-custom">
+        <div id="inner-message" message="danger" class="alert alert-custom alert-danger-custom hide" style="display: none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">

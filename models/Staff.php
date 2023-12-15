@@ -5,7 +5,13 @@ class Staff extends User
     function getSummarizes(): array
     {
         $queryExecSP = "CALL `getStaffSummarizes`(@p0, @p1, @p2, @p3, @p4);";
-        $queryGetSPResult = "SELECT @p0 AS `totalBuku`, @p1 AS `totalSkripsi`, @p2 AS `totalAnggota`, @p3 AS `totalPeminjaman`, @p4 AS `totalPeminjamanMenunggu`;";
+        $queryGetSPResult = "SELECT
+            @p0 AS `totalBuku`,
+            @p1 AS `totalSkripsi`,
+            @p2 AS `totalAnggota`,
+            @p3 AS `totalPeminjaman`,
+            @p4 AS `totalPeminjamanMenunggu`
+        ;";
         Database::query($queryExecSP);
         $data = Database::query($queryGetSPResult)->fetch_assoc();
         $summarizes = array(

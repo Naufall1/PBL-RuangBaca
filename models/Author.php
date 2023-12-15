@@ -49,76 +49,127 @@ class Author implements IManage
     }
     function save()
     {
-        $query = "
-            UPDATE author
-            SET
-                author_name = ?
-            WHERE author_id = ?
-        ";
+        try {
+            $query = "
+                UPDATE author
+                SET
+                    author_name = ?
+                WHERE author_id = ?
+            ";
 
-        $parameters = [
-            $this->author_name,
-            $this->author_id,
-        ];
+            $parameters = [
+                $this->author_name,
+                $this->author_id,
+            ];
 
-        $statement = Database::prepare($query);
+            $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
 
-        $statement->execute();
+            if ($statement->execute() == true) {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Berhasil Edit Penulis',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'Gagal Edit Penulis',
+                    'error' => $statement->error,
+                );
+            }
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Edit Penulis',
+                'error' => DEBUG ? $th->getMessage() : '',
+            );
+        }
     }
     function delete()
     {
-        $query = "DELETE FROM author WHERE author_id = ?";
-        $parameters = [
-            $this->author_id
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
+        try {
+            $query = "DELETE FROM author WHERE author_id = ?";
+            $parameters = [
+                $this->author_id
+            ];
+            $statement = Database::prepare($query);
+            $type = 's';
+            $statement->bind_param($type, ...$parameters);
 
-        return $statement->execute();
+            if ($statement->execute() == true) {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Berhasil Hapus Penulis',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'Gagal Hapus Penulis',
+                    'error' => DEBUG ? $statement->error : '',
+                );
+            }
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => str_contains($th->getMessage(),'foreign key constraint fails') ? 'Gagal, data penulis sedang digunakan!':'Gagal Hapus Penulis',
+                'error' => DEBUG ? $th->getMessage() : '',
+            );
+        }
     }
     function add()
     {
-        
-        $prefix = 'AUT';
-        $len = 6;
-        $res = Database::query("SELECT author_id FROM author ORDER BY author_id DESC LIMIT 1")->fetch_array();
-        $prevId = intval(substr($res[0], 3, 5));
-        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-        // Database::query("INSERT INTO author (author_id, author_name) VALUES ('$id', '')");
-        $query = "
-            INSERT INTO author
-            (
-                author_id,
-                author_name
-            )
-            VALUES
-            (
-                ?,
-                ?
-            )
-        ";
+        try {
+            $prefix = 'AUT';
+            $len = 6;
+            $res = Database::query("SELECT author_id FROM author ORDER BY author_id DESC LIMIT 1")->fetch_array();
+            $prevId = intval(substr($res[0], 3, 5));
+            $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
 
-        $parameters = [
-            $id,
-            $this->author_name,
-        ];
+            $query = "
+                INSERT INTO author
+                (
+                    author_id,
+                    author_name
+                )
+                VALUES
+                (
+                    ?,
+                    ?
+                )
+            ";
 
-        $statement = Database::prepare($query);
+            $parameters = [
+                $id,
+                $this->author_name,
+            ];
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            $statement = Database::prepare($query);
 
-        if ($statement->execute()) {
-            $this->author_id = $id;
-            return $id;
-        } else {
-            return false;
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
+
+            if ($statement->execute()) {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Berhasil Menambahkan Penulis',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'Gagal Menambahkan Penulis',
+                    'error' => $statement->error,
+                );
+            }
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Penulis',
+                'error' => DEBUG ? $th->getMessage() : '',
+            );
         }
     }
 
