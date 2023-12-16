@@ -25,7 +25,7 @@
         <!-- Success -->
 
         <!-- Warning -->
-        <div id="inner-message" class="alert hide alert-custom alert-warning-custom" onclick="closeFlashMessage(this)" style="display:none;">
+        <div id="inner-message" message="warning" class="alert hide alert-custom alert-warning-custom" onclick="closeFlashMessage(this)" style="display:none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -48,7 +48,7 @@
         <!-- Warning -->
 
         <!-- Danger -->
-        <!-- <div id="inner-message" class="alert hide alert-custom alert-danger-custom" onclick="closeFlashMessage(this)" style="display:none;">
+        <div id="inner-message" message="danger" class="alert hide alert-custom alert-danger-custom" onclick="closeFlashMessage(this)" style="display:none;">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex" style="gap: 12px; align-items: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
@@ -68,7 +68,7 @@
                   </svg>
                 </a>
             </div>
-        </div> -->
+        </div>
         <!-- Danger -->
 
     </div>
@@ -105,7 +105,7 @@
 
             <div class="vertical-divider"></div> -->
 
-                <div class="account-profile d-flex" onclick="flashMessage('success', 'blah');">
+                <div class="account-profile d-flex">
                     <img class="photo-profile" src="assets/icon/profile.svg" alt="" height="40px" width="40px">
                     <div class="navbar-content-text d-flex">
                         <p class="navbar-content-name fw-bold lh-1 text-nowrap">Staff</p>

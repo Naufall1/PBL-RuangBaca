@@ -58,6 +58,10 @@ class Staff extends User
                 $query = $query . " WHERE b.status = 'selesai'";
                 break;
 
+            case 'late':
+                $query = $query . " WHERE b.status = 'terlambat'";
+                break;
+
             case 'rejected':
                 $query = $query . " WHERE b.status = 'ditolak'";
                 break;
@@ -80,15 +84,17 @@ class Staff extends User
         $borrowing = new Borrowing(id: $id);
         if ($borrowing->getStatus() == 'Menunggu') {
             $borrowing->setStatus('Dikonfirmasi');
-            $borrowing->save();
-            $readable = $borrowing->getReadable();
-            foreach ($readable as $item) {
-                $item->setAvail($item->getAvail() - 1);
-                $item->save();
+            if ($borrowing->save()['status'] == 'success') {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Berhasil Dikonfirmasi!',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'Gagal Merubah Status'
+                );
             }
-            return array(
-                'status' => 'success',
-            );
         } else {
             return array(
                 'status' => 'failed',
@@ -101,10 +107,17 @@ class Staff extends User
         $borrowing = new Borrowing(id: $id);
         if ($borrowing->getStatus() == 'Menunggu') {
             $borrowing->setStatus('Ditolak');
-            $borrowing->save();
-            return array(
-                'status' => 'success',
-            );
+            if ($borrowing->save()['status'] == 'success') {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Berhasil Ditolak!',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'Gagal Merubah Status'
+                );
+            }
         } else {
             return array(
                 'status' => 'failed',
@@ -117,10 +130,17 @@ class Staff extends User
         $borrowing = new Borrowing(id: $id);
         if ($borrowing->getStatus() == 'Dikonfirmasi') {
             $borrowing->setStatus('Dipinjam');
-            $borrowing->save();
-            return array(
-                'status' => 'success',
-            );
+            if ($borrowing->save()['status'] == 'success') {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Proses Berhasil!',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'Gagal Merubah Status'
+                );
+            }
         } else {
             return array(
                 'status' => 'failed',
@@ -133,15 +153,17 @@ class Staff extends User
         $borrowing = new Borrowing(id: $id);
         if ($borrowing->getStatus() == 'Dipinjam') {
             $borrowing->setStatus('Selesai');
-            $borrowing->save();
-            $readable = $borrowing->getReadable();
-            foreach ($readable as $item) {
-                $item->setAvail($item->getAvail() + 1);
-                $item->save();
+            if ($borrowing->save()['status'] == 'success') {
+                return array(
+                    'status' => 'success',
+                    'message' => 'Berhasil diubah!',
+                );
+            } else {
+                return array(
+                    'status' => 'failed',
+                    'message' => 'gagal Merubah Status'
+                );
             }
-            return array(
-                'status' => 'success',
-            );
         } else {
             return array(
                 'status' => 'failed',

@@ -1,4 +1,15 @@
-
+var intervalId;
+function flashMessageStaff(res) {
+    var res = JSON.parse(res);
+    flashMessage(
+        res['status'],
+        res['message'],
+        {
+            'success': 'Berhasil',
+            'failed': 'Gagal',
+            'warning': 'Peringatan'
+        });
+}
 function rejectBorrowing(obj) {
     var id = $(obj).attr('id');
     $.ajax({
@@ -6,7 +17,8 @@ function rejectBorrowing(obj) {
         url: "?function=borrowing/reject",
         data: "id=" + id,
         success: function (response) {
-            console.log(response);
+            flashMessageStaff(response);
+            // console.log(response);
             $('#modalBuku').modal('hide');
             loadModule('dashboard');
         }
@@ -20,7 +32,8 @@ function confirmBorrowing(obj) {
         url: "?function=borrowing/confirm",
         data: "id=" + id,
         success: function (response) {
-            console.log(response);
+            flashMessageStaff(response);
+            // console.log(response);
             $('#modalBuku').modal('hide');
             loadModule('dashboard');
         }
@@ -36,7 +49,8 @@ function processBorrowing(obj){
         url: "?function=borrowing/"+action,
         data: "id=" + id,
         success: function (response) {
-            console.log(response);
+            flashMessageStaff(response);
+            // console.log(response);
             $('#modalBuku').modal('hide');
             loadModule('dashboard');
         }
@@ -169,6 +183,17 @@ function loadModule(moduleName, page=-1) {
         success: function (response) {
             $('main.container-main').html(response);
             loadSearch(moduleName);
+
+            /**
+             * Refresh every 5 seconds
+             */
+            // if (moduleName == 'dashboard') {
+            //     intervalId = setInterval(function() {
+            //         loadBorrowingCards('all');
+            //     }, 5000);
+            // } else {
+            //     clearInterval(intervalId);
+            // }
 
             /**
              * pagigation
