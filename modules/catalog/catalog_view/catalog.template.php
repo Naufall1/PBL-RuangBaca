@@ -48,59 +48,10 @@
         </div>
         <!-- End: Filtered Layer -->
 
-        <!-- Start: View Books Layer -->
-        <div class="collection-views d-flex justify-content-between">
-            <p class="total-views">
-                Menampilkan <span class="total-views" id="count"><?= MAX_NUMS_ITEM ?></span> dari <?= Catalog::getCountCollection(); ?> koleksi
-            </p>
-            <div class="sorting-content d-flex">
-                <p class="total-views">Urutkan</p>
-                <button class="dropdown-sorting d-flex" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Abjad
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
-                        <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M9.96 4.475 6.7 7.735a.993.993 0 0 1-1.4 0l-3.26-3.26" />
-                    </svg>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" onchange="sort(this);">
-                    <option class="dropdown-item" value="title" onclick="sort(this);">Abjad</option>
-                    <option class="dropdown-item" value="year" onclick="sort(this);">Tahun Terbit</option>
-                </div>
-            </div>
-        </div>
-        <!-- End: View Books Layer -->
-
-        <!-- Start: Books Collection Layer -->
-        <div class="books-collection d-flex" id="books-collection">
-
+        <div class="d-flex flex-column" id="content">
 
 
         </div>
-        <!-- End: Books Collection Layer -->
-
-        <!-- Start: Bar View -->
-        <div class="pagination d-flex">
-            <a href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
-                    <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M10 13.28 5.653 8.933a1.324 1.324 0 0 1 0-1.866L10 2.72" />
-                </svg>
-            </a>
-
-            <!-- <a href="" class="active">2</a> -->
-            <?php
-            for ($i = 1; $i <= Catalog::getNumPages(); $i++) {
-            ?>
-                <a class="page" id="P-<?= $i ?>" onclick="changePages(this);"> <?= $i ?> </a>
-            <?php
-            }
-            ?>
-
-            <a href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
-                    <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m5.94 13.28 4.347-4.347a1.324 1.324 0 0 0 0-1.866L5.94 2.72" />
-                </svg>
-            </a>
-        </div>
-        <!-- End: Bar View -->
 
     </div>
 

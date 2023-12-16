@@ -5,7 +5,7 @@ function sort(sort) {
         url: "?function=books",
         data: 'sort=' + sort.value,
         success: function (res) {
-            $("#books-collection").html(res);
+            $("#content").html(res);
         }, error: function (response) {
             console.log(response.responseText);
         }
@@ -17,7 +17,7 @@ function search(obj) {
         url: "?function=search",
         data: 'q=' + $(obj).val(),
         success: function (res) {
-            $("#books-collection").html(res);
+            $("#content").html(res);
         }, error: function (response) {
             console.log(response.responseText);
         }
@@ -49,16 +49,27 @@ function clearFilter() {
 }
 
 function changePages(obj) {
-    $('a.page.active').each(function (i, obj) {
-        $(obj).removeClass('active');
-    });
+    var tmp = $('a.page.active').html();
+    var page = 0;
+    if (obj == 'next') {
+        page = parseInt(tmp) + 1;
+    } else if (obj == 'prev') {
+        page = parseInt(tmp) - 1;
+    } else {
+        page = obj.getAttribute('id').substr(2);
+    }
+    // $('a.page.active').each(function (i, obj) {
+        $('a.page.active').removeClass('active');
+        // console.log($(obj).html());
+    // });
+    console.log(page);
     $.ajax({
         type: "POST",
         url: "?function=books",
-        data: 'page=' + obj.getAttribute('id').substr(2),
+        data: 'page=' + page,
         success: function (res) {
-            $("#books-collection").html(res);
-            $('a.page#P-' + obj.getAttribute('id').substr(2)).addClass('active');
+            $("#content").html(res);
+            // $('a.page#P-' + page).addClass('active');
             $('#count').html($('.book-collection.d-flex').length);
         }, error: function (response) {
             console.log(response.responseText);
@@ -91,13 +102,13 @@ function handleMutations(mutationsList, observer) {
         url: '?function=filter',
         data: 'filter=' + JSON.stringify(filterData),
         success: function (res) {
-            $("#books-collection").html(res);
+            $("#content").html(res);
         },
         error: function (response) {
             console.log(response.responseText);
         }
     });
-        
+
     if(Object.keys(filterData).length === 0){
         $('.delete-filter-item').removeClass('d-flex');
         $('.delete-filter-item').css('display','none');
@@ -133,7 +144,7 @@ function loadOnDocReady() {
         data: 'sort=title',
         success: function (res) {
             // console.log('test result');
-            $("#books-collection").html(res);
+            $("#content").html(res);
         }, error: function (response) {
             console.log(response.responseText);
         }

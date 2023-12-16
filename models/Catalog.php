@@ -64,7 +64,7 @@ class Catalog implements IFilter, ISearch
     }
     public function search($query): array
     {
-        return $this->getContent($_COOKIE['page'], $_SESSION['sort'], $query);
+        return $this->getContent($_SESSION['page'], $_SESSION['sort'], $query);
     }
     public function getContent(int $page, string $sort = 'default', string $search=null): array
     {
@@ -77,6 +77,7 @@ class Catalog implements IFilter, ISearch
         $thesis = new Thesis();
 
         $start = ($page * $this->max) - $this->max;
+        $_SESSION['start'] = $start;
         $limit = $this->max;
         // var_dump($start, $limit);
 
@@ -131,10 +132,29 @@ class Catalog implements IFilter, ISearch
             }
         }
         $querySearch = Database::sanitizeInput($search);
+        if (empty($querySearch) && isset($_SESSION['querySearch'])) {
+            $querySearch = $_SESSION['querySearch'];
+        } else {
+            $_SESSION['querySearch'] = $querySearch;
+        }
         if (!is_null($querySearch)) {
             if (isset($_SESSION['filters']) && !empty($_SESSION['filters'])) {
-                $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
-                $queryThesis = $queryThesis . " AND thesis_title LIKE '%" . $querySearch . "%'";
+                if (isset($_SESSION['filters']['jenis'][0]) && $_SESSION['filters']['jenis'][0] == 'skripsi') {
+                    if (str_contains($queryThesis, 'WHERE')) {
+                        $queryThesis = $queryThesis . " AND thesis_title LIKE '%" . $querySearch . "%'";
+                    } else {
+                        $queryThesis = $queryThesis . " WHERE thesis_title LIKE '%" . $querySearch . "%'";
+                    }
+                } else if (isset($_SESSION['filters']['jenis'][0]) && $_SESSION['filters']['jenis'][0] == 'buku') {
+                    if (str_contains($queryBook, 'WHERE')) {
+                        $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
+                    } else {
+                        $queryBook = $queryBook . " WHERE book_title LIKE '%" . $querySearch . "%'";
+                    }
+                } else {
+                    $queryThesis = $queryThesis . " AND thesis_title LIKE '%" . $querySearch . "%'";
+                    $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
+                }
             } else {
                 $queryBook = $queryBook . " WHERE book_title LIKE '%" . $querySearch . "%'";
                 $queryThesis = $queryThesis . " WHERE thesis_title LIKE '%" . $querySearch . "%'";
@@ -152,6 +172,8 @@ class Catalog implements IFilter, ISearch
         // var_dump($query);
         $collection = Database::query($query);
 
+        $countResult = Database::query("SELECT count(id) as jumlah FROM ($queryBook $queryUnion $queryThesis) AS D")->fetch_assoc();
+
         while ($row = $collection->fetch_column()) {
             if (str_starts_with($row, 'BK')) {
                 $content[] = new Book($row);
@@ -160,7 +182,8 @@ class Catalog implements IFilter, ISearch
                 $content[] = new Thesis($row);
             }
         }
-        $_SESSION['count'] = count($content);
+        $_SESSION['end'] = count($content);
+        $_SESSION['countResult'] = $countResult['jumlah'];
         return $content;
     }
 

@@ -111,7 +111,7 @@ p.menus-heading{
     align-items: center;
     justify-content: center;
     display: none;
-    
+
     .hr-divider{
         border-color: var(--neutral-50-color);
     }
@@ -1841,7 +1841,7 @@ h5.modal-confirm-heading{
 
 .modal-confirm-detail-contianer{
     max-height: 60vh;
-    overflow-y: scroll;    
+    overflow-y: scroll;
 }
 
 
@@ -2056,7 +2056,7 @@ footer{
 .project-detail-container{
     width: max-content;
     gap: 16px;
-    
+
 }
 
 /* ul li#project-overview{
@@ -2093,7 +2093,7 @@ footer{
 }
 
 .project-detail-container > ul > li{
-    
+
 }
 .project-detail-container > ul > li > a, .project-overview-container > ul > li > a{
     font-size: 16px;
