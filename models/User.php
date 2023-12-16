@@ -1,5 +1,6 @@
 <?php
 require_once 'core/Database.php';
+require_once 'core/Flasher.php';
 class User
 {
     private $id;
@@ -25,6 +26,14 @@ class User
         $stm = Database::prepare($query);
         $stm->bind_param('ssss', $username, $hashed_password, $salt, $level);
         if ($stm->execute()) {
+            $_SESSION['_flashdata'] = [
+                'type' => 'success',
+                'message' => 'Berhasil, silahkan login',
+                'action' => [
+                    'failed' => 'Login Gagal',
+                    'success' => 'Registrasi Berhasil'
+                ]
+            ];
             return $stm->insert_id;
         } else {
             return false;
@@ -64,11 +73,29 @@ class User
                 }
                 return true;
             } else {
-                $_SESSION['_flashdata'] = 'Username atau Password Salah';
+                // Flasher::setFlash('Username atau Password Salah','Login Gagal', 'danger');
+                $_SESSION['_flashdata'] = [
+                    'type' => 'failed',
+                    'message' => 'Username atau Password Salah',
+                    'action' => [
+                        'failed' => 'Login Gagal',
+                        'success' => ''
+                    ]
+                ];
                 return false;
             }
         } else {
-            $_SESSION['_flashdata'] = 'Username atau Password Salah';
+            // Flasher::setFlash('Username atau Password Salah','Login Gagal', 'danger');
+
+            $_SESSION['_flashdata'] = [
+                'type' => 'failed',
+                'message' => 'Username atau Password Salah',
+                'action' => [
+                    'failed' => 'Login Gagal',
+                    'success' => ''
+                ]
+
+            ];
             return false;
         }
     }

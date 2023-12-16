@@ -1,6 +1,7 @@
 <?php
 if (session_status() === PHP_SESSION_NONE)
     session_start();
+require_once 'core/Flasher.php';
 ?>
 
 <!doctype html>
@@ -117,7 +118,7 @@ if (session_status() === PHP_SESSION_NONE)
     <!-- End: Flash Message -->
     <?php
     if (isset($_SESSION["_flashdata"]) && $_SESSION["_flashdata"] != "") {
-        echo "<script type='text/javascript'>flashMessage('failed', '". $_SESSION['_flashdata'] ."', {'success': 'Berhasil','failed': 'Gagal'});</script>";
+        echo "<script type='text/javascript'>flashMessage('". $_SESSION['_flashdata']['type'] ."', '". $_SESSION['_flashdata']['message'] ."', {'success': '". $_SESSION['_flashdata']['action']['success'] ."','failed': '". $_SESSION['_flashdata']['action']['failed'] ."'});</script>";
         $_SESSION["_flashdata"] = '';
     }
     ?>
