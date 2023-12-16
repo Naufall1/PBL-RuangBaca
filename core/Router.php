@@ -18,7 +18,9 @@ include 'modules/staff/StaffController.php';
             $MemberController = new MemberController();
             $StaffController = new StaffController();
             $adminController = new AdminController();
-
+            if (!isset($_SESSION['sidebar'])) {
+                $_SESSION['sidebar'] = 'minimize';
+            }
             $page = isset($_GET['page']) ? $_GET['page'] : 'index';
             $function = isset($_GET['function']) ? $_GET['function'] : null;
 
@@ -163,6 +165,10 @@ include 'modules/staff/StaffController.php';
                 }
             } else {
                 switch (explode('/', $function)[0]) {
+
+                    case 'sidebar':
+                        $_SESSION['sidebar'] = $_POST['act'];
+                        break;
 
                     // CATALOG
                     case 'getFilters':

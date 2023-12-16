@@ -1,6 +1,5 @@
 <!-- <script src="assets/js/filter.js"></script> -->
 <script src="assets/js/modal.js"></script>
-<script src="assets/js/sidebar.js"></script>
 <script src="assets/js/<?= $file ?>"></script>
 <?php
     if (isset($file2)) {

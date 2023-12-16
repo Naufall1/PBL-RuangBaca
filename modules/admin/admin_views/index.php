@@ -1,5 +1,14 @@
-<body>
+<?php
+  if ($_SESSION['sidebar'] == 'minimize') {
+    $function =  'sidebarMinimize();';
+  } else if ($_SESSION['sidebar'] == 'open') {
+    $function = 'sidebarExpand();';
+  } else {
+    $function = '';
+  }
+?>
 
+<body onload="<?= $function ?>">
     <!-- Start: Flash Message -->
     <div id="message">
         <!-- Success -->
