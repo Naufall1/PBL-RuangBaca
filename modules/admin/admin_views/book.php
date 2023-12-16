@@ -385,7 +385,7 @@
                                 </div>
                                 <div class="addbook-input-field half-input-field input-fields d-flex flex-column">
                                     <label for="stock">Stok</label>
-                                    <input value="STOCK LEFT" required type="number" min="1" id="stock" name="stock"
+                                    <input value="STOCK LEFT" required type="number" min="1" max="" id="stock" name="stock"
                                         placeholder="Masukkan Stok">
                                 </div>
                             </div>

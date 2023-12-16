@@ -349,6 +349,16 @@ class Book extends Readable implements IManage
                         );
                 }
         }
+        public function setAvail($avail): self
+        {
+                if ($avail > $this->stock) {
+                        $this->avail = $this->stock;
+                } else {
+                        $this->avail = $avail;
+                }
+
+                return $this;
+        }
 
 
         /**

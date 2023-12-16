@@ -49,6 +49,7 @@ class Catalog implements IFilter, ISearch
             if (isset($args[$arg]) && $arg != 'avail-status' && $arg != 'type') {
                 $queryFilter = $queryTemplate[$arg];
                 foreach ($args[$arg] as $key => $value) {
+                    $value = Database::sanitizeInput($value);
                     $queryFilter = $queryFilter . '"' . $value . '"';
                     if (count($args[$arg]) > 1 && $key != count($args[$arg]) - 1) {
                         $queryFilter = $queryFilter . ', ';
@@ -129,7 +130,7 @@ class Catalog implements IFilter, ISearch
                 $i++;
             }
         }
-        $querySearch = $search;
+        $querySearch = Database::sanitizeInput($search);
         if (!is_null($querySearch)) {
             if (isset($_SESSION['filters']) && !empty($_SESSION['filters'])) {
                 $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
@@ -185,10 +186,10 @@ class Catalog implements IFilter, ISearch
 
     public function bookDesc($id): Readable
     {
-        return $this->readable['book']->getDetails($id);
+        return new Book($id);
     }
     public function thesisDesc($id): Readable
     {
-        return $this->readable['thesis']->getDetails($id);
+        return new Thesis($id);
     }
 }

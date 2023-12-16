@@ -147,6 +147,7 @@ function editBook(id) {
             $('#modalEdit').find('select[name="shelf"] > option[value="'+book['shelf']+'"]').prop('selected',true);
             $('#modalEdit').find('textarea[name="synopsis"]').html(book['synopsis']);
             $('#modalEdit').find('input[name="stock"]').val(book['avail']);
+            $('#modalEdit').find('input[name="stock"]').attr('max',book['stock']);
             $('#modalEdit').find('input[name="isbn"]').val(book['isbn']);
             $('#modalEdit').find('input[name="ddc_code"]').val(book['ddc_code']);
             $('#modalEdit').find('input[name="cover"]').val('');

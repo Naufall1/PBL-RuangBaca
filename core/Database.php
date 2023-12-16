@@ -25,6 +25,12 @@ class Database
         return self::$conn;
     }
 
+    public static function sanitizeInput($data): string
+    {
+        $conn = self::getConnection();
+        return mysqli_real_escape_string($conn, stripslashes(strip_tags(htmlspecialchars($data, ENT_QUOTES))));
+    }
+
     public static function query($query): mysqli_result | bool
     {
         $conn = self::getConnection();

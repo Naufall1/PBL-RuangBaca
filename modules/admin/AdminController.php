@@ -33,16 +33,18 @@ class AdminController
 
         if (isset($_GET['q']) && isset($classMap[$arg])) {
             $className = $classMap[$arg];
-            $data = $this->admin->view(new $className(), page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $_GET['q']);
+            $q = Database::sanitizeInput($_GET['q']);
+            $data = $this->admin->view(new $className(), page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $q);
             $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
-            var_dump(count($data['data']));
+            // var_dump(count($data['data']));
 
             $methodName = $arg;
             $this->$methodName(data: $data);
         } else if (isset($_GET['q']) && $arg == 'borrowing') {
-            $data = $this->admin->viewBorrowing(page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $_GET['q']);
+            $q = Database::sanitizeInput($_GET['q']);
+            $data = $this->admin->viewBorrowing(page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $q);
             $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
-            var_dump(count($data['data']));
+            // var_dump(count($data['data']));
             $this->borrowing($data);
         } else {
             echo 'failed';

@@ -34,6 +34,7 @@ class User
 
 
     function login($username, $password): bool {
+        $username = Database::sanitizeInput($username); //Melakukan sanitasi input untuk keamanan
         $result = Database::query("SELECT user_id, username, level, salt, password as hashed_password FROM user WHERE username = '$username'");
         $row = $result->fetch_assoc();
         if (isset($row['salt']) && isset($row['hashed_password'])) {

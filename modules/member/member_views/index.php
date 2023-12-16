@@ -197,7 +197,7 @@
 
       <div class="d-flex align-items-center content-nav">
 
-        <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku dan Skripsi">
+        <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku dan Skripsi" onkeyup="search(this);">
 
         <div class="flex-column heading-page" style="display: none;">
             <h1 class="heading-table-page">Peminjaman</h1>
