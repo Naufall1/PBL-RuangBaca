@@ -3,6 +3,10 @@
 var mod = 'book';
 
 $(document).ready(function () {
+    var now = new Date();
+    var tanggal = now.toISOString().split('T')[0];
+    $('input[name="reserve-date"]').attr('min', tanggal);
+
     loadModule(mod);
     loadCart();
 
@@ -244,7 +248,14 @@ function procAddToCart(id) {
         url: "?function=cart/add",
         data: "id=" + id,
         success: function (response) {
-            // console.log(response);
+            flashMessage(
+                'success',
+                'Berhasil Ditambahkan',
+                {
+                    'success': 'Berhasil',
+                    'failed': 'Gagal',
+                    'warning': 'Peringatan'
+                });
             loadCart();
         }
     });
@@ -269,7 +280,15 @@ function addToCart(obj) {
         cart = [];
     }
     if (cart.includes(id)) {
-        flashMessage('warning', 'Peringatan', 'Sudah ada dalam daftar!');
+        // flashMessage('warning', 'Peringatan', 'Sudah ada dalam daftar!');
+        flashMessage(
+            'warning',
+            'Sudah ada dalam daftar!',
+            {
+                'success': 'Berhasil',
+                'failed': 'Gagal',
+                'warning': 'Peringatan'
+            });
         // alert('exist');
     } else {
         procAddToCart(id);
@@ -296,7 +315,15 @@ function closeCart() {
 function pinjam() {
     var tanggal = $('input#reserve-date');
     if (tanggal.val() == "") {
-        alert('Tanggal Wajib Diisi!!!');
+        flashMessage(
+            'warning',
+            'Tanggal Wajib Diisi!!!',
+            {
+                'success': 'Berhasil',
+                'failed': 'Gagal',
+                'warning': 'Peringatan'
+            });
+        // alert('Tanggal Wajib Diisi!!!');
     } else {
         $.ajax({
             type: "POST",
@@ -306,7 +333,14 @@ function pinjam() {
                 console.log(response);
                 $('.books-ordered-group').html('');
                 close();
-                alert('Success.');
+                flashMessage(
+                    'success',
+                    'Berhasil',
+                    {
+                        'success': 'Berhasil',
+                        'failed': 'Gagal',
+                        'warning': 'Peringatan'
+                    });
                 refreshCatalog();
             }
         });

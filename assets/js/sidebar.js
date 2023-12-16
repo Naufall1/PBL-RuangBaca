@@ -64,7 +64,8 @@ function showFlashMassage() {
 function flashMessage(status, message, action = {}) {
     type = {
         'success': 'success',
-        'failed': 'danger'
+        'failed': 'danger',
+        'warning': 'warning'
     };
     obj = $('#inner-message.hide[message="'+type[status]+'"]');
     $(obj).removeAttr('style');

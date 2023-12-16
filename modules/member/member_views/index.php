@@ -134,7 +134,7 @@
 
         <div class="input-fields flex-column" id="reserve-date">
           <label for="reserve-date">Tanggal Ambil</label>
-          <input type="date" name="" id="reserve-date">
+          <input type="date" name="reserve-date" id="reserve-date">
         </div>
 
         <div class="books-ordered-container d-flex flex-column">
