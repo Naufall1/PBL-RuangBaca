@@ -47,77 +47,114 @@ class Publisher implements IManage
     }
     public function save()
     {
-        $query = "
-            UPDATE publisher
-            SET
-                publisher_name = ?
-            WHERE publisher_id = ?
-        ";
+        try {
+            $query = "
+                UPDATE publisher
+                SET
+                    publisher_name = ?
+                WHERE publisher_id = ?
+            ";
 
-        $parameters = [
-            $this->publisher_name,
-            $this->publisher_id,
-        ];
+            $parameters = [
+                $this->publisher_name,
+                $this->publisher_id,
+            ];
 
-        $statement = Database::prepare($query);
+            $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
 
-        $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Edit Penerbit.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Edit Penerbit.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
     public function delete()
     {
-        $query = "DELETE FROM publisher WHERE publisher_id = ?";
-        $parameters = [
-            $this->publisher_id
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
+        try {
+            $query = "DELETE FROM publisher WHERE publisher_id = ?";
+            $parameters = [
+                $this->publisher_id
+            ];
+            $statement = Database::prepare($query);
+            $type = 's';
+            $statement->bind_param($type, ...$parameters);
 
-        return $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Hapus Penerbit.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Hapus Penerbit.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
 
     function add()
     {
-        $prefix = 'PUB';
-        $len = 6;
-        $res = Database::query("SELECT publisher_id FROM publisher ORDER BY publisher_id DESC LIMIT 1")->fetch_array();
-        $prevId = intval(substr($res[0], 3, 5));
-        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-        // Database::query("INSERT INTO publisher (publisher_id, publisher_name) VALUES ('$id', '$publisher_name')");
+        try {
+            $prefix = 'PUB';
+            $len = 6;
+            $res = Database::query("SELECT publisher_id FROM publisher ORDER BY publisher_id DESC LIMIT 1")->fetch_array();
+            $prevId = intval(substr($res[0], 3, 5));
+            $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+            // Database::query("INSERT INTO publisher (publisher_id, publisher_name) VALUES ('$id', '$publisher_name')");
 
-        $query = "
-            INSERT INTO publisher
-            (
-                publisher_id,
-                publisher_name
-            )
-            VALUES
-            (
-                ?,
-                ?
+            $query = "
+                INSERT INTO publisher
+                (
+                    publisher_id,
+                    publisher_name
+                )
+                VALUES
+                (
+                    ?,
+                    ?
+                );
+            ";
+
+            $parameters = [
+                $id,
+                $this->publisher_name,
+            ];
+
+            $statement = Database::prepare($query);
+
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
+
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Menambahkan Penerbit.'
             );
-        ";
-
-        $parameters = [
-            $id,
-            $this->publisher_name,
-        ];
-
-        $statement = Database::prepare($query);
-
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
-
-        if ($statement->execute()) {
-            $this->publisher_id = $id;
-            return $id;
-        } else {
-            return false;
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Penerbit.',
+                'error' => $th->getMessage(),
+            );
         }
     }
 

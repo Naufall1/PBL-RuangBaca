@@ -19,6 +19,7 @@ class Admin extends User
 
     function add(IManage $object)
     {
+        // var_dump($object->add());
         return $object->add();
     }
 

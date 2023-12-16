@@ -3,6 +3,7 @@ include 'models/Admin.php';
 class AdminController
 {
     private Admin $admin;
+    private $errors = array();
     public function __construct()
     {
         $this->admin = new Admin();
@@ -57,25 +58,17 @@ class AdminController
                      */
                     $id = $_POST['id'];
                     $book = new Book($id);
-                    echo ($book->delete()) ? 'success' : 'failed';
+                    // echo ($book->delete()) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($book));
                 } else {
                     # EDIT BOOK HERE
                     echo json_encode($this->editBook());
-                    // $res = $this->editBook();
-                    // if ($res['status'] == true) {
-                    //     echo 'success';
-                    // } else {
-                    //     echo 'failed: ' . implode($res['errors']);
-                    // }
+
                 }
             } else {
                 #ADD BOOK HERE
+                // var_dump('2213123');
                 echo json_encode($this->addBook());
-                // if ($this->addBook()) {
-                //     echo 'success';
-                // } else {
-                //     echo 'failure';
-                // }
             }
         } else {
             if ($data !== null) {
@@ -95,7 +88,6 @@ class AdminController
     }
     public function uploadCover(): bool | string
     {
-        $errors = array();
         $file_name = $_FILES['cover']['name'];
         $file_size = $_FILES['cover']['size'];
         $file_tmp = $_FILES['cover']['tmp_name'];
@@ -105,18 +97,16 @@ class AdminController
         $extensions = array("jpg", "jpeg", "png", "gif");
 
         if (in_array($file_ext, $extensions) === false) {
-            $errors[] = "File : <i>$file_name</i>, Ekstensi file yang diizinkan adalah jpg, jpeg, png, gif";
+            $this->errors[] = "File : <i>$file_name</i>, Ekstensi file yang diizinkan adalah jpg, jpeg, png, gif";
         }
         if ($file_size > 2097152) {
-            $errors[] = "FIle : <i>$file_name</i>, Ukuran file tidak boleh lebih dari 2 MB.";
+            $this->errors[] = "FIle : <i>$file_name</i>, Ukuran file tidak boleh lebih dari 2 MB.";
         }
-        if (empty($errors) == true) {
+        if (empty($this->errors) == true) {
             move_uploaded_file($file_tmp, COVER_DIR . $file_name);
-            // echo "File <i>$file_name</i> berhasil diunggah";
-            // echo "<br>";
             return true;
         } else {
-            return implode("<br>", $errors);
+            return false;
         }
     }
     private function addBook()
@@ -172,9 +162,15 @@ class AdminController
             $book->setIsbn($isbn);
             $book->setDdcCode($ddc_code);
             $book->setCover($_FILES['cover']['name']);
-            return $book->add();
+            return $this->admin->add($book);
+            // var_dump($this->admin->add($book));
+            // return $book->add();
         } else {
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Buku',
+                'error' => $this->errors,
+        );
         }
     }
     private function editBook()
@@ -208,15 +204,15 @@ class AdminController
         $book->setIsbn($isbn);
         $book->setDdcCode($ddc_code);
         if (!empty($_FILES['cover']['name'])) {
-            $coverRes = $this->uploadCover();
-            if ($coverRes == true) {
+            if ($this->uploadCover() == true) {
                 $book->setCover($_FILES['cover']['name']);
             } else {
-                $errors = $coverRes;
+                $errors = $this->errors;
             }
         }
         if (count($errors) == 0) {
-            return $book->save();
+            return $this->admin->save($book);
+            // return $book->save();
         } else {
             return array(
                 'status' => 'failed',
@@ -283,7 +279,7 @@ class AdminController
                      */
                     $id = $_POST['id'];
                     $publisher = new Publisher($id);
-                    echo ($publisher->delete()) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($publisher));
                 } else {
                     # EDIT PUBLISHER HERE
                     $publisher_id = $_POST['id'];
@@ -291,16 +287,13 @@ class AdminController
                     $publisher = new Publisher($publisher_id);
                     $publisher->setPublisherName($publisher_name);
                     $publisher->save();
+                    echo json_encode($this->admin->save($publisher));
                 }
             } else {
                 $publisher = new Publisher();
                 $publisher_name = $_POST['publisher_name'];
                 $publisher->setPublisherName(publisher_name: $publisher_name);
-                if ($this->admin->add($publisher)) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo json_encode($this->admin->add($publisher));
             }
         } else {
             if ($data !== null) {
@@ -327,24 +320,23 @@ class AdminController
                      */
                     $id = $_POST['id'];
                     $category = new Category($id);
-                    echo ($category->delete()) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($category));
                 } else {
                     # EDIT CATEGORY HERE
                     $category_id = $_POST['id'];
                     $category_name = $_POST['category_name'];
                     $category = new Category($category_id);
                     $category->setCategoryName($category_name);
-                    $category->save();
+                    echo json_encode($this->admin->save($category));
                 }
             } else {
+                /**
+                 * Tambah Category
+                 */
                 $category = new Category();
                 $category_name = $_POST['category_name'];
                 $category->setCategoryName(category_name: $category_name);
-                if ($this->admin->add($category)) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo json_encode($this->admin->add($category));
             }
         } else {
             if ($data !== null) {
@@ -372,7 +364,7 @@ class AdminController
                      */
                     $id = $_POST['id'];
                     $thesis = new Thesis($id);
-                    echo ($thesis->delete()) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($thesis));
                 } else {
                     # EDIT THESIS HERE
                     $thesis = new Thesis($_POST['id']);
@@ -392,10 +384,12 @@ class AdminController
                         $thesis->addDospem($lecturer_2);
                     }
                     $thesis->setShelf($shelf);
-                    $res = $thesis->save();
-                    echo  json_encode($res);
+                    echo json_encode($this->admin->save($thesis));
                 }
             } else {
+                /**
+                 * Add Thesis
+                 */
                 $thesis_title = $_POST['thesis_title'];
                 $writer_name = $_POST['writer_name'];
                 $writer_nim = $_POST['writer_NIM'];
@@ -443,26 +437,25 @@ class AdminController
                     # DELETE LECTURER HERE
                     $id = $_POST['id'];
                     $lecturer = new Lecturer($id);
-                    echo ($lecturer->delete()) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($lecturer));
                 } else {
                     # EDIT LECTURER HERE
                     $lecturer_id = $_POST['id'];
                     $lecturer_name = $_POST['lecturer_name'];
                     $lecturer = new Lecturer($lecturer_id);
                     $lecturer->setName($lecturer_name);
-                    $lecturer->save();
+                    echo json_encode($this->admin->save($lecturer));
                 }
             } else {
+                /**
+                 * ADD LECTURER
+                 */
                 $nidn = $_POST['NIDN'];
                 $lecturer_name = $_POST['lecturer_name'];
                 $lecturer = new Lecturer();
                 $lecturer->setNidn($nidn);
                 $lecturer->setName($lecturer_name);
-                if ($lecturer->add()) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo json_encode($this->admin->add($lecturer));
             }
         } else {
             if ($data !== null) {
@@ -524,18 +517,14 @@ class AdminController
                     $keterangan = $_POST['keterangan'];
                     $shelf->setShelfId($id);
                     $shelf->setCategories($keterangan);
-                    if ($shelf->add() != false) {
-                        echo 'success';
-                    } else {
-                        echo 'failure';
-                    }
+                    echo json_encode($this->admin->add($shelf));
                 } else if (isset($_POST['delete'])) {
                     /**
                      * Delete Shelf
                      */
                     $id = $_POST['id'];
                     $shelf = new Shelf($id);
-                    echo ($shelf->delete()) ? 'success' : 'failed';
+                    echo json_encode($this->admin->delete($shelf));
                 } else {
                     /**
                      * Edit Shelf
@@ -544,11 +533,7 @@ class AdminController
                     $keterangan = $_POST['keterangan'];
                     $shelf->setShelfId($id);
                     $shelf->setCategories($keterangan);
-                    if ($shelf->save() != false) {
-                        echo 'success';
-                    } else {
-                        echo 'failure';
-                    }
+                    echo json_encode($this->admin->save($shelf));
                 }
             }
         } else {

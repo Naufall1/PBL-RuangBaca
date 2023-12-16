@@ -166,7 +166,7 @@ function editThesis(id) {
         url: '?function=getDesc',
         data: 'thesis_id=' + id,
         success: function(res) {
-            console.log(JSON.parse(res));
+            // console.log(JSON.parse(res));
             var thesis = JSON.parse(res);
             var dospem = thesis['dospem'].split(',');
             $('#modalEdit').find('input[name="id"]').val(thesis['id']);
@@ -178,7 +178,7 @@ function editThesis(id) {
 
             $('#modalEdit').find('select[name="lecturer_id1"] > option:contains("'+dospem[0]+'")').prop('selected',true);
             if (dospem[1] != undefined) {
-                console.log(dospem[1] == undefined);
+                // console.log(dospem[1] == undefined);
                 $('#modalEdit').find('select[name="lecturer_id2"] > option:contains("'+dospem[1]+'")').prop('selected',true);
             }
             $('#modalEdit').find('select[name="lecturer_id2"] > option:contains("-")').prop('selected',true);

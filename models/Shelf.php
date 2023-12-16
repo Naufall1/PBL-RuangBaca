@@ -20,38 +20,6 @@ class Shelf implements IManage
         $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
         return $id;
     }
-    function add()
-    {
-        $query = "
-            INSERT INTO shelf
-            (
-                shelf_id,
-                categories
-            )
-            VALUES
-            (
-                ?,
-                ?
-            )
-        ";
-
-        $parameters = [
-            $this->shelf_id,
-            $this->categories,
-        ];
-
-        $statement = Database::prepare($query);
-
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
-
-        if ($statement->execute()) {
-            return $this->shelf_id;
-        } else {
-            return false;
-        }
-    }
     public function view(int $page, string $search)
     {
         $shelf = array();
@@ -79,39 +47,109 @@ class Shelf implements IManage
         );
         return $result;
     }
+    function add()
+    {
+        try {
+            $query = "
+                INSERT INTO shelf
+                (
+                    shelf_id,
+                    categories
+                )
+                VALUES
+                (
+                    ?,
+                    ?
+                )
+            ";
+
+            $parameters = [
+                $this->shelf_id,
+                $this->categories,
+            ];
+
+            $statement = Database::prepare($query);
+
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
+
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Menambahkan Shelf.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Shelf.',
+                'error' => $th->getMessage(),
+            );
+        }
+    }
     public function save()
     {
-        $query = "
-            UPDATE shelf
-            SET
-                categories = ?
-            WHERE shelf_id = ?
-        ";
+        try {
+            $query = "
+                UPDATE shelf
+                SET
+                    categories = ?
+                WHERE shelf_id = ?
+            ";
 
-        $parameters = [
-            $this->categories,
-            $this->shelf_id,
-        ];
+            $parameters = [
+                $this->categories,
+                $this->shelf_id,
+            ];
 
-        $statement = Database::prepare($query);
+            $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
 
-        return $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Edit Shelf.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Edit Shelf.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
     public function delete()
     {
-        $query = "DELETE FROM shelf WHERE shelf_id = ?";
-        $parameters = [
-            $this->shelf_id
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
+        try {
+            $query = "DELETE FROM shelf WHERE shelf_id = ?";
+            $parameters = [
+                $this->shelf_id
+            ];
+            $statement = Database::prepare($query);
+            $type = 's';
+            $statement->bind_param($type, ...$parameters);
 
-        return $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Hapus Shelf.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Hapus Shelf.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
     function addCategory($id, $category)
     {

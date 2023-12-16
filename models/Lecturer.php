@@ -46,68 +46,106 @@ class Lecturer implements IManage
     }
     public function save()
     {
-        $query = "
-            UPDATE lecturer
-            SET
-                lecturer_name = ?
-            WHERE NIDN = ?
-        ";
+        try {
+            $query = "
+                UPDATE lecturer
+                SET
+                    lecturer_name = ?
+                WHERE NIDN = ?
+            ";
 
-        $parameters = [
-            $this->name,
-            $this->nidn,
-        ];
+            $parameters = [
+                $this->name,
+                $this->nidn,
+            ];
 
-        $statement = Database::prepare($query);
+            $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
 
-        $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Edit Dosen.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Edit Dosen.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
     public function delete()
     {
-        $query = "DELETE FROM lecturer WHERE nidn = ?";
-        $parameters = [
-            $this->nidn
-        ];
-        $statement = Database::prepare($query);
-        $type = 's';
-        $statement->bind_param($type, ...$parameters);
+        try {
+            $query = "DELETE FROM lecturer WHERE nidn = ?";
+            $parameters = [
+                $this->nidn
+            ];
+            $statement = Database::prepare($query);
+            $type = 's';
+            $statement->bind_param($type, ...$parameters);
 
-        return $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Hapus Dosen.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Hapus Dosen.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
     public function add()
     {
-        $query = "
-        INSERT INTO lecturer
-        (
-            NIDN,
-            lecturer_name
-        )
-        VALUES
-        (
-            ?,
-            ?
-        );
-    ";
+        try {
+            $query = "
+                INSERT INTO lecturer
+                (
+                    NIDN,
+                    lecturer_name
+                )
+                VALUES
+                (
+                    ?,
+                    ?
+                );
+            ";
 
-        $parameters = [
-            $this->nidn,
-            $this->name,
-        ];
+            $parameters = [
+                $this->nidn,
+                $this->name,
+            ];
 
-        $statement = Database::prepare($query);
+            $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
 
-        if ($statement->execute()) {
-            return $this->nidn;
-        } else {
-            return false;
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Menambahkan Dosen.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Dosen.',
+                'error' => $th->getMessage(),
+            );
         }
     }
 

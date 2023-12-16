@@ -63,9 +63,11 @@ class User
                 }
                 return true;
             } else {
+                $_SESSION['_flashdata'] = 'Username atau Password Salah';
                 return false;
             }
         } else {
+            $_SESSION['_flashdata'] = 'Username atau Password Salah';
             return false;
         }
     }

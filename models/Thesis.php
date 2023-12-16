@@ -56,60 +56,6 @@ class Thesis extends Readable implements IManage
         return $thesis;
     }
 
-    public function getThesis(array $range, $sort = 'default'): array
-    {
-        $filter = $_SESSION['filters'];
-        $query = 'SELECT thesis_id FROM thesis ';
-        $sort_query = array(
-            'default' => '',
-            'title' => ' ORDER BY thesis.thesis_title ',
-            'year' => ' ORDER BY thesis.year_published DESC '
-        );
-
-        if (count($filter) > 0) {
-            $query = $query . ' WHERE ';
-        }
-
-        $i = 0;
-        // var_dump($filter);
-        foreach ($filter as $key => $value) {
-            if ($key == 'category' || $key == 'author' || $key == 'publisher') {
-                return [];
-            }
-
-            if ($key != 'jenis') {
-                # code...
-                $query = $query . $value;
-                if (count($filter) > 1 && $i != count($filter) - 1) {
-                    $query = $query . ' AND';
-                }
-                $i++;
-            } else {
-                $query = str_replace('WHERE', '', $query);
-            }
-        }
-
-        $query = $query . $sort_query[$sort];
-
-
-        $query = $query . " LIMIT $range[1] OFFSET $range[0]";
-
-        // var_dump($query);
-        $thesis = array();
-        $res = Database::query($query);
-        // var_dump($res->fetch_all());
-        while ($row = $res->fetch_assoc()) {
-            $thesis[] = $this->getDetails($row['thesis_id']);
-        }
-        if ($thesis != null) {
-            return $thesis;
-        } else {
-            return [];
-        }
-
-        // var_dump($thesis);
-    }
-
     /**
      * Get the value of writer_name
      */
@@ -139,19 +85,6 @@ class Thesis extends Readable implements IManage
         }
 
         return $years;
-    }
-
-    public function getAllThesis($page): array
-    {
-        $thesis = array();
-        $start = ($page * LIMIT_ROWS_PER_PAGE) - LIMIT_ROWS_PER_PAGE;
-        $limit = LIMIT_ROWS_PER_PAGE;
-        $query = "SELECT thesis_id FROM thesis ORDER BY thesis_id LIMIT $limit OFFSET $start";
-        $result = Database::query($query);
-        while ($id = $result->fetch_column()) {
-            $thesis[] = $this->getDetails($id);
-        }
-        return [$thesis, $start, $start + count($thesis)];
     }
 
     public function count()
@@ -237,7 +170,6 @@ class Thesis extends Readable implements IManage
                 $this->prodi
             ];
             $statement = Database::prepare($query);
-            var_dump($this->prodi);
 
             // Dynamically bind parameters
             $types = 'sssisssss';
@@ -271,7 +203,7 @@ class Thesis extends Readable implements IManage
             Database::rollback();
             return array(
                 'status' => 'failed',
-                'message' => 'Gagal Menambahkan Thesis',
+                'message' => 'Gagal Menambahkan Skripsi',
                 'error' => $e->getMessage(),
             );
         }
@@ -343,7 +275,7 @@ class Thesis extends Readable implements IManage
             Database::rollback();
             return array(
                 'status' => 'failed',
-                'message' => 'Gagal Edit Thesis',
+                'message' => 'Gagal Edit Skripsi',
                 'error' => $e->getMessage(),
             );
         }
@@ -363,20 +295,27 @@ class Thesis extends Readable implements IManage
             $statement2->bind_param($type, ...$parameters);
 
             if (!$statement2->execute()) {
-                throw new Exception('Error updating Thesis');
+                throw new Exception('Error updating Skripsi');
             }
 
             $statement1 = Database::prepare($query);
             $statement1->bind_param($type, ...$parameters);
             if (!$statement1->execute()) {
-                throw new Exception('Error updating Thesis');
+                throw new Exception('Error updating Skripsi');
             }
 
             Database::commit();
-            return true;
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Hapus Skripsi'
+            );
         } catch (Exception $e) {
             Database::rollback();
-            return false;
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Hapus Skripsi',
+                'error' => $e->getMessage(),
+            );
         }
     }
 

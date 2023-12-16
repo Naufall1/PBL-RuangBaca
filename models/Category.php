@@ -14,42 +14,50 @@ class Category implements IManage
     }
     function add()
     {
-        $prefix = 'CAT';
-        $len = 6;
-        $res = Database::query("SELECT category_id FROM category ORDER BY category_id DESC LIMIT 1")->fetch_array();
-        $prevId = intval(substr($res[0], 3, 5));
-        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
-        // Database::query("INSERT INTO category (category_id, category_name) VALUES ('$id', '$category_name')");
-        // return $id;
-        $query = "
-            INSERT INTO category
-            (
-                category_id,
-                category_name
-            )
-            VALUES
-            (
-                ?,
-                ?
-            )
-        ";
+        try {
+            $prefix = 'CAT';
+            $len = 6;
+            $res = Database::query("SELECT category_id FROM category ORDER BY category_id DESC LIMIT 1")->fetch_array();
+            $prevId = intval(substr($res[0], 3, 5));
+            $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
 
-        $parameters = [
-            $id,
-            $this->category_name,
-        ];
+            $query = "
+                INSERT INTO category
+                (
+                    category_id,
+                    category_name
+                )
+                VALUES
+                (
+                    ?,
+                    ?
+                )
+            ";
 
-        $statement = Database::prepare($query);
+            $parameters = [
+                $id,
+                $this->category_name,
+            ];
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            $statement = Database::prepare($query);
 
-        if ($statement->execute()) {
-            $this->category_id = $id;
-            return $id;
-        } else {
-            return false;
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
+
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Menambahkan Category.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Menambahkan Category.',
+                'error' => $th->getMessage(),
+            );
         }
     }
 
@@ -86,25 +94,39 @@ class Category implements IManage
     }
     public function save()
     {
-        $query = "
-            UPDATE category
-            SET
-                category_name = ?
-            WHERE category_id = ?
-        ";
+        try {
+            $query = "
+                UPDATE category
+                SET
+                    category_name = ?
+                WHERE category_id = ?
+            ";
 
-        $parameters = [
-            $this->category_name,
-            $this->category_id
-        ];
+            $parameters = [
+                $this->category_name,
+                $this->category_id
+            ];
 
-        $statement = Database::prepare($query);
+            $statement = Database::prepare($query);
 
-        // Dynamically bind parameters
-        $types = 'ss';
-        $statement->bind_param($types, ...$parameters);
+            // Dynamically bind parameters
+            $types = 'ss';
+            $statement->bind_param($types, ...$parameters);
 
-        $statement->execute();
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Edit Category.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Edit Category.',
+                'error' => $th->getMessage(),
+            );
+        }
     }
     public function delete()
     {
@@ -116,9 +138,20 @@ class Category implements IManage
             $statement = Database::prepare($query);
             $type = 's';
             $statement->bind_param($type, ...$parameters);
-            return $statement->execute();
-        } catch (Exception $e) {
-            return false;
+
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
+            }
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Hapus Category.'
+            );
+        } catch (Exception $th) {
+            return array(
+                'status' => 'failed',
+                'message' => 'Gagal Hapus Category.',
+                'error' => $th->getMessage(),
+            );
         }
     }
 

@@ -15,6 +15,6 @@ define('COVER_DIR', 'uploads/cover/');
 define('MAX_NUMS_ITEM', 10);
 
 // Jumlah maksimal baris tiap tabel
-define('LIMIT_ROWS_PER_PAGE', 5);
+define('LIMIT_ROWS_PER_PAGE', 8);
 
 ?>

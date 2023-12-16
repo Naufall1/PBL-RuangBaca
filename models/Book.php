@@ -207,7 +207,7 @@ class Book extends Readable implements IManage
                         $types = 'ssissssssisss';
                         $statement->bind_param($types, ...$parameters);
 
-                        return $statement->execute();
+                        // return $statement->execute();
                         if ($statement->execute() == true) {
                                 return array(
                                         'status' => 'success',
