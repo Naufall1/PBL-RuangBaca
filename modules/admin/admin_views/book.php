@@ -1,6 +1,6 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
-    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku">
+    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku" autocomplete="nofill">
     <button class="enabled" id="icon-button" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff"
