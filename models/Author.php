@@ -152,18 +152,14 @@ class Author implements IManage
             $types = 'ss';
             $statement->bind_param($types, ...$parameters);
 
-            if ($statement->execute()) {
-                return array(
-                    'status' => 'success',
-                    'message' => 'Berhasil Menambahkan Penulis',
-                );
-            } else {
-                return array(
-                    'status' => 'failed',
-                    'message' => 'Gagal Menambahkan Penulis',
-                    'error' => $statement->error,
-                );
+            if (!$statement->execute()) {
+                throw new Exception("Error executing statement: " . $statement->error);
             }
+            $this->author_id = $id;
+            return array(
+                'status' => 'success',
+                'message' => 'Berhasil Menambahkan Penulis.'
+            );
         } catch (Exception $th) {
             return array(
                 'status' => 'failed',

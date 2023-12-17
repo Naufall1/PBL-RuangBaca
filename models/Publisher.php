@@ -145,6 +145,7 @@ class Publisher implements IManage
             if (!$statement->execute()) {
                 throw new Exception("Error executing statement: " . $statement->error);
             }
+            $this->publisher_id = $id;
             return array(
                 'status' => 'success',
                 'message' => 'Berhasil Menambahkan Penerbit.'

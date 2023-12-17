@@ -122,7 +122,7 @@ class AdminController
             } else {
                 $author = new Author();
                 $author->setAuthorName($_POST['add-author']);
-                if ($author->add() != true) {
+                if ($author->add()['status'] != 'success') {
                     echo 'Error adding author';
                     return;
                 }
@@ -132,7 +132,7 @@ class AdminController
             } else {
                 $publisher = new Publisher();
                 $publisher->setPublisherName($_POST['add-publisher']);
-                if ($publisher->add() != true) {
+                if ($publisher->add()['status'] != 'success') {
                     echo 'Error adding publisher';
                     return;
                 }
@@ -142,7 +142,7 @@ class AdminController
             } else {
                 $category = new Category();
                 $category->setCategoryName($_POST['add-category']);
-                if ($category->add() != true) {
+                if ($category->add()['status'] != 'success') {
                     echo 'Error adding category';
                     return;
                 }

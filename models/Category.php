@@ -48,6 +48,7 @@ class Category implements IManage
             if (!$statement->execute()) {
                 throw new Exception("Error executing statement: " . $statement->error);
             }
+            $this->category_id = $id;
             return array(
                 'status' => 'success',
                 'message' => 'Berhasil Menambahkan Category.'
