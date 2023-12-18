@@ -172,7 +172,7 @@ class Catalog implements IFilter, ISearch
             }
 
 
-            var_dump($query);
+            // var_dump($query);
             $collection = Database::query($query);
 
             $countResult = Database::query("SELECT count(id) as jumlah FROM ($queryBook $queryUnion $queryThesis) AS D")->fetch_assoc();
