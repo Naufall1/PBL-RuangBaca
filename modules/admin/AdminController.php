@@ -69,7 +69,6 @@ class AdminController
                 }
             } else {
                 #ADD BOOK HERE
-                // var_dump('2213123');
                 echo json_encode($this->addBook());
             }
         } else {

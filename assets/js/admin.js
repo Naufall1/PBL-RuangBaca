@@ -279,8 +279,24 @@ function loadModule(moduleName, page=-1) {
                 // $('#modalBuku').modal('show');
             });
 
+            /**
+             * Pagination section
+             */
             $('a[name="pagination"]').click(function (e) {
-                loadModule(moduleName, $(this).html());
+                var tmp = parseInt($('a[name="pagination"].active').html());
+                // console.log(tmp);
+                var page = $(this).attr('id');
+                $(this).attr('id')
+                if (page == 'next') {
+                    page = tmp + 1;
+                    console.log(page);
+                } else if (page == 'prev') {
+                    page = tmp - 1;
+                } else {
+                    page = $(this).html();
+                }
+                // console.log(tmp);
+                loadModule(moduleName, page);
             });
 
             // FORM ADD BOOK
