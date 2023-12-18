@@ -151,10 +151,11 @@ class Catalog implements IFilter, ISearch
                     } else {
                         $queryBook = $queryBook . " WHERE book_title LIKE '%" . $querySearch . "%'";
                     }
-                } else {
-                    $queryThesis = $queryThesis . " AND thesis_title LIKE '%" . $querySearch . "%'";
-                    $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
                 }
+                // else if (!isset($_SESSION['filters']['prodi'])) {
+                //     $queryThesis = $queryThesis . " AND thesis_title LIKE '%" . $querySearch . "%'";
+                //     $queryBook = $queryBook . " AND book_title LIKE '%" . $querySearch . "%'";
+                // }
             } else {
                 $queryBook = $queryBook . " WHERE book_title LIKE '%" . $querySearch . "%'";
                 $queryThesis = $queryThesis . " WHERE thesis_title LIKE '%" . $querySearch . "%'";
@@ -169,7 +170,7 @@ class Catalog implements IFilter, ISearch
         }
 
 
-        // var_dump($query);
+        var_dump($query);
         $collection = Database::query($query);
 
         $countResult = Database::query("SELECT count(id) as jumlah FROM ($queryBook $queryUnion $queryThesis) AS D")->fetch_assoc();

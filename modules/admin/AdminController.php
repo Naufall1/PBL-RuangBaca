@@ -99,10 +99,10 @@ class AdminController
         $extensions = array("jpg", "jpeg", "png", "gif");
 
         if (in_array($file_ext, $extensions) === false) {
-            $this->errors[] = "File : <i>$file_name</i>, Ekstensi file yang diizinkan adalah jpg, jpeg, png, gif";
+            $this->errors[] = "Ekstensi file yang diizinkan adalah jpg, jpeg, png, gif";
         }
         if ($file_size > 2097152) {
-            $this->errors[] = "FIle : <i>$file_name</i>, Ukuran file tidak boleh lebih dari 2 MB.";
+            $this->errors[] = "Ukuran file tidak boleh lebih dari 2 MB.";
         }
         if (empty($this->errors) == true) {
             move_uploaded_file($file_tmp, COVER_DIR . $file_name);
