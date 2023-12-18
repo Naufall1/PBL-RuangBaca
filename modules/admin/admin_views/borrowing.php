@@ -67,7 +67,7 @@
 
 <!-- Start: Pagination View -->
 <div class="pagination d-flex">
-    <a href="#">
+    <a href="#" id="prev" name="pagination">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M10 13.28 5.653 8.933a1.324 1.324 0 0 1 0-1.866L10 2.72" />
         </svg>
@@ -80,7 +80,7 @@
     <?php
         }
     ?>
-    <a href="#">
+    <a href="#" id="next" name="pagination">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m5.94 13.28 4.347-4.347a1.324 1.324 0 0 0 0-1.866L5.94 2.72" />
         </svg>

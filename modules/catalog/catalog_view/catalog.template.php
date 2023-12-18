@@ -43,7 +43,7 @@
                     </div> -->
             <!-- End: R2 Filter Item -->
 
-            <a class="d-flex delete-filter-item text-nowrap" href="" onclick="clearFilter();">Hapus Semua</a>
+            <a class="d-flex delete-filter-item text-nowrap" onmouseover="this.style.cursor='pointer'" onclick="clearFilter();">Hapus Semua</a>
 
         </div>
         <!-- End: Filtered Layer -->

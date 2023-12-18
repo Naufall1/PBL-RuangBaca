@@ -1,6 +1,6 @@
 <!-- Start: Action Container Layer -->
 <div class="action-container d-flex justify-content-between">
-    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku">
+    <input type="text" name="search" class="search-fields" id="" placeholder="Cari Buku" autocomplete="nofill">
     <button class="enabled" id="icon-button" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#fff"
@@ -72,7 +72,7 @@
 
 <!-- Start: Pagination View -->
 <div class="pagination d-flex">
-    <a href="#">
+    <a href="#" id="prev" name="pagination">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
                 stroke-width="1.5" d="M10 13.28 5.653 8.933a1.324 1.324 0 0 1 0-1.866L10 2.72" />
@@ -85,7 +85,7 @@
     <?php
         }
     ?>
-    <a href="#">
+    <a href="#" id="next" name="pagination">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
             <path stroke="#1B1B1B" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
                 stroke-width="1.5" d="m5.94 13.28 4.347-4.347a1.324 1.324 0 0 0 0-1.866L5.94 2.72" />
