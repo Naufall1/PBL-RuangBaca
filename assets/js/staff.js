@@ -66,7 +66,7 @@ function changeTableHeading(title) {
     }
 }
 
-function addBook(cover, title, author, year) {
+function addBook(cover, title, author, year, rak) {
     html = "\
         <div class='book-ordered-item d-flex' >\
             <img class='book-ordered-image' src = 'uploads\\cover\\"+cover+"' alt = ''>\
@@ -76,6 +76,10 @@ function addBook(cover, title, author, year) {
                     <div>\
                         <p class='book-ordered-author'>"+author+"</p>\
                         <p class='book-ordered-year'>"+year+"</p>\
+                    </div>\
+                    <div>\
+                        <p class='book-ordered-author'>Lokasi</p>\
+                        <p class='book-ordered-year'>"+rak+"</p>\
                     </div>\
                 </div>\
             </div>\
@@ -138,7 +142,7 @@ function loadModal(id) {
             readable.forEach(item => {
                 item = JSON.parse(item);
                 console.log(item);
-                addBook(item['cover'], item['title'], item['author'], item['year']);
+                addBook(item['cover'], item['title'], item['author'], item['year'], item['shelf']);
             });
         }
     });
@@ -187,13 +191,13 @@ function loadModule(moduleName, page=-1) {
             /**
              * Refresh every 5 seconds
              */
-            // if (moduleName == 'dashboard') {
-            //     intervalId = setInterval(function() {
-            //         loadBorrowingCards('all');
-            //     }, 5000);
-            // } else {
-            //     clearInterval(intervalId);
-            // }
+            if (moduleName == 'dashboard') {
+                intervalId = setInterval(function() {
+                    loadBorrowingCards('all');
+                }, 5000);
+            } else {
+                clearInterval(intervalId);
+            }
 
             /**
              * pagigation
