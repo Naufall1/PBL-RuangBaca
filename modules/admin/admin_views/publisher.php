@@ -108,7 +108,7 @@
             </div>
 
             <div class="modal-body">
-                <form class=" flex-column d-flex" id="formAddPublisher" method="post">
+                <form class=" flex-column d-flex" id="formAdd" method="post">
                     <div class="modal-form-addbook-area d-flex flex-column">
                         <div class="addbook-input-field input-fields d-flex flex-column">
                             <label for="publisher_name">Nama Penerbit</label>

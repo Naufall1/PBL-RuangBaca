@@ -369,42 +369,6 @@ function loadModule(moduleName, page=-1) {
             });
             // END FORM ADD BOOK
 
-            // FORM ADD AUTHOR
-            $("#formAddAuthor").submit(function (e) {
-                e.preventDefault(); // Mencegah pengiriman form secara default
-                // Mengumpulkan data form
-                var formData = new FormData(this);
-                uploadDataAdd(moduleName,formData);
-            });
-            // END FORM ADD AUTHOR
-
-            // FORM ADD PUBLISHER
-            $("#formAddPublisher").submit(function (e) {
-                e.preventDefault(); // Mencegah pengiriman form secara default
-                // Mengumpulkan data form
-                var formData = new FormData(this);
-                uploadDataAdd(moduleName,formData);
-            });
-            // END FORM ADD PUBLISHER
-
-            // FORM ADD CATEGORY
-            $("#formAddCategory").submit(function (e) {
-                e.preventDefault(); // Mencegah pengiriman form secara default
-                // Mengumpulkan data form
-                var formData = new FormData(this);
-                uploadDataAdd(moduleName,formData);
-            });
-            // END FORM ADD CATEGORY
-
-            // FORM ADD LECTURER
-            $("#formAddLecturer").submit(function (e) {
-                e.preventDefault(); // Mencegah pengiriman form secara default
-                // Mengumpulkan data form
-                var formData = new FormData(this);
-                uploadDataAdd(moduleName,formData);
-            });
-            // END FORM ADD LECTURER
-
             // FORM ADD THESIS
             $("#formAddThesis").submit(function (e) {
                 e.preventDefault(); // Mencegah pengiriman form secara default
