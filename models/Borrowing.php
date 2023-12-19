@@ -109,7 +109,7 @@ class Borrowing
     }
 
     public function add(Member $member, $reserve_date, array $readable)
-    {   
+    {
         $prefix = 'B';
         $len = 5;
         $res = Database::query("SELECT BORROWING_ID FROM borrowing ORDER BY BORROWING_ID DESC LIMIT 1")->fetch_array();
@@ -168,7 +168,8 @@ class Borrowing
         } catch (Exception $e) {
             return array(
                 'status' => 'failed',
-                'message' => 'Gagal Merubah Data Peminjaman'
+                'message' => 'Gagal Merubah Data Peminjaman',
+                'error' => $e->getMessage(),
             );
         }
     }

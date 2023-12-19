@@ -151,9 +151,11 @@ class Staff extends User
     public function finishBorrowing($id)
     {
         $borrowing = new Borrowing(id: $id);
-        if ($borrowing->getStatus() == 'Dipinjam') {
+        if ($borrowing->getStatus() == 'Dipinjam' || $borrowing->getStatus() == 'Terlambat') {
             $borrowing->setStatus('Selesai');
-            if ($borrowing->save()['status'] == 'success') {
+            $res = $borrowing->save();
+            // var_dump($res);
+            if ($res['status'] == 'success') {
                 return array(
                     'status' => 'success',
                     'message' => 'Berhasil diubah!',
@@ -161,7 +163,8 @@ class Staff extends User
             } else {
                 return array(
                     'status' => 'failed',
-                    'message' => 'gagal Merubah Status'
+                    'message' => 'Gagal Merubah Status',
+                    'error' => $res['error']
                 );
             }
         } else {
