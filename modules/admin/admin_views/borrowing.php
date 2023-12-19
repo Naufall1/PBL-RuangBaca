@@ -29,6 +29,29 @@
         <?php
         $i = 1;
         foreach ($borrowing['data'] as $dt) {
+            switch ($dt->getStatus()) {
+                case 'Menunggu':
+                    $statusId = 'waiting';
+                    break;
+                case 'Dikonfirmasi':
+                    $statusId = 'confirmed';
+                    break;
+                case 'Dipinjam':
+                    $statusId = 'borrowed';
+                    break;
+                case 'Selesai':
+                    $statusId = 'done';
+                    break;
+                case 'Ditolak':
+                    $statusId = 'reject';
+                    break;
+                case 'Terlambat':
+                    $statusId = 'reject';
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         ?>
             <tr>
                 <td class="no-column"><?= $i+$borrowing['start'] ?></td>
@@ -37,7 +60,7 @@
                 <td class="title-column"><?= $dt->getReserveDate(); ?></td>
                 <!-- <td class="title-column"><?= $dt->getStatus(); ?></td> -->
                 <td class="title-column">
-                    <div class="borrowing-status d-flex" name="status-modal" id="borrowed">
+                    <div class="borrowing-status d-flex" name="status-modal" id="<?= $statusId ?>">
                         <p>
                             <!-- [STATUS] -->
                             <?= $dt->getStatus();?>
