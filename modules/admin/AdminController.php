@@ -104,8 +104,11 @@ class AdminController
             $this->errors[] = "Ukuran file tidak boleh lebih dari 2 MB.";
         }
         if (empty($this->errors) == true) {
-            move_uploaded_file($file_tmp, COVER_DIR . $file_name);
-            return true;
+            if(move_uploaded_file($file_tmp, COVER_DIR . $file_name)){
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
