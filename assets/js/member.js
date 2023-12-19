@@ -335,7 +335,7 @@ function pinjam() {
                 close();
                 flashMessage(
                     'success',
-                    'Berhasil',
+                    'Pengajuan Peminjaman Berhasil',
                     {
                         'success': 'Berhasil',
                         'failed': 'Gagal',
