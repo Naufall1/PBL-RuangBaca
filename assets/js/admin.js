@@ -86,15 +86,28 @@ function uploadDataAdd(mod, data) {
             console.log(res);
             res = JSON.parse(res);
             // flashMessage(res['status'], 'Berhasil', res['message']);
-            flashMessage(
-                res['status'],
-                res['message'],
-                {
-                    'success': 'Berhasil',
-                    'failed': 'Gagal'
-                });
-            loadModule(mod);
-            $('#modalAdd').modal('hide');
+            if (res['message'] == 'file') {
+                flashMessage(
+                    res['status'],
+                    res['error'],
+                    {
+                        'success': 'Berhasil',
+                        'failed': 'Gagal Upload File!'
+                    });
+
+            } else {
+                flashMessage(
+                    res['status'],
+                    res['message'],
+                    {
+                        'success': 'Berhasil',
+                        'failed': 'Gagal'
+                    });
+            }
+            if (res['status'] == 'success') {
+                loadModule(mod);
+                $('#modalAdd').modal('hide');
+            }
         },
         cache: false,
         contentType: false,
@@ -117,15 +130,28 @@ function uploadDataEdit(mod, data) {
             /**
              * TODO: fix flashmessage when error uploading.
              */
-            flashMessage(
-                res['status'],
-                res['message'],
-                {
-                    'success': 'Berhasil',
-                    'failed': 'Gagal'
-                });
-            loadModule(mod);
-            $('#modalEdit').modal('hide');
+            if (res['message'] == 'file') {
+                flashMessage(
+                    res['status'],
+                    res['error'],
+                    {
+                        'success': 'Berhasil',
+                        'failed': 'Gagal Upload File!'
+                    });
+
+            } else {
+                flashMessage(
+                    res['status'],
+                    res['message'],
+                    {
+                        'success': 'Berhasil',
+                        'failed': 'Gagal'
+                    });
+            }
+            if (res['status'] == 'success') {
+                loadModule(mod);
+                $('#modalEdit').modal('hide');
+            }
         },
         cache: false,
         contentType: false,
