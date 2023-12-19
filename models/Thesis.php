@@ -20,7 +20,7 @@ class Thesis extends Readable implements IManage
                 WHERE t.thesis_id  ='$id'
                 GROUP BY t.thesis_id;
             ")->fetch_assoc();
-            // var_dump($result);
+            // var_dump($id);
             $this->id = $result['thesis_id'];
             $this->title = $result['thesis_title'];
             $this->year = $result['year_published'];
