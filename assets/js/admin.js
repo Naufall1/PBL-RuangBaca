@@ -114,6 +114,9 @@ function uploadDataEdit(mod, data) {
         success: function (res) {
             res = JSON.parse(res);
             // flashMessage(res['status'], 'Berhasil', res['message']);
+            /**
+             * TODO: fix flashmessage when error uploading.
+             */
             flashMessage(
                 res['status'],
                 res['message'],
