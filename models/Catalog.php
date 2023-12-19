@@ -74,16 +74,10 @@ class Catalog implements IFilter, ISearch
             $query = '';
             $queryBook = 'SELECT book_id as id, book_title as title, year_published as year FROM book';
             $queryThesis = 'SELECT thesis_id as id, thesis_title as title, year_published as year FROM thesis';
-            $book = new Book();
-            $thesis = new Thesis();
 
             $start = ($page * $this->max) - $this->max;
             $_SESSION['start'] = $start;
             $limit = $this->max;
-            // var_dump($start, $limit);
-
-
-            // var_dump($this->filters['jenis']);
 
             if (!isset($_SESSION['filters'])) {
                 $_SESSION['filters'] = array();

@@ -131,14 +131,14 @@ class Thesis extends Readable implements IManage
         Database::beginTransaction();
 
         try {
-            $prefix = 'TH';
-            $len = 5;
-            $res = Database::query("SELECT thesis_id FROM thesis ORDER BY thesis_id DESC LIMIT 1")->fetch_array();
-            $prevId = intval(substr($res[0], 2, 5));
-            $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+            // $prefix = 'TH';
+            // $len = 5;
+            // $res = Database::query("SELECT thesis_id FROM thesis ORDER BY thesis_id DESC LIMIT 1")->fetch_array();
+            // $prevId = intval(substr($res[0], 2, 5));
+            // $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
             $query = "INSERT INTO thesis
             (
-                thesis_id,
+
                 thesis_title,
                 year_published,
                 avail,
@@ -148,7 +148,7 @@ class Thesis extends Readable implements IManage
                 writer_NIM,
                 category
             ) VALUES (
-                ?,
+
                 ?,
                 ?,
                 ?,
@@ -159,7 +159,7 @@ class Thesis extends Readable implements IManage
                 ?
             )";
             $parameters = [
-                $id,
+
                 $this->title,
                 $this->year,
                 $this->avail,
@@ -172,12 +172,13 @@ class Thesis extends Readable implements IManage
             $statement = Database::prepare($query);
 
             // Dynamically bind parameters
-            $types = 'sssisssss';
+            $types = 'ssisssss';
             $statement->bind_param($types, ...$parameters);
 
             if (!$statement->execute()) {
                 throw new Exception('Error add Thesis');
             }
+            $id = Database::query("SELECT MAX(thesis_id) FROM thesis;")->fetch_column();
 
             foreach ($this->dospem2 as $lecturer) {
                 $query = "INSERT INTO dospem (thesis_id, nidn) VALUES (?,?)";

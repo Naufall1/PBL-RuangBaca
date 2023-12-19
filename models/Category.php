@@ -15,40 +15,37 @@ class Category implements IManage
     function add()
     {
         try {
-            $prefix = 'CAT';
-            $len = 6;
-            $res = Database::query("SELECT category_id FROM category ORDER BY category_id DESC LIMIT 1")->fetch_array();
-            $prevId = intval(substr($res[0], 3, 5));
-            $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+            // $prefix = 'CAT';
+            // $len = 6;
+            // $res = Database::query("SELECT category_id FROM category ORDER BY category_id DESC LIMIT 1")->fetch_array();
+            // $prevId = intval(substr($res[0], 3, 5));
+            // $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
 
             $query = "
                 INSERT INTO category
                 (
-                    category_id,
                     category_name
                 )
                 VALUES
                 (
-                    ?,
                     ?
                 )
             ";
 
             $parameters = [
-                $id,
                 $this->category_name,
             ];
 
             $statement = Database::prepare($query);
 
             // Dynamically bind parameters
-            $types = 'ss';
+            $types = 's';
             $statement->bind_param($types, ...$parameters);
 
             if (!$statement->execute()) {
                 throw new Exception("Error executing statement: " . $statement->error);
             }
-            $this->category_id = $id;
+            $this->category_id = Database::query("SELECT MAX(category_id) FROM category;")->fetch_column();
             return array(
                 'status' => 'success',
                 'message' => 'Berhasil Menambahkan Category.'

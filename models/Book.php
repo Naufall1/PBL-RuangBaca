@@ -161,11 +161,11 @@ class Book extends Readable implements IManage
         public function add()
         {
                 try {
-                        $prefix = 'BK';
-                        $len = 5;
-                        $res = Database::query("SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1")->fetch_array();
-                        $prevId = intval(substr($res[0], 2, 5));
-                        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+                        // $prefix = 'BK';
+                        // $len = 5;
+                        // $res = Database::query("SELECT book_id FROM book ORDER BY book_id DESC LIMIT 1")->fetch_array();
+                        // $prevId = intval(substr($res[0], 2, 5));
+                        // $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
                         $query = "INSERT INTO book
                         (
                                 book_title,
@@ -179,10 +179,10 @@ class Book extends Readable implements IManage
                                 author_id,
                                 stock,
                                 ddc_code,
-                                synopsis,
-                                book_id
+                                synopsis
+
                         )
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ";
 
                         $parameters = [
@@ -198,13 +198,13 @@ class Book extends Readable implements IManage
                                 $this->stock,
                                 $this->ddc_code,
                                 $this->synopsis,
-                                $id,
+
                         ];
 
                         $statement = Database::prepare($query);
 
                         // Dynamically bind parameters
-                        $types = 'ssissssssisss';
+                        $types = 'ssissssssiss';
                         $statement->bind_param($types, ...$parameters);
 
                         // return $statement->execute();

@@ -186,13 +186,13 @@ class Member extends User implements IManage
     }
     public function add()
     {
-        $prefix = 'M';
-        $len = 4;
-        $res = Database::query("SELECT member_id FROM member ORDER BY member_id DESC LIMIT 1")->fetch_array();
-        $prevId = intval(substr($res[0], 1, 5));
-        $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
+        // $prefix = 'M';
+        // $len = 4;
+        // $res = Database::query("SELECT member_id FROM member ORDER BY member_id DESC LIMIT 1")->fetch_array();
+        // $prevId = intval(substr($res[0], 1, 5));
+        // $id = $prefix . str_pad($prevId + 1, $len - strlen($prefix), "0", STR_PAD_LEFT);
 
-        $query = "INSERT INTO member (member_id, member_name, nim, user_id) VALUES ('$id', ?, ?, ?)";
+        $query = "INSERT INTO member (member_name, nim, user_id) VALUES (?, ?, ?)";
         $params = [
             $this->name,
             $this->nim,
@@ -203,6 +203,7 @@ class Member extends User implements IManage
         $types = 'ssi';
         $statement->bind_param($types, ...$params);
         $statement->execute();
+        $id = Database::query("SELECT MAX(member_id) FROM member;")->fetch_column();
         return $id;
     }
     public function save()
