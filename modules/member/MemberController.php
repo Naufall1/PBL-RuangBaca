@@ -44,7 +44,7 @@
         }
         private function borrowingCards() {
             $borrowingLatest = $this->member->getHistory('latest');
-            $borrowingData = $this->member->getHistory(status:$_POST['status']);
+            $borrowingData = $this->member->getHistory(status:$_POST['status'], orderBy:'date');
             $response = array(
                 'latest' => $this->template->renderCards(['borrowingData' => $borrowingLatest]),
                 'data' => $this->template->renderCards(['borrowingData' => $borrowingData])

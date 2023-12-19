@@ -23,7 +23,7 @@ class Member extends User implements IManage
         }
     }
 
-    public function getHistory($status = 'all'): array{
+    public function getHistory($status = 'all', $orderBy = ''): array{
          // array(
         //     (str) id,
         //     (str) status,
@@ -64,6 +64,9 @@ class Member extends User implements IManage
             case 'latest':
                 $query = $query . " AND reserve_date >= CURDATE() - INTERVAL 7 DAY " . " AND status = 'Selesai'";
                 break;
+        }
+        if (!empty($orderBy) && $orderBy == 'date') {
+            $query = $query . " ORDER BY reserve_date DESC";
         }
 
         $stm = Database::prepare($query);
