@@ -21,7 +21,7 @@ class StaffController
 
     private function dashboardCards()
     {
-        $borrowingData = $this->staff->getBorrowing($_POST['status']);
+        $borrowingData = $this->staff->getBorrowing($_POST['status'], orderBy:'date');
         echo $this->template->renderCards(['borrowingData' => $borrowingData]);
     }
 

@@ -23,7 +23,7 @@ class Staff extends User
         );
         return $summarizes;
     }
-    function getBorrowing($status = 'all'): array
+    function getBorrowing($status = 'all', $orderBy = ''): array
     {
         $query = 'SELECT
             b.BORROWING_ID AS id,
@@ -67,6 +67,9 @@ class Staff extends User
                 break;
         }
         $query = $query . " GROUP by b.BORROWING_ID";
+        if (!empty($orderBy) && $orderBy == 'date') {
+            $query = $query . " ORDER BY b.reserve_date DESC";
+        }
         $res = Database::query($query);
         while ($row = $res->fetch_assoc()) {
             $data[] = $row;
