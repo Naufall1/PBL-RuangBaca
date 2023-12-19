@@ -65,7 +65,6 @@ class AdminController
                 } else {
                     # EDIT BOOK HERE
                     echo json_encode($this->editBook());
-
                 }
             } else {
                 #ADD BOOK HERE
@@ -104,7 +103,7 @@ class AdminController
             $this->errors[] = "Ukuran file tidak boleh lebih dari 2 MB.";
         }
         if (empty($this->errors) == true) {
-            if(move_uploaded_file($file_tmp, COVER_DIR . $file_name)){
+            if (move_uploaded_file($file_tmp, COVER_DIR . $file_name)) {
                 return true;
             } else {
                 return false;
@@ -129,7 +128,7 @@ class AdminController
                     return;
                 }
             }
-            if (isset($_POST['publisher']) && $_POST['publisher']  != 'add' ) {
+            if (isset($_POST['publisher']) && $_POST['publisher']  != 'add') {
                 $publisher = new Publisher($_POST['publisher']);
             } else {
                 $publisher = new Publisher();
@@ -172,9 +171,9 @@ class AdminController
         } else {
             return array(
                 'status' => 'failed',
-                'message' => 'Gagal Menambahkan Buku',
-                'error' => $this->errors,
-        );
+                'message' => 'file',
+                'error' => end($this->errors),
+            );
         }
     }
     private function editBook()
@@ -220,8 +219,8 @@ class AdminController
         } else {
             return array(
                 'status' => 'failed',
-                'message' => 'Gagal Upload Cover',
-                'error' => $errors
+                'message' => 'file',
+                'error' => end($errors)
             );
         }
     }

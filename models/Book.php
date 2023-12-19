@@ -330,6 +330,7 @@ class Book extends Readable implements IManage
                         $statement->bind_param($type, ...$parameters);
 
                         if ($statement->execute() == true) {
+                                unlink(COVER_DIR . $this->cover);
                                 return array(
                                         'status' => 'success',
                                         'message' => 'Brhasil Hapus Buku',
