@@ -21,8 +21,13 @@ class StaffController
 
     private function dashboardCards()
     {
-        $borrowingData = $this->staff->getBorrowing($_POST['status'], orderBy:'date');
-        echo $this->template->renderCards(['borrowingData' => $borrowingData]);
+        $borrowingData = $this->staff->getBorrowing(
+            $_POST['status'],
+            orderBy:'date'
+        );
+        echo $this->template->renderCards([
+            'borrowingData' => $borrowingData
+        ]);
     }
 
     public function dashboard()
@@ -56,7 +61,12 @@ class StaffController
                 echo json_encode($this->staff->finishBorrowing(id: $id));
                 break;
             default:
-                echo json_encode(array('status' => 'denied', 'message' => 'Akses Ditolak'));
+                echo json_encode(
+                    array(
+                        'status' => 'denied',
+                        'message' => 'Akses Ditolak'
+                    )
+                );
                 break;
         }
     }
@@ -86,7 +96,11 @@ class StaffController
         if (isset($_GET['q']) && isset($classMap[$arg])) {
             $className = $classMap[$arg];
             $q = Database::sanitizeInput($_GET['q']);
-            $data = $this->staff->view(new $className(), page: (isset($_GET['num'])) ? $_GET['num'] : 1, search: $q);
+            $data = $this->staff->view(
+                new $className(),
+                page: (isset($_GET['num'])) ? $_GET['num'] : 1,
+                search: $q
+            );
             $data['numPages'] = ceil(count($data['data']) / LIMIT_ROWS_PER_PAGE);
             // var_dump(count($data['data']));
             $methodName = $arg;
@@ -100,10 +114,13 @@ class StaffController
         if (!is_null($data)) {
             $books = $data;
         } else {
+            $temp = $this->staff->view(object: new Book());
             if (isset($_GET['num'])) {
                 $_SESSION['bk-page'] = $_GET['num'];
             }
             $page = (isset($_SESSION['bk-page'])) ? $_SESSION['bk-page'] : 1;
+            $page = ($page > $temp['numPages'])? $temp['numPages']:$page;
+            $page = ($page < 1)? 1:$page;
             $books = $this->staff->view(object: new Book(), page:$page);
         }
         $numPage = $books['numPages'];
@@ -114,10 +131,13 @@ class StaffController
         if (!is_null($data)) {
             $thesis = $data;
         } else {
+            $temp = $this->staff->view(object: new Thesis());
             if (isset($_GET['num'])) {
                 $_SESSION['th-page'] = $_GET['num'];
             }
             $page = (isset($_SESSION['th-page'])) ? $_SESSION['th-page'] : 1;
+            $page = ($page > $temp['numPages'])? $temp['numPages']:$page;
+            $page = ($page < 1)? 1:$page;
             $thesis = $this->staff->view(object: new Thesis(), page:$page);
         }
         $numPage = $thesis['numPages'];
@@ -128,10 +148,13 @@ class StaffController
         if (!is_null($data)) {
             $members = $data;
         } else {
+            $temp = $this->staff->view(object: new Member());
             if (isset($_GET['num'])) {
                 $_SESSION['m-page'] = $_GET['num'];
             }
             $page = (isset($_SESSION['m-page'])) ? $_SESSION['m-page'] : 1;
+            $page = ($page > $temp['numPages'])? $temp['numPages']:$page;
+            $page = ($page < 1)? 1:$page;
             $members = $this->staff->view(object: new Member(), page:$page);
         }
         $numPage = $members['numPages'];
