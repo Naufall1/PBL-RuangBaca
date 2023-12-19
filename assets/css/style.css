@@ -1463,7 +1463,7 @@ input[disabled]{
     padding: 0 12px;
 }
 
-textarea[placeholder], input[placeholder], option[disabled]{
+ input[placeholder], option[disabled]{
     font-family: 'Satoshi-Medium' !important;
     /* font-size: 16px; */
     color: var(--neutral-60-color) !important;
@@ -1475,7 +1475,7 @@ textarea:default, input:read-write{
     color: var(--neutral-100-color) !important;
 }
 
-input[value], select.form-select, textarea, option{
+input[value], textarea[placeholder], select.form-select, textarea, option{
     font-family: 'Satoshi-Medium';
     color: var(--neutral-100-color) !important;
 }
@@ -2125,7 +2125,7 @@ a#lecturers-and-subjects:hover, a#lecturers-and-subjects:active, a#lecturers-and
 /* Start: Flash Message */
 
 #message {
-    position: absolute;
+    position: fixed;
     top: 6%;
     left: 50%;
     /* left: 0; */
