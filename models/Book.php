@@ -301,7 +301,7 @@ class Book extends Readable implements IManage
                         if ($statement->execute() == true) {
                                 return array(
                                         'status' => 'success',
-                                        'message' => 'Brhasil Edit Buku',
+                                        'message' => 'Berhasil Edit Buku',
                                 );
                         } else {
                                 return array(

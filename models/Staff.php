@@ -70,6 +70,9 @@ class Staff extends User
         if (!empty($orderBy) && $orderBy == 'date') {
             $query = $query . " ORDER BY b.reserve_date DESC";
         }
+        if (!empty($orderBy) && $orderBy == 'id') {
+            $query = $query . " ORDER BY b.BORROWING_ID DESC";
+        }
         $res = Database::query($query);
         while ($row = $res->fetch_assoc()) {
             $data[] = $row;

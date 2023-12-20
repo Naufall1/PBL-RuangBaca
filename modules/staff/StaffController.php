@@ -23,7 +23,7 @@ class StaffController
     {
         $borrowingData = $this->staff->getBorrowing(
             $_POST['status'],
-            orderBy:'date'
+            orderBy:'id'
         );
         echo $this->template->renderCards([
             'borrowingData' => $borrowingData
