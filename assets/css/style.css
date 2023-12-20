@@ -57,7 +57,7 @@ body::-webkit-scrollbar {
     /* justify-content:; */
     border-right: solid 2px var(--neutral-20-color);
     transition: all 0.5s ease;
-    z-index: 1;
+    z-index: 10;
 }
 
 .sidebar-minimize{
@@ -72,6 +72,8 @@ body::-webkit-scrollbar {
     /* justify-content:; */
     border-right: solid 2px var(--neutral-20-color);
     animation: all 0.5s ease ;
+    z-index: 10;
+
 }
 
 
@@ -265,7 +267,7 @@ button.expand-sidebar{
     /* width: 1282px; */
     width: calc(100vw - 86px);
     /* flex-grow: 1; */
-    z-index: 0;
+    z-index: 1;
 
     /* EDIT BELOW */
     background-color: var(--neutral-10-color);
@@ -425,7 +427,7 @@ p, .navbar-content-users{
     border-radius: 12px;
     border: solid 2px var(--neutral-20-color);
     background-color: var(--neutral-10-color);
-    min-width: 220px;
+    width: 220px !important;
     padding: 16px;
     height: max-content;
     flex-wrap: wrap;
@@ -457,6 +459,7 @@ p, .navbar-content-users{
 }
 
 .filter-title > svg{
+    z-index: 0;
     transform: rotate(180deg);
     transition: transform 0.3s linear;
 }
@@ -521,7 +524,8 @@ input.radio-filter[type="checkbox"]:before{
     border: solid 1px var(--neutral-100-color);
 }
 
-.form-check-label{
+label.form-check-label{
+    width: 100%;
     font-size: 14px;
     font-family: 'Satoshi-Medium';
     color: var(--neutral-100-color);
@@ -578,6 +582,7 @@ a.more-filter{
     flex: auto;
     margin-left: 20px;
     gap: 16px;
+    width: calc(100% - 220px);
 }
 
 
