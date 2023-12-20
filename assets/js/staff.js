@@ -1,4 +1,5 @@
 var intervalId;
+var status_borrowing;
 function flashMessageStaff(res) {
     var res = JSON.parse(res);
     flashMessage(
@@ -193,7 +194,7 @@ function loadModule(moduleName, page=-1) {
              */
             if (moduleName == 'dashboard') {
                 intervalId = setInterval(function() {
-                    loadBorrowingCards('all');
+                    loadBorrowingCards(status_borrowing);
                 }, 5000);
             } else {
                 clearInterval(intervalId);
@@ -253,12 +254,14 @@ function loadModule(moduleName, page=-1) {
                 $(this).removeClass('tab-item');
                 $(this).addClass('tab-item-active');
                 loadBorrowingCards($(this).attr('id'));
+                status_borrowing = $(this).attr('id');
             });
             if (moduleName == 'dashboard') {
                 $('.tab-item#all').find('.tab-title').addClass('tab-title-active');
                 $('.tab-item#all').find('.tab-title').removeClass('tab-title');
                 $('.tab-item#all').addClass('tab-item-active');
                 $('.tab-item#all').removeClass('tab-item');
+                status_borrowing = 'all';
                 loadBorrowingCards('all');
             }
         }
